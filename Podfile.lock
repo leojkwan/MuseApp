@@ -1,0 +1,16 @@
+PODS:
+  - APParallaxHeader (0.1.6)
+  - Masonry (0.6.2)
+  - ZSSRichTextEditor (0.5.2.1)
+
+DEPENDENCIES:
+  - APParallaxHeader
+  - Masonry
+  - ZSSRichTextEditor
+
+SPEC CHECKSUMS:
+  APParallaxHeader: 854bc48a2487ca12c702f8a236fec0d89cdac5c3
+  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  ZSSRichTextEditor: 56ed060d6d7a98fb6be9fceb8074ced22160349b
+
+COCOAPODS: 0.38.2

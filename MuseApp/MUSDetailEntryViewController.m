@@ -9,11 +9,16 @@
 #import "MUSDetailEntryViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
+#import <Masonry/Masonry.h>
 #import "Song.h"
+#import <UIScrollView+APParallaxHeader.h>
 
-@interface MUSDetailEntryViewController ()
+
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITextField *secondary;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
 
@@ -22,6 +27,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+ 
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@2000);
+        make.width.equalTo(self.scrollView.mas_width);
+//        make.left.and.right.and.top.equalTo(self.scrollView);
+        self.contentView.backgroundColor = [UIColor orangeColor];
+        
+        [self.scrollView addParallaxWithImage:[UIImage imageNamed:@"drink"] andHeight:300 andShadow:NO];
+
+        
+    }];
+    
+    
 }
 
 - (IBAction)saveButtonTapped:(id)sender {
