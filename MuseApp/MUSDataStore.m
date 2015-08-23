@@ -39,19 +39,19 @@
 }
 
 
-- (void)fetchEntries
-{
-    NSFetchRequest *entryRequest = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
-    
-//    NSSortDescriptor *nameSorter = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:YES];
-//    entryRequest.sortDescriptors = @[nameSorter];
-    
-    self.entries = [self.managedObjectContext executeFetchRequest:entryRequest error:nil];
-    NSLog(@"%lu" ,self.entries.count);
-    if ([self.entries count]==0) {
-        NSLog(@"No Entries!");
-    }
-}
+//- (void)fetchEntries
+//{
+//    NSFetchRequest *entryRequest = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
+//    
+////    NSSortDescriptor *nameSorter = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:YES];
+////    entryRequest.sortDescriptors = @[nameSorter];
+//    
+//    self.entries = [self.managedObjectContext executeFetchRequest:entryRequest error:nil];
+//    NSLog(@"%lu" ,self.entries.count);
+//    if ([self.entries count]==0) {
+//        NSLog(@"No Entries!");
+//    }
+//}
 
 
 

@@ -11,10 +11,11 @@
 #import "Entry.h"
 #import "MUSAllEntriesTableViewDataSource.h"
 
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) MUSAllEntriesTableViewDataSource *tableViewDataSource;
+@property (nonatomic, strong) NSFetchedResultsController *resultsController;
 
 @end
 
@@ -22,26 +23,47 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.store = [MUSDataStore sharedDataStore];
-    self.entriesTableView.delegate = self;
-    self.entriesTableView.dataSource = self;
-    // Do any additional setup after loading the view.
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-    [self.store fetchEntries];
-    [self.entriesTableView reloadData];
     
+    // set shared datastore and table view delegate
+    
+        self.store = [MUSDataStore sharedDataStore];
+        self.entriesTableView.delegate = self;
+        self.entriesTableView.dataSource = self;
+    
+    // create fetch controller instance
+    
+        NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:YES];
+        entryFetch.sortDescriptors = @[sortDescriptor];
+        self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
+                                                                     managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        
+    
+    // set fetch results delegate
+    
+        self.resultsController.delegate = self;
+        [self.resultsController performFetch:nil];
+
 }
+
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//
+//    [self.store fetchEntries];
+//    [self.entriesTableView reloadData];
+//    
+//}
 
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"DO YOU EVER GET CALLED?? %lu" ,(unsigned long)self.store.entries.count);
-    return self.store.entries.count;
+   
+    if ([[self.resultsController sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
+        return [sectionInfo numberOfObjects];
+    }
+    return 0;
 }
 
 
@@ -51,12 +73,79 @@
 {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
-    Entry *entryForThisRow =  self.store.entries[indexPath.row];
+    Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = entryForThisRow.content;
     
     return cell;
 }
 
+
+#pragma mark - NSFetchedResultsControllerDelegate methods
+
+-(void) controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.entriesTableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.entriesTableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            NSLog(@"A table item was updated");
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray
+                                               arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id )sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.entriesTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.entriesTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.entriesTableView endUpdates];
+}
 
 /*
 #pragma mark - Navigation
