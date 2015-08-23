@@ -35,7 +35,7 @@
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view.mas_width);
-//        make.height.equalTo(@2000);
+//        make.height.equalTo(@1000);
     }];
     
     
@@ -47,7 +47,7 @@
 
     }];
     
-    [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
     

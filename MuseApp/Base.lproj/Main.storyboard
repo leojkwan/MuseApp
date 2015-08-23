@@ -148,7 +148,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="0uj-HI-Www"/>
                                                 </constraints>
-                                                <mutableString key="text">#Week 3  &amp; Week 4 Summary 
+                                                <string key="text">#Week 3  &amp; Week 4 Summary 
 ##Table Views and Segues
 
 Day 12 — 1/5 done with the program, whatever that means. 
@@ -184,9 +184,14 @@ But I’ve learned that nobody cares for complaining and nobody will feel sorry 
 
 
 On to Week 5.
-</mutableString>
+</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="0uj-HI-Www"/>
+                                                    </mask>
+                                                </variation>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
