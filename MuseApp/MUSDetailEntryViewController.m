@@ -11,14 +11,16 @@
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
+#import <PSPDFTextView.h>
 #import <UIScrollView+APParallaxHeader.h>
-
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITextField *secondary;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 
 @end
 
@@ -27,17 +29,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
- 
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@2000);
-        make.width.equalTo(self.scrollView.mas_width);
-//        make.left.and.right.and.top.equalTo(self.scrollView);
-        self.contentView.backgroundColor = [UIColor orangeColor];
-        
-        [self.scrollView addParallaxWithImage:[UIImage imageNamed:@"drink"] andHeight:300 andShadow:NO];
+    [self.scrollView addParallaxWithImage:[UIImage imageNamed:@"drink"] andHeight:300 andShadow:NO];
 
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.view.mas_width);
+        make.height.equalTo(@2000);
+    }];
+    
+    
+    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(self.contentView.mas_height);
+        self.textView.scrollEnabled = NO;
+        self.textView.backgroundColor = [UIColor orangeColor];
         
+
+    }];
+    
+    [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.textView.mas_bottom);
     }];
     
     

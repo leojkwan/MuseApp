@@ -5,7 +5,7 @@ target 'MuseApp' do
 
 pod 'APParallaxHeader'
 pod 'Masonry'
-pod 'ZSSRichTextEditor'
+pod 'PSPDFTextView'
 
 end
 

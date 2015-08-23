@@ -140,15 +140,69 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGV-He-lkb">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tlZ-9K-qxc" userLabel="Content View">
-                                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
+                                                <rect key="frame" x="150" y="150" width="0.0" height="0.0"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="0uj-HI-Www"/>
+                                                </constraints>
+                                                <mutableString key="text">#Week 3  &amp; Week 4 Summary 
+##Table Views and Segues
+
+Day 12 — 1/5 done with the program, whatever that means. 
+
+Before the day ended yesterday, Tim introduced us to table view controllers, the visual interface that powers a majority of the apps we play with. Just think about any app that scrolls through endless rows.  By the time lecture wrapped up, my brain was already heading into power-save mode after spending most of the afternoon tackling navigation controllers, which allow subsequent windows to appear after a button press to more detailed information. 
+I don’t feel very comfortable with the material, and I’ll probably have to re-watch some of the lectures. Oh yeah— all our lectures and code samples are recorded and posted on GitHub so that we don’t have to stress with getting all the notes and code lab walkthroughs at that very instance. +1 for Flatiron Team.op of that, Flatiron School advertises it as a weekly meetup event, so anybody can RSVP and come watch your presentation..The pressure!
+
+#Day 19 &amp; 20
+
+We had a lecture on the history of the internet. At first it seemed unnecessary but I did learn several things. For one thing, the internet is literally just huge wires traveling around the world, lying deep in our ocean beds. There was also a video excerpt from a Charlie Chaplin film comparing technology and machines to the imminent future of our human race. We focused on a memorable quote in that film by Chaplin which I thought that was interesting: 
+
+&gt; Greed has poisoned men's souls
+&gt; Has barricaded the world with hate
+&gt; Has goose-stepped us into misery and bloodshed
+&gt; We have developed speed, but we have shut ourselves in
+&gt; Machinery that gives abundance has left us in want
+&gt; Our knowledge has made us cynical
+&gt; Our cleverness hard and unkind
+&gt; We think too much, and feel too little
+&gt; More than machinery, we need humanity
+&gt; More than cleverness, we need kindness and gentleness
+&gt; Without these qualities life will be violent
+&gt; And all will be lost.
+
+We had this lecture in packed room because the web cohort was in on this as well, and as I watched Chaplin perform the above excerpt, it reminded me what I was really here for. I won’t speak for the other students in the room, but sometimes I forget why I am sitting in front of an operating machine all day figuring out the language it speaks. 
+
+Ultimately, it’s a means to ultimately help the world— made for humans, by humans. It’s very easy to lose sight of who you’re really doing this for. After all, you are literally staring at a computer screen, which needs to make its way to another digital screen in order to reach your true target, the people. That all sounded real cliche, but when you flip a shit about lines of code long enough, the loss in perspective happens to the best of us. 
+(img)
+With that said, stress levels are rising. I am very tired feel flat out smoked. I went super overtime on Friday; I think I left Flatiron at 11pm. I feel like a mess and didn’t expect to reach this state of mental fatigue, but I suppose I wouldn’t have it any other way. Personally, when I’m working on a project and I think I’m nearing the answer, there is close to nothing that’ll make me leave the room. I feel so uplifted when I hit a daily milestone, that I often forget huge progress is still made when I don’t reach a code solution. 
+
+Pro-Tip For Beginners— Do not bring yourself down as a newcomer to code. In fact, there is probably never an instance where you should. Take the problem at hand and just know it’s solvable— it almost always should be if you are a beginner. For me, I’m moving at such a fast rate, I often lose sight of the micro improvements I’m make daily, but in reality, I’m driving at 80 miles per hour on a 65. 
+But I’ve learned that nobody cares for complaining and nobody will feel sorry for you. The answer is out there and rest assured, you can find it.
+
+
+On to Week 5.
+</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="68a-QO-p1t" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="T5c-zl-b6B"/>
+                                            <constraint firstItem="68a-QO-p1t" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="WH2-oa-xPk"/>
+                                            <constraint firstAttribute="bottom" secondItem="68a-QO-p1t" secondAttribute="bottom" id="dqj-01-IuI"/>
+                                            <constraint firstAttribute="trailing" secondItem="68a-QO-p1t" secondAttribute="trailing" id="yyf-pF-m8A"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="tlZ-9K-qxc" secondAttribute="bottom" id="EJE-tS-g1Q"/>
-                                    <constraint firstItem="tlZ-9K-qxc" firstAttribute="leading" secondItem="TGV-He-lkb" secondAttribute="leading" id="dCT-yX-Wmt"/>
-                                    <constraint firstAttribute="trailing" secondItem="tlZ-9K-qxc" secondAttribute="trailing" id="sIs-t1-W2e"/>
-                                    <constraint firstItem="tlZ-9K-qxc" firstAttribute="top" secondItem="TGV-He-lkb" secondAttribute="top" id="vCb-Vl-ZwG"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZUS-FP-YG9" secondAttribute="bottom" id="YhX-ei-NKI"/>
+                                    <constraint firstItem="ZUS-FP-YG9" firstAttribute="leading" secondItem="TGV-He-lkb" secondAttribute="leading" id="aCA-yF-bxA"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZUS-FP-YG9" secondAttribute="trailing" id="k1v-SA-ePC"/>
+                                    <constraint firstItem="ZUS-FP-YG9" firstAttribute="top" secondItem="TGV-He-lkb" secondAttribute="top" id="yKy-iD-vSc"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -168,8 +222,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="contentView" destination="tlZ-9K-qxc" id="HOE-q5-H2X"/>
+                        <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
+                        <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
+                        <outlet property="textViewHeightConstraint" destination="0uj-HI-Www" id="RY5-ms-xec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPA-Py-Sjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
