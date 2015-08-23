@@ -15,6 +15,9 @@
 		9449944F1B8A1DF400A3E6CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9449944E1B8A1DF400A3E6CF /* Images.xcassets */; };
 		944994521B8A1DF400A3E6CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944994501B8A1DF400A3E6CF /* LaunchScreen.xib */; };
 		9449945E1B8A1DF400A3E6CF /* MuseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */; };
+		94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */; };
+		94DEB3101B8A2B31001509C9 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB30F1B8A2B31001509C9 /* Song.m */; };
+		94DEB3131B8A2B31001509C9 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB3121B8A2B31001509C9 /* Entry.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,12 @@
 		944994571B8A1DF400A3E6CF /* MuseAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9449945C1B8A1DF400A3E6CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuseAppTests.m; sourceTree = "<group>"; };
+		94DEB2F61B8A20EE001509C9 /* MUSDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSDataStore.h; sourceTree = "<group>"; };
+		94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSDataStore.m; sourceTree = "<group>"; };
+		94DEB30E1B8A2B31001509C9 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Song.h; path = ../Song.h; sourceTree = "<group>"; };
+		94DEB30F1B8A2B31001509C9 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Song.m; path = ../Song.m; sourceTree = "<group>"; };
+		94DEB3111B8A2B31001509C9 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entry.h; path = ../Entry.h; sourceTree = "<group>"; };
+		94DEB3121B8A2B31001509C9 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Entry.m; path = ../Entry.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,14 +92,18 @@
 		9449943D1B8A1DF400A3E6CF /* MuseApp */ = {
 			isa = PBXGroup;
 			children = (
-				944994421B8A1DF400A3E6CF /* AppDelegate.h */,
-				944994431B8A1DF400A3E6CF /* AppDelegate.m */,
+				94DEB3111B8A2B31001509C9 /* Entry.h */,
+				94DEB3121B8A2B31001509C9 /* Entry.m */,
+				94DEB30E1B8A2B31001509C9 /* Song.h */,
+				94DEB30F1B8A2B31001509C9 /* Song.m */,
 				944994481B8A1DF400A3E6CF /* ViewController.h */,
 				944994491B8A1DF400A3E6CF /* ViewController.m */,
 				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
 				9449944E1B8A1DF400A3E6CF /* Images.xcassets */,
 				944994501B8A1DF400A3E6CF /* LaunchScreen.xib */,
 				944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */,
+				94DEB2F61B8A20EE001509C9 /* MUSDataStore.h */,
+				94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */,
 				9449943E1B8A1DF400A3E6CF /* Supporting Files */,
 			);
 			path = MuseApp;
@@ -99,6 +112,8 @@
 		9449943E1B8A1DF400A3E6CF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				944994421B8A1DF400A3E6CF /* AppDelegate.h */,
+				944994431B8A1DF400A3E6CF /* AppDelegate.m */,
 				9449943F1B8A1DF400A3E6CF /* Info.plist */,
 				944994401B8A1DF400A3E6CF /* main.m */,
 			);
@@ -166,6 +181,7 @@
 		944994331B8A1DF400A3E6CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MUS;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Leo Kwan";
 				TargetAttributes = {
@@ -222,7 +238,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94DEB3101B8A2B31001509C9 /* Song.m in Sources */,
 				944994471B8A1DF400A3E6CF /* MuseApp.xcdatamodeld in Sources */,
+				94DEB3131B8A2B31001509C9 /* Entry.m in Sources */,
+				94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */,
 				944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */,
 				9449944A1B8A1DF400A3E6CF /* ViewController.m in Sources */,
 				944994411B8A1DF400A3E6CF /* main.m in Sources */,
@@ -422,6 +441,7 @@
 				944994631B8A1DF400A3E6CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		944994641B8A1DF400A3E6CF /* Build configuration list for PBXNativeTarget "MuseAppTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +450,7 @@
 				944994661B8A1DF400A3E6CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
