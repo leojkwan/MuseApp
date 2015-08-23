@@ -46,17 +46,6 @@
 
 }
 
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//
-//    [self.store fetchEntries];
-//    [self.entriesTableView reloadData];
-//    
-//}
-
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
    
     if ([[self.resultsController sections] count] > 0) {
@@ -66,11 +55,20 @@
     return 0;
 }
 
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
+        [self.store.managedObjectContext deleteObject:managedObject];
+        [self.store.managedObjectContext save:nil];
+    }
+}
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];

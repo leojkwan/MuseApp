@@ -16,13 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="187" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryCell" textLabel="lq5-ay-2EW" detailTextLabel="vqU-aM-MLG" style="IBUITableViewCellStyleValue1" id="gqG-Ad-0h7">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryCell" textLabel="lq5-ay-2EW" detailTextLabel="vqU-aM-MLG" rowHeight="187" style="IBUITableViewCellStyleValue1" id="gqG-Ad-0h7">
+                                        <rect key="frame" x="0.0" y="275" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gqG-Ad-0h7" id="eNI-8R-pxV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -45,6 +45,18 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cdu-m1-0ky" secondAttribute="bottom" id="2bJ-T1-ZF7"/>
+                            <constraint firstAttribute="trailing" secondItem="cdu-m1-0ky" secondAttribute="trailing" id="8tI-Bs-WWf"/>
+                            <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="9BM-oP-wc6"/>
+                            <constraint firstItem="cdu-m1-0ky" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bVw-xQ-Amf"/>
+                            <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="y9H-i8-Vqe"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9BM-oP-wc6"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="D9t-CD-br7">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="OUN-rN-Ycv">
