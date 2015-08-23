@@ -10,7 +10,6 @@
 		944994411B8A1DF400A3E6CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994401B8A1DF400A3E6CF /* main.m */; };
 		944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994431B8A1DF400A3E6CF /* AppDelegate.m */; };
 		944994471B8A1DF400A3E6CF /* MuseApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */; };
-		9449944A1B8A1DF400A3E6CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994491B8A1DF400A3E6CF /* ViewController.m */; };
 		9449944D1B8A1DF400A3E6CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9449944B1B8A1DF400A3E6CF /* Main.storyboard */; };
 		9449944F1B8A1DF400A3E6CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9449944E1B8A1DF400A3E6CF /* Images.xcassets */; };
 		944994521B8A1DF400A3E6CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944994501B8A1DF400A3E6CF /* LaunchScreen.xib */; };
@@ -18,6 +17,9 @@
 		94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */; };
 		94DEB3101B8A2B31001509C9 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB30F1B8A2B31001509C9 /* Song.m */; };
 		94DEB3131B8A2B31001509C9 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB3121B8A2B31001509C9 /* Entry.m */; };
+		94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */; };
+		94DEB3191B8A2C7F001509C9 /* MUSAllEntriesTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB3181B8A2C7F001509C9 /* MUSAllEntriesTableViewDataSource.m */; };
+		94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB31B1B8A2EE8001509C9 /* MUSDetailEntryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +39,6 @@
 		944994421B8A1DF400A3E6CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		944994431B8A1DF400A3E6CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		944994461B8A1DF400A3E6CF /* MuseApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MuseApp.xcdatamodel; sourceTree = "<group>"; };
-		944994481B8A1DF400A3E6CF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		944994491B8A1DF400A3E6CF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9449944C1B8A1DF400A3E6CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9449944E1B8A1DF400A3E6CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		944994511B8A1DF400A3E6CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -51,6 +51,12 @@
 		94DEB30F1B8A2B31001509C9 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Song.m; path = ../Song.m; sourceTree = "<group>"; };
 		94DEB3111B8A2B31001509C9 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entry.h; path = ../Entry.h; sourceTree = "<group>"; };
 		94DEB3121B8A2B31001509C9 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Entry.m; path = ../Entry.m; sourceTree = "<group>"; };
+		94DEB3141B8A2C1C001509C9 /* MUSAllEntriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAllEntriesViewController.h; sourceTree = "<group>"; };
+		94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAllEntriesViewController.m; sourceTree = "<group>"; };
+		94DEB3171B8A2C7F001509C9 /* MUSAllEntriesTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAllEntriesTableViewDataSource.h; sourceTree = "<group>"; };
+		94DEB3181B8A2C7F001509C9 /* MUSAllEntriesTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAllEntriesTableViewDataSource.m; sourceTree = "<group>"; };
+		94DEB31A1B8A2EE8001509C9 /* MUSDetailEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSDetailEntryViewController.h; sourceTree = "<group>"; };
+		94DEB31B1B8A2EE8001509C9 /* MUSDetailEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSDetailEntryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +102,11 @@
 				94DEB3121B8A2B31001509C9 /* Entry.m */,
 				94DEB30E1B8A2B31001509C9 /* Song.h */,
 				94DEB30F1B8A2B31001509C9 /* Song.m */,
-				944994481B8A1DF400A3E6CF /* ViewController.h */,
-				944994491B8A1DF400A3E6CF /* ViewController.m */,
 				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
+				94DEB3141B8A2C1C001509C9 /* MUSAllEntriesViewController.h */,
+				94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */,
+				94DEB3171B8A2C7F001509C9 /* MUSAllEntriesTableViewDataSource.h */,
+				94DEB3181B8A2C7F001509C9 /* MUSAllEntriesTableViewDataSource.m */,
 				9449944E1B8A1DF400A3E6CF /* Images.xcassets */,
 				944994501B8A1DF400A3E6CF /* LaunchScreen.xib */,
 				944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */,
@@ -113,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				944994421B8A1DF400A3E6CF /* AppDelegate.h */,
+				94DEB31A1B8A2EE8001509C9 /* MUSDetailEntryViewController.h */,
+				94DEB31B1B8A2EE8001509C9 /* MUSDetailEntryViewController.m */,
 				944994431B8A1DF400A3E6CF /* AppDelegate.m */,
 				9449943F1B8A1DF400A3E6CF /* Info.plist */,
 				944994401B8A1DF400A3E6CF /* main.m */,
@@ -243,8 +253,10 @@
 				94DEB3131B8A2B31001509C9 /* Entry.m in Sources */,
 				94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */,
 				944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */,
-				9449944A1B8A1DF400A3E6CF /* ViewController.m in Sources */,
+				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
+				94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */,
 				944994411B8A1DF400A3E6CF /* main.m in Sources */,
+				94DEB3191B8A2C7F001509C9 /* MUSAllEntriesTableViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

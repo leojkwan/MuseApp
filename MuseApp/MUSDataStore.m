@@ -38,17 +38,21 @@
     }
 }
 
-//- (NSArray *)fetchEntries
-//{
-//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Entry" inManagedObjectContext:self.managedObjectContext];
-//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//    [request setEntity:entityDescription];
-//    
-//    NSError *error;
-//    NSArray *messages = [self.managedObjectContext executeFetchRequest:request error:&error];
-//    
-//    return messages ? messages : @[];
-//}
+
+- (void)fetchEntries
+{
+    NSFetchRequest *entryRequest = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
+    
+//    NSSortDescriptor *nameSorter = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:YES];
+//    entryRequest.sortDescriptors = @[nameSorter];
+    
+    self.entries = [self.managedObjectContext executeFetchRequest:entryRequest error:nil];
+    NSLog(@"%lu" ,self.entries.count);
+    if ([self.entries count]==0) {
+        NSLog(@"No Entries!");
+    }
+}
+
 
 
 #pragma mark - Core Data stack
