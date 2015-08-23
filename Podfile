@@ -6,6 +6,7 @@ target 'MuseApp' do
 pod 'APParallaxHeader'
 pod 'Masonry'
 pod 'PSPDFTextView'
+pod 'TPKeyboardAvoiding'
 
 end
 
