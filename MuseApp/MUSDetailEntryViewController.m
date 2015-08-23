@@ -27,11 +27,18 @@
 - (IBAction)saveButtonTapped:(id)sender {
     NSLog(@"ARE YOU GETTING CALLED?");
     MUSDataStore *store = [MUSDataStore sharedDataStore];
+    
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:store.managedObjectContext];
+    newEntry.content = self.textField.text;
+
+    
     Song *song =  [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:store.managedObjectContext];
     song.songName = self.secondary.text;
-    newEntry.content = self.textField.text;
+
     [newEntry addSongsObject:song];
+    
+
+    
     
     [store save];
     [self.navigationController popViewControllerAnimated:YES];

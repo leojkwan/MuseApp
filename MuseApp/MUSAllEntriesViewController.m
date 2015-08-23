@@ -9,6 +9,7 @@
 #import "MUSAllEntriesViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
+#import "Song.h"
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
@@ -70,8 +71,13 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
+    NSArray *songsArray = [entryForThisRow.songs allObjects];
+
+    
     cell.textLabel.text = entryForThisRow.content;
-    cell.detailTextLabel.text = entryForThisRow.songs;
+    Song *songForThisEntry = songsArray[0];
+    cell.detailTextLabel.text = songForThisEntry.songName;
+//
     return cell;
 }
 
