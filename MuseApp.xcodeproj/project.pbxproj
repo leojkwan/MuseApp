@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */; };
 		944994411B8A1DF400A3E6CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994401B8A1DF400A3E6CF /* main.m */; };
 		944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994431B8A1DF400A3E6CF /* AppDelegate.m */; };
 		944994471B8A1DF400A3E6CF /* MuseApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSEntryTableViewCell.h; sourceTree = "<group>"; };
+		9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSEntryTableViewCell.m; sourceTree = "<group>"; };
 		9449943B1B8A1DF400A3E6CF /* MuseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9449943F1B8A1DF400A3E6CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		944994401B8A1DF400A3E6CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -74,6 +77,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9438AA631B8A543A00644EB8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */,
+				9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */,
+				94DEB32F1B8A52B1001509C9 /* Song.h */,
+				94DEB3301B8A52B1001509C9 /* Song.m */,
+				94DEB32C1B8A52B0001509C9 /* Entry.h */,
+				94DEB32D1B8A52B0001509C9 /* Entry.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		9438AA641B8A544400644EB8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		9438AA651B8A545700644EB8 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94DEB3141B8A2C1C001509C9 /* MUSAllEntriesViewController.h */,
+				94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */,
+				94DEB31A1B8A2EE8001509C9 /* MUSDetailEntryViewController.h */,
+				94DEB31B1B8A2EE8001509C9 /* MUSDetailEntryViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		944994321B8A1DF400A3E6CF = {
 			isa = PBXGroup;
 			children = (
@@ -95,15 +130,9 @@
 		9449943D1B8A1DF400A3E6CF /* MuseApp */ = {
 			isa = PBXGroup;
 			children = (
-				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
-				94DEB32F1B8A52B1001509C9 /* Song.h */,
-				94DEB3301B8A52B1001509C9 /* Song.m */,
-				94DEB32C1B8A52B0001509C9 /* Entry.h */,
-				94DEB32D1B8A52B0001509C9 /* Entry.m */,
-				94DEB3141B8A2C1C001509C9 /* MUSAllEntriesViewController.h */,
-				94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */,
-				94DEB31A1B8A2EE8001509C9 /* MUSDetailEntryViewController.h */,
-				94DEB31B1B8A2EE8001509C9 /* MUSDetailEntryViewController.m */,
+				9438AA641B8A544400644EB8 /* Views */,
+				9438AA631B8A543A00644EB8 /* Models */,
+				9438AA651B8A545700644EB8 /* View Controllers */,
 				9449944E1B8A1DF400A3E6CF /* Images.xcassets */,
 				944994501B8A1DF400A3E6CF /* LaunchScreen.xib */,
 				944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */,
@@ -248,6 +277,7 @@
 				94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */,
 				94DEB32E1B8A52B0001509C9 /* Entry.m in Sources */,
 				944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */,
+				9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */,
 				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
 				94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */,
 				944994411B8A1DF400A3E6CF /* main.m in Sources */,

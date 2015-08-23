@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AqN-Ha-MZr">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--All Entries View Controller-->
@@ -16,30 +18,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="187" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="293" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryCell" textLabel="lq5-ay-2EW" detailTextLabel="vqU-aM-MLG" rowHeight="187" style="IBUITableViewCellStyleValue1" id="gqG-Ad-0h7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryCell" rowHeight="293" id="gqG-Ad-0h7" customClass="MUSEntryTableViewCell">
                                         <rect key="frame" x="0.0" y="275" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gqG-Ad-0h7" id="eNI-8R-pxV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lq5-ay-2EW">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vqU-aM-MLG">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="drink" translatesAutoresizingMaskIntoConstraints="NO" id="55p-TK-tee">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="292.5"/>
+                                                </imageView>
+                                                <visualEffectView opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIS-DS-TSq">
+                                                    <rect key="frame" x="13" y="133.5" width="574" height="146"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fMf-a3-HbL">
+                                                        <rect key="frame" x="0.0" y="0.0" width="574" height="146"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Of Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uYC-2K-Gz3">
+                                                                <rect key="frame" x="239" y="21" width="95" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Artist " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-b0-B8i">
+                                                                <rect key="frame" x="511" y="88" width="45" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Date " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSL-DH-6Ad">
+                                                                <rect key="frame" x="33" y="82" width="43" height="21"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="aca-b0-B8i" secondAttribute="bottom" constant="13" id="TZY-J5-epJ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="aca-b0-B8i" secondAttribute="trailing" constant="18" id="b38-Yy-gDg"/>
+                                                            <constraint firstItem="MSL-DH-6Ad" firstAttribute="leading" secondItem="fMf-a3-HbL" secondAttribute="leading" constant="33" id="cCs-Xs-8CP"/>
+                                                            <constraint firstAttribute="centerX" secondItem="uYC-2K-Gz3" secondAttribute="centerX" id="m0s-3C-2f6"/>
+                                                            <constraint firstItem="uYC-2K-Gz3" firstAttribute="top" secondItem="fMf-a3-HbL" secondAttribute="top" constant="21" id="pOf-Xp-Tgg"/>
+                                                            <constraint firstAttribute="bottom" secondItem="MSL-DH-6Ad" secondAttribute="bottom" constant="19" id="stY-M3-mOO"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <vibrancyEffect>
+                                                        <blurEffect style="dark"/>
+                                                    </vibrancyEffect>
+                                                </visualEffectView>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="55p-TK-tee" secondAttribute="trailing" id="1e3-eN-2DN"/>
+                                                <constraint firstItem="AIS-DS-TSq" firstAttribute="height" secondItem="55p-TK-tee" secondAttribute="height" multiplier="1/2" id="EIY-ot-hWl"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="AIS-DS-TSq" secondAttribute="trailing" constant="5" id="Mgv-6W-PFz"/>
+                                                <constraint firstAttribute="centerX" secondItem="AIS-DS-TSq" secondAttribute="centerX" id="Mhh-xu-Jm9"/>
+                                                <constraint firstAttribute="bottom" secondItem="55p-TK-tee" secondAttribute="bottom" id="PV6-AV-Ami"/>
+                                                <constraint firstItem="55p-TK-tee" firstAttribute="leading" secondItem="eNI-8R-pxV" secondAttribute="leading" id="Sra-zO-6oX"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="AIS-DS-TSq" secondAttribute="bottom" constant="5" id="fsG-uu-kLy"/>
+                                                <constraint firstItem="AIS-DS-TSq" firstAttribute="leading" secondItem="eNI-8R-pxV" secondAttribute="leadingMargin" constant="5" id="qsO-NK-7wW"/>
+                                                <constraint firstItem="55p-TK-tee" firstAttribute="top" secondItem="eNI-8R-pxV" secondAttribute="top" id="ySD-1S-rNM"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="artistsLabel" destination="aca-b0-B8i" id="YMP-i7-IfT"/>
+                                            <outlet property="createdAtLabel" destination="MSL-DH-6Ad" id="93n-ZZ-biG"/>
+                                            <outlet property="entryImageView" destination="55p-TK-tee" id="bnF-9z-1xJ"/>
+                                            <outlet property="entryTitleLabel" destination="uYC-2K-Gz3" id="dvU-7K-h8V"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -135,4 +185,7 @@
             <point key="canvasLocation" x="510" y="1318"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="drink" width="200" height="200"/>
+    </resources>
 </document>

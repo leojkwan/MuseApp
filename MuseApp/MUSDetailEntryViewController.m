@@ -29,7 +29,7 @@
     MUSDataStore *store = [MUSDataStore sharedDataStore];
     
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:store.managedObjectContext];
-    newEntry.content = self.textField.text;
+    newEntry.titleOfEntry = self.textField.text;
 
     
     Song *song =  [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:store.managedObjectContext];

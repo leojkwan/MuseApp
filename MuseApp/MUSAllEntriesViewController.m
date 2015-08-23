@@ -10,6 +10,7 @@
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import "Song.h"
+#import "MUSEntryTableViewCell.h"
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
@@ -45,6 +46,9 @@
 
 }
 
+#pragma mark - UITable View Delegate methods
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
    
     if ([[self.resultsController sections] count] > 0) {
@@ -66,15 +70,17 @@
     return YES;
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+    MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     NSArray *songsArray = [entryForThisRow.songs allObjects];
 
     
-    cell.textLabel.text = entryForThisRow.content;
+    cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
     Song *songForThisEntry = songsArray[0];
     cell.detailTextLabel.text = songForThisEntry.songName;
 //
