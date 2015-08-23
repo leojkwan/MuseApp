@@ -31,9 +31,11 @@
     // Do any additional setup after loading the view.
     [self.scrollView addParallaxWithImage:[UIImage imageNamed:@"drink"] andHeight:300 andShadow:NO];
 
+    
+    
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view.mas_width);
-        make.height.equalTo(@2000);
+//        make.height.equalTo(@2000);
     }];
     
     
