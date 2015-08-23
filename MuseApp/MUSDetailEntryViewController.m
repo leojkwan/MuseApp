@@ -9,9 +9,11 @@
 #import "MUSDetailEntryViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
+#import "Song.h"
 
 @interface MUSDetailEntryViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UITextField *secondary;
 
 @end
 
@@ -26,7 +28,11 @@
     NSLog(@"ARE YOU GETTING CALLED?");
     MUSDataStore *store = [MUSDataStore sharedDataStore];
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:store.managedObjectContext];
+    Song *song =  [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:store.managedObjectContext];
+    song.songName = self.secondary.text;
     newEntry.content = self.textField.text;
+    [newEntry addSongsObject:song];
+    
     [store save];
     [self.navigationController popViewControllerAnimated:YES];
 }
