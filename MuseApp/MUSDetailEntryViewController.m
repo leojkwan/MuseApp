@@ -13,22 +13,32 @@
 #import "Song.h"
 #import <TPKeyboardAvoidingScrollView.h>
 #import <PSPDFTextView.h>
+#import "UIBarButtonItem+MUSExtraMethods.h"
+#import "MUSMusicPlayer.h"
 #import <UIScrollView+APParallaxHeader.h>
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, MUSPlayerProtocol>
 
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
-
+@property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @end
 
 @implementation MUSDetailEntryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    // set music player
+    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+//    self.musicPlayer.delegate = self;
+    [self setUpRightNavBar];
+    
+    Song *currentSong = [self.musicPlayer pinCurrentlyPlayingSong];
+//    NSLog(@"%@", currentSong.songName);
+    
     self.textView.text = self.destinationEntry.titleOfEntry;
     
     [self.scrollView addParallaxWithImage:[UIImage imageNamed:@"drink"] andHeight:300 andShadow:NO];
@@ -46,8 +56,8 @@
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
 
-    
 }
+
 
 - (IBAction)saveButtonTapped:(id)sender {
     NSLog(@"ARE YOU GETTING CALLED?");
@@ -70,6 +80,10 @@
     
     [store save];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)setUpRightNavBar {
+    self.navigationItem.rightBarButtonItems = @[ [UIBarButtonItem returnPinSongBarButtonItem]];
 }
 
 
