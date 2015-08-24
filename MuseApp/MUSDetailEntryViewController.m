@@ -28,7 +28,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    self.textView.text = self.destinationEntry.titleOfEntry;
+    
     [self.scrollView addParallaxWithImage:[UIImage imageNamed:@"drink"] andHeight:300 andShadow:NO];
     
     
@@ -56,9 +58,9 @@
     
     // get title of entry
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
-
-    
-    Song *song =  [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:store.managedObjectContext];
+//
+//    
+//    Song *song =  [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:store.managedObjectContext];
 //    song.songName = self.secondary.text;
 
 //    [newEntry addSongsObject:song];

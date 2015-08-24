@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Entry.h"
 
 @interface MUSDetailEntryViewController : UIViewController
+
+@property (nonatomic, strong) Entry *destinationEntry;
 
 @end

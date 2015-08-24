@@ -110,19 +110,16 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="D9t-CD-br7">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="OUN-rN-Ycv">
-                            <connections>
-                                <segue destination="YMB-QV-Zfr" kind="show" id="JBx-2m-XhM"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="OUN-rN-Ycv"/>
                     </navigationItem>
                     <connections>
                         <outlet property="entriesTableView" destination="cdu-m1-0ky" id="VwI-5t-7BB"/>
+                        <segue destination="YMB-QV-Zfr" kind="show" identifier="detailEntrySegue" id="4m1-OZ-cgF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1216" y="1318"/>
+            <point key="canvasLocation" x="1149" y="1331"/>
         </scene>
         <!--Title-->
         <scene sceneID="sch-Iy-1Au">

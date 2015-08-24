@@ -10,6 +10,7 @@
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import "Song.h"
+#import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
@@ -58,6 +59,11 @@
     return 0;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
+}
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
@@ -77,7 +83,7 @@
     
     MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-    NSArray *songsArray = [entryForThisRow.songs allObjects];
+//    NSArray *songsArray = [entryForThisRow.songs allObjects];
 
     
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
@@ -155,14 +161,21 @@
     [self.entriesTableView endUpdates];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
+        MUSDetailEntryViewController *dvc = segue.destinationViewController;
+        NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
+        Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
+
+        dvc.destinationEntry = entryForThisRow;
+    }
+    
 }
-*/
+
 
 @end
