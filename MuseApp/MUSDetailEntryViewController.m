@@ -14,14 +14,16 @@
 #import <TPKeyboardAvoidingScrollView.h>
 #import <PSPDFTextView.h>
 #import "UIButton+ExtraMethods.h"
+#import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
 #import <UIScrollView+APParallaxHeader.h>
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, MUSPlayerProtocol>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (nonatomic, strong) MUSDataStore *store;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @end
@@ -30,13 +32,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.store = [MUSDataStore sharedDataStore];
     
     // set music player
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
 //    self.musicPlayer.delegate = self;
     [self setUpRightNavBar];
     
-    Song *currentSong = [self.musicPlayer pinCurrentlyPlayingSong];
+    
+    
+//    Song *currentSong = [self.musicPlayer pinCurrentlyPlayingSong];
 //    NSLog(@"%@", currentSong.songName);
     
     self.textView.text = self.destinationEntry.titleOfEntry;
@@ -61,24 +66,14 @@
 
 - (IBAction)saveButtonTapped:(id)sender {
     NSLog(@"ARE YOU GETTING CALLED?");
-    MUSDataStore *store = [MUSDataStore sharedDataStore];
     
-    Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:store.managedObjectContext];
+    Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     newEntry.content = self.textView.text;
     
     // get title of entry
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
-//
-//    
-//    Song *song =  [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:store.managedObjectContext];
-//    song.songName = self.secondary.text;
-
-//    [newEntry addSongsObject:song];
     
-
-    
-    
-    [store save];
+    [self.store save];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -94,6 +89,8 @@
     self.navigationItem.rightBarButtonItems = @[playlistBarButtonItem, pinSongBarButtonItem];
 }
 
+
+
 -(void)playlistButtonPressed:id {
     NSLog(@"playlist button tapped");
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
@@ -101,15 +98,31 @@
 
 -(void)pinSongButtonPressed:id {
     NSLog(@"pin song button tapped");
+    
+    Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
+    pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
+    pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
+    pinnedSong.entry = self.destinationEntry;
+    [self.destinationEntry addSongsObject:pinnedSong];
+    NSLog(@"%@" , self.destinationEntry.songs);
 }
-/*
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+  
+    if ([segue.identifier isEqualToString:@"playlistSegue"]) {
+        MUSPlaylistViewController *dvc = segue.destinationViewController;
+        dvc.destinationEntry = self.destinationEntry;
+        
+        // make destination entry's NSSet into Array
+//        dvc.playlistForThisEntry = 
+    }
+    
+    
 }
-*/
+
 
 @end

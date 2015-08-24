@@ -12,22 +12,15 @@
 @import MediaPlayer;
 
 
-@protocol MUSPlayerProtocol<NSObject>
--(void)getCurrentlyPlayingSong:(Song *)song;
-@optional
-
-@end
-
 @interface MUSMusicPlayer : NSObject
 
 @property (nonatomic, strong) MPMusicPlayerController *myPlayer;
-@property (nonatomic, assign) id <MUSPlayerProtocol> delegate;
+@property (nonatomic, strong) MPMediaItem *currentlyPlayingSong;
 
 
 -(instancetype)init;
 -(NSMutableArray *)loadMPMediaItemsFromPlaylist:(NSArray *)playlist;
 -(void)removeMusicNotifications;
--(Song * )pinCurrentlyPlayingSong;
 
 
 

@@ -11,10 +11,6 @@
 
 @interface MUSMusicPlayer ()
 
-
-
-
-@property (nonatomic, strong) MPMediaItem *currentlyPlayingSong;
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) MUSDataStore *store;
 @end
@@ -35,14 +31,6 @@
     return self;
 }
 
-
--(Song * )pinCurrentlyPlayingSong {
-    self.store = [MUSDataStore sharedDataStore];
-    Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
-    pinnedSong.artistName = self.currentlyPlayingSong.artist;
-    pinnedSong.songName = self.currentlyPlayingSong.title;
-    return pinnedSong;
-}
 
 -(NSMutableArray *)loadMPMediaItemsFromPlaylist:(NSArray *)playlist {
 

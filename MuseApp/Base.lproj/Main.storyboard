@@ -264,13 +264,35 @@ On to Week 5.
                                     <action selector="exitButtonPressed:" destination="EiH-fH-8rA" eventType="touchUpInside" id="xrI-lP-FHN"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zrV-tN-fmH">
+                                <rect key="frame" x="16" y="300" width="568" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="xcN-rb-zt2"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songReuseCell" id="fHh-Qc-99H">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fHh-Qc-99H" id="A1q-oN-Fs3">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="zrV-tN-fmH" firstAttribute="leading" secondItem="gbg-yd-B8e" secondAttribute="leadingMargin" id="BXd-5J-i6f"/>
+                            <constraint firstItem="v9T-cq-Y6K" firstAttribute="top" secondItem="zrV-tN-fmH" secondAttribute="bottom" id="F1v-et-fD3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zrV-tN-fmH" secondAttribute="trailing" id="VEh-w9-K42"/>
                             <constraint firstItem="pfo-qx-7Ho" firstAttribute="top" secondItem="a6N-vX-rXf" secondAttribute="bottom" constant="10" id="bEB-v4-dqZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pfo-qx-7Ho" secondAttribute="trailing" constant="10" id="bag-Ax-DOg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="playlistTableView" destination="zrV-tN-fmH" id="VcT-P9-c3v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ci-1Y-Ic6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
