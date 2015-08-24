@@ -81,8 +81,8 @@
 
     
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
-    Song *songForThisEntry = songsArray[0];
-    cell.detailTextLabel.text = songForThisEntry.songName;
+//    Song *songForThisEntry = songsArray[0];
+//    cell.detailTextLabel.text = songForThisEntry.songName;
 //
     return cell;
 }

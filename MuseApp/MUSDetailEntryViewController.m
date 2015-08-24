@@ -16,8 +16,7 @@
 #import <UIScrollView+APParallaxHeader.h>
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet UITextField *secondary;
+
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -53,13 +52,16 @@
     MUSDataStore *store = [MUSDataStore sharedDataStore];
     
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:store.managedObjectContext];
-    newEntry.titleOfEntry = self.textField.text;
+    newEntry.content = self.textView.text;
+    
+    // get title of entry
+    newEntry.titleOfEntry = [newEntry getTitleOfContent];
 
     
     Song *song =  [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:store.managedObjectContext];
-    song.songName = self.secondary.text;
+//    song.songName = self.secondary.text;
 
-    [newEntry addSongsObject:song];
+//    [newEntry addSongsObject:song];
     
 
     
