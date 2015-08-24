@@ -10,7 +10,8 @@
 
 @interface UIBarButtonItem (MUSExtraMethods)
 
-+(UIBarButtonItem *) returnPinSongBarButtonItem;
++(UIBarButtonItem *) createPinSongBarButtonItem;
++(UIBarButtonItem *)createPlaylistButton;
 
 
 @end

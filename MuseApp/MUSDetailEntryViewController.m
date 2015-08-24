@@ -83,7 +83,7 @@
 }
 
 -(void)setUpRightNavBar {
-    self.navigationItem.rightBarButtonItems = @[ [UIBarButtonItem returnPinSongBarButtonItem]];
+    self.navigationItem.rightBarButtonItems = @[ [UIBarButtonItem createPinSongBarButtonItem], [UIBarButtonItem createPlaylistButton]];
 }
 
 
