@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		940A85DF1B8B8B1C008C5D2E /* UIBarButtonItem+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85DE1B8B8B1C008C5D2E /* UIBarButtonItem+MUSExtraMethods.m */; };
+		940A85E21B8B9697008C5D2E /* UIButton+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */; };
 		9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */; };
 		944994411B8A1DF400A3E6CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994401B8A1DF400A3E6CF /* main.m */; };
 		944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994431B8A1DF400A3E6CF /* AppDelegate.m */; };
@@ -38,8 +38,8 @@
 /* Begin PBXFileReference section */
 		37C7CC5993CE8D4DA87E2D26 /* Pods-MuseApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseApp/Pods-MuseApp.release.xcconfig"; sourceTree = "<group>"; };
 		8DBE9CBC1F7E542A4F577310 /* libPods-MuseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		940A85DD1B8B8B1C008C5D2E /* UIBarButtonItem+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+MUSExtraMethods.h"; sourceTree = "<group>"; };
-		940A85DE1B8B8B1C008C5D2E /* UIBarButtonItem+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+MUSExtraMethods.m"; sourceTree = "<group>"; };
+		940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ExtraMethods.h"; sourceTree = "<group>"; };
+		940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ExtraMethods.m"; sourceTree = "<group>"; };
 		9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSEntryTableViewCell.h; sourceTree = "<group>"; };
 		9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSEntryTableViewCell.m; sourceTree = "<group>"; };
 		9449943B1B8A1DF400A3E6CF /* MuseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,8 +102,8 @@
 			children = (
 				94939D391B8B7618003396ED /* MUSMusicPlayer.h */,
 				94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */,
-				940A85DD1B8B8B1C008C5D2E /* UIBarButtonItem+MUSExtraMethods.h */,
-				940A85DE1B8B8B1C008C5D2E /* UIBarButtonItem+MUSExtraMethods.m */,
+				940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */,
+				940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */,
 				9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */,
 				9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */,
 				94DEB32F1B8A52B1001509C9 /* Song.h */,
@@ -346,9 +346,9 @@
 				94DEB3311B8A52B1001509C9 /* Song.m in Sources */,
 				944994471B8A1DF400A3E6CF /* MuseApp.xcdatamodeld in Sources */,
 				94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */,
-				940A85DF1B8B8B1C008C5D2E /* UIBarButtonItem+MUSExtraMethods.m in Sources */,
 				94DEB32E1B8A52B0001509C9 /* Entry.m in Sources */,
 				944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */,
+				940A85E21B8B9697008C5D2E /* UIButton+ExtraMethods.m in Sources */,
 				9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */,
 				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
 				94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */,

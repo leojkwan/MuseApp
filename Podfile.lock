@@ -1,16 +1,19 @@
 PODS:
+  - AFBlurSegue (1.2.1)
   - APParallaxHeader (0.1.6)
   - Masonry (0.6.2)
   - PSPDFTextView (1.2.0)
   - TPKeyboardAvoiding (1.2.9)
 
 DEPENDENCIES:
+  - AFBlurSegue (~> 1.2.1)
   - APParallaxHeader
   - Masonry
   - PSPDFTextView
   - TPKeyboardAvoiding
 
 SPEC CHECKSUMS:
+  AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
   APParallaxHeader: 854bc48a2487ca12c702f8a236fec0d89cdac5c3
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   PSPDFTextView: 805ff07dca594c05ab1f762309b998daedca79a3

@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:MUSPlaylistViewController.h">
+   </FileRef>
+   <FileRef
+      location = "group:MUSPlaylistViewController.m">
+   </FileRef>
+   <FileRef
       location = "group:MuseApp.xcodeproj">
    </FileRef>
    <FileRef

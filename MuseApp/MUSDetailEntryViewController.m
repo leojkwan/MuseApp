@@ -13,7 +13,7 @@
 #import "Song.h"
 #import <TPKeyboardAvoidingScrollView.h>
 #import <PSPDFTextView.h>
-#import "UIBarButtonItem+MUSExtraMethods.h"
+#import "UIButton+ExtraMethods.h"
 #import "MUSMusicPlayer.h"
 #import <UIScrollView+APParallaxHeader.h>
 
@@ -83,10 +83,25 @@
 }
 
 -(void)setUpRightNavBar {
-    self.navigationItem.rightBarButtonItems = @[ [UIBarButtonItem createPinSongBarButtonItem], [UIBarButtonItem createPlaylistButton]];
+    UIButton *pinSongButton = [UIButton createPinSongButton];
+    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *pinSongBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
+    
+    UIButton *playlistButton = [UIButton createPlaylistButton];
+    [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
+    
+    self.navigationItem.rightBarButtonItems = @[playlistBarButtonItem, pinSongBarButtonItem];
 }
 
+-(void)playlistButtonPressed:id {
+    NSLog(@"playlist button tapped");
 
+}
+
+-(void)pinSongButtonPressed:id {
+    NSLog(@"pin song button tapped");
+}
 /*
 #pragma mark - Navigation
 

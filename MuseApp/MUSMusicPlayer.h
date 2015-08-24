@@ -13,6 +13,7 @@
 
 
 @protocol MUSPlayerProtocol<NSObject>
+-(void)getCurrentlyPlayingSong:(Song *)song;
 @optional
 
 @end
@@ -25,8 +26,8 @@
 
 -(instancetype)init;
 -(NSMutableArray *)loadMPMediaItemsFromPlaylist:(NSArray *)playlist;
--(Song *)pinCurrentlyPlayingSong;
 -(void)removeMusicNotifications;
+-(Song * )pinCurrentlyPlayingSong;
 
 
 
