@@ -111,7 +111,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="D9t-CD-br7">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="OUN-rN-Ycv"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="OUN-rN-Ycv">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="BYZ-38-t0r" id="DXn-hI-eAY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="entriesTableView" destination="cdu-m1-0ky" id="VwI-5t-7BB"/>
