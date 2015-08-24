@@ -264,14 +264,14 @@ On to Week 5.
                                     <action selector="exitButtonPressed:" destination="EiH-fH-8rA" eventType="touchUpInside" id="xrI-lP-FHN"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zrV-tN-fmH">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zrV-tN-fmH">
                                 <rect key="frame" x="16" y="300" width="568" height="300"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="xcN-rb-zt2"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songReuseCell" id="fHh-Qc-99H">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songReuseCell" rowHeight="72" id="fHh-Qc-99H">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fHh-Qc-99H" id="A1q-oN-Fs3">
@@ -314,7 +314,7 @@ On to Week 5.
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ps1-h7-fOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="510" y="1318"/>
+            <point key="canvasLocation" x="423" y="1324"/>
         </scene>
     </scenes>
     <resources>

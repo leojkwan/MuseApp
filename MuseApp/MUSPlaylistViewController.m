@@ -19,6 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.playlistTableView.delegate = self;
+    self.playlistTableView.dataSource = self;
     NSLog(@"Hello!");
     
 }

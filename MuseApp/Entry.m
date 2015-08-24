@@ -18,4 +18,11 @@
 @dynamic titleOfEntry;
 @dynamic songs;
 
+
+-(NSString *)getTitleOfContent {
+    NSString *titleString = [[self.content componentsSeparatedByString:@"\n"] objectAtIndex:0];
+    return titleString;
+}
+
+
 @end

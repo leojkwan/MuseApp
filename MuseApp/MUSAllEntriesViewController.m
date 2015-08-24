@@ -49,8 +49,8 @@
 
 
 - (IBAction)addButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
-
 
 
 

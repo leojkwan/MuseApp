@@ -12,6 +12,7 @@
 #import <Masonry/Masonry.h>
 #import "Song.h"
 #import <TPKeyboardAvoidingScrollView.h>
+#import "NSSet+MUSExtraMethod.h"
 #import <PSPDFTextView.h>
 #import "UIButton+ExtraMethods.h"
 #import "MUSPlaylistViewController.h"
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) MUSDataStore *store;
+@property (nonatomic, strong) NSMutableArray *playlistForThisEntry;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @end
@@ -40,12 +42,16 @@
     [self setUpRightNavBar];
     
     
+    //Convert entry NSSet into appropriate MutableArray
+    self.playlistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-//    Song *currentSong = [self.musicPlayer pinCurrentlyPlayingSong];
-//    NSLog(@"%@", currentSong.songName);
+    
     
     self.textView.text = self.destinationEntry.titleOfEntry;
     
+    
+    
+    // Set up parallax image
     [self.scrollView addParallaxWithImage:[UIImage imageNamed:@"drink"] andHeight:300 andShadow:NO];
     
     
@@ -86,7 +92,9 @@
     [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
     
-    self.navigationItem.rightBarButtonItems = @[playlistBarButtonItem, pinSongBarButtonItem];
+    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
+    
+    self.navigationItem.rightBarButtonItems = @[playlistBarButtonItem, pinSongBarButtonItem, saveBarButtonItem];
 }
 
 
@@ -99,10 +107,19 @@
 -(void)pinSongButtonPressed:id {
     NSLog(@"pin song button tapped");
     
+    // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
     pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
     pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
+    pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
+    
+    // Add song array to playlist
+    NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
+    [arrayForThisSong addObject:pinnedSong.artistName];
+    [arrayForThisSong addObject:pinnedSong.songName];
+    [self.playlistForThisEntry addObject:arrayForThisSong];
+    
     [self.destinationEntry addSongsObject:pinnedSong];
     NSLog(@"%@" , self.destinationEntry.songs);
 }
@@ -117,8 +134,12 @@
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         
+        
         // make destination entry's NSSet into Array
-//        dvc.playlistForThisEntry = 
+        // Sort by date of Pin
+//        NSArray *playlistArrayForThisEntry = [[self.destinationEntry.songs allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinnedAt" ascending:YES]]];
+
+        dvc.playlistForThisEntry = self.playlistForThisEntry;
     }
     
     
