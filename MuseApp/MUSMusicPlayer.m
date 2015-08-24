@@ -22,8 +22,7 @@
     self = [super init];
     
     if (self) {
-        _myPlayer = [MPMusicPlayerController systemMusicPlayer];
-        
+        _myPlayer = [[MPMusicPlayerController  alloc] init];
         // set currently playing song on instantiation
         self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
         [self enableSongListeningNotifications];
@@ -32,7 +31,7 @@
 }
 
 
--(NSMutableArray *)loadMPMediaItemsFromPlaylist:(NSArray *)playlist {
+-(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist {
 
 NSMutableArray *playlistCollection = [[NSMutableArray alloc] init];
 
@@ -54,15 +53,20 @@ if (playlist.count > 0) {
         [songAndArtistQuery addFilterPredicate:artistPredicate];
         [songAndArtistQuery addFilterPredicate:songPredicate];
         
-        // I have to store the queried songs in an NSArray
+        // Store the queried MPMediaItems in an NSArray
         NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];
         [playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
     }
-}
+    
+    MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:playlistCollection];
+    
+    NSLog(@"%@",playlistCollection);
+    return currentPlaylistCollection;
 
-NSLog(@"%@",playlistCollection);
-return playlistCollection;
+ }
+    // add MPMediaItems into MPMediaCollection
 
+    return nil;
 }
 
 

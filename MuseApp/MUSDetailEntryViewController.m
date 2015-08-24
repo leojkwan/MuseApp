@@ -25,9 +25,8 @@
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) UIImage *coverImage;
-@property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) MUSDataStore *store;
-@property (nonatomic, strong) NSMutableArray *playlistForThisEntry;
+@property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @end
@@ -39,14 +38,14 @@
     self.store = [MUSDataStore sharedDataStore];
     
     // set music player
-    self.musicPlayer = [[MUSMusicPlayer alloc] init];
     [self setUpRightNavBar];
     
     
     //Convert entry NSSet into appropriate MutableArray
-    self.playlistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
+    self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-    
+    // play playlist
+    [self playPlaylistForThisEntry];
     
     self.textView.text = self.destinationEntry.titleOfEntry;
     
@@ -69,6 +68,13 @@
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
     
+}
+
+-(void)playPlaylistForThisEntry {
+    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    MPMediaItemCollection *playlistCollectionForThisEntry = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
+    [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+    [self.musicPlayer.myPlayer play];
 }
 
 
@@ -124,7 +130,7 @@
         NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
         [arrayForThisSong addObject:pinnedSong.artistName];
         [arrayForThisSong addObject:pinnedSong.songName];
-        [self.playlistForThisEntry addObject:arrayForThisSong];
+        [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
     
     // Add song array to playlist
         [self.destinationEntry addSongsObject:pinnedSong];
@@ -144,7 +150,7 @@
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
-        dvc.playlistForThisEntry = self.playlistForThisEntry;
+        dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
     }
     
     
