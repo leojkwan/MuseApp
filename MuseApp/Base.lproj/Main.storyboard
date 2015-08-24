@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AqN-Ha-MZr">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -241,7 +242,7 @@ On to Week 5.
         <!--Playlist View Controller-->
         <scene sceneID="byn-GK-WCn">
             <objects>
-                <viewController id="EiH-fH-8rA" customClass="MUSPlaylistViewController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="EiH-fH-8rA" customClass="MUSPlaylistViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a6N-vX-rXf"/>
                         <viewControllerLayoutGuide type="bottom" id="v9T-cq-Y6K"/>
@@ -249,7 +250,26 @@ On to Week 5.
                     <view key="view" contentMode="scaleToFill" id="gbg-yd-B8e">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfo-qx-7Ho">
+                                <rect key="frame" x="539" y="30" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pfo-qx-7Ho" secondAttribute="height" multiplier="1:1" id="kTX-E9-eWF"/>
+                                    <constraint firstAttribute="width" constant="35" id="zHK-Je-dX3"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="quitButton">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="exitButtonPressed:" destination="EiH-fH-8rA" eventType="touchUpInside" id="xrI-lP-FHN"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pfo-qx-7Ho" firstAttribute="top" secondItem="a6N-vX-rXf" secondAttribute="bottom" constant="10" id="bEB-v4-dqZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pfo-qx-7Ho" secondAttribute="trailing" constant="10" id="bag-Ax-DOg"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ci-1Y-Ic6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -277,5 +297,6 @@ On to Week 5.
     </scenes>
     <resources>
         <image name="drink" width="200" height="200"/>
+        <image name="quitButton" width="47" height="47"/>
     </resources>
 </document>

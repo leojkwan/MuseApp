@@ -96,7 +96,7 @@
 
 -(void)playlistButtonPressed:id {
     NSLog(@"playlist button tapped");
-
+    [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }
 
 -(void)pinSongButtonPressed:id {

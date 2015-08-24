@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		940A85E21B8B9697008C5D2E /* UIButton+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */; };
+		940A85E51B8B99B9008C5D2E /* MUSPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85E41B8B99B9008C5D2E /* MUSPlaylistViewController.m */; };
 		9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */; };
 		944994411B8A1DF400A3E6CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994401B8A1DF400A3E6CF /* main.m */; };
 		944994441B8A1DF400A3E6CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994431B8A1DF400A3E6CF /* AppDelegate.m */; };
@@ -40,6 +41,8 @@
 		8DBE9CBC1F7E542A4F577310 /* libPods-MuseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ExtraMethods.h"; sourceTree = "<group>"; };
 		940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ExtraMethods.m"; sourceTree = "<group>"; };
+		940A85E31B8B99B9008C5D2E /* MUSPlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSPlaylistViewController.h; sourceTree = "<group>"; };
+		940A85E41B8B99B9008C5D2E /* MUSPlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSPlaylistViewController.m; sourceTree = "<group>"; };
 		9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSEntryTableViewCell.h; sourceTree = "<group>"; };
 		9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSEntryTableViewCell.m; sourceTree = "<group>"; };
 		9449943B1B8A1DF400A3E6CF /* MuseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +128,8 @@
 		9438AA651B8A545700644EB8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				940A85E31B8B99B9008C5D2E /* MUSPlaylistViewController.h */,
+				940A85E41B8B99B9008C5D2E /* MUSPlaylistViewController.m */,
 				94DEB3141B8A2C1C001509C9 /* MUSAllEntriesViewController.h */,
 				94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */,
 				94DEB31A1B8A2EE8001509C9 /* MUSDetailEntryViewController.h */,
@@ -342,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				940A85E51B8B99B9008C5D2E /* MUSPlaylistViewController.m in Sources */,
 				94939D3B1B8B7618003396ED /* MUSMusicPlayer.m in Sources */,
 				94DEB3311B8A52B1001509C9 /* Song.m in Sources */,
 				944994471B8A1DF400A3E6CF /* MuseApp.xcdatamodeld in Sources */,
