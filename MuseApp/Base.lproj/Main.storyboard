@@ -28,11 +28,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gqG-Ad-0h7" id="eNI-8R-pxV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="drink" translatesAutoresizingMaskIntoConstraints="NO" id="55p-TK-tee">
+                                                <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="drink" translatesAutoresizingMaskIntoConstraints="NO" id="55p-TK-tee">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="292.5"/>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
-                                                    <rect key="frame" x="5" y="146" width="590" height="146"/>
+                                                <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
+                                                    <rect key="frame" x="13" y="133.5" width="574" height="146"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSL-DH-6Ad">
                                                             <rect key="frame" x="14" y="117" width="41" height="20.5"/>
@@ -41,19 +41,19 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Of Post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uYC-2K-Gz3">
-                                                            <rect key="frame" x="247.5" y="38" width="95" height="20.5"/>
+                                                            <rect key="frame" x="239" y="38" width="95" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.98323074489999995" green="0.98323074489999995" blue="0.98323074489999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-b0-B8i">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Artist " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-b0-B8i">
                                                             <rect key="frame" x="524" y="117" width="45" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.98323074489999995" green="0.98323074489999995" blue="0.98323074489999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.73999999999999999" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="aca-b0-B8i" secondAttribute="bottom" constant="8.5" id="CLc-Pm-sJ3"/>
                                                         <constraint firstAttribute="centerX" secondItem="uYC-2K-Gz3" secondAttribute="centerX" id="GS5-26-emQ"/>
@@ -74,17 +74,18 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="55p-TK-tee" secondAttribute="trailing" id="1e3-eN-2DN"/>
-                                                <constraint firstItem="55p-TK-tee" firstAttribute="leading" secondItem="W4B-Pa-wld" secondAttribute="leading" constant="-5" id="4w5-Se-7RL"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="W4B-Pa-wld" secondAttribute="trailing" constant="5" id="AMk-Mw-pdb"/>
                                                 <constraint firstAttribute="bottom" secondItem="55p-TK-tee" secondAttribute="bottom" id="PV6-AV-Ami"/>
+                                                <constraint firstItem="W4B-Pa-wld" firstAttribute="leading" secondItem="eNI-8R-pxV" secondAttribute="leadingMargin" constant="5" id="Rpp-F0-YrR"/>
                                                 <constraint firstItem="55p-TK-tee" firstAttribute="leading" secondItem="eNI-8R-pxV" secondAttribute="leading" id="Sra-zO-6oX"/>
-                                                <constraint firstItem="55p-TK-tee" firstAttribute="trailing" secondItem="W4B-Pa-wld" secondAttribute="trailing" constant="5" id="UNm-42-mv3"/>
-                                                <constraint firstItem="W4B-Pa-wld" firstAttribute="height" secondItem="55p-TK-tee" secondAttribute="height" multiplier="1/2" id="Vbc-zj-YeL"/>
-                                                <constraint firstItem="55p-TK-tee" firstAttribute="bottom" secondItem="W4B-Pa-wld" secondAttribute="bottom" id="eFh-HS-uxj"/>
+                                                <constraint firstItem="W4B-Pa-wld" firstAttribute="height" secondItem="55p-TK-tee" secondAttribute="height" multiplier="1/2" id="lZt-bE-IaE"/>
                                                 <constraint firstItem="55p-TK-tee" firstAttribute="top" secondItem="eNI-8R-pxV" secondAttribute="top" id="ySD-1S-rNM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="W4B-Pa-wld" secondAttribute="bottom" constant="5" id="zdp-gT-NgE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="artistsLabel" destination="aca-b0-B8i" id="YMP-i7-IfT"/>
+                                            <outlet property="blurView" destination="W4B-Pa-wld" id="2p0-FA-YGe"/>
                                             <outlet property="createdAtLabel" destination="MSL-DH-6Ad" id="93n-ZZ-biG"/>
                                             <outlet property="entryImageView" destination="55p-TK-tee" id="bnF-9z-1xJ"/>
                                             <outlet property="entryTitleLabel" destination="uYC-2K-Gz3" id="dvU-7K-h8V"/>

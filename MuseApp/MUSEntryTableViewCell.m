@@ -12,12 +12,28 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    UIColor *color = self.blurView.backgroundColor;
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    if (selected){
+        self.blurView.backgroundColor = color;
+    }
 }
+
+-(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    UIColor *color = self.blurView.backgroundColor;
+    [super setHighlighted:highlighted animated:animated];
+    
+    if (highlighted){
+        self.blurView.backgroundColor = color;
+    }
+}
+
+
 
 @end
