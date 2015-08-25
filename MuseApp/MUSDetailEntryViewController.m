@@ -122,8 +122,6 @@
         Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
         newEntry.content = self.textView.text;
         newEntry.createdAt = [NSDate date];
-        
-        // get title of entry
         newEntry.titleOfEntry = [newEntry getTitleOfContent];
         [self.navigationController popViewControllerAnimated:YES];
 
@@ -133,6 +131,8 @@
         self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
     }
       [self.store save];
+    
+    // dismiss view controller
       [self.textView endEditing:YES];
 }
 

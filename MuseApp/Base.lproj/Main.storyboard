@@ -22,6 +22,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="293" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="Nrv-c5-FiE">
+                                    <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryCell" rowHeight="293" id="gqG-Ad-0h7" customClass="MUSEntryTableViewCell">
                                         <rect key="frame" x="0.0" y="275" width="600" height="50"/>
@@ -125,10 +130,20 @@
                     </navigationItem>
                     <connections>
                         <outlet property="entriesTableView" destination="cdu-m1-0ky" id="VwI-5t-7BB"/>
+                        <outlet property="entrySearchBar" destination="Nrv-c5-FiE" id="ZJV-a8-1Pc"/>
+                        <outlet property="searchDisplayController" destination="tug-bA-8Zp" id="jP4-MT-KEF"/>
                         <segue destination="YMB-QV-Zfr" kind="show" identifier="detailEntrySegue" id="4m1-OZ-cgF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="tug-bA-8Zp">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="UhL-GA-1Wh"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="lSm-wK-x0A"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="iYh-de-tug"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="bMM-Uy-deh"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1149" y="1331"/>
         </scene>

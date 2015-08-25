@@ -13,10 +13,13 @@
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
 
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
+@property (weak, nonatomic) IBOutlet UISearchBar *entrySearchBar;
 
 @end
 
@@ -24,18 +27,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // set shared datastore and table view delegate
     
         self.store = [MUSDataStore sharedDataStore];
         self.entriesTableView.delegate = self;
         self.entriesTableView.dataSource = self;
+
     
-    // create fetch controller instance
-    
+
+    // Create the sort descriptors array.
+
         NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
         entryFetch.sortDescriptors = @[sortDescriptor];
+    
+    
+    
+    
+    // create table view sections based on date
+   
+    
+    
+    
+    
+    
+    // Create and initialize the fetch results controller.
+
         self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
                                                                      managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         
@@ -46,6 +63,46 @@
         [self.resultsController performFetch:nil];
 
 }
+
+
+-(void)addSearchBar{
+    
+    // Create a UITableViewController to present search results since the actual view controller is not a subclass of UITableViewController in this case
+    UITableViewController *searchResultsController = [[UITableViewController alloc] init];
+    
+    // Init UISearchController with the search results controller
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
+    
+    // Link the search controller
+//    self.searchController.searchResultsUpdater = self;
+    
+    // This is obviously needed because the search bar will be contained in the navigation bar
+    self.searchController.hidesNavigationBarDuringPresentation = NO;
+    
+    // Required (?) to set place a search bar in a navigation bar
+    self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    
+    // This is where you set the search bar in the navigation bar, instead of using table view's header ...
+    self.entriesTableView.tableHeaderView = self.searchController.searchBar;
+
+    
+    // To ensure search results controller is presented in the current view controller
+    self.definesPresentationContext = YES;
+    
+    // Setting delegates and other stuff
+    searchResultsController.tableView.dataSource = self;
+    searchResultsController.tableView.delegate = self;
+    self.searchController.delegate = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    // Display the authors' names as section headings.
+    return [[[self.resultsController sections] objectAtIndex:section] name];
+}
+
 
 
 - (IBAction)addButtonPressed:(id)sender {
