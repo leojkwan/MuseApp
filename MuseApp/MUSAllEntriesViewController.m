@@ -91,13 +91,31 @@
         // Handle error
         exit(-1);
     }
-    
-    [self.entriesTableView reloadData];
 
+    [self.entriesTableView reloadData];
 }
 
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+   
+    // clear search
+     searchBar.text = @"";
+    NSPredicate *predicate = nil;
+    
+    [self.resultsController.fetchRequest setPredicate:predicate];
+    [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
+    
+    NSError *error = nil;
+    if (![[self resultsController] performFetch:&error]) {
+        // Handle error
+        exit(-1);
+    }
+    
+    // reload table view data!
+    [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
+
+    // hide keyboard and cancel button!
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
 }
@@ -110,13 +128,6 @@
     [searchBar setShowsCancelButton:YES animated:YES];
 
 }
-
--(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [searchBar setShowsCancelButton:NO animated:YES];
-    [searchBar resignFirstResponder];
-}
-
-
 
 
 
