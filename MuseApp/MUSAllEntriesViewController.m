@@ -103,22 +103,6 @@
 }
 
 
-//
-//- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-//{
-//    UIColor *backgroundColor = self..backgroundColor;
-//    [super setHighlighted:highlighted animated:animated];
-//    self.channelImageView.backgroundColor = backgroundColor;
-//}
-//
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-//{
-//    UIColor *backgroundColor = self.channelImageView.backgroundColor;
-//    [super setSelected:selected animated:animated];
-//    self.channelImageView.backgroundColor = backgroundColor;
-//}
-
-
 #pragma mark - NSFetchedResultsControllerDelegate methods
 
 -(void) controllerWillChangeContent:(NSFetchedResultsController *)controller {

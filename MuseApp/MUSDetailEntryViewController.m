@@ -17,15 +17,18 @@
 #import "UIButton+ExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
+#import <CRMediaPickerController.h>
 #import <UIScrollView+APParallaxHeader.h>
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, CRMediaPickerControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) UIImage *coverImage;
 @property (nonatomic, strong) MUSDataStore *store;
+@property (nonatomic, strong) CRMediaPickerController *mediaPickerController;
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
@@ -53,7 +56,7 @@
     
     // Set up parallax image
     self.coverImage = [UIImage imageNamed:@"drink"];
-//    [self.scrollView addParallaxWithImage:self.coverImage andHeight:300 andShadow:NO];
+    [self.scrollView addParallaxWithImage:self.coverImage andHeight:300 andShadow:NO];
     
     
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,9 +116,31 @@
     
     UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
     
-    self.navigationItem.rightBarButtonItems = @[playlistBarButtonItem, pinSongBarButtonItem, saveBarButtonItem];
+    UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
+    
+    self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
 }
 
+-(void)selectPhoto:id {
+    self.mediaPickerController = [[CRMediaPickerController alloc] init];
+    self.mediaPickerController.delegate = self;
+    self.mediaPickerController.mediaType = CRMediaPickerControllerMediaTypeImage;
+    self.mediaPickerController.sourceType = CRMediaPickerControllerSourceTypePhotoLibrary | CRMediaPickerControllerSourceTypeCamera | CRMediaPickerControllerSourceTypeLastPhotoTaken;
+    self.mediaPickerController.showsCameraControls = YES;
+    self.mediaPickerController.allowsEditing = YES;
+
+    [self.mediaPickerController show];
+}
+
+- (void)CRMediaPickerController:(CRMediaPickerController *)mediaPickerController didFinishPickingAsset:(ALAsset *)asset error:(NSError *)error {
+    
+    NSLog(@"CHOSE A PHOTO");
+    // Tells the delegate that the picking process is done and the media file is ready to use.
+    ALAssetRepresentation *representation = asset.defaultRepresentation;
+    UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage];
+    self.testImageView.image = image;
+    [self.scrollView addParallaxWithImage:image andHeight:300 andShadow:NO];
+}
 
 
 -(void)playlistButtonPressed:id {

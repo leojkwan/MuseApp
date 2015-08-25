@@ -142,9 +142,9 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGV-He-lkb" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="0uj-HI-Www"/>
@@ -203,13 +203,37 @@ On to Week 5.
                                             <constraint firstAttribute="trailing" secondItem="68a-QO-p1t" secondAttribute="trailing" id="yyf-pF-m8A"/>
                                         </constraints>
                                     </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="94J-ZJ-T5O">
+                                        <rect key="frame" x="150" y="276" width="300" height="165"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="165" id="Okb-GW-fgk"/>
+                                            <constraint firstAttribute="width" constant="300" id="Rif-sm-Ius"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="94J-ZJ-T5O" firstAttribute="top" secondItem="TGV-He-lkb" secondAttribute="top" constant="276" id="Kew-cr-KW6"/>
+                                    <constraint firstAttribute="bottom" secondItem="94J-ZJ-T5O" secondAttribute="bottom" constant="159" id="PHT-dD-7nA"/>
+                                    <constraint firstAttribute="bottom" secondItem="94J-ZJ-T5O" secondAttribute="bottom" constant="159" id="RSY-e6-dzu"/>
+                                    <constraint firstAttribute="centerX" secondItem="94J-ZJ-T5O" secondAttribute="centerX" id="UKq-Uw-RMm"/>
+                                    <constraint firstAttribute="bottom" secondItem="94J-ZJ-T5O" secondAttribute="bottom" constant="159" id="Ydy-dv-Rxk"/>
                                     <constraint firstAttribute="bottom" secondItem="ZUS-FP-YG9" secondAttribute="bottom" id="YhX-ei-NKI"/>
                                     <constraint firstItem="ZUS-FP-YG9" firstAttribute="leading" secondItem="TGV-He-lkb" secondAttribute="leading" id="aCA-yF-bxA"/>
+                                    <constraint firstItem="94J-ZJ-T5O" firstAttribute="top" secondItem="TGV-He-lkb" secondAttribute="top" constant="276" id="dHM-j4-Mup"/>
                                     <constraint firstAttribute="trailing" secondItem="ZUS-FP-YG9" secondAttribute="trailing" id="k1v-SA-ePC"/>
+                                    <constraint firstItem="94J-ZJ-T5O" firstAttribute="leading" secondItem="TGV-He-lkb" secondAttribute="leading" constant="164" id="qnw-CC-0ho"/>
+                                    <constraint firstAttribute="trailing" secondItem="94J-ZJ-T5O" secondAttribute="trailing" constant="229" id="wpk-km-BCv"/>
                                     <constraint firstItem="ZUS-FP-YG9" firstAttribute="top" secondItem="TGV-He-lkb" secondAttribute="top" id="yKy-iD-vSc"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PHT-dD-7nA"/>
+                                        <exclude reference="RSY-e6-dzu"/>
+                                        <exclude reference="dHM-j4-Mup"/>
+                                        <exclude reference="qnw-CC-0ho"/>
+                                        <exclude reference="wpk-km-BCv"/>
+                                    </mask>
+                                </variation>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -230,6 +254,7 @@ On to Week 5.
                     <connections>
                         <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
+                        <outlet property="testImageView" destination="94J-ZJ-T5O" id="VRq-NK-mYU"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
                         <outlet property="textViewHeightConstraint" destination="0uj-HI-Www" id="RY5-ms-xec"/>
                         <segue destination="EiH-fH-8rA" kind="custom" identifier="playlistSegue" customClass="AFBlurSegue" id="eaT-SP-hex"/>

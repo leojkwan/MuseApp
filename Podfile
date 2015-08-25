@@ -8,6 +8,7 @@ pod 'Masonry'
 pod 'PSPDFTextView'
 pod 'TPKeyboardAvoiding'
 pod 'AFBlurSegue', '~> 1.2.1'
+pod 'CRMediaPickerController'
 
 
 end
