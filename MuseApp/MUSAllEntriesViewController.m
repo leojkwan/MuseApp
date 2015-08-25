@@ -34,7 +34,7 @@
     // create fetch controller instance
     
         NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:YES];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
         entryFetch.sortDescriptors = @[sortDescriptor];
         self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
                                                                      managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
@@ -53,7 +53,9 @@
 }
 
 
-
+-(void)viewWillAppear:(BOOL)animated {
+    
+}
 
 
 #pragma mark - UITable View Delegate methods
@@ -94,7 +96,7 @@
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
 
     // set cell values
-    
+    NSLog(@"do you get callled in celll for row?");
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
 
@@ -166,6 +168,9 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    
+    // this reloads the table view data on reappearing
+    [self.entriesTableView reloadData];
     [self.entriesTableView endUpdates];
 }
 

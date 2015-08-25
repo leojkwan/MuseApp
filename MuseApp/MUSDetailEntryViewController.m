@@ -113,15 +113,17 @@
     
     if (self.destinationEntry == nil) {
         
+        // FOR NEW ENTRIES
         Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
         newEntry.content = self.textView.text;
+        newEntry.createdAt = [NSDate date];
         
         // get title of entry
         newEntry.titleOfEntry = [newEntry getTitleOfContent];
         [self.navigationController popViewControllerAnimated:YES];
 
     } else {
-    // for new entries
+        // FOR OLD ENTRIES
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
     }
