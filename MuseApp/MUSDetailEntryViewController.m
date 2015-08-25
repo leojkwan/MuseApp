@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (nonatomic, strong) UIImageView *coverImage;
+@property (nonatomic, strong) UIImageView *coverImageView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) CRMediaPickerController *mediaPickerController;
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
@@ -52,21 +52,21 @@
     // play playlist
     [self playPlaylistForThisEntry];
     
+    
+    // Set Text For This Entry
     self.textView.text = self.destinationEntry.titleOfEntry;
     
+    // Set Image For This Entry with Parallax
     
-    
-    // Set up parallax image
-    self.coverImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drink"]];
-    self.coverImage.contentMode = UIViewContentModeCenter;
+//    UIImage *dummyCoverImage = [UIImage imageNamed:@"drink"];
 
-    [self.coverImage setFrame:CGRectMake(0, 0, 1000, 300)];
-    
-    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+    UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
+    self.coverImageView = [[UIImageView alloc] initWithImage:entryCoverImage];
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:300];
     [self.scrollView.parallaxView setDelegate:self];
     
-    
-    
+//    
+//    
     
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.contentView.mas_height);
@@ -89,7 +89,6 @@
 
 -(void)playPlaylistForThisEntry {
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
-//    MPMediaItemCollection *playlistCollectionForThisEntry = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
     [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
         MPMediaItemCollection *playlistCollectionForThisEntry = response;
         
@@ -168,28 +167,18 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    self.coverImage.image =  [info objectForKey:UIImagePickerControllerEditedImage];
+    self.coverImageView.image = info[UIImagePickerControllerEditedImage];
 
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    // reset parallax image
-
-    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+    // update parallax image
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:300];
+    
+    
+    // SAVE TO CORE DATA!!
+    self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .7);
+    [self.store save];
 }
-
-
-
-//- (void)CRMediaPickerController:(CRMediaPickerController *)mediaPickerController didFinishPickingAsset:(ALAsset *)asset error:(NSError *)error {
-//    
-//    NSLog(@"CHOSE A PHOTO");
-//    // Tells the delegate that the picking process is done and the media file is ready to use.
-//    ALAssetRepresentation *representation = asset.defaultRepresentation;
-//    UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage];
-//    self.coverImage.image = image;
-////    [self.scrollView addParallaxWithView:self.coverImage andHeight:300];
-//    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
-//
-//}
 
 
 -(void)playlistButtonPressed:id {
