@@ -51,7 +51,6 @@
     
     
     if (self.destinationEntry != nil) {
-        NSLog(@" are you getting called from destination entry!");
     // play playlist
     [self playPlaylistForThisEntry];
     
@@ -69,20 +68,25 @@
     }
     
     
-    
         [self.textView sizeToFit]; //added
         [self.textView layoutIfNeeded]; //added
         
         self.textView.scrollEnabled = NO;
         [self.textView sizeToFit];
-//        self.textView.backgroundColor = [UIColor orangeColor];
+    
+
+    
 
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view.mas_width);
-
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
+    NSLog(@"THIS IS HOW BIG I AM %f", self.textView.bounds.size.height);
+    
+    
+    
+    
     
 }
 
