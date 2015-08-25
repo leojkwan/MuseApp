@@ -70,12 +70,13 @@
     
     
     
-    
-    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(self.scrollView.mas_height);
+        [self.textView sizeToFit]; //added
+        [self.textView layoutIfNeeded]; //added
+        
         self.textView.scrollEnabled = NO;
-        self.textView.backgroundColor = [UIColor orangeColor];
-    }];
+        [self.textView sizeToFit];
+//        self.textView.backgroundColor = [UIColor orangeColor];
+
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view.mas_width);
