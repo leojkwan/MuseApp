@@ -26,14 +26,14 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryCell" rowHeight="293" id="gqG-Ad-0h7" customClass="MUSEntryTableViewCell">
                                         <rect key="frame" x="0.0" y="275" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gqG-Ad-0h7" id="eNI-8R-pxV">
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gqG-Ad-0h7" id="eNI-8R-pxV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="drink" translatesAutoresizingMaskIntoConstraints="NO" id="55p-TK-tee">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="292.5"/>
+                                                <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="55p-TK-tee" userLabel="coverPhoto">
+                                                    <rect key="frame" x="0.0" y="0.5" width="600" height="292.5"/>
                                                 </imageView>
                                                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
-                                                    <rect key="frame" x="13" y="133.5" width="574" height="146"/>
+                                                    <rect key="frame" x="13" y="134" width="574" height="146"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSL-DH-6Ad">
                                                             <rect key="frame" x="14" y="117" width="41" height="20.5"/>
@@ -343,7 +343,6 @@ On to Week 5.
         </scene>
     </scenes>
     <resources>
-        <image name="drink" width="200" height="200"/>
         <image name="quitButton" width="47" height="47"/>
     </resources>
 </document>

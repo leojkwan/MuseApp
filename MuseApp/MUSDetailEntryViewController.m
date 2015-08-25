@@ -62,7 +62,7 @@
 
     UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
     self.coverImageView = [[UIImageView alloc] initWithImage:entryCoverImage];
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:300];
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500];
     [self.scrollView.parallaxView setDelegate:self];
     
 //    
@@ -167,12 +167,12 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    self.coverImageView.image = info[UIImagePickerControllerEditedImage];
+    self.coverImageView.image = info[UIImagePickerControllerOriginalImage];
 
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     // update parallax image
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:300];
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500];
     
     
     // SAVE TO CORE DATA!!

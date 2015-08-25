@@ -92,13 +92,12 @@
     
     MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-//    NSArray *songsArray = [entryForThisRow.songs allObjects];
 
+    // set cell values
     
+    cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
-//    Song *songForThisEntry = songsArray[0];
-//    cell.detailTextLabel.text = songForThisEntry.songName;
-//
+
     return cell;
 }
 
