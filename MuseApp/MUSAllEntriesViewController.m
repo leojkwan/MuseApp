@@ -51,18 +51,58 @@
 
         self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
                                                                      managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-        
+    
     
     // set fetch results delegate
-    
         self.resultsController.delegate = self;
         [self.resultsController performFetch:nil];
 
 }
 
+
+
+// filter search results
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     NSLog(@"%@",searchText);
+    
+    NSString *query = searchText;
+    if (query && query.length) {
+        
+        
+        // create a query
+        NSFetchRequest *request
+        = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"content contains[cd] %@", query];
+        
+        
+        [self.resultsController.fetchRequest setPredicate:predicate];
+        [self.resultsController.fetchRequest setFetchLimit:5]; //
+        
+        [self.store.managedObjectContext executeFetchRequest:request
+                                                                     error:nil];
+
+        
+    }
+    
+    NSError *error = nil;
+    if (![[self resultsController] performFetch:&error]) {
+        // Handle error
+        exit(-1);
+    }
+    
+    [self.entriesTableView reloadData];
+
 }
+
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [searchBar resignFirstResponder];
+}
+
+
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
@@ -77,10 +117,7 @@
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    // Display the authors' names as section headings.
-    return [[[self.resultsController sections] objectAtIndex:section] name];
-}
+
 
 
 
