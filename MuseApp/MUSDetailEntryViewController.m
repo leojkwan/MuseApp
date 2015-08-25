@@ -24,7 +24,7 @@
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -49,6 +49,9 @@
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
+    
+    if (self.destinationEntry != nil) {
+        NSLog(@" are you getting called from destination entry!");
     // play playlist
     [self playPlaylistForThisEntry];
     
@@ -57,19 +60,19 @@
     self.textView.text = self.destinationEntry.titleOfEntry;
     
     // Set Image For This Entry with Parallax
-    
-//    UIImage *dummyCoverImage = [UIImage imageNamed:@"drink"];
+
 
     UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
     self.coverImageView = [[UIImageView alloc] initWithImage:entryCoverImage];
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500];
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
     [self.scrollView.parallaxView setDelegate:self];
+    }
     
-//    
-//    
+    
+    
     
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(self.contentView.mas_height);
+        make.height.equalTo(self.scrollView.mas_height);
         self.textView.scrollEnabled = NO;
         self.textView.backgroundColor = [UIColor orangeColor];
     }];
@@ -108,14 +111,22 @@
 - (IBAction)saveButtonTapped:(id)sender {
     NSLog(@"ARE YOU GETTING CALLED?");
     
-    Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
-    newEntry.content = self.textView.text;
-    
-    // get title of entry
-    newEntry.titleOfEntry = [newEntry getTitleOfContent];
-    
-    [self.store save];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.destinationEntry == nil) {
+        
+        Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+        newEntry.content = self.textView.text;
+        
+        // get title of entry
+        newEntry.titleOfEntry = [newEntry getTitleOfContent];
+        [self.navigationController popViewControllerAnimated:YES];
+
+    } else {
+    // for new entries
+        self.destinationEntry.content = self.textView.text;
+        self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
+    }
+      [self.store save];
+      [self.textView endEditing:YES];
 }
 
 -(void)setUpRightNavBar {
@@ -127,7 +138,7 @@
     [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
     
-    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
+    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
     
     UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
     
@@ -172,7 +183,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     // update parallax image
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500];
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
     
     
     // SAVE TO CORE DATA!!
