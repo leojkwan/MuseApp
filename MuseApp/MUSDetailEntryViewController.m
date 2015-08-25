@@ -19,8 +19,10 @@
 #import "MUSMusicPlayer.h"
 #import <CRMediaPickerController.h>
 #import <UIScrollView+APParallaxHeader.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, CRMediaPickerControllerDelegate>
+
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
@@ -56,9 +58,12 @@
     
     // Set up parallax image
     self.coverImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drink"]];
-//    [self.scrollView addParallaxWithView:self.coverImage andHeight:300];
-    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+    self.coverImage.contentMode = UIViewContentModeCenter;
 
+    [self.coverImage setFrame:CGRectMake(0, 0, 1000, 300)];
+    
+    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+    [self.scrollView.parallaxView setDelegate:self];
     
     
     
@@ -76,6 +81,11 @@
     }];
     
 }
+
+- (void)parallaxView:(APParallaxView *)view didChangeFrame:(CGRect)frame {
+    NSLog(@"%f" , frame.size.height);
+}
+
 
 -(void)playPlaylistForThisEntry {
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
@@ -125,28 +135,61 @@
     self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
 }
 
--(void)selectPhoto:id {
-    self.mediaPickerController = [[CRMediaPickerController alloc] init];
-    self.mediaPickerController.delegate = self;
-    self.mediaPickerController.mediaType = CRMediaPickerControllerMediaTypeImage;
-    self.mediaPickerController.sourceType = CRMediaPickerControllerSourceTypePhotoLibrary | CRMediaPickerControllerSourceTypeCamera | CRMediaPickerControllerSourceTypeLastPhotoTaken;
-    self.mediaPickerController.showsCameraControls = YES;
-    self.mediaPickerController.allowsEditing = YES;
 
-    [self.mediaPickerController show];
-}
 
-- (void)CRMediaPickerController:(CRMediaPickerController *)mediaPickerController didFinishPickingAsset:(ALAsset *)asset error:(NSError *)error {
+-(void)selectPhoto:(id)sender {
     
-    NSLog(@"CHOSE A PHOTO");
-    // Tells the delegate that the picking process is done and the media file is ready to use.
-    ALAssetRepresentation *representation = asset.defaultRepresentation;
-    UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage];
-    self.coverImage.image = image;
-//    [self.scrollView addParallaxWithView:self.coverImage andHeight:300];
-    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    [actionSheet addButtonWithTitle:@"Take Photo"];
+    [actionSheet addButtonWithTitle:@"Select photo from camera"];
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+    actionSheet.cancelButtonIndex = 2;
+    [actionSheet showInView:self.view];
 
 }
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    };
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    imagePicker.allowsEditing = YES;
+    if (buttonIndex == 0 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else if (buttonIndex == 1 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    self.coverImage.image =  [info objectForKey:UIImagePickerControllerEditedImage];
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    // reset parallax image
+
+    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+}
+
+
+
+//- (void)CRMediaPickerController:(CRMediaPickerController *)mediaPickerController didFinishPickingAsset:(ALAsset *)asset error:(NSError *)error {
+//    
+//    NSLog(@"CHOSE A PHOTO");
+//    // Tells the delegate that the picking process is done and the media file is ready to use.
+//    ALAssetRepresentation *representation = asset.defaultRepresentation;
+//    UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage];
+//    self.coverImage.image = image;
+////    [self.scrollView addParallaxWithView:self.coverImage andHeight:300];
+//    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+//
+//}
 
 
 -(void)playlistButtonPressed:id {
