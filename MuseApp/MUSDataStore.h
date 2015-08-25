@@ -13,11 +13,13 @@
 @interface MUSDataStore : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSArray *entries;
+
 
 + (instancetype)sharedDataStore;
 
 - (void)save;
-- (NSArray *)fetchEntries;
+//- (void )fetchEntries;
 - (NSURL *)applicationDocumentsDirectory;
 
 

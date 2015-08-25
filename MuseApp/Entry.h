@@ -27,4 +27,7 @@
 - (void)addSongs:(NSSet *)values;
 - (void)removeSongs:(NSSet *)values;
 
+-(NSString *)getTitleOfContent;
+
+
 @end
