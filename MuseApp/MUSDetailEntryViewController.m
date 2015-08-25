@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (nonatomic, strong) UIImage *coverImage;
+@property (nonatomic, strong) UIImageView *coverImage;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) CRMediaPickerController *mediaPickerController;
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
@@ -55,8 +55,12 @@
     
     
     // Set up parallax image
-    self.coverImage = [UIImage imageNamed:@"drink"];
-    [self.scrollView addParallaxWithImage:self.coverImage andHeight:300 andShadow:NO];
+    self.coverImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drink"]];
+//    [self.scrollView addParallaxWithView:self.coverImage andHeight:300];
+    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+
+    
+    
     
     
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,8 +142,10 @@
     // Tells the delegate that the picking process is done and the media file is ready to use.
     ALAssetRepresentation *representation = asset.defaultRepresentation;
     UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage];
-    self.testImageView.image = image;
-    [self.scrollView addParallaxWithImage:image andHeight:300 andShadow:NO];
+    self.coverImage.image = image;
+//    [self.scrollView addParallaxWithView:self.coverImage andHeight:300];
+    [self.scrollView addParallaxWithImage:self.coverImage.image andHeight:300];
+
 }
 
 
