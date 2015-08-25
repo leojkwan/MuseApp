@@ -31,7 +31,7 @@
 }
 
 
--(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist {
+-(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block {
 
 NSMutableArray *playlistCollection = [[NSMutableArray alloc] init];
 
@@ -55,23 +55,21 @@ if (playlist.count > 0) {
         
         // Store the queried MPMediaItems in an NSArray
         NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];
+        
+        // add MPMediaItems into MPMediaCollection
         [playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
     }
     
     MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:playlistCollection];
     
-    NSLog(@"%@",playlistCollection);
-    return currentPlaylistCollection;
-
+    block(currentPlaylistCollection);
  }
-    // add MPMediaItems into MPMediaCollection
 
+    //else
     return nil;
 }
 
-
-
--(BOOL)checkIfSongIsInLocalLibrary:(NSString *)songString {
+-(void)checkIfSongIsInLocalLibrary:(NSString *)songString withCompletionBlock:(void (^) (BOOL)) completionBlock {
     
     MPMediaQuery *everything = [[MPMediaQuery alloc] init];
     NSArray *allSongs = [everything items];
@@ -79,10 +77,10 @@ if (playlist.count > 0) {
     
     for (MPMediaItem *song in allSongs) {
         if ([song.title isEqualToString:songString]) {
-            return YES;
+            completionBlock(YES);
         }
     }
-    return NO;
+    completionBlock(NO);
 }
 
 -(void) enableSongListeningNotifications {

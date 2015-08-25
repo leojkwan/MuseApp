@@ -37,7 +37,7 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     
-    // set music player
+    //Set up nav bar
     [self setUpRightNavBar];
     
     
@@ -72,9 +72,16 @@
 
 -(void)playPlaylistForThisEntry {
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
-    MPMediaItemCollection *playlistCollectionForThisEntry = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
-    [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-    [self.musicPlayer.myPlayer play];
+//    MPMediaItemCollection *playlistCollectionForThisEntry = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
+    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+        MPMediaItemCollection *playlistCollectionForThisEntry = response;
+        
+        // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
+        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+        [self.musicPlayer.myPlayer play];
+    }];
+    
+
 }
 
 

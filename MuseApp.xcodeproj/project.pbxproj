@@ -103,19 +103,35 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		9438AA631B8A543A00644EB8 /* Models */ = {
+		940ACD2F1B8BE8660029230B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				940ACD2C1B8BA5CA0029230B /* NSSet+MUSExtraMethod.h */,
 				940ACD2D1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m */,
+				940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */,
+				940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		940ACD301B8BE8A00029230B /* Datastores */ = {
+			isa = PBXGroup;
+			children = (
+				94DEB2F61B8A20EE001509C9 /* MUSDataStore.h */,
+				94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */,
+			);
+			name = Datastores;
+			sourceTree = "<group>";
+		};
+		9438AA631B8A543A00644EB8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				940A85E61B8BA0F3008C5D2E /* Song.h */,
 				940A85E71B8BA0F3008C5D2E /* Song.m */,
 				940A85E81B8BA0F3008C5D2E /* Entry.h */,
 				940A85E91B8BA0F3008C5D2E /* Entry.m */,
 				94939D391B8B7618003396ED /* MUSMusicPlayer.h */,
 				94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */,
-				940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */,
-				940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */,
 				9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */,
 				9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */,
 			);
@@ -166,14 +182,14 @@
 		9449943D1B8A1DF400A3E6CF /* MuseApp */ = {
 			isa = PBXGroup;
 			children = (
+				940ACD2F1B8BE8660029230B /* Categories */,
 				9438AA641B8A544400644EB8 /* Views */,
+				940ACD301B8BE8A00029230B /* Datastores */,
 				9438AA631B8A543A00644EB8 /* Models */,
 				9438AA651B8A545700644EB8 /* View Controllers */,
 				9449944E1B8A1DF400A3E6CF /* Images.xcassets */,
 				944994501B8A1DF400A3E6CF /* LaunchScreen.xib */,
 				944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */,
-				94DEB2F61B8A20EE001509C9 /* MUSDataStore.h */,
-				94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */,
 				9449943E1B8A1DF400A3E6CF /* Supporting Files */,
 			);
 			path = MuseApp;

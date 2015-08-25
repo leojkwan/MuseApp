@@ -19,7 +19,8 @@
 
 
 -(instancetype)init;
--(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist;
+-(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block;
+
 -(void)removeMusicNotifications;
 
 
