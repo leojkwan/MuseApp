@@ -100,12 +100,12 @@
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     if ([textView.text length] < 700) {
-        
         NSLog(@"DO YOU EVER GET CALLED IN VIEW DID CHANGE TEXT VIEW?");
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@500);
         }];
     } else {
+        NSLog(@"i am bigger than 700");
         [textView sizeToFit];
         [textView layoutIfNeeded];
     }
