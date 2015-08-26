@@ -138,8 +138,10 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    
+    [self.entriesTableView reloadData];
 }
+
+
 
 
 #pragma mark - UITable View Delegate methods

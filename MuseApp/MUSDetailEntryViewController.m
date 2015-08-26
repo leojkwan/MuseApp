@@ -68,13 +68,15 @@
     }
     
     
-        [self.textView sizeToFit]; //added
-        [self.textView layoutIfNeeded]; //added
-        
-        self.textView.scrollEnabled = NO;
-        [self.textView sizeToFit];
-    
-
+//        [self.textView sizeToFit]; //added
+//        [self.textView layoutIfNeeded]; //added
+//        
+//        self.textView.scrollEnabled = NO;
+//        [self.textView sizeToFit];
+//    
+    self.textView.delegate = self;
+    self.textView.text = self.destinationEntry.titleOfEntry;
+    [self checkSizeOfContentForTextView:self.textView];
     
 
     
@@ -88,6 +90,25 @@
     
     
     
+}
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    NSLog(@"text view is changing with %ld", [textView.text length]);
+    [self checkSizeOfContentForTextView:textView];
+}
+
+-(void)checkSizeOfContentForTextView:(UITextView *)textView{
+    if ([textView.text length] < 700) {
+        
+        NSLog(@"DO YOU EVER GET CALLED IN VIEW DID CHANGE TEXT VIEW?");
+        [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@500);
+        }];
+    } else {
+        [textView sizeToFit];
+        [textView layoutIfNeeded];
+    }
 }
 
 - (void)parallaxView:(APParallaxView *)view didChangeFrame:(CGRect)frame {
