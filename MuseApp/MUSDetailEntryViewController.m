@@ -58,10 +58,7 @@
     [self playPlaylistForThisEntry];
     
         
-    
-   
-    
-    
+        
     // Set Image For This Entry with Parallax
     [self.scrollView.parallaxView setDelegate:self];
         
@@ -76,9 +73,10 @@
     
     
     // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithFrame:CGRectMake(0, 0, 0, 50)];
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
+    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
-    
+    self.keyboardTopBar.delegate = self;
 
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,11 +86,17 @@
     NSLog(@"THIS IS HOW BIG I AM %f", self.textView.bounds.size.height);
     
     
-    // add keyboard delegate
-    self.keyboardTopBar.delegate = self;
-    
-    
-}
+//
+//    [self.navigationController setToolbarHidden:NO animated:YES];
+//    [self.navigationController.toolbar setBarStyle:UIBarStyleBlack];
+
+    // hacky as shit
+    MUSKeyboardTopBar *toolbar = [[MUSKeyboardTopBar alloc] initWithToolbar];
+    [toolbar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+
+    [self.navigationController.view addSubview:toolbar];
+     
+     }
 
 #pragma mark  - Keyboard delegate methods
 -(void)didSelectCameraButton:(id)sender {
@@ -176,6 +180,11 @@
     // dismiss view controller
       [self.textView endEditing:YES];
 }
+
+
+
+
+
 
 -(void)setUpRightNavBar {
     UIButton *pinSongButton = [UIButton createPinSongButton];

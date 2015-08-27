@@ -48,6 +48,27 @@
     return self;
 }
 
+
+
+-(instancetype)initWithToolbar{
+    self = [super init];
+    if (self) {
+        [self commonInit];
+        [self setUpToolBarButtons];
+    }
+    return self;
+}
+
+-(instancetype)initWithKeyboard {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+        [self setUpKeyboardButtons];
+    }
+    return self;
+}
+
+
 -(void)commonInit
 {
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class)
@@ -57,13 +78,30 @@
     // add content view to xib
     [self addSubview:self.contentView];
     
-    
-//    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    // set content view constraints to hug whatever frame is set in VC
+
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
     }];
+  }
+
+-(void)setUpToolBarButtons {
+    // create buttons array
+    self.barButtonItems = [[NSMutableArray alloc] init];
     
+    // set up bar buttons items in this order left to right
+    [self setUpCameraButton];
+    [self setUpFixedSpaceButtonOfWidth:15];
+    [self setUpPinSongButton];
+    [self setUpFixedSpaceButtonOfWidth:15];
+    [self setUpPlaylistButton];
+    [self setUpFlexSpaceButton];
+    
+    // after all buttons have been set... set array to toolbar
+    [self.keyboardToolBar setItems:self.barButtonItems animated:YES];
+    
+}
+
+-(void)setUpKeyboardButtons {
     // create buttons array
     self.barButtonItems = [[NSMutableArray alloc] init];
     
@@ -75,7 +113,7 @@
     [self setUpPlaylistButton];
     [self setUpFlexSpaceButton];
     [self setUpDoneButton];
-
+    
     
     // after all buttons have been set... set array to toolbar
     [self.keyboardToolBar setItems:self.barButtonItems animated:YES];

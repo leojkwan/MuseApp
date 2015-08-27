@@ -23,4 +23,7 @@
 @property (nonatomic, strong) UIBarButtonItem *cameraBarButtonItem;
 
 
+-(instancetype)initWithToolbar;
+-(instancetype)initWithKeyboard;
+
 @end
