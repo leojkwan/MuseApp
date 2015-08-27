@@ -69,6 +69,10 @@
     
     // set up bar buttons items in this order left to right
     [self setUpCameraButton];
+    [self setUpFixedSpaceButtonOfWidth:15];
+    [self setUpPinSongButton];
+    [self setUpFixedSpaceButtonOfWidth:15];
+    [self setUpPlaylistButton];
     [self setUpFlexSpaceButton];
     [self setUpDoneButton];
 
@@ -77,24 +81,51 @@
     [self.keyboardToolBar setItems:self.barButtonItems animated:YES];
 
 }
+
+
+#pragma mark - Create Buttons
+
+
 -(void)setUpCameraButton {
-    
-    // keyboard buttons array
-    
-    // set up camera button
-    UIButton* cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 25)];
+    UIButton* cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
     [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
     
     // set up camera bar button
     UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:cameraButton];
-    cameraBarButtonItem.tintColor = [UIColor yellowColor];
     [self.barButtonItems addObject:cameraBarButtonItem];
 }
+
+-(void)setUpPlaylistButton {
+    UIButton* seePlaylistButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
+    [seePlaylistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"equalizer"] forState:UIControlStateNormal];
+    
+    // set up camera bar button
+    UIBarButtonItem *seePlaylistBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:seePlaylistButton];
+    [self.barButtonItems addObject:seePlaylistBarButtonItem];
+}
+
+-(void)setUpPinSongButton {
+
+    UIButton* addSongButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [addSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [addSongButton setBackgroundImage:[UIImage imageNamed:@"addToPlaylist"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *addSongBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:addSongButton];
+    [self.barButtonItems addObject:addSongBarButtonItem];
+}
+
 
 -(void)setUpFlexSpaceButton {
     UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [self.barButtonItems addObject:flexibleSpaceBarButtonItem];
+}
+
+-(void)setUpFixedSpaceButtonOfWidth:(CGFloat)width {
+    UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpaceBarButtonItem.width = width;
+    [self.barButtonItems addObject:fixedSpaceBarButtonItem];
 }
 
 -(void)setUpDoneButton {
@@ -102,21 +133,33 @@
     // set up done bar button
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
     
-    NSDictionary *doneBarButtonItemAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"Avenir-Medium" size:17.0], NSForegroundColorAttributeName: [UIColor yellowColor]};
+    NSDictionary *doneBarButtonItemAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:20.0], NSForegroundColorAttributeName: [UIColor yellowColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:doneBarButtonItemAppearanceDict forState:UIControlStateNormal];
     [self.barButtonItems addObject:doneBarButtonItem];
 }
 
+
+
+
+
+#pragma mark - Button Actions
+
+
+-(void)seePlaylistButtonPressed:(id)sender {
+    NSLog(@"seePlaylistButtonPressed");
+    [self.delegate didSelectPlaylistButton:sender];
+}
+
 -(void)doneButtonPressed:(id)sender{
     NSLog(@"doneButtonPressed");
+    [self.delegate didSelectDoneButton:sender];;
 }
-                                          
-                                
 
 
-
-
-
+-(void)pinSongButtonPressed:(id)sender {
+    NSLog(@"pinSongButtonPressed");
+    [self.delegate didSelectAddSongButton:sender];
+}
 
 
 #pragma mark - Button Pressed methods

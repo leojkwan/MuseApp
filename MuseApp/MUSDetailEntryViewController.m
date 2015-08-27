@@ -76,7 +76,7 @@
     
     
     // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithFrame:CGRectMake(0, 0, 0, 40)];
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     
 
@@ -96,8 +96,19 @@
 
 #pragma mark  - Keyboard delegate methods
 -(void)didSelectCameraButton:(id)sender {
-    NSLog(@"CAMERA BUTTON PRESSED BEING CALLED IN VIEW CONTROLLER!!!");
     [self selectPhoto:sender];
+}
+
+-(void)didSelectDoneButton:(id)sender {
+    [self saveButtonTapped:sender];
+}
+
+-(void)didSelectAddSongButton:(id)sender {
+    [self pinSongButtonPressed:sender];
+}
+
+-(void)didSelectPlaylistButton:(id)sender {
+    [self playlistButtonPressed:sender];
 }
 
 
@@ -230,12 +241,10 @@
 
 
 -(void)playlistButtonPressed:id {
-    NSLog(@"playlist button tapped");
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }
 
 -(void)pinSongButtonPressed:id {
-    NSLog(@"pin song button tapped");
     
     // Create managed object on CoreData
         Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];

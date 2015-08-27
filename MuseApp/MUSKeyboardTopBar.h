@@ -11,6 +11,9 @@
 @protocol MUSKeyboardInputDelegate <NSObject>
 
 -(void)didSelectCameraButton:(id)sender;
+-(void)didSelectDoneButton:(id)sender;
+-(void)didSelectPlaylistButton:(id)sender;
+-(void)didSelectAddSongButton:(id)sender;
 
 @end
 
