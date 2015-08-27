@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
+@property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
+
 @end
 
 @implementation MUSDetailEntryViewController
@@ -46,7 +48,7 @@
     self.store = [MUSDataStore sharedDataStore];
     
     //Set up nav bar
-    [self setUpRightNavBar];
+//    [self setUpRightNavBar];
     
     
     //Convert entry NSSet into appropriate MutableArray
@@ -83,19 +85,24 @@
         make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-    NSLog(@"THIS IS HOW BIG I AM %f", self.textView.bounds.size.height);
     
     
 //
-//    [self.navigationController setToolbarHidden:NO animated:YES];
-//    [self.navigationController.toolbar setBarStyle:UIBarStyleBlack];
-
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    
+    
+    
+    
+    
+    
     // hacky as shit
-    MUSKeyboardTopBar *toolbar = [[MUSKeyboardTopBar alloc] initWithToolbar];
-    [toolbar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
+    self.MUSToolBar.delegate = self;
+    [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
 
-    [self.navigationController.view addSubview:toolbar];
-     
+    [self.navigationController.view addSubview:self.MUSToolBar];
+    
      }
 
 #pragma mark  - Keyboard delegate methods
@@ -114,6 +121,11 @@
 -(void)didSelectPlaylistButton:(id)sender {
     [self playlistButtonPressed:sender];
 }
+
+-(void)didSelectBackButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 -(void)textViewDidChange:(UITextView *)textView
@@ -156,9 +168,10 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [self.musicPlayer removeMusicNotifications];
+    [self.MUSToolBar setHidden:YES];
 }
 
-- (IBAction)saveButtonTapped:(id)sender {
+- (void)saveButtonTapped:(id)sender {
     NSLog(@"ARE YOU GETTING CALLED?");
     
     if (self.destinationEntry == nil) {
@@ -182,26 +195,23 @@
 }
 
 
-
-
-
-
--(void)setUpRightNavBar {
-    UIButton *pinSongButton = [UIButton createPinSongButton];
-    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *pinSongBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
-    
-    UIButton *playlistButton = [UIButton createPlaylistButton];
-    [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
-    
-    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
-    
-    UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
-    
-    self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
-}
-
+//
+//-(void)setUpRightNavBar {
+//    UIButton *pinSongButton = [UIButton createPinSongButton];
+//    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *pinSongBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
+//    
+//    UIButton *playlistButton = [UIButton createPlaylistButton];
+//    [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
+//    
+//    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
+//    
+//    UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
+//    
+//    self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
+//}
+//
 
 
 -(void)selectPhoto:(id)sender {

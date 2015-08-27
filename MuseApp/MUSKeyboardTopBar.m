@@ -11,7 +11,9 @@
 @interface MUSKeyboardTopBar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIToolbar *keyboardToolBar;
-@property (nonatomic, strong) NSMutableArray *barButtonItems;
+@property (nonatomic, strong) NSMutableArray *keyboardButtonItems;
+@property (nonatomic, strong) NSMutableArray *toolbarButtonItems;
+
 
 @end
 
@@ -69,8 +71,7 @@
 }
 
 
--(void)commonInit
-{
+-(void)commonInit {
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class)
                                   owner:self
                                 options:nil];
@@ -84,39 +85,42 @@
     }];
   }
 
+
+//
 -(void)setUpToolBarButtons {
-    // create buttons array
-    self.barButtonItems = [[NSMutableArray alloc] init];
+self.toolbarButtonItems = [[NSMutableArray alloc] init];
+
+// set up bar buttons items in this order left to right
     
-    // set up bar buttons items in this order left to right
-    [self setUpCameraButton];
-    [self setUpFixedSpaceButtonOfWidth:15];
-    [self setUpPinSongButton];
-    [self setUpFixedSpaceButtonOfWidth:15];
-    [self setUpPlaylistButton];
-    [self setUpFlexSpaceButton];
-    
-    // after all buttons have been set... set array to toolbar
-    [self.keyboardToolBar setItems:self.barButtonItems animated:YES];
-    
+[self.toolbarButtonItems addObject:[self backButton]];
+[self.toolbarButtonItems addObject:[self flexSpaceButton]];
+[self.toolbarButtonItems addObject:[self cameraButton]];
+[self.toolbarButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+[self.toolbarButtonItems addObject:[self pinSongButton]];
+[self.toolbarButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+[self.toolbarButtonItems addObject:[self playlistButton]];
+
+
+// after all buttons have been set... set array to toolbar
+[self.keyboardToolBar setItems:self.toolbarButtonItems animated:YES];
 }
 
 -(void)setUpKeyboardButtons {
     // create buttons array
-    self.barButtonItems = [[NSMutableArray alloc] init];
+    self.keyboardButtonItems = [[NSMutableArray alloc] init];
     
     // set up bar buttons items in this order left to right
-    [self setUpCameraButton];
-    [self setUpFixedSpaceButtonOfWidth:15];
-    [self setUpPinSongButton];
-    [self setUpFixedSpaceButtonOfWidth:15];
-    [self setUpPlaylistButton];
-    [self setUpFlexSpaceButton];
-    [self setUpDoneButton];
+    [self.keyboardButtonItems addObject:[self cameraButton]];
+    [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+    [self.keyboardButtonItems addObject:[self pinSongButton]];
+    [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+    [self.keyboardButtonItems addObject:[self playlistButton]];
+    [self.keyboardButtonItems addObject:[self flexSpaceButton]];
+    [self.keyboardButtonItems addObject:[self doneButton]];
     
     
     // after all buttons have been set... set array to toolbar
-    [self.keyboardToolBar setItems:self.barButtonItems animated:YES];
+    [self.keyboardToolBar setItems:self.keyboardButtonItems animated:YES];
 
 }
 
@@ -124,56 +128,68 @@
 #pragma mark - Create Buttons
 
 
--(void)setUpCameraButton {
+-(UIBarButtonItem *)cameraButton {
     UIButton* cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
     [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
     
     // set up camera bar button
     UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:cameraButton];
-    [self.barButtonItems addObject:cameraBarButtonItem];
+    return cameraBarButtonItem;
 }
 
--(void)setUpPlaylistButton {
+-(UIBarButtonItem *)backButton {
+    UIButton* backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    
+    // set up camera bar button
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:backButton];
+    return backBarButtonItem;
+}
+
+
+
+-(UIBarButtonItem *)playlistButton {
     UIButton* seePlaylistButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
     [seePlaylistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"equalizer"] forState:UIControlStateNormal];
     
     // set up camera bar button
     UIBarButtonItem *seePlaylistBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:seePlaylistButton];
-    [self.barButtonItems addObject:seePlaylistBarButtonItem];
+    return seePlaylistBarButtonItem;
 }
 
--(void)setUpPinSongButton {
+-(UIBarButtonItem *)pinSongButton {
 
     UIButton* addSongButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
     [addSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [addSongButton setBackgroundImage:[UIImage imageNamed:@"addToPlaylist"] forState:UIControlStateNormal];
     
     UIBarButtonItem *addSongBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:addSongButton];
-    [self.barButtonItems addObject:addSongBarButtonItem];
+    return addSongBarButtonItem;
 }
 
 
--(void)setUpFlexSpaceButton {
+-(UIBarButtonItem *)flexSpaceButton {
     UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [self.barButtonItems addObject:flexibleSpaceBarButtonItem];
+    return flexibleSpaceBarButtonItem;
 }
 
--(void)setUpFixedSpaceButtonOfWidth:(CGFloat)width {
+-(UIBarButtonItem *)fixedSpaceButtonOfWidth:(CGFloat)width {
     UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpaceBarButtonItem.width = width;
-    [self.barButtonItems addObject:fixedSpaceBarButtonItem];
+    return fixedSpaceBarButtonItem;
 }
 
--(void)setUpDoneButton {
+-(UIBarButtonItem *)doneButton {
 
     // set up done bar button
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
     
     NSDictionary *doneBarButtonItemAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-DemiBold" size:20.0], NSForegroundColorAttributeName: [UIColor yellowColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:doneBarButtonItemAppearanceDict forState:UIControlStateNormal];
-    [self.barButtonItems addObject:doneBarButtonItem];
+    return doneBarButtonItem;
 }
 
 
@@ -193,6 +209,10 @@
     [self.delegate didSelectDoneButton:sender];;
 }
 
+-(void)backButtonPressed:(id)sender {
+    [self.delegate didSelectBackButton:sender];
+}
+
 
 -(void)pinSongButtonPressed:(id)sender {
     NSLog(@"pinSongButtonPressed");
@@ -205,23 +225,4 @@
     NSLog(@"cameraButtonPressed");
     [self.delegate didSelectCameraButton:sender];
 }
-
-//
-//-(void)setUpRightNavBar {
-//    UIButton *pinSongButton = [UIButton createPinSongButton];
-//    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *pinSongBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
-//    
-//    UIButton *playlistButton = [UIButton createPlaylistButton];
-//    [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
-//    
-//    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
-//    
-//    UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
-//    
-//    self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
-//}
-
-
 @end
