@@ -147,7 +147,7 @@
             </objects>
             <point key="canvasLocation" x="1149" y="1331"/>
         </scene>
-        <!--Title-->
+        <!--Detail Entry View Controller-->
         <scene sceneID="sch-Iy-1Au">
             <objects>
                 <viewController id="YMB-QV-Zfr" customClass="MUSDetailEntryViewController" sceneMemberID="viewController">
@@ -204,13 +204,6 @@
                             <constraint firstAttribute="bottomMargin" secondItem="TGV-He-lkb" secondAttribute="bottom" id="swd-V6-xFx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="vTa-Qg-iqP">
-                        <barButtonItem key="rightBarButtonItem" title="save" id="EcT-81-o47">
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="YMB-QV-Zfr" id="T0v-87-9Ih"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
@@ -260,7 +253,9 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fHh-Qc-99H" id="A1q-oN-Fs3">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

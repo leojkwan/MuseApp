@@ -19,10 +19,12 @@
 #import "MUSMusicPlayer.h"
 #import <CRMediaPickerController.h>
 #import <UIScrollView+APParallaxHeader.h>
+#import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "MUSKeyboardTopBar.h"
 
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
 
 //@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
@@ -34,6 +36,9 @@
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
+@property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
+@property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
+
 @end
 
 @implementation MUSDetailEntryViewController
@@ -43,7 +48,7 @@
     self.store = [MUSDataStore sharedDataStore];
     
     //Set up nav bar
-    [self setUpRightNavBar];
+//    [self setUpRightNavBar];
     
     
     //Convert entry NSSet into appropriate MutableArray
@@ -54,43 +59,74 @@
     // play playlist
     [self playPlaylistForThisEntry];
     
-    
-    // Set Text For This Entry
-    self.textView.text = self.destinationEntry.titleOfEntry;
-    
+        
+        
     // Set Image For This Entry with Parallax
-
-
+    [self.scrollView.parallaxView setDelegate:self];
+        
     UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
     self.coverImageView = [[UIImageView alloc] initWithImage:entryCoverImage];
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
-    [self.scrollView.parallaxView setDelegate:self];
     }
     
-    
-//        [self.textView sizeToFit]; //added
-//        [self.textView layoutIfNeeded]; //added
-//        
-//        self.textView.scrollEnabled = NO;
-//        [self.textView sizeToFit];
-//    
     self.textView.delegate = self;
     self.textView.text = self.destinationEntry.titleOfEntry;
     [self checkSizeOfContentForTextView:self.textView];
     
+    
+    // Set up textview toolbar input
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
+    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
+    self.textView.inputAccessoryView = self.keyboardTopBar;
+    self.keyboardTopBar.delegate = self;
 
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-    NSLog(@"THIS IS HOW BIG I AM %f", self.textView.bounds.size.height);
+    
+    
+//
+    [self.navigationController setNavigationBarHidden:YES];
     
     
     
     
     
+    
+    
+    // hacky as shit
+    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
+    self.MUSToolBar.delegate = self;
+    [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+
+    [self.navigationController.view addSubview:self.MUSToolBar];
+    
+     }
+
+#pragma mark  - Keyboard delegate methods
+-(void)didSelectCameraButton:(id)sender {
+    [self selectPhoto:sender];
 }
+
+-(void)didSelectDoneButton:(id)sender {
+    [self saveButtonTapped:sender];
+}
+
+-(void)didSelectAddSongButton:(id)sender {
+    [self pinSongButtonPressed:sender];
+}
+
+-(void)didSelectPlaylistButton:(id)sender {
+    [self playlistButtonPressed:sender];
+}
+
+-(void)didSelectBackButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 
 -(void)textViewDidChange:(UITextView *)textView
 {
@@ -132,9 +168,10 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [self.musicPlayer removeMusicNotifications];
+    [self.MUSToolBar setHidden:YES];
 }
 
-- (IBAction)saveButtonTapped:(id)sender {
+- (void)saveButtonTapped:(id)sender {
     NSLog(@"ARE YOU GETTING CALLED?");
     
     if (self.destinationEntry == nil) {
@@ -157,22 +194,24 @@
       [self.textView endEditing:YES];
 }
 
--(void)setUpRightNavBar {
-    UIButton *pinSongButton = [UIButton createPinSongButton];
-    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *pinSongBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
-    
-    UIButton *playlistButton = [UIButton createPlaylistButton];
-    [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
-    
-    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
-    
-    UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
-    
-    self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
-}
 
+//
+//-(void)setUpRightNavBar {
+//    UIButton *pinSongButton = [UIButton createPinSongButton];
+//    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *pinSongBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
+//    
+//    UIButton *playlistButton = [UIButton createPlaylistButton];
+//    [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
+//    
+//    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
+//    
+//    UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
+//    
+//    self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
+//}
+//
 
 
 -(void)selectPhoto:(id)sender {
@@ -221,12 +260,10 @@
 
 
 -(void)playlistButtonPressed:id {
-    NSLog(@"playlist button tapped");
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }
 
 -(void)pinSongButtonPressed:id {
-    NSLog(@"pin song button tapped");
     
     // Create managed object on CoreData
         Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
