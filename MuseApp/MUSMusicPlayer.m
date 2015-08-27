@@ -87,7 +87,7 @@ if (playlist.count > 0) {
     
     self.currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
     [self.currentMusicPlayingNotifications addObserver: self
-                                selector: @selector (nowPlayingItemChanged:)
+                                selector: @selector(nowPlayingItemChanged:)
                                     name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                   object: self.myPlayer];
     
@@ -95,7 +95,7 @@ if (playlist.count > 0) {
 }
 
 
-- (void) nowPlayingItemChanged: (id) notification {
+- (void)nowPlayingItemChanged:(id) sender {
     self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
 }
 

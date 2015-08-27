@@ -47,36 +47,22 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     
-    //Set up nav bar
-//    [self setUpRightNavBar];
-    
     
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
     
-    if (self.destinationEntry != nil) {
     // play playlist
     [self playPlaylistForThisEntry];
     
-        
-        
-    // Set Image For This Entry with Parallax
-    [self.scrollView.parallaxView setDelegate:self];
-        
-    UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
-//        self.coverImageView.image = entryCoverImage;
-
-        self.coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 350)];
-    self.coverImageView.image = entryCoverImage;
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
-
-        
-    }
+    
+    [self setUpParallaxForExistingEntries];
+    
     
     self.textView.delegate = self;
     self.textView.text = self.destinationEntry.titleOfEntry;
     [self checkSizeOfContentForTextView:self.textView];
+    
     
     
     // Set up textview toolbar input
@@ -92,16 +78,33 @@
     }];
     
     
-//
-    
+    [self MUStoolbar];
+  }
+
+-(void)MUStoolbar {
     // hacky as shit
     self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-
     [self.navigationController.view addSubview:self.MUSToolBar];
+
+}
+
+
+-(void)setUpParallaxForExistingEntries {
     
-     }
+    if (self.destinationEntry != nil) {
+        // Set Image For This Entry with Parallax
+        [self.scrollView.parallaxView setDelegate:self];
+        UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
+        // this fixed images from resizing weird
+        self.coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 350)];
+        self.coverImageView.image = entryCoverImage;
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
+    }
+
+}
+
 
 #pragma mark  - Keyboard delegate methods
 -(void)didSelectCameraButton:(id)sender {
@@ -151,6 +154,8 @@
 
 
 -(void)playPlaylistForThisEntry {
+    if (self.destinationEntry != nil) {
+        
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
     [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
         MPMediaItemCollection *playlistCollectionForThisEntry = response;
@@ -159,8 +164,7 @@
         [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
         [self.musicPlayer.myPlayer play];
     }];
-    
-
+    }
 }
 
 
@@ -234,11 +238,10 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
    
-    
+    // create a new entry if this is new
     if (self.destinationEntry == nil) {
         self.coverImageView = [[UIImageView alloc] init];
     }
-
     
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
     
@@ -250,11 +253,9 @@
     
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
-        NSLog(@" THERE is no ENTRY TO SAVE IMAGE TO!");
         Entry *newEntryWithImage = [self createNewEntry];
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     } else {
-        NSLog(@" THERE IS A  ENTRY TO SAVE IMAGE TO!");
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
 
