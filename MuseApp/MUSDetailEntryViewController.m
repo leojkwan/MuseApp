@@ -131,8 +131,7 @@
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"text view is changing with %ld", [textView.text length]);
-    [self checkSizeOfContentForTextView:textView];
+       [self checkSizeOfContentForTextView:textView];
 }
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
@@ -177,13 +176,15 @@
 }
 
 - (void)saveButtonTapped:(id)sender {
-    NSLog(@"ARE YOU GETTING CALLED?");
     
     if (self.destinationEntry == nil && self.coverImageView == nil) {
+        NSLog(@"1");
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
         
     } else {
+        NSLog(@"2");
+
         // FOR OLD ENTRIES
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
@@ -197,10 +198,11 @@
 
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
-    if (newEntry.content == nil) {
+    if (self.textView.text == nil) {
         NSLog(@"NO WORDS HERE");
         newEntry.content = @" ";
     } else {
+    NSLog(@"WORDS HERE");
     newEntry.content = self.textView.text;
     }
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
