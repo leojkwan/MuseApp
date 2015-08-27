@@ -59,21 +59,13 @@
     self.textView.text = self.destinationEntry.titleOfEntry;
     
     // Set Image For This Entry with Parallax
-
-
+    [self.scrollView.parallaxView setDelegate:self];
+        
     UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
     self.coverImageView = [[UIImageView alloc] initWithImage:entryCoverImage];
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
-    [self.scrollView.parallaxView setDelegate:self];
     }
     
-    
-//        [self.textView sizeToFit]; //added
-//        [self.textView layoutIfNeeded]; //added
-//        
-//        self.textView.scrollEnabled = NO;
-//        [self.textView sizeToFit];
-//    
     self.textView.delegate = self;
     self.textView.text = self.destinationEntry.titleOfEntry;
     [self checkSizeOfContentForTextView:self.textView];
