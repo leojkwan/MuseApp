@@ -63,11 +63,39 @@
 
 // filter search results
 
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    if (searchBar.text.length == 0) {
+        NSLog(@"THERE IS NOTHING HERE?");
+    }
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    NSLog(@"%@",searchText);
     
     NSString *query = searchText;
+    
+    NSLog(@"I AM NOTHING IN THE SEARCH");
+    
+    NSPredicate *predicate = nil;
+    
+    [self.resultsController.fetchRequest setPredicate:predicate];
+    [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
+    
+    NSError *error = nil;
+    if (![[self resultsController] performFetch:&error]) {
+        // Handle error
+        exit(-1);
+    }
+    
+    // reload table view data!
+    [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
+    
+    NSLog(@"THIS IS THE NUMBER OF CHAR %ld", (unsigned long)searchBar.text.length);
     if (query && query.length) {
+        NSLog(@"%@",searchText);
+        
+     
+        
         
         
         // create a query
@@ -86,7 +114,6 @@
         
     }
     
-    NSError *error = nil;
     if (![[self resultsController] performFetch:&error]) {
         // Handle error
         exit(-1);

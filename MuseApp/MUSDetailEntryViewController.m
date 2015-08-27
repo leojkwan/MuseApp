@@ -137,12 +137,10 @@
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     if ([textView.text length] < 700) {
-        NSLog(@"DO YOU EVER GET CALLED IN VIEW DID CHANGE TEXT VIEW?");
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@500);
         }];
     } else {
-        NSLog(@"i am bigger than 700");
         [textView sizeToFit];
         [textView layoutIfNeeded];
     }
@@ -199,8 +197,14 @@
 
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+    if (newEntry.content == nil) {
+        NSLog(@"NO WORDS HERE");
+        newEntry.content = @" ";
+    } else {
     newEntry.content = self.textView.text;
+    }
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
+        
     newEntry.createdAt = [NSDate date];
     return newEntry;
 }
