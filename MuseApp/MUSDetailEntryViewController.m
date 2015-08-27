@@ -65,8 +65,13 @@
     [self.scrollView.parallaxView setDelegate:self];
         
     UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
-    self.coverImageView = [[UIImageView alloc] initWithImage:entryCoverImage];
+//        self.coverImageView.image = entryCoverImage;
+
+        self.coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 350)];
+    self.coverImageView.image = entryCoverImage;
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
+
+        
     }
     
     self.textView.delegate = self;
@@ -88,13 +93,6 @@
     
     
 //
-    [self.navigationController setNavigationBarHidden:YES];
-    
-    
-    
-    
-    
-    
     
     // hacky as shit
     self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
@@ -167,22 +165,22 @@
 
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [self.musicPlayer removeMusicNotifications];
+//    [self.musicPlayer removeMusicNotifications];
     [self.MUSToolBar setHidden:YES];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+    [self.MUSToolBar setHidden:NO];
 }
 
 - (void)saveButtonTapped:(id)sender {
     NSLog(@"ARE YOU GETTING CALLED?");
     
-    if (self.destinationEntry == nil) {
+    if (self.destinationEntry == nil && self.coverImageView == nil) {
+        Entry *newEntry = [self createNewEntry];
+        newEntry.coverImage = nil;
         
-        // FOR NEW ENTRIES
-        Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
-        newEntry.content = self.textView.text;
-        newEntry.createdAt = [NSDate date];
-        newEntry.titleOfEntry = [newEntry getTitleOfContent];
-        [self.navigationController popViewControllerAnimated:YES];
-
     } else {
         // FOR OLD ENTRIES
         self.destinationEntry.content = self.textView.text;
@@ -195,24 +193,13 @@
 }
 
 
-//
-//-(void)setUpRightNavBar {
-//    UIButton *pinSongButton = [UIButton createPinSongButton];
-//    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *pinSongBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
-//    
-//    UIButton *playlistButton = [UIButton createPlaylistButton];
-//    [playlistButton addTarget:self action:@selector(playlistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *playlistBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:playlistButton];
-//    
-//    UIBarButtonItem *saveBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(saveButtonTapped:)];
-//    
-//    UIBarButtonItem *uploadImageBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectPhoto:)];
-//    
-//    self.navigationItem.rightBarButtonItems = @[saveBarButtonItem, playlistBarButtonItem, pinSongBarButtonItem, uploadImageBarButtonItem];
-//}
-//
-
+-(Entry *)createNewEntry {
+    Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+    newEntry.content = self.textView.text;
+    newEntry.titleOfEntry = [newEntry getTitleOfContent];
+    newEntry.createdAt = [NSDate date];
+    return newEntry;
+}
 
 -(void)selectPhoto:(id)sender {
     
@@ -245,17 +232,37 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    self.coverImageView.image = info[UIImagePickerControllerOriginalImage];
-
     [picker dismissViewControllerAnimated:YES completion:nil];
+   
+    
+    if (self.destinationEntry == nil) {
+        self.coverImageView = [[UIImageView alloc] init];
+    }
+
+    
+    self.coverImageView.image = info[UIImagePickerControllerEditedImage];
+    
+    [self.textView becomeFirstResponder];
     
     // update parallax image
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
+
+    
+    //IF THIS IS A NEW ENTRY...
+    if (self.destinationEntry == nil) {
+        NSLog(@" THERE is no ENTRY TO SAVE IMAGE TO!");
+        Entry *newEntryWithImage = [self createNewEntry];
+        newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
+    } else {
+        NSLog(@" THERE IS A  ENTRY TO SAVE IMAGE TO!");
+        self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
+    }
+
     
     
     // SAVE TO CORE DATA!!
-    self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .7);
-    [self.store save];
+    
+      [self.store save];
 }
 
 
