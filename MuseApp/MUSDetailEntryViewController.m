@@ -76,7 +76,7 @@
     
     
     // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithFrame:CGRectMake(0, 0, 0, 50)];
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithFrame:CGRectMake(0, 0, 0, 40)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     
 

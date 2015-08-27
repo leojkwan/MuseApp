@@ -15,14 +15,15 @@
             <rect key="frame" x="0.0" y="0.0" width="680" height="97"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umG-Rj-sav">
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="umG-Rj-sav">
                     <rect key="frame" x="0.0" y="0.0" width="680" height="97"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="680" id="V9Q-8p-bA4"/>
                         <constraint firstAttribute="height" constant="44" id="kG7-DL-l61"/>
                     </constraints>
                     <items/>
-                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="0.0" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="V9Q-8p-bA4"/>
@@ -31,7 +32,8 @@
                     </variation>
                 </toolbar>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.40163672189999999" blue="0.93015569470000004" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="umG-Rj-sav" secondAttribute="centerY" id="1BT-6f-H3a"/>
                 <constraint firstItem="umG-Rj-sav" firstAttribute="top" secondItem="81j-Fn-D4n" secondAttribute="top" id="3ks-W4-9Xm"/>
