@@ -21,6 +21,8 @@
 		944994521B8A1DF400A3E6CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944994501B8A1DF400A3E6CF /* LaunchScreen.xib */; };
 		9449945E1B8A1DF400A3E6CF /* MuseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */; };
 		94939D3B1B8B7618003396ED /* MUSMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */; };
+		94A86B5F1B8E929800A45E79 /* MUSKeyboardTopBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */; };
+		94A86B621B8E92AD00A45E79 /* MUSKeyboardTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A86B611B8E92AD00A45E79 /* MUSKeyboardTopBar.m */; };
 		94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */; };
 		94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */; };
 		94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB31B1B8A2EE8001509C9 /* MUSDetailEntryViewController.m */; };
@@ -66,6 +68,9 @@
 		9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuseAppTests.m; sourceTree = "<group>"; };
 		94939D391B8B7618003396ED /* MUSMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSMusicPlayer.h; sourceTree = "<group>"; };
 		94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSMusicPlayer.m; sourceTree = "<group>"; };
+		94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUSKeyboardTopBar.xib; sourceTree = "<group>"; };
+		94A86B601B8E92AD00A45E79 /* MUSKeyboardTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSKeyboardTopBar.h; sourceTree = "<group>"; };
+		94A86B611B8E92AD00A45E79 /* MUSKeyboardTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSKeyboardTopBar.m; sourceTree = "<group>"; };
 		94DEB2F61B8A20EE001509C9 /* MUSDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSDataStore.h; sourceTree = "<group>"; };
 		94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSDataStore.m; sourceTree = "<group>"; };
 		94DEB3141B8A2C1C001509C9 /* MUSAllEntriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAllEntriesViewController.h; sourceTree = "<group>"; };
@@ -142,6 +147,9 @@
 			isa = PBXGroup;
 			children = (
 				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
+				94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */,
+				94A86B601B8E92AD00A45E79 /* MUSKeyboardTopBar.h */,
+				94A86B611B8E92AD00A45E79 /* MUSKeyboardTopBar.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -315,6 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94A86B5F1B8E929800A45E79 /* MUSKeyboardTopBar.xib in Resources */,
 				9449944D1B8A1DF400A3E6CF /* Main.storyboard in Resources */,
 				944994521B8A1DF400A3E6CF /* LaunchScreen.xib in Resources */,
 				9449944F1B8A1DF400A3E6CF /* Images.xcassets in Resources */,
@@ -380,6 +389,7 @@
 				9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */,
 				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
 				94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */,
+				94A86B621B8E92AD00A45E79 /* MUSKeyboardTopBar.m in Sources */,
 				944994411B8A1DF400A3E6CF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,6 +19,7 @@
 #import "MUSMusicPlayer.h"
 #import <CRMediaPickerController.h>
 #import <UIScrollView+APParallaxHeader.h>
+#import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) UIImageView *coverImageView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) CRMediaPickerController *mediaPickerController;
@@ -54,9 +56,10 @@
     // play playlist
     [self playPlaylistForThisEntry];
     
+        
     
-    // Set Text For This Entry
-    self.textView.text = self.destinationEntry.titleOfEntry;
+   
+    
     
     // Set Image For This Entry with Parallax
     [self.scrollView.parallaxView setDelegate:self];
@@ -69,6 +72,11 @@
     self.textView.delegate = self;
     self.textView.text = self.destinationEntry.titleOfEntry;
     [self checkSizeOfContentForTextView:self.textView];
+    
+    
+    // Set up textview toolbar input
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
+    self.textView.inputAccessoryView = self.keyboardTopBar;
     
 
     
