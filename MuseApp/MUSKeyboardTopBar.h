@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MUSKeyboardInputDelegate <NSObject>
+
+-(void)didSelectCameraButton:(id)sender;
+
+@end
+
 @interface MUSKeyboardTopBar : UIView
+
+@property (nonatomic, assign) id<MUSKeyboardInputDelegate> delegate;
+@property (nonatomic, strong) UIBarButtonItem *cameraBarButtonItem;
+
 
 @end

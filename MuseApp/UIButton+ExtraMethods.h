@@ -12,6 +12,6 @@
 
 +(UIButton *)createPinSongButton;
 +(UIButton *)createPlaylistButton;
-
++(UIButton *)createCameraButton;
 
 @end

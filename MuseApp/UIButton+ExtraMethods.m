@@ -26,5 +26,12 @@
     return seePlaylistButton;
 }
 
++(UIButton*)createCameraButton {
+    CGRect barButtonFrame = CGRectMake(0, 0, 30, 25);
+    UIButton *seePlaylistButton = [[UIButton alloc] initWithFrame:barButtonFrame];
+    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
+    return seePlaylistButton;
+}
+
 
 @end
