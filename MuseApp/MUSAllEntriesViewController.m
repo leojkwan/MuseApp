@@ -28,9 +28,9 @@
     [super viewDidLoad];
     // set shared datastore and table view delegate
     
-        self.store = [MUSDataStore sharedDataStore];
-        self.entriesTableView.delegate = self;
-        self.entriesTableView.dataSource = self;
+    self.store = [MUSDataStore sharedDataStore];
+    self.entriesTableView.delegate = self;
+    self.entriesTableView.dataSource = self;
 
     // set searchbar delegate
     self.entrySearchBar.delegate = self;
@@ -63,13 +63,35 @@
 
 // filter search results
 
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    if (searchBar.text.length == 0) {
+        NSLog(@"THERE IS NOTHING HERE?");
+    }
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    NSLog(@"%@",searchText);
     
     NSString *query = searchText;
+    
+    // IF THERE NO CHARACTERS IN SEARCH BAR
+    NSPredicate *predicate = nil;
+    
+    [self.resultsController.fetchRequest setPredicate:predicate];
+    [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
+    
+    NSError *error = nil;
+    if (![[self resultsController] performFetch:&error]) {
+        // Handle error
+        exit(-1);
+    }
+    
+    // reload table view data!
+    [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+
+    
+    // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
-        
-        
+  
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
@@ -79,14 +101,12 @@
         
         [self.resultsController.fetchRequest setPredicate:predicate];
         [self.resultsController.fetchRequest setFetchLimit:5]; //
-        
         [self.store.managedObjectContext executeFetchRequest:request
                                                                      error:nil];
 
         
     }
     
-    NSError *error = nil;
     if (![[self resultsController] performFetch:&error]) {
         // Handle error
         exit(-1);
@@ -124,7 +144,6 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    NSLog(@"CLICKED SEARCH BAR DID BEGIN EDITING!!!");
     [searchBar setShowsCancelButton:YES animated:YES];
 
 }

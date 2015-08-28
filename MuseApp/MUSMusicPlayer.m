@@ -12,6 +12,7 @@
 @interface MUSMusicPlayer ()
 
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
+@property (nonatomic, strong) NSMutableArray *playlistCollection;
 @property (nonatomic, strong) MUSDataStore *store;
 @end
 
@@ -33,7 +34,7 @@
 
 -(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block {
 
-NSMutableArray *playlistCollection = [[NSMutableArray alloc] init];
+self.playlistCollection = [[NSMutableArray alloc] init];
 
 if (playlist.count > 0) {
     
@@ -57,10 +58,10 @@ if (playlist.count > 0) {
         NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];
         
         // add MPMediaItems into MPMediaCollection
-        [playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
+        [self.playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
     }
     
-    MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:playlistCollection];
+    MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
     
     block(currentPlaylistCollection);
  }
@@ -87,7 +88,7 @@ if (playlist.count > 0) {
     
     self.currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
     [self.currentMusicPlayingNotifications addObserver: self
-                                selector: @selector (nowPlayingItemChanged:)
+                                selector: @selector(nowPlayingItemChanged:)
                                     name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                   object: self.myPlayer];
     
@@ -95,7 +96,7 @@ if (playlist.count > 0) {
 }
 
 
-- (void) nowPlayingItemChanged: (id) notification {
+- (void)nowPlayingItemChanged:(id) sender {
     self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
 }
 
