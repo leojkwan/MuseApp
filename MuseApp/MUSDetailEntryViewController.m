@@ -22,12 +22,13 @@
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
+#import <IHKeyboardAvoiding.h>
 
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
 
 //@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
-@property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) UIImageView *coverImageView;
@@ -111,14 +112,14 @@
 -(void)setUpParallaxForExistingEntries {
     self.coverImageView = [[UIImageView alloc] init];
     if (self.destinationEntry == nil) {
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:200 andShadow:NO];
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:NO];
         return;
     } else {
         // Set Image For This Entry with Parallax
         [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
         self.coverImageView.image = entryCoverImage;
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:NO];
     }
     
 }
@@ -189,6 +190,11 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
+    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
+    [self.scrollView setContentSize:[self.scrollView frame].size];
+
+    
     [self.navigationController setNavigationBarHidden:YES];
     [self.MUSToolBar setHidden:NO];
 }
@@ -224,16 +230,8 @@
     return newEntry;
 }
 
--(void)selectPhoto:(id)sender {
-    
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    [actionSheet addButtonWithTitle:@"Take Photo"];
-    [actionSheet addButtonWithTitle:@"Select photo from camera"];
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-    actionSheet.cancelButtonIndex = 2;
-    [actionSheet showInView:self.view];
-    
-}
+
+#pragma mark- photo selection methods
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -271,12 +269,24 @@
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
     // add/ reset parallax image
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
     
     // SAVE TO CORE DATA!!
     [self.store save];
 }
 
+#pragma mark - button pressed methods
+
+-(void)selectPhoto:(id)sender {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    [actionSheet addButtonWithTitle:@"Take Photo"];
+    [actionSheet addButtonWithTitle:@"Select photo from camera"];
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+    actionSheet.cancelButtonIndex = 2;
+    [actionSheet showInView:self.view];
+    
+}
 
 -(void)playlistButtonPressed:id {
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];

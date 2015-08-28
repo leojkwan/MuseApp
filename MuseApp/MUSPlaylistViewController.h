@@ -13,7 +13,7 @@
 @interface MUSPlaylistViewController : UIViewController
 
 @property (nonatomic, strong) Entry *destinationEntry;
-@property (nonatomic, strong) NSArray *playlistForThisEntry;
+@property (nonatomic, strong) NSMutableArray *playlistForThisEntry;
 @property MUSCircleGradient* gradientView;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 @property (nonatomic, strong) UIImage *artworkForNowPlayingSong;

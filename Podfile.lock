@@ -2,24 +2,24 @@ PODS:
   - AFBlurSegue (1.2.1)
   - APParallaxHeader (0.1.6)
   - CRMediaPickerController (0.0.1)
+  - IHKeyboardAvoiding (2.4)
   - Masonry (0.6.2)
-  - PSPDFTextView (1.2.0)
   - TPKeyboardAvoiding (1.2.9)
 
 DEPENDENCIES:
   - AFBlurSegue (~> 1.2.1)
   - APParallaxHeader
   - CRMediaPickerController
+  - IHKeyboardAvoiding
   - Masonry
-  - PSPDFTextView
   - TPKeyboardAvoiding
 
 SPEC CHECKSUMS:
   AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
   APParallaxHeader: 854bc48a2487ca12c702f8a236fec0d89cdac5c3
   CRMediaPickerController: 65e1f968dea26a7759bb1fb4a1518f5b8cd6fba9
+  IHKeyboardAvoiding: f470ea004ae9befb3b10ff4db20d37af10f43e59
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
-  PSPDFTextView: 805ff07dca594c05ab1f762309b998daedca79a3
   TPKeyboardAvoiding: ff1ee4e5a5a0c119b965552af8f183868ea20207
 
 COCOAPODS: 0.38.2
