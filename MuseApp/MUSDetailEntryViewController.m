@@ -110,13 +110,15 @@
 
 
 -(void)setUpParallaxForExistingEntries {
+    
     self.coverImageView = [[UIImageView alloc] init];
-    if (self.destinationEntry == nil) {
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:NO];
+    [self.scrollView.parallaxView setDelegate:self];
+
+    if (self.destinationEntry.coverImage == nil) {
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:20 andShadow:NO];
         return;
     } else {
         // Set Image For This Entry with Parallax
-        [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
         self.coverImageView.image = entryCoverImage;
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:NO];
@@ -264,6 +266,7 @@
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
+
     }
     else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
