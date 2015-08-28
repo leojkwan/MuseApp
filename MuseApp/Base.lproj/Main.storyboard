@@ -168,16 +168,8 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
                                                 <rect key="frame" x="0.0" y="0.0" width="10" height="41"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" id="0uj-HI-Www"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="0uj-HI-Www"/>
-                                                    </mask>
-                                                </variation>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -209,7 +201,6 @@
                         <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
-                        <outlet property="textViewHeightConstraint" destination="0uj-HI-Www" id="RY5-ms-xec"/>
                         <segue destination="EiH-fH-8rA" kind="custom" identifier="playlistSegue" customClass="AFBlurSegue" id="eaT-SP-hex"/>
                     </connections>
                 </viewController>
@@ -263,7 +254,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZV-pf-Ny3">
-                                                    <rect key="frame" x="154" y="25" width="369" height="21"/>
+                                                    <rect key="frame" x="154" y="25" width="369" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -286,17 +277,46 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scene" translatesAutoresizingMaskIntoConstraints="NO" id="CYa-uC-MdH">
+                                <rect key="frame" x="0.0" y="50" width="600" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="Rob-NS-w3L"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteMask" translatesAutoresizingMaskIntoConstraints="NO" id="Jn9-Qy-1Yd">
+                                <rect key="frame" x="0.0" y="50" width="600" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="DTV-B3-hYO"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="CYa-uC-MdH" firstAttribute="width" secondItem="gbg-yd-B8e" secondAttribute="width" id="2Sl-dm-zEa"/>
+                            <constraint firstItem="CYa-uC-MdH" firstAttribute="leading" secondItem="gbg-yd-B8e" secondAttribute="leading" id="5hR-x0-wTj"/>
+                            <constraint firstItem="Jn9-Qy-1Yd" firstAttribute="width" secondItem="gbg-yd-B8e" secondAttribute="width" id="6EM-hv-Hqa"/>
+                            <constraint firstItem="CYa-uC-MdH" firstAttribute="height" secondItem="gbg-yd-B8e" secondAttribute="height" id="90M-7N-Rnh"/>
                             <constraint firstItem="zrV-tN-fmH" firstAttribute="leading" secondItem="gbg-yd-B8e" secondAttribute="leadingMargin" id="BXd-5J-i6f"/>
+                            <constraint firstAttribute="centerX" secondItem="CYa-uC-MdH" secondAttribute="centerX" id="BpP-xo-6Ke"/>
                             <constraint firstItem="v9T-cq-Y6K" firstAttribute="top" secondItem="zrV-tN-fmH" secondAttribute="bottom" id="F1v-et-fD3"/>
+                            <constraint firstItem="Jn9-Qy-1Yd" firstAttribute="top" secondItem="a6N-vX-rXf" secondAttribute="bottom" constant="30" id="R1r-zl-fBo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zrV-tN-fmH" secondAttribute="trailing" id="VEh-w9-K42"/>
+                            <constraint firstItem="CYa-uC-MdH" firstAttribute="top" secondItem="a6N-vX-rXf" secondAttribute="bottom" constant="30" id="YaJ-w1-WlB"/>
                             <constraint firstItem="pfo-qx-7Ho" firstAttribute="top" secondItem="a6N-vX-rXf" secondAttribute="bottom" constant="10" id="bEB-v4-dqZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pfo-qx-7Ho" secondAttribute="trailing" constant="10" id="bag-Ax-DOg"/>
+                            <constraint firstAttribute="centerX" secondItem="Jn9-Qy-1Yd" secondAttribute="centerX" id="mdT-r6-NRs"/>
+                            <constraint firstAttribute="trailing" secondItem="CYa-uC-MdH" secondAttribute="trailing" id="wvv-zZ-dG9"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="5hR-x0-wTj"/>
+                                <exclude reference="90M-7N-Rnh"/>
+                                <exclude reference="wvv-zZ-dG9"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="currentSongView" destination="CYa-uC-MdH" id="ud0-JI-3hu"/>
                         <outlet property="playlistTableView" destination="zrV-tN-fmH" id="VcT-P9-c3v"/>
                     </connections>
                 </viewController>
@@ -325,6 +345,8 @@
     </scenes>
     <resources>
         <image name="quitButton" width="47" height="47"/>
+        <image name="scene" width="1920" height="1273"/>
+        <image name="whiteMask" width="1395" height="930"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Klu-mj-AwA"/>

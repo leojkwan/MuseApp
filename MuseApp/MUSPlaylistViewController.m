@@ -12,6 +12,7 @@
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *playlistTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *currentSongView;
 
 @end
 
@@ -22,6 +23,12 @@
     [super viewDidLoad];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
+    
+    
+    UIImageView *whiteMask = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"whiteMask" ]];
+    [whiteMask setContentMode:UIViewContentModeScaleAspectFit];
+    [self.playlistTableView addSubview:whiteMask];
+    
     
 }
 

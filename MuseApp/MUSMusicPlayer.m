@@ -74,7 +74,6 @@ if (playlist.count > 0) {
     
     // at this point I have an array full of the media items that I want, which is playlist collection
     
-    
     MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
     
     block(currentPlaylistCollection);

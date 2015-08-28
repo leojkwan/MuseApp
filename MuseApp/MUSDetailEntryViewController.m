@@ -14,7 +14,6 @@
 #import "UIImage+Resize.h"
 #import <TPKeyboardAvoidingScrollView.h>
 #import "NSSet+MUSExtraMethod.h"
-#import <PSPDFTextView.h>
 #import "UIButton+ExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
@@ -29,13 +28,12 @@
 
 //@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) UIImageView *coverImageView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) CRMediaPickerController *mediaPickerController;
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
@@ -55,7 +53,7 @@
     
     [self playPlaylistForThisEntry];
     [self listenForSongChanges];
-
+    
     
     [self setUpParallaxForExistingEntries];
     
@@ -93,7 +91,7 @@
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
     
     
-
+    
 }
 
 - (void)nowPlayingItemChanged:(id) sender {
@@ -122,7 +120,7 @@
         self.coverImageView.image = entryCoverImage;
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
     }
-
+    
 }
 
 
@@ -264,7 +262,6 @@
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
     [self.textView becomeFirstResponder];
     
-    
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
@@ -273,11 +270,8 @@
     else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
-    
     // add/ reset parallax image
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
-    
-    
     
     // SAVE TO CORE DATA!!
     [self.store save];
@@ -294,7 +288,6 @@
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
     pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
     pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
-    
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
@@ -307,8 +300,13 @@
     // Add song to Core Data
     [self.destinationEntry addSongsObject:pinnedSong];
     
-    NSLog(@"%@" , self.destinationEntry.songs);
+    // reset the collection array
+    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+        MPMediaItemCollection *playlistCollectionForThisEntry = response;
+        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+    }];
     
+    // Save to Core Data
     [self.store save];
     
 }
