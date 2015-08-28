@@ -93,16 +93,18 @@
 
 
 -(void)setUpParallaxForExistingEntries {
-    
-    if (self.destinationEntry != nil) {
-        
+    self.coverImageView = [[UIImageView alloc] init];
+    if (self.destinationEntry == nil) {
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:200 andShadow:NO];
+        return;
+    } else {
         // Set Image For This Entry with Parallax
         [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
-        self.coverImageView = [[UIImageView alloc] init];
         self.coverImageView.image = entryCoverImage;
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
     }
+
 }
 
 
@@ -236,34 +238,26 @@
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
+
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    
-    self.coverImageView = [[UIImageView alloc] init];
-    [self.coverImageView setContentMode:UIViewContentModeCenter];
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-    
     [self.textView becomeFirstResponder];
     
-    
-    
-    
-
     
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
-    
     else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
     
-
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:200 andShadow:YES];
+    // add/ reset parallax image
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
     
     
     
