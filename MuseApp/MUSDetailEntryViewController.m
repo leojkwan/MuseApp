@@ -11,6 +11,7 @@
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
+#import "UIImage+Resize.h"
 #import <TPKeyboardAvoidingScrollView.h>
 #import "NSSet+MUSExtraMethod.h"
 #import <PSPDFTextView.h>
@@ -94,15 +95,14 @@
 -(void)setUpParallaxForExistingEntries {
     
     if (self.destinationEntry != nil) {
+        
         // Set Image For This Entry with Parallax
         [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
-        // this fixed images from resizing weird
-        self.coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 350)];
+        self.coverImageView = [[UIImageView alloc] init];
         self.coverImageView.image = entryCoverImage;
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
+        [self.scrollView addParallaxWithImage:self.coverImageView.image width:self.view.frame.size.width andHeight:400 andShadow:NO];
     }
-
 }
 
 
@@ -137,7 +137,7 @@
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     if ([textView.text length] < 700) {
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@500);
+            make.height.equalTo(@750);
         }];
     } else {
         [textView sizeToFit];
@@ -146,7 +146,7 @@
 }
 
 - (void)parallaxView:(APParallaxView *)view didChangeFrame:(CGRect)frame {
-    NSLog(@"%f" , frame.size.height);
+//    NSLog(@"%f" , frame.size.height);
 }
 
 
@@ -178,13 +178,10 @@
 - (void)saveButtonTapped:(id)sender {
     
     if (self.destinationEntry == nil && self.coverImageView == nil) {
-        NSLog(@"1");
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
         
     } else {
-        NSLog(@"2");
-
         // FOR OLD ENTRIES
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
@@ -199,10 +196,8 @@
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     if (self.textView.text == nil) {
-        NSLog(@"NO WORDS HERE");
-        newEntry.content = @" ";
+        newEntry.content = @"";
     } else {
-    NSLog(@"WORDS HERE");
     newEntry.content = self.textView.text;
     }
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
@@ -250,25 +245,21 @@
     }
     
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-    
-    [self.textView becomeFirstResponder];
-    
-    // update parallax image
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350];
 
-    
+    [self.textView becomeFirstResponder];
+
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
+        
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     } else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
+    [self.scrollView addParallaxWithImage:self.coverImageView.image width:10 andHeight:400 andShadow:YES];
 
     
-    
     // SAVE TO CORE DATA!!
-    
       [self.store save];
 }
 
@@ -283,6 +274,7 @@
         Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
         pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
         pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
+    
         pinnedSong.pinnedAt = [NSDate date];
         pinnedSong.entry = self.destinationEntry;
     

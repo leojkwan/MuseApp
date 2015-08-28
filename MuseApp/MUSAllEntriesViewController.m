@@ -28,9 +28,9 @@
     [super viewDidLoad];
     // set shared datastore and table view delegate
     
-        self.store = [MUSDataStore sharedDataStore];
-        self.entriesTableView.delegate = self;
-        self.entriesTableView.dataSource = self;
+    self.store = [MUSDataStore sharedDataStore];
+    self.entriesTableView.delegate = self;
+    self.entriesTableView.dataSource = self;
 
     // set searchbar delegate
     self.entrySearchBar.delegate = self;
@@ -73,8 +73,7 @@
     
     NSString *query = searchText;
     
-    NSLog(@"I AM NOTHING IN THE SEARCH");
-    
+    // IF THERE NO CHARACTERS IN SEARCH BAR
     NSPredicate *predicate = nil;
     
     [self.resultsController.fetchRequest setPredicate:predicate];
@@ -90,14 +89,9 @@
     [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 
     
-    NSLog(@"THIS IS THE NUMBER OF CHAR %ld", (unsigned long)searchBar.text.length);
+    // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
-        NSLog(@"%@",searchText);
-        
-     
-        
-        
-        
+  
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
@@ -107,7 +101,6 @@
         
         [self.resultsController.fetchRequest setPredicate:predicate];
         [self.resultsController.fetchRequest setFetchLimit:5]; //
-        
         [self.store.managedObjectContext executeFetchRequest:request
                                                                      error:nil];
 
@@ -151,7 +144,6 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    NSLog(@"CLICKED SEARCH BAR DID BEGIN EDITING!!!");
     [searchBar setShowsCancelButton:YES animated:YES];
 
 }

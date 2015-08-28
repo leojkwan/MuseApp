@@ -21,13 +21,11 @@
     [super viewDidLoad];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
-    NSLog(@"Hello!");
     
 }
 
 - (IBAction)exitButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"leaving~~~");
     }];
 }
 

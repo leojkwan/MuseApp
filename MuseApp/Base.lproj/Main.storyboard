@@ -35,7 +35,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="55p-TK-tee" userLabel="coverPhoto">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="293"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="292.5"/>
                                                 </imageView>
                                                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
                                                     <rect key="frame" x="13" y="135" width="574" height="146"/>
