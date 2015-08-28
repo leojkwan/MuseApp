@@ -8,11 +8,13 @@
 
 #import "MUSPlaylistViewController.h"
 #import "MUSSongTableViewCell.h"
+#import <Masonry.h>
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *playlistTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *currentSongView;
+@property (weak, nonatomic) IBOutlet UIImageView *maskImageView;
 
 @end
 
@@ -24,12 +26,9 @@
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
     
-    
-    UIImageView *whiteMask = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"whiteMask" ]];
-    [whiteMask setContentMode:UIViewContentModeScaleAspectFit];
-    [self.playlistTableView addSubview:whiteMask];
-    
-    
+
+    self.currentSongView.image = self.artworkForNowPlayingSong;
+
 }
 
 - (IBAction)exitButtonPressed:(id)sender {
@@ -37,6 +36,11 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -53,7 +57,8 @@
     NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
     NSNumber *songNumber = @(indexPath.row + 1);
     NSLog(@"%@", songStringAtThisRow);
-    cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@ by %@", songNumber, songStringAtThisRow, artistStringAtThisRow];
+    cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
+    cell.artistLabel.text = [NSString stringWithFormat:@" by %@." , artistStringAtThisRow];
     cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
     return cell;
 }

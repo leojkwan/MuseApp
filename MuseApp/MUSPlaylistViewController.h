@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSArray *playlistForThisEntry;
 @property MUSCircleGradient* gradientView;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
+@property (nonatomic, strong) UIImage *artworkForNowPlayingSong;
+
 
 @end
