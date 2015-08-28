@@ -7,6 +7,7 @@
 //
 
 #import "MUSPlaylistViewController.h"
+#import "MUSSongTableViewCell.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -40,13 +41,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
+    MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
     NSString *artistStringAtThisRow = self.playlistForThisEntry[indexPath.row][0];
     NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
     NSNumber *songNumber = @(indexPath.row + 1);
     NSLog(@"%@", songStringAtThisRow);
-    cell.textLabel.text = [NSString stringWithFormat:@"%@.  %@ by %@", songNumber, songStringAtThisRow, artistStringAtThisRow];
-
+    cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@ by %@", songNumber, songStringAtThisRow, artistStringAtThisRow];
+    cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
     return cell;
 }
 

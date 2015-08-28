@@ -249,14 +249,40 @@
                                     <constraint firstAttribute="height" constant="300" id="xcN-rb-zt2"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songReuseCell" rowHeight="72" id="fHh-Qc-99H">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="songReuseCell" rowHeight="72" id="fHh-Qc-99H" customClass="MUSSongTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fHh-Qc-99H" id="A1q-oN-Fs3">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4s5-JG-xZf">
+                                                    <rect key="frame" x="47" y="10" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="f3r-1b-tbk"/>
+                                                        <constraint firstAttribute="width" constant="50" id="yKI-gF-YRI"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZV-pf-Ny3">
+                                                    <rect key="frame" x="154" y="25" width="369" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="dZV-pf-Ny3" secondAttribute="trailing" constant="37" id="Jfo-Lp-JrN"/>
+                                                <constraint firstItem="dZV-pf-Ny3" firstAttribute="top" secondItem="A1q-oN-Fs3" secondAttribute="topMargin" constant="17" id="K7N-Yu-2Ol"/>
+                                                <constraint firstItem="dZV-pf-Ny3" firstAttribute="leading" secondItem="4s5-JG-xZf" secondAttribute="trailing" constant="57" id="rKc-9k-epm"/>
+                                                <constraint firstItem="4s5-JG-xZf" firstAttribute="leading" secondItem="A1q-oN-Fs3" secondAttribute="leadingMargin" constant="39" id="sDJ-Xi-5aS"/>
+                                                <constraint firstAttribute="centerY" secondItem="4s5-JG-xZf" secondAttribute="centerY" constant="1" id="vyB-fh-JtG"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="songArtworkImageView" destination="4s5-JG-xZf" id="jK5-DB-Lhx"/>
+                                            <outlet property="songTitleLabel" destination="dZV-pf-Ny3" id="kOS-A7-TJG"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

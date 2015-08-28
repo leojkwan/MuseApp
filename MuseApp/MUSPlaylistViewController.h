@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong) Entry *destinationEntry;
 @property (nonatomic, strong) NSArray *playlistForThisEntry;
+@property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 
 @end

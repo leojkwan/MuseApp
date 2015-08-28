@@ -53,9 +53,9 @@
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
     
-    // play playlist
     [self playPlaylistForThisEntry];
-    
+    [self listenForSongChanges];
+
     
     [self setUpParallaxForExistingEntries];
     
@@ -80,6 +80,24 @@
     
     
     [self MUStoolbar];
+}
+
+-(void)listenForSongChanges {
+    
+    NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
+    [currentMusicPlayingNotifications addObserver: self
+                                         selector: @selector(nowPlayingItemChanged:)
+                                             name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
+                                           object: self.musicPlayer.myPlayer];
+    
+    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
+    
+    
+
+}
+
+- (void)nowPlayingItemChanged:(id) sender {
+    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
 }
 
 -(void)MUStoolbar {
@@ -179,7 +197,7 @@
 
 - (void)saveButtonTapped:(id)sender {
     
-    if (self.destinationEntry == nil && self.coverImageView == nil) {
+    if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
         
@@ -280,13 +298,13 @@
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
-    // create 2D array for this song
+    // Format this song and add to array
     NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
     [arrayForThisSong addObject:pinnedSong.artistName];
     [arrayForThisSong addObject:pinnedSong.songName];
     [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
     
-    // Add song array to playlist
+    // Add song to Core Data
     [self.destinationEntry addSongsObject:pinnedSong];
     
     NSLog(@"%@" , self.destinationEntry.songs);
@@ -305,6 +323,9 @@
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
+        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+            dvc.artworkImagesForThisEntry = artworkImages;
+        }];
     }
     
     
