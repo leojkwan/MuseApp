@@ -71,7 +71,7 @@
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     self.keyboardTopBar.delegate = self;
-
+    
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view.mas_width);
@@ -80,7 +80,7 @@
     
     
     [self MUStoolbar];
-  }
+}
 
 -(void)MUStoolbar {
     // hacky as shit
@@ -88,7 +88,7 @@
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.navigationController.view addSubview:self.MUSToolBar];
-
+    
 }
 
 
@@ -101,7 +101,7 @@
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
         self.coverImageView = [[UIImageView alloc] init];
         self.coverImageView.image = entryCoverImage;
-        [self.scrollView addParallaxWithImage:self.coverImageView.image width:self.view.frame.size.width andHeight:400 andShadow:NO];
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
     }
 }
 
@@ -131,7 +131,7 @@
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-       [self checkSizeOfContentForTextView:textView];
+    [self checkSizeOfContentForTextView:textView];
 }
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
@@ -146,27 +146,27 @@
 }
 
 - (void)parallaxView:(APParallaxView *)view didChangeFrame:(CGRect)frame {
-//    NSLog(@"%f" , frame.size.height);
+    //    NSLog(@"%f" , frame.size.height);
 }
 
 
 -(void)playPlaylistForThisEntry {
     if (self.destinationEntry != nil) {
         
-    self.musicPlayer = [[MUSMusicPlayer alloc] init];
-    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
-        MPMediaItemCollection *playlistCollectionForThisEntry = response;
-        
-        // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
-        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-        [self.musicPlayer.myPlayer play];
-    }];
+        self.musicPlayer = [[MUSMusicPlayer alloc] init];
+        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+            MPMediaItemCollection *playlistCollectionForThisEntry = response;
+            
+            // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
+            [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+            [self.musicPlayer.myPlayer play];
+        }];
     }
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated {
-//    [self.musicPlayer removeMusicNotifications];
+    //    [self.musicPlayer removeMusicNotifications];
     [self.MUSToolBar setHidden:YES];
 }
 
@@ -186,10 +186,10 @@
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
     }
-      [self.store save];
+    [self.store save];
     
     // dismiss view controller
-      [self.textView endEditing:YES];
+    [self.textView endEditing:YES];
 }
 
 
@@ -198,10 +198,10 @@
     if (self.textView.text == nil) {
         newEntry.content = @"";
     } else {
-    newEntry.content = self.textView.text;
+        newEntry.content = self.textView.text;
     }
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
-        
+    
     newEntry.createdAt = [NSDate date];
     return newEntry;
 }
@@ -214,12 +214,13 @@
     actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
     actionSheet.cancelButtonIndex = 2;
     [actionSheet showInView:self.view];
-
+    
 }
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    [self.textView resignFirstResponder];
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     };
@@ -238,29 +239,36 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-   
-    // create a new entry if this is new
-    if (self.destinationEntry == nil) {
-        self.coverImageView = [[UIImageView alloc] init];
-    }
     
+    
+    self.coverImageView = [[UIImageView alloc] init];
+    [self.coverImageView setContentMode:UIViewContentModeCenter];
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-
+    
     [self.textView becomeFirstResponder];
+    
+    
+    
+    
 
+    
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
-        
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
-    } else {
+    }
+    
+    else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
-    [self.scrollView addParallaxWithImage:self.coverImageView.image width:10 andHeight:400 andShadow:YES];
+    
 
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:200 andShadow:YES];
+    
+    
     
     // SAVE TO CORE DATA!!
-      [self.store save];
+    [self.store save];
 }
 
 
@@ -271,26 +279,26 @@
 -(void)pinSongButtonPressed:id {
     
     // Create managed object on CoreData
-        Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
-        pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
-        pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
+    Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
+    pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
+    pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
     
-        pinnedSong.pinnedAt = [NSDate date];
-        pinnedSong.entry = self.destinationEntry;
+    pinnedSong.pinnedAt = [NSDate date];
+    pinnedSong.entry = self.destinationEntry;
     
     // create 2D array for this song
-        NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
-        [arrayForThisSong addObject:pinnedSong.artistName];
-        [arrayForThisSong addObject:pinnedSong.songName];
-        [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
+    NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
+    [arrayForThisSong addObject:pinnedSong.artistName];
+    [arrayForThisSong addObject:pinnedSong.songName];
+    [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
     
     // Add song array to playlist
-        [self.destinationEntry addSongsObject:pinnedSong];
+    [self.destinationEntry addSongsObject:pinnedSong];
     
-        NSLog(@"%@" , self.destinationEntry.songs);
+    NSLog(@"%@" , self.destinationEntry.songs);
     
     [self.store save];
-
+    
 }
 
 
@@ -298,7 +306,7 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  
+    
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
