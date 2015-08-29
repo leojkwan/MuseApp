@@ -13,6 +13,8 @@
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
+#import <FCVerticalMenuItem.h>
+#import <FCVerticalMenu.h>
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
@@ -20,7 +22,7 @@
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
 @property (weak, nonatomic) IBOutlet UISearchBar *entrySearchBar;
-
+@property (nonatomic, strong) FCVerticalMenu *verticalMenu;
 
 @end
 
@@ -37,6 +39,20 @@
     // set searchbar delegate
     self.entrySearchBar.delegate = self;
     [self.entrySearchBar setShowsScopeBar:YES];
+    
+    
+    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+    
+    item1.actionBlock = ^{
+        NSLog(@"test element 1");
+    };
+    
+    
+    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
+    self.verticalMenu.appearsBehindNavigationBar = YES;
+    
+    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
+    
     
     
     // Create the sort descriptors array.
@@ -68,7 +84,7 @@
 #pragma mark - Search Bar Delegate
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    [searchBar resignFirstResponder];=
+    [searchBar resignFirstResponder];
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     if (searchBar.text.length == 0) {
