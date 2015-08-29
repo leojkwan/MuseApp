@@ -12,6 +12,9 @@
 #import "Song.h"
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
+#import "NSSet+MUSExtraMethod.h"
+#import <FCVerticalMenuItem.h>
+#import <FCVerticalMenu.h>
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
@@ -19,6 +22,7 @@
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
 @property (weak, nonatomic) IBOutlet UISearchBar *entrySearchBar;
+@property (nonatomic, strong) FCVerticalMenu *verticalMenu;
 
 @end
 
@@ -31,38 +35,57 @@
     self.store = [MUSDataStore sharedDataStore];
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
-
+    
     // set searchbar delegate
     self.entrySearchBar.delegate = self;
     [self.entrySearchBar setShowsScopeBar:YES];
     
-
+    
+    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+    
+    item1.actionBlock = ^{
+        NSLog(@"test element 1");
+    };
+    
+    
+    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
+    self.verticalMenu.appearsBehindNavigationBar = YES;
+    
+    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
+    
+    
+    
     // Create the sort descriptors array.
+    
+    NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
 
-        NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-        entryFetch.sortDescriptors = @[sortDescriptor];
+    entryFetch.sortDescriptors = @[sortDescriptor];
     
     
     
     
     
     // Create and initialize the fetch results controller.
-
-        self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                     managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
     
     
     // set fetch results delegate
-        self.resultsController.delegate = self;
-        [self.resultsController performFetch:nil];
-
+    self.resultsController.delegate = self;
+    [self.resultsController performFetch:nil];
+    
 }
-
-
 
 // filter search results
 
+
+#pragma mark - Search Bar Delegate
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+}
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     if (searchBar.text.length == 0) {
         NSLog(@"THERE IS NOTHING HERE?");
@@ -87,11 +110,11 @@
     
     // reload table view data!
     [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-
+    
     
     // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
-  
+        
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
@@ -102,8 +125,8 @@
         [self.resultsController.fetchRequest setPredicate:predicate];
         [self.resultsController.fetchRequest setFetchLimit:5]; //
         [self.store.managedObjectContext executeFetchRequest:request
-                                                                     error:nil];
-
+                                                       error:nil];
+        
         
     }
     
@@ -111,15 +134,15 @@
         // Handle error
         exit(-1);
     }
-
+    
     [self.entriesTableView reloadData];
 }
 
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-   
+    
     // clear search
-     searchBar.text = @"";
+    searchBar.text = @"";
     NSPredicate *predicate = nil;
     
     [self.resultsController.fetchRequest setPredicate:predicate];
@@ -133,8 +156,8 @@
     
     // reload table view data!
     [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-
-
+    
+    
     // hide keyboard and cancel button!
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
@@ -145,10 +168,8 @@
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [searchBar setShowsCancelButton:YES animated:YES];
-
+    
 }
-
-
 
 
 - (IBAction)addButtonPressed:(id)sender {
@@ -167,8 +188,13 @@
 #pragma mark - UITable View Delegate methods
 
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[self.resultsController sections] count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   
+    
     if ([[self.resultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
         return [sectionInfo numberOfObjects];
@@ -176,9 +202,38 @@
     return 0;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 300;
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
+    id<NSFetchedResultsSectionInfo> theSection = [self.resultsController sections][section];
+    return [theSection name];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *sectionLabel = [[UILabel alloc] init];
+    sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
+    sectionLabel.backgroundColor = [UIColor darkGrayColor];
+    sectionLabel.textAlignment = NSTextAlignmentCenter;
+    [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
+    sectionLabel.textColor = [UIColor colorWithRed:0.93 green:0.87 blue:0.1 alpha:1];
+    
+    
+    sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:sectionLabel];
+    
+    return headerView;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -200,17 +255,58 @@
     
     MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-
+    
     // set cell values
     NSLog(@"do you get callled in celll for row?");
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
-
+    
+    // playlist text
+    NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
+    
+//    if (formattedPlaylistForThisEntry.count > 0) {
+//        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
+//        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
+//        cell.artistsLabel.text = @" — ";
+//        if (formattedPlaylistForThisEntry.count == 1 ) {
+//            cell.artistsLabel.text = oneArtist;
+//        } else if (formattedPlaylistForThisEntry.count > 1) {
+//            cell.artistsLabel.text = moreThanOneArtist;
+//        }
+//    }
+    
+    if (formattedPlaylistForThisEntry.count == 0) {
+        
+        
+        cell.artistsLabel.text = @"—";
+    }
+    else if (formattedPlaylistForThisEntry.count == 1 ) {
+        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
+        cell.artistsLabel.text = oneArtist;
+    }
+    else if (formattedPlaylistForThisEntry.count > 1) {
+        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
+        cell.artistsLabel.text = moreThanOneArtist;
+    }
+    
+    
+    
+    
+    
+    
+    
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
 }
 
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
+
+
 
 -(void) controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.entriesTableView beginUpdates];
@@ -257,15 +353,14 @@
      forChangeType:(NSFetchedResultsChangeType)type {
     
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [self.entriesTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                          withRowAnimation:UITableViewRowAnimationFade];
+                                 withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
             [self.entriesTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                          withRowAnimation:UITableViewRowAnimationFade];
+                                 withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         default:
@@ -290,7 +385,7 @@
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-
+        
         dvc.destinationEntry = entryForThisRow;
     }
     

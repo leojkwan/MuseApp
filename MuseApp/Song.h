@@ -2,7 +2,7 @@
 //  Song.h
 //  
 //
-//  Created by Leo Kwan on 8/24/15.
+//  Created by Leo Kwan on 8/28/15.
 //
 //
 
@@ -15,8 +15,8 @@
 
 @property (nonatomic, retain) NSString * artistName;
 @property (nonatomic, retain) NSString * genre;
-@property (nonatomic, retain) NSString * songName;
 @property (nonatomic, retain) NSDate * pinnedAt;
+@property (nonatomic, retain) NSString * songName;
 @property (nonatomic, retain) Entry *entry;
 
 @end

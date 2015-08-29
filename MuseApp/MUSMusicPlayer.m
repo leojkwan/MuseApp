@@ -26,9 +26,20 @@
         _myPlayer = [[MPMusicPlayerController  alloc] init];
         // set currently playing song on instantiation
         self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
-        [self enableSongListeningNotifications];
+//        [self enableSongListeningNotifications];
     }
     return self;
+}
+
+//
+-(void)loadPlaylistArtworkForThisEntryWithCompletionBlock:(void (^)(NSMutableArray *))block {
+    
+    NSMutableArray *arrayOfSongImages = [[NSMutableArray alloc] init];
+    for (MPMediaItem *song in self.playlistCollection) {
+        UIImage *artworkForThisSong = [song.artwork imageWithSize:CGSizeMake(200, 200)];
+        [arrayOfSongImages addObject:artworkForThisSong];
+    }
+    block(arrayOfSongImages);
 }
 
 
@@ -61,6 +72,8 @@ if (playlist.count > 0) {
         [self.playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
     }
     
+    // at this point I have an array full of the media items that I want, which is playlist collection
+    
     MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
     
     block(currentPlaylistCollection);
@@ -75,7 +88,7 @@ if (playlist.count > 0) {
     MPMediaQuery *everything = [[MPMediaQuery alloc] init];
     NSArray *allSongs = [everything items];
     
-    
+
     for (MPMediaItem *song in allSongs) {
         if ([song.title isEqualToString:songString]) {
             completionBlock(YES);

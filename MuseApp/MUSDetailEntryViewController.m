@@ -1,21 +1,19 @@
 //
 //  MUSDetailEntryViewController.m
 //  MuseApp
-//
-//  Created by Leo Kwan on 8/23/15.
-//  Copyright (c) 2015 Leo Kwan. All rights reserved.
-//
+
+// Categories
+#import "NSDate+ExtraMethods.h"
+#import "UIButton+ExtraMethods.h"
+#import "UIImage+Resize.h"
+#import "Entry+ExtraMethods.h"
+#import "NSSet+MUSExtraMethod.h"
 
 #import "MUSDetailEntryViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
-#import "UIImage+Resize.h"
-#import <TPKeyboardAvoidingScrollView.h>
-#import "NSSet+MUSExtraMethod.h"
-#import <PSPDFTextView.h>
-#import "UIButton+ExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
 #import <CRMediaPickerController.h>
@@ -23,22 +21,23 @@
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
+#import <IHKeyboardAvoiding.h>
 
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
 
 //@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
-@property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet PSPDFTextView *textView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) UIImageView *coverImageView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) CRMediaPickerController *mediaPickerController;
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewToContentViewBottomConstraint;
 
 @end
 
@@ -48,20 +47,21 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     
+    NSLog(@"%@", self.destinationEntry.dateInString);
     
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
+    // set up music player
+    self.musicPlayer = [[MUSMusicPlayer alloc] init];
     
-    // play playlist
     [self playPlaylistForThisEntry];
-    
-    
+    [self listenForSongChanges];
     [self setUpParallaxForExistingEntries];
     
     
     self.textView.delegate = self;
-    self.textView.text = self.destinationEntry.titleOfEntry;
+    self.textView.text = self.destinationEntry.content;
     [self checkSizeOfContentForTextView:self.textView];
     
     
@@ -74,12 +74,30 @@
     
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view.mas_width);
+//        make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
     
     
     [self MUStoolbar];
+}
+
+-(void)listenForSongChanges {
+    
+    NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
+    [currentMusicPlayingNotifications addObserver: self
+                                         selector: @selector(nowPlayingItemChanged:)
+                                             name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
+                                           object: self.musicPlayer.myPlayer];
+    
+    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
+    
+    
+    
+}
+
+- (void)nowPlayingItemChanged:(id) sender {
+    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
 }
 
 -(void)MUStoolbar {
@@ -91,38 +109,37 @@
     
 }
 
-
 -(void)setUpParallaxForExistingEntries {
-    
+    self.coverImageView = [[UIImageView alloc] init];
     if (self.destinationEntry != nil) {
-        
         // Set Image For This Entry with Parallax
         [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
-        self.coverImageView = [[UIImageView alloc] init];
         self.coverImageView.image = entryCoverImage;
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
+        
+        // there are the magic two lines here
+        [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, 350)];
+        [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2, 175)];
     }
+    
 }
+
 
 
 #pragma mark  - Keyboard delegate methods
 -(void)didSelectCameraButton:(id)sender {
     [self selectPhoto:sender];
 }
-
 -(void)didSelectDoneButton:(id)sender {
     [self saveButtonTapped:sender];
 }
-
 -(void)didSelectAddSongButton:(id)sender {
     [self pinSongButtonPressed:sender];
 }
-
 -(void)didSelectPlaylistButton:(id)sender {
     [self playlistButtonPressed:sender];
 }
-
 -(void)didSelectBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -132,16 +149,21 @@
 -(void)textViewDidChange:(UITextView *)textView
 {
     [self checkSizeOfContentForTextView:textView];
+    NSLog(@"%ld", textView.text.length);
 }
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     if ([textView.text length] < 700) {
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@750);
+            make.height.equalTo(@700);
         }];
     } else {
         [textView sizeToFit];
         [textView layoutIfNeeded];
+        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            // add bottom space between between text view and scrolling content view
+            make.height.equalTo(self.textView.mas_height).with.offset(200);
+        }];
     }
 }
 
@@ -152,8 +174,6 @@
 
 -(void)playPlaylistForThisEntry {
     if (self.destinationEntry != nil) {
-        
-        self.musicPlayer = [[MUSMusicPlayer alloc] init];
         [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
             MPMediaItemCollection *playlistCollectionForThisEntry = response;
             
@@ -171,21 +191,28 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
+    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
+//    [self.scrollView setContentSize:[self.scrollView frame].size];
+    
+    
     [self.navigationController setNavigationBarHidden:YES];
     [self.MUSToolBar setHidden:NO];
 }
 
 - (void)saveButtonTapped:(id)sender {
     
-    if (self.destinationEntry == nil && self.coverImageView == nil) {
+    if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
         
     } else {
         // FOR OLD ENTRIES
         self.destinationEntry.content = self.textView.text;
-        self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
+        self.destinationEntry.titleOfEntry = [Entry getTitleOfContentFromText:self.destinationEntry.content];
     }
+    
+    // save to core data
     [self.store save];
     
     // dismiss view controller
@@ -195,27 +222,22 @@
 
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+    self.destinationEntry = newEntry;
     if (self.textView.text == nil) {
         newEntry.content = @"";
     } else {
         newEntry.content = self.textView.text;
     }
-    newEntry.titleOfEntry = [newEntry getTitleOfContent];
-    
-    newEntry.createdAt = [NSDate date];
+    newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
+    NSDate *currentDate = [NSDate date];
+    newEntry.createdAt = currentDate;
+    newEntry.dateInString = [currentDate returnFormattedDateString];
+    NSLog(@"%@", newEntry.createdAt);
     return newEntry;
 }
 
--(void)selectPhoto:(id)sender {
-    
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    [actionSheet addButtonWithTitle:@"Take Photo"];
-    [actionSheet addButtonWithTitle:@"Select photo from camera"];
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-    actionSheet.cancelButtonIndex = 2;
-    [actionSheet showInView:self.view];
-    
-}
+
+#pragma mark- photo selection methods
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -236,41 +258,41 @@
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
+
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    
-    self.coverImageView = [[UIImageView alloc] init];
-    [self.coverImageView setContentMode:UIViewContentModeCenter];
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-    
     [self.textView becomeFirstResponder];
-    
-    
-    
-    
-
     
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
-    
     else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
-    
-
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:200 andShadow:YES];
-    
-    
+    // add/ reset parallax image
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
     
     // SAVE TO CORE DATA!!
     [self.store save];
 }
 
+#pragma mark - button pressed methods
+
+-(void)selectPhoto:(id)sender {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    [actionSheet addButtonWithTitle:@"Take Photo"];
+    [actionSheet addButtonWithTitle:@"Select photo from camera"];
+    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
+    actionSheet.cancelButtonIndex = 2;
+    [actionSheet showInView:self.view];
+    
+}
 
 -(void)playlistButtonPressed:id {
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
@@ -278,25 +300,33 @@
 
 -(void)pinSongButtonPressed:id {
     
+    if(self.destinationEntry == nil){
+        [self createNewEntry];
+    }
+    
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
     pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
     pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
-    
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
-    // create 2D array for this song
+    // Format this song and add to array
     NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
     [arrayForThisSong addObject:pinnedSong.artistName];
     [arrayForThisSong addObject:pinnedSong.songName];
     [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
     
-    // Add song array to playlist
+    // Add song to Core Data
     [self.destinationEntry addSongsObject:pinnedSong];
     
-    NSLog(@"%@" , self.destinationEntry.songs);
+    // reset the collection array
+    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+        MPMediaItemCollection *playlistCollectionForThisEntry = response;
+        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+    }];
     
+    // Save to Core Data
     [self.store save];
     
 }
@@ -311,6 +341,10 @@
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
+        dvc.artworkForNowPlayingSong = [self.musicPlayer.currentlyPlayingSong.artwork imageWithSize:CGSizeMake(self.view.frame.size.width, 300)];
+        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+            dvc.artworkImagesForThisEntry = artworkImages;
+        }];
     }
     
     

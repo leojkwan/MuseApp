@@ -2,7 +2,7 @@
 //  Entry.m
 //  
 //
-//  Created by Leo Kwan on 8/24/15.
+//  Created by Leo Kwan on 8/28/15.
 //
 //
 
@@ -16,6 +16,7 @@
 @dynamic coverImage;
 @dynamic createdAt;
 @dynamic titleOfEntry;
+@dynamic dateInString;
 @dynamic songs;
 
 @end
