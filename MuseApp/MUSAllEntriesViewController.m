@@ -31,32 +31,34 @@
     self.store = [MUSDataStore sharedDataStore];
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
-
+    
     // set searchbar delegate
     self.entrySearchBar.delegate = self;
     [self.entrySearchBar setShowsScopeBar:YES];
     
-
+    
     // Create the sort descriptors array.
+    
+    NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:NO];
 
-        NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:NO];
-        entryFetch.sortDescriptors = @[sortDescriptor];
+    entryFetch.sortDescriptors = @[sortDescriptor];
     
     
     
     
     
     // Create and initialize the fetch results controller.
-
-        self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                     managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"content" cacheName:nil];
+    
+    self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"content" cacheName:nil];
     
     
     // set fetch results delegate
-        self.resultsController.delegate = self;
-        [self.resultsController performFetch:nil];
-
+    self.resultsController.delegate = self;
+    [self.resultsController performFetch:nil];
+    
 }
 
 // filter search results
@@ -85,11 +87,11 @@
     
     // reload table view data!
     [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-
+    
     
     // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
-  
+        
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
@@ -100,8 +102,8 @@
         [self.resultsController.fetchRequest setPredicate:predicate];
         [self.resultsController.fetchRequest setFetchLimit:5]; //
         [self.store.managedObjectContext executeFetchRequest:request
-                                                                     error:nil];
-
+                                                       error:nil];
+        
         
     }
     
@@ -109,15 +111,15 @@
         // Handle error
         exit(-1);
     }
-
+    
     [self.entriesTableView reloadData];
 }
 
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-   
+    
     // clear search
-     searchBar.text = @"";
+    searchBar.text = @"";
     NSPredicate *predicate = nil;
     
     [self.resultsController.fetchRequest setPredicate:predicate];
@@ -131,8 +133,8 @@
     
     // reload table view data!
     [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-
-
+    
+    
     // hide keyboard and cancel button!
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];
@@ -143,10 +145,8 @@
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [searchBar setShowsCancelButton:YES animated:YES];
-
+    
 }
-
-
 
 
 - (IBAction)addButtonPressed:(id)sender {
@@ -171,7 +171,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   
+    
     if ([[self.resultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
         return [sectionInfo numberOfObjects];
@@ -190,9 +190,26 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    id<NSFetchedResultsSectionInfo> sec = [self.resultsController sections][section];
-    return [sec name];
+    id<NSFetchedResultsSectionInfo> theSection = [self.resultsController sections][section];
+//    
+//    
+//    NSDateFormatter *dateParser = [[NSDateFormatter alloc] init];
+//    
+//    [dateParser setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
+//    NSDate *dateForThisSection = [dateParser dateFromString:theSection.name];
+//    
+//    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
+//    [monthAndYearFormatter setDateFormat:@"MMMM YYYY"];
+//    
+//    NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:dateForThisSection];
+//    NSLog(@"%@" , monthAndYearOfSection);
+//    
+//    
+//    return monthAndYearOfSection;
+    return [theSection name];
 }
+
+
 
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -214,12 +231,12 @@
     
     MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-
+    
     // set cell values
     NSLog(@"do you get callled in celll for row?");
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
-
+    
     return cell;
 }
 
@@ -280,12 +297,12 @@
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.entriesTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                          withRowAnimation:UITableViewRowAnimationFade];
+                                 withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
             [self.entriesTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-                          withRowAnimation:UITableViewRowAnimationFade];
+                                 withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         default:
@@ -310,7 +327,7 @@
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-
+        
         dvc.destinationEntry = entryForThisRow;
     }
     
