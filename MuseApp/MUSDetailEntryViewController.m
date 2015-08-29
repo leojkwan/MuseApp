@@ -16,6 +16,7 @@
 #import <CRMediaPickerController.h>
 #import <UIScrollView+APParallaxHeader.h>
 #import "MUSKeyboardTopBar.h"
+#import "NSDate+ExtraMethods.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
@@ -45,7 +46,7 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     
-    
+    NSLog(@"%@", self.destinationEntry.dateInString);
     
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
@@ -210,6 +211,8 @@
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
     }
+    
+    // save to core data
     [self.store save];
     
     // dismiss view controller
@@ -219,13 +222,17 @@
 
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+    self.destinationEntry = newEntry;
     if (self.textView.text == nil) {
         newEntry.content = @"";
     } else {
         newEntry.content = self.textView.text;
     }
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
-    newEntry.createdAt = [NSDate date];
+    NSDate *currentDate = [NSDate date];
+    newEntry.createdAt = currentDate;
+    newEntry.dateInString = [currentDate returnFormattedDateString];
+    NSLog(@"%@", newEntry.createdAt);
     return newEntry;
 }
 
@@ -262,7 +269,6 @@
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
-        self.destinationEntry =  newEntryWithImage;
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
     else {
@@ -293,6 +299,10 @@
 }
 
 -(void)pinSongButtonPressed:id {
+    
+    if(self.destinationEntry == nil){
+        [self createNewEntry];
+    }
     
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];

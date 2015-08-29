@@ -2,7 +2,7 @@
 //  Song.m
 //  
 //
-//  Created by Leo Kwan on 8/24/15.
+//  Created by Leo Kwan on 8/28/15.
 //
 //
 
@@ -14,8 +14,8 @@
 
 @dynamic artistName;
 @dynamic genre;
-@dynamic songName;
 @dynamic pinnedAt;
+@dynamic songName;
 @dynamic entry;
 
 @end

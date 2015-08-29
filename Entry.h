@@ -2,7 +2,7 @@
 //  Entry.h
 //  
 //
-//  Created by Leo Kwan on 8/24/15.
+//  Created by Leo Kwan on 8/28/15.
 //
 //
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSData * coverImage;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSString * titleOfEntry;
+@property (nonatomic, retain) NSString * dateInString;
 @property (nonatomic, retain) NSSet *songs;
 @end
 

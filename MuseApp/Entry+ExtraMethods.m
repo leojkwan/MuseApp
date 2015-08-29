@@ -1,23 +1,14 @@
 //
-//  Entry.m
-//  
+//  Entry+ExtraMethods.m
+//  MuseApp
 //
 //  Created by Leo Kwan on 8/28/15.
+//  Copyright (c) 2015 Leo Kwan. All rights reserved.
 //
-//
 
-#import "Entry.h"
-#import "Song.h"
+#import "Entry+ExtraMethods.h"
 
-
-@implementation Entry
-
-@dynamic content;
-@dynamic coverImage;
-@dynamic createdAt;
-@dynamic titleOfEntry;
-@dynamic dateInString;
-@dynamic songs;
+@implementation Entry (ExtraMethods)
 
 -(NSString *)getTitleOfContent {
     NSString *titleString = [[self.content componentsSeparatedByString:@"\n"] objectAtIndex:0];

@@ -1,5 +1,5 @@
 //
-//  NSDateFormatter+ExtraMethods.h
+//  NSDate+ExtraMethods.h
 //  MuseApp
 //
 //  Created by Leo Kwan on 8/28/15.
@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDateFormatter (ExtraMethods)
+@interface NSDate (ExtraMethods)
+
+-(NSString *)returnFormattedDateString;
+
 
 @end
