@@ -1,10 +1,6 @@
 //
 //  MUSDetailEntryViewController.m
 //  MuseApp
-//
-//  Created by Leo Kwan on 8/23/15.
-//  Copyright (c) 2015 Leo Kwan. All rights reserved.
-//
 
 #import "MUSDetailEntryViewController.h"
 #import "MUSDataStore.h"
@@ -23,6 +19,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
+
+//TODO ADD AFPOPTIP
 
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
@@ -46,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
+    
     
     
     //Convert entry NSSet into appropriate MutableArray
@@ -115,7 +114,11 @@
         [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
         self.coverImageView.image = entryCoverImage;
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:500 andShadow:YES];
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
+        
+        // there are the magic two lines here
+        [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, 350)];
+        [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2, 175)];
     }
     
 }
@@ -190,7 +193,7 @@
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
     [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
     [self.scrollView setContentSize:[self.scrollView frame].size];
-
+    
     
     [self.navigationController setNavigationBarHidden:YES];
     [self.MUSToolBar setHidden:NO];
@@ -222,7 +225,6 @@
         newEntry.content = self.textView.text;
     }
     newEntry.titleOfEntry = [newEntry getTitleOfContent];
-    
     newEntry.createdAt = [NSDate date];
     return newEntry;
 }
@@ -260,6 +262,7 @@
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
+        self.destinationEntry =  newEntryWithImage;
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
     else {
