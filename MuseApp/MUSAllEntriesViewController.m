@@ -304,7 +304,7 @@
 }
 
 
-#pragma mark - NSFetchedResultsControllerDelegate methodss
+#pragma mark - NSFetchedResultsControllerDelegate methods
 
 
 
