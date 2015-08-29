@@ -5,6 +5,7 @@ PODS:
   - FCVerticalMenu (0.1.3)
   - IHKeyboardAvoiding (2.4)
   - Masonry (0.6.2)
+  - UIScrollView-InfiniteScroll (0.7.3)
 
 DEPENDENCIES:
   - AFBlurSegue (~> 1.2.1)
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - FCVerticalMenu
   - IHKeyboardAvoiding
   - Masonry
+  - UIScrollView-InfiniteScroll
 
 SPEC CHECKSUMS:
   AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
@@ -21,5 +23,6 @@ SPEC CHECKSUMS:
   FCVerticalMenu: 1f9d11018d78fdb5eac858fb13b7fc60d09a03ee
   IHKeyboardAvoiding: f470ea004ae9befb3b10ff4db20d37af10f43e59
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  UIScrollView-InfiniteScroll: b6c7d6d155dca7f9c5dd43813ecffeb301b3d50c
 
 COCOAPODS: 0.38.2

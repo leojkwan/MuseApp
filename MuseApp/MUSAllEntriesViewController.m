@@ -15,6 +15,8 @@
 #import "NSSet+MUSExtraMethod.h"
 #import <FCVerticalMenuItem.h>
 #import <FCVerticalMenu.h>
+#import <UIScrollView+InfiniteScroll.h>
+
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
@@ -23,6 +25,9 @@
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
 @property (weak, nonatomic) IBOutlet UISearchBar *entrySearchBar;
 @property (nonatomic, strong) FCVerticalMenu *verticalMenu;
+@property NSInteger currentFetchCount;
+@property NSInteger totalNumberOfEntries;
+
 
 @end
 
@@ -39,38 +44,56 @@
     // set searchbar delegate
     self.entrySearchBar.delegate = self;
     [self.entrySearchBar setShowsScopeBar:YES];
+    [self performInitialFetchRequest];
+    [self setUpInfiniteScrollWithFetchRequest];
+    [self getCountForTotalEntries];
+
     
+//
+//    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+//    
+//    item1.actionBlock = ^{
+//        NSLog(@"test element 1");
+//    };
+//    
+//    
+//    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
+//    self.verticalMenu.appearsBehindNavigationBar = YES;
+//    
+//    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
     
-    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+}
+
+#pragma mark-
+
+-(void)getCountForTotalEntries {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity: [NSEntityDescription entityForName:@"MUSEntry" inManagedObjectContext: self.store.managedObjectContext]];
+    NSError *error = nil;
+    NSUInteger count = [self.store.managedObjectContext countForFetchRequest: request error: &error];
+    self.totalNumberOfEntries = count;
+    NSLog(@"TOTAL NUMBER OF ENTRIES %ld" , count);
+}
+
+
+-(void)performInitialFetchRequest {
     
-    item1.actionBlock = ^{
-        NSLog(@"test element 1");
-    };
-    
-    
-    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
-    self.verticalMenu.appearsBehindNavigationBar = YES;
-    
-    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
-    
-    
+    // delete cache every time
+    [NSFetchedResultsController deleteCacheWithName:@"cache"];
     
     // Create the sort descriptors array.
-    
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-
     entryFetch.sortDescriptors = @[sortDescriptor];
+
     
-    
-    
-    
-    
+    // set fetch count
+    self.currentFetchCount = 2;
+    [entryFetch setFetchLimit:self.currentFetchCount];
+
     // Create and initialize the fetch results controller.
-    
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
-    
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:@"cache"];
     
     // set fetch results delegate
     self.resultsController.delegate = self;
@@ -78,7 +101,29 @@
     
 }
 
-// filter search results
+
+-(void)setUpInfiniteScrollWithFetchRequest {
+    [self.entriesTableView addInfiniteScrollWithHandler:^(UITableView* tableView) {
+
+        if (self.currentFetchCount < self.totalNumberOfEntries) {
+            NSLog(@"are you in here?");
+            NSLog(@" CURRENT FETCH COUNT %ld", self.currentFetchCount);
+            NSLog(@" TOTAL NUMBER OF ENTRIES %ld", self.totalNumberOfEntries);
+            // delete cache every time
+            [NSFetchedResultsController deleteCacheWithName:@"cache"];
+            // just make sure to call finishInfiniteScroll in the end
+            self.currentFetchCount += 2;
+            [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
+            [self.resultsController performFetch:nil];
+            [tableView setContentOffset:CGPointMake(0, tableView.contentSize.height) animated:YES];
+        }
+
+        // finish infinite scroll animation
+        [tableView finishInfiniteScroll];
+        [tableView reloadData];
+    }];
+}
+
 
 
 #pragma mark - Search Bar Delegate
@@ -257,24 +302,12 @@
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     
     // set cell values
-    NSLog(@"do you get callled in celll for row?");
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
     
     // playlist text
     NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
-    
-//    if (formattedPlaylistForThisEntry.count > 0) {
-//        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
-//        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
-//        cell.artistsLabel.text = @" — ";
-//        if (formattedPlaylistForThisEntry.count == 1 ) {
-//            cell.artistsLabel.text = oneArtist;
-//        } else if (formattedPlaylistForThisEntry.count > 1) {
-//            cell.artistsLabel.text = moreThanOneArtist;
-//        }
-//    }
-    
+
     if (formattedPlaylistForThisEntry.count == 0) {
         
         
@@ -288,12 +321,6 @@
         NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
         cell.artistsLabel.text = moreThanOneArtist;
     }
-    
-    
-    
-    
-    
-    
     
     return cell;
 }

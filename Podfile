@@ -9,6 +9,7 @@ pod 'AFBlurSegue', '~> 1.2.1'
 pod 'CRMediaPickerController'
 pod 'IHKeyboardAvoiding'
 pod "FCVerticalMenu"
+pod 'UIScrollView-InfiniteScroll'
 
 
 end
