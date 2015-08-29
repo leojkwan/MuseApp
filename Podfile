@@ -10,7 +10,7 @@ pod 'CRMediaPickerController'
 pod 'IHKeyboardAvoiding'
 pod "FCVerticalMenu"
 pod 'UIScrollView-InfiniteScroll'
-
+pod 'MCSwipeTableViewCell', '~> 2.1.4'
 
 end
 

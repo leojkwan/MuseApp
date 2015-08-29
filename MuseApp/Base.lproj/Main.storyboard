@@ -40,12 +40,6 @@
                                                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
                                                     <rect key="frame" x="5" y="133" width="590" height="146"/>
                                                     <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSL-DH-6Ad">
-                                                            <rect key="frame" x="531" y="116" width="51" height="29"/>
-                                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="21"/>
-                                                            <color key="textColor" red="0.98323074489999995" green="0.98323074489999995" blue="0.98323074489999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-b0-B8i">
                                                             <rect key="frame" x="31" y="131" width="295" height="0.0"/>
                                                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="18"/>
@@ -68,26 +62,19 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="MSL-DH-6Ad" firstAttribute="top" secondItem="uYC-2K-Gz3" secondAttribute="bottom" priority="750" constant="12" id="2aE-IF-EHN"/>
                                                         <constraint firstItem="uYC-2K-Gz3" firstAttribute="leading" secondItem="W4B-Pa-wld" secondAttribute="leading" constant="5" id="4gJ-n3-Mex"/>
                                                         <constraint firstAttribute="bottom" secondItem="aca-b0-B8i" secondAttribute="bottom" constant="8.5" id="CLc-Pm-sJ3"/>
                                                         <constraint firstAttribute="centerX" secondItem="uYC-2K-Gz3" secondAttribute="centerX" id="GS5-26-emQ"/>
                                                         <constraint firstItem="znZ-TZ-lMB" firstAttribute="leading" secondItem="W4B-Pa-wld" secondAttribute="leading" constant="8" id="IWM-Ju-vRQ"/>
-                                                        <constraint firstItem="aca-b0-B8i" firstAttribute="centerY" secondItem="MSL-DH-6Ad" secondAttribute="centerY" id="LJ5-Xl-elX"/>
                                                         <constraint firstAttribute="bottom" secondItem="znZ-TZ-lMB" secondAttribute="bottom" constant="8" id="LMv-SD-uF7"/>
-                                                        <constraint firstAttribute="trailing" secondItem="MSL-DH-6Ad" secondAttribute="trailing" constant="8" id="RWr-Hz-Qa0"/>
-                                                        <constraint firstItem="MSL-DH-6Ad" firstAttribute="centerY" secondItem="znZ-TZ-lMB" secondAttribute="centerY" constant="-1" id="Sb3-tj-mQq"/>
                                                         <constraint firstAttribute="trailing" secondItem="uYC-2K-Gz3" secondAttribute="trailing" constant="5" id="ShS-98-Bn1"/>
                                                         <constraint firstItem="aca-b0-B8i" firstAttribute="top" secondItem="uYC-2K-Gz3" secondAttribute="bottom" constant="23.5" id="UjE-cQ-AxS"/>
                                                         <constraint firstItem="aca-b0-B8i" firstAttribute="leading" secondItem="W4B-Pa-wld" secondAttribute="leading" constant="524" id="V1s-bq-OZ1"/>
                                                         <constraint firstItem="aca-b0-B8i" firstAttribute="width" secondItem="W4B-Pa-wld" secondAttribute="width" multiplier="1/2" id="Woo-vj-geb"/>
                                                         <constraint firstItem="aca-b0-B8i" firstAttribute="leading" secondItem="znZ-TZ-lMB" secondAttribute="trailing" constant="8" id="YSp-05-xvC"/>
-                                                        <constraint firstAttribute="bottom" secondItem="MSL-DH-6Ad" secondAttribute="bottom" constant="8.5" id="deF-KQ-4FE"/>
-                                                        <constraint firstItem="MSL-DH-6Ad" firstAttribute="centerY" secondItem="aca-b0-B8i" secondAttribute="centerY" id="efH-kD-Zna"/>
                                                         <constraint firstItem="znZ-TZ-lMB" firstAttribute="centerY" secondItem="aca-b0-B8i" secondAttribute="centerY" id="mLz-d8-OKz"/>
                                                         <constraint firstAttribute="trailing" secondItem="aca-b0-B8i" secondAttribute="trailing" constant="21" id="p46-O0-aGF"/>
                                                         <constraint firstItem="uYC-2K-Gz3" firstAttribute="top" secondItem="W4B-Pa-wld" secondAttribute="top" constant="5" id="t8Q-ez-Qyo"/>
-                                                        <constraint firstItem="MSL-DH-6Ad" firstAttribute="leading" secondItem="W4B-Pa-wld" secondAttribute="leading" constant="14" id="uLl-BL-Bqr"/>
                                                         <constraint firstItem="znZ-TZ-lMB" firstAttribute="centerY" secondItem="aca-b0-B8i" secondAttribute="centerY" id="ysk-3P-QdE"/>
                                                     </constraints>
                                                     <variation key="default">
@@ -95,13 +82,8 @@
                                                             <exclude reference="GS5-26-emQ"/>
                                                             <exclude reference="mLz-d8-OKz"/>
                                                             <exclude reference="CLc-Pm-sJ3"/>
-                                                            <exclude reference="LJ5-Xl-elX"/>
                                                             <exclude reference="V1s-bq-OZ1"/>
                                                             <exclude reference="p46-O0-aGF"/>
-                                                            <exclude reference="2aE-IF-EHN"/>
-                                                            <exclude reference="Sb3-tj-mQq"/>
-                                                            <exclude reference="deF-KQ-4FE"/>
-                                                            <exclude reference="uLl-BL-Bqr"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -121,7 +103,6 @@
                                         <connections>
                                             <outlet property="artistsLabel" destination="aca-b0-B8i" id="YMP-i7-IfT"/>
                                             <outlet property="blurView" destination="W4B-Pa-wld" id="2p0-FA-YGe"/>
-                                            <outlet property="createdAtLabel" destination="MSL-DH-6Ad" id="93n-ZZ-biG"/>
                                             <outlet property="entryImageView" destination="55p-TK-tee" id="bnF-9z-1xJ"/>
                                             <outlet property="entryTitleLabel" destination="uYC-2K-Gz3" id="dvU-7K-h8V"/>
                                         </connections>

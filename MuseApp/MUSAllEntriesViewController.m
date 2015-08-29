@@ -88,7 +88,7 @@
 
     
     // set fetch count
-    self.currentFetchCount = 2;
+    self.currentFetchCount = 3;
     [entryFetch setFetchLimit:self.currentFetchCount];
 
     // Create and initialize the fetch results controller.

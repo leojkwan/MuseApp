@@ -8,14 +8,13 @@
 
 #import "MUSEntryTableViewCell.h"
 
+
 @implementation MUSEntryTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
     
-
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     UIColor *color = self.blurView.backgroundColor;
     [super setSelected:selected animated:animated];
@@ -34,6 +33,16 @@
     }
 }
 
-
+- (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject
+{
+    NSString *imageName = (NSString *)dataObject;
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageItem = [[UIImageView alloc] initWithImage:image];
+    imageItem.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithView:imageItem];
+    [item setDataObject:dataObject];
+    
+    return item;
+}
 
 @end
