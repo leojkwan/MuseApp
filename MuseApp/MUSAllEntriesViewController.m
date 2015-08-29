@@ -12,6 +12,7 @@
 #import "Song.h"
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
+#import "NSSet+MUSExtraMethod.h"
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
 @property (weak, nonatomic) IBOutlet UISearchBar *entrySearchBar;
+
 
 @end
 
@@ -62,6 +64,12 @@
 
 // filter search results
 
+
+#pragma mark - Search Bar Delegate
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];=
+}
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     if (searchBar.text.length == 0) {
         NSLog(@"THERE IS NOTHING HERE?");
@@ -236,6 +244,40 @@
     NSLog(@"do you get callled in celll for row?");
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
+    
+    // playlist text
+    NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
+    
+//    if (formattedPlaylistForThisEntry.count > 0) {
+//        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
+//        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
+//        cell.artistsLabel.text = @" — ";
+//        if (formattedPlaylistForThisEntry.count == 1 ) {
+//            cell.artistsLabel.text = oneArtist;
+//        } else if (formattedPlaylistForThisEntry.count > 1) {
+//            cell.artistsLabel.text = moreThanOneArtist;
+//        }
+//    }
+    
+    if (formattedPlaylistForThisEntry.count == 0) {
+        
+        
+        cell.artistsLabel.text = @"—";
+    }
+    else if (formattedPlaylistForThisEntry.count == 1 ) {
+        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
+        cell.artistsLabel.text = oneArtist;
+    }
+    else if (formattedPlaylistForThisEntry.count > 1) {
+        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
+        cell.artistsLabel.text = moreThanOneArtist;
+    }
+    
+    
+    
+    
+    
+    
     
     return cell;
 }

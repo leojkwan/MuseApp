@@ -5,10 +5,10 @@ target 'MuseApp' do
 
 pod 'APParallaxHeader'
 pod 'Masonry'
-pod 'TPKeyboardAvoiding'
 pod 'AFBlurSegue', '~> 1.2.1'
 pod 'CRMediaPickerController'
 pod 'IHKeyboardAvoiding'
+pod "FCVerticalMenu"
 
 
 end
