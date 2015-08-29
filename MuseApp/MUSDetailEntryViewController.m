@@ -51,7 +51,9 @@
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-    
+    // set up music player
+    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    // play song if there is music
     [self playPlaylistForThisEntry];
     [self listenForSongChanges];
     
@@ -172,8 +174,6 @@
 
 -(void)playPlaylistForThisEntry {
     if (self.destinationEntry != nil) {
-        
-        self.musicPlayer = [[MUSMusicPlayer alloc] init];
         [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
             MPMediaItemCollection *playlistCollectionForThisEntry = response;
             
