@@ -40,7 +40,7 @@
     // Create the sort descriptors array.
 
         NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"content" ascending:NO];
         entryFetch.sortDescriptors = @[sortDescriptor];
     
     
@@ -50,7 +50,7 @@
     // Create and initialize the fetch results controller.
 
         self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                     managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+                                                                     managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"content" cacheName:nil];
     
     
     // set fetch results delegate
@@ -58,8 +58,6 @@
         [self.resultsController performFetch:nil];
 
 }
-
-
 
 // filter search results
 
@@ -167,6 +165,11 @@
 #pragma mark - UITable View Delegate methods
 
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[self.resultsController sections] count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
    
     if ([[self.resultsController sections] count] > 0) {
@@ -176,10 +179,21 @@
     return 0;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 300;
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    id<NSFetchedResultsSectionInfo> sec = [self.resultsController sections][section];
+    return [sec name];
+}
+
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -209,8 +223,15 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
+}
+
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
+
+
 
 -(void) controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.entriesTableView beginUpdates];
@@ -257,7 +278,6 @@
      forChangeType:(NSFetchedResultsChangeType)type {
     
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [self.entriesTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationFade];
