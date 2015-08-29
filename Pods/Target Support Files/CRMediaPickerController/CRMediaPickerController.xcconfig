@@ -1,0 +1,1 @@
+CRMEDIAPICKERCONTROLLER_OTHER_LDFLAGS = -framework "AVFoundation" -framework "AssetsLibrary" -framework "UIKit"
