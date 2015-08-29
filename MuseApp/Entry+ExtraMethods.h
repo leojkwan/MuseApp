@@ -10,7 +10,7 @@
 
 @interface Entry (ExtraMethods)
 
--(NSString *)getTitleOfContent;
++(NSString *)getTitleOfContentFromText:(NSString*)content;
 
 
 @end

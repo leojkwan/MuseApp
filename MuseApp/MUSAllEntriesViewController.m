@@ -178,9 +178,7 @@
     return 0;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
-}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 300;
@@ -190,26 +188,29 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     id<NSFetchedResultsSectionInfo> theSection = [self.resultsController sections][section];
-//    
-//    
-//    NSDateFormatter *dateParser = [[NSDateFormatter alloc] init];
-//    
-//    [dateParser setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
-//    NSDate *dateForThisSection = [dateParser dateFromString:theSection.name];
-//    
-//    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
-//    [monthAndYearFormatter setDateFormat:@"MMMM YYYY"];
-//    
-//    NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:dateForThisSection];
-//    NSLog(@"%@" , monthAndYearOfSection);
-//    
-//    
-//    return monthAndYearOfSection;
     return [theSection name];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
 
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *sectionLabel = [[UILabel alloc] init];
+    sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
+    sectionLabel.backgroundColor = [UIColor darkGrayColor];
+    sectionLabel.textAlignment = NSTextAlignmentCenter;
+    [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
+    sectionLabel.textColor = [UIColor colorWithRed:0.93 green:0.87 blue:0.1 alpha:1];
+    
+    
+    sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:sectionLabel];
+    
+    return headerView;
+}
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

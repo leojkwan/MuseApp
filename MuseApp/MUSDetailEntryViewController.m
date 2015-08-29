@@ -2,26 +2,27 @@
 //  MUSDetailEntryViewController.m
 //  MuseApp
 
+// Categories
+#import "NSDate+ExtraMethods.h"
+#import "UIButton+ExtraMethods.h"
+#import "UIImage+Resize.h"
+#import "Entry+ExtraMethods.h"
+#import "NSSet+MUSExtraMethod.h"
+
 #import "MUSDetailEntryViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
-#import "UIImage+Resize.h"
 #import <TPKeyboardAvoidingScrollView.h>
-#import "NSSet+MUSExtraMethod.h"
-#import "UIButton+ExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
 #import <CRMediaPickerController.h>
 #import <UIScrollView+APParallaxHeader.h>
 #import "MUSKeyboardTopBar.h"
-#import "NSDate+ExtraMethods.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
-
-//TODO ADD AFPOPTIP
 
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewToContentViewBottomConstraint;
 
 @end
 
@@ -53,16 +55,14 @@
     
     // set up music player
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
-    // play song if there is music
+    
     [self playPlaylistForThisEntry];
     [self listenForSongChanges];
-    
-    
     [self setUpParallaxForExistingEntries];
     
     
     self.textView.delegate = self;
-    self.textView.text = self.destinationEntry.titleOfEntry;
+    self.textView.text = self.destinationEntry.content;
     [self checkSizeOfContentForTextView:self.textView];
     
     
@@ -75,7 +75,7 @@
     
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view.mas_width);
+//        make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
     
@@ -132,19 +132,15 @@
 -(void)didSelectCameraButton:(id)sender {
     [self selectPhoto:sender];
 }
-
 -(void)didSelectDoneButton:(id)sender {
     [self saveButtonTapped:sender];
 }
-
 -(void)didSelectAddSongButton:(id)sender {
     [self pinSongButtonPressed:sender];
 }
-
 -(void)didSelectPlaylistButton:(id)sender {
     [self playlistButtonPressed:sender];
 }
-
 -(void)didSelectBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -154,16 +150,21 @@
 -(void)textViewDidChange:(UITextView *)textView
 {
     [self checkSizeOfContentForTextView:textView];
+    NSLog(@"%ld", textView.text.length);
 }
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     if ([textView.text length] < 700) {
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@750);
+            make.height.equalTo(@700);
         }];
     } else {
         [textView sizeToFit];
         [textView layoutIfNeeded];
+        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            // add bottom space between between text view and scrolling content view
+            make.height.equalTo(self.textView.mas_height).with.offset(200);
+        }];
     }
 }
 
@@ -193,7 +194,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
     [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
-    [self.scrollView setContentSize:[self.scrollView frame].size];
+//    [self.scrollView setContentSize:[self.scrollView frame].size];
     
     
     [self.navigationController setNavigationBarHidden:YES];
@@ -209,7 +210,7 @@
     } else {
         // FOR OLD ENTRIES
         self.destinationEntry.content = self.textView.text;
-        self.destinationEntry.titleOfEntry = [self.destinationEntry getTitleOfContent];
+        self.destinationEntry.titleOfEntry = [Entry getTitleOfContentFromText:self.destinationEntry.content];
     }
     
     // save to core data
@@ -228,7 +229,7 @@
     } else {
         newEntry.content = self.textView.text;
     }
-    newEntry.titleOfEntry = [newEntry getTitleOfContent];
+    newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
     NSDate *currentDate = [NSDate date];
     newEntry.createdAt = currentDate;
     newEntry.dateInString = [currentDate returnFormattedDateString];

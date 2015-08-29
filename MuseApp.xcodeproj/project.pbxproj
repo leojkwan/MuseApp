@@ -26,7 +26,6 @@
 		94C4B58D1B914F1800BDBB27 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B58A1B914F1800BDBB27 /* Song.m */; };
 		94C4B58E1B914F1800BDBB27 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B58C1B914F1800BDBB27 /* Entry.m */; };
 		94C4B5911B914F5A00BDBB27 /* Entry+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B5901B914F5A00BDBB27 /* Entry+ExtraMethods.m */; };
-		94C4B5941B9150FA00BDBB27 /* NSString+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B5931B9150FA00BDBB27 /* NSString+ExtraMethods.m */; };
 		94C4B5971B91516D00BDBB27 /* NSDate+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B5961B91516D00BDBB27 /* NSDate+ExtraMethods.m */; };
 		94DB5CA91B8FC7B9008EC8B5 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB5CA81B8FC7B9008EC8B5 /* UIImage+Resize.m */; };
 		94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DEB2F71B8A20EE001509C9 /* MUSDataStore.m */; };
@@ -83,8 +82,6 @@
 		94C4B58C1B914F1800BDBB27 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 		94C4B58F1B914F5A00BDBB27 /* Entry+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Entry+ExtraMethods.h"; sourceTree = "<group>"; };
 		94C4B5901B914F5A00BDBB27 /* Entry+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Entry+ExtraMethods.m"; sourceTree = "<group>"; };
-		94C4B5921B9150FA00BDBB27 /* NSString+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ExtraMethods.h"; sourceTree = "<group>"; };
-		94C4B5931B9150FA00BDBB27 /* NSString+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ExtraMethods.m"; sourceTree = "<group>"; };
 		94C4B5951B91516D00BDBB27 /* NSDate+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ExtraMethods.h"; sourceTree = "<group>"; };
 		94C4B5961B91516D00BDBB27 /* NSDate+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ExtraMethods.m"; sourceTree = "<group>"; };
 		94DB5CA71B8FC7B9008EC8B5 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -135,10 +132,8 @@
 				94DB5CA81B8FC7B9008EC8B5 /* UIImage+Resize.m */,
 				940ACD2C1B8BA5CA0029230B /* NSSet+MUSExtraMethod.h */,
 				940ACD2D1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m */,
-				94C4B5921B9150FA00BDBB27 /* NSString+ExtraMethods.h */,
 				94C4B5951B91516D00BDBB27 /* NSDate+ExtraMethods.h */,
 				94C4B5961B91516D00BDBB27 /* NSDate+ExtraMethods.m */,
-				94C4B5931B9150FA00BDBB27 /* NSString+ExtraMethods.m */,
 				940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */,
 				940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */,
 			);
@@ -428,7 +423,6 @@
 				9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */,
 				9461111D1B90CB8200CD86C9 /* MUSCircleGradient.m in Sources */,
 				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
-				94C4B5941B9150FA00BDBB27 /* NSString+ExtraMethods.m in Sources */,
 				94C4B58E1B914F1800BDBB27 /* Entry.m in Sources */,
 				94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */,
 				94A86B621B8E92AD00A45E79 /* MUSKeyboardTopBar.m in Sources */,

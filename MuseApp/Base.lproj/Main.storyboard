@@ -37,8 +37,8 @@
                                                 <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="55p-TK-tee" userLabel="coverPhoto">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="292.5"/>
                                                 </imageView>
-                                                <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
-                                                    <rect key="frame" x="13" y="135" width="574" height="146"/>
+                                                <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
+                                                    <rect key="frame" x="13" y="133.5" width="574" height="146"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Date " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSL-DH-6Ad">
                                                             <rect key="frame" x="14" y="107" width="51" height="29"/>
@@ -162,10 +162,10 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGV-He-lkb">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="10" height="41"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
                                                 <rect key="frame" x="0.0" y="0.0" width="10" height="41"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
@@ -176,15 +176,21 @@
                                         <constraints>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="T5c-zl-b6B"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="WH2-oa-xPk"/>
-                                            <constraint firstAttribute="bottom" secondItem="68a-QO-p1t" secondAttribute="bottom" id="dqj-01-IuI"/>
-                                            <constraint firstAttribute="trailing" secondItem="68a-QO-p1t" secondAttribute="trailing" id="yyf-pF-m8A"/>
+                                            <constraint firstItem="68a-QO-p1t" firstAttribute="bottom" secondItem="ZUS-FP-YG9" secondAttribute="bottom" id="dqj-01-IuI"/>
+                                            <constraint firstItem="68a-QO-p1t" firstAttribute="width" secondItem="ZUS-FP-YG9" secondAttribute="width" id="n96-SZ-pE6"/>
+                                            <constraint firstItem="68a-QO-p1t" firstAttribute="trailing" secondItem="ZUS-FP-YG9" secondAttribute="trailing" id="yyf-pF-m8A"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="n96-SZ-pE6"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="ZUS-FP-YG9" secondAttribute="bottom" id="YhX-ei-NKI"/>
+                                    <constraint firstItem="ZUS-FP-YG9" firstAttribute="bottom" secondItem="TGV-He-lkb" secondAttribute="bottom" id="YhX-ei-NKI"/>
                                     <constraint firstItem="ZUS-FP-YG9" firstAttribute="leading" secondItem="TGV-He-lkb" secondAttribute="leading" id="aCA-yF-bxA"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZUS-FP-YG9" secondAttribute="trailing" id="k1v-SA-ePC"/>
+                                    <constraint firstItem="ZUS-FP-YG9" firstAttribute="trailing" secondItem="TGV-He-lkb" secondAttribute="trailing" id="k1v-SA-ePC"/>
                                     <constraint firstItem="ZUS-FP-YG9" firstAttribute="top" secondItem="TGV-He-lkb" secondAttribute="top" id="yKy-iD-vSc"/>
                                 </constraints>
                             </scrollView>
@@ -193,6 +199,7 @@
                         <constraints>
                             <constraint firstItem="TGV-He-lkb" firstAttribute="leading" secondItem="B83-cu-4xm" secondAttribute="leading" id="Bbb-ED-MI9"/>
                             <constraint firstItem="TGV-He-lkb" firstAttribute="top" secondItem="B83-cu-4xm" secondAttribute="top" id="FEg-gp-ub9"/>
+                            <constraint firstItem="68a-QO-p1t" firstAttribute="width" secondItem="B83-cu-4xm" secondAttribute="width" id="MX2-VB-Des"/>
                             <constraint firstAttribute="trailing" secondItem="TGV-He-lkb" secondAttribute="trailing" id="cEs-gJ-rPS"/>
                             <constraint firstAttribute="bottomMargin" secondItem="TGV-He-lkb" secondAttribute="bottom" id="swd-V6-xFx"/>
                         </constraints>
@@ -201,6 +208,7 @@
                         <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
+                        <outlet property="textViewToContentViewBottomConstraint" destination="dqj-01-IuI" id="Pfg-eH-Wce"/>
                         <segue destination="EiH-fH-8rA" kind="custom" identifier="playlistSegue" customClass="AFBlurSegue" id="eaT-SP-hex"/>
                     </connections>
                 </viewController>

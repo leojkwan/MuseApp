@@ -10,8 +10,8 @@
 
 @implementation Entry (ExtraMethods)
 
--(NSString *)getTitleOfContent {
-    NSString *titleString = [[self.content componentsSeparatedByString:@"\n"] objectAtIndex:0];
++(NSString *)getTitleOfContentFromText:(NSString*)content {
+    NSString *titleString = [[content componentsSeparatedByString:@"\n"] objectAtIndex:0];
     return titleString;
 }
 
