@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MCSwipeTableViewCell.h>
 
-@interface MUSEntryTableViewCell : UITableViewCell
+@interface MUSEntryTableViewCell : MCSwipeTableViewCell<MCSwipeTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *entryImageView;
 //@property (weak, nonatomic) IBOutlet UILabel *createdAtLabel;

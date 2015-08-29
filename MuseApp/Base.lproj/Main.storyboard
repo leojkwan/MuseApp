@@ -100,6 +100,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="W4B-Pa-wld" secondAttribute="bottom" constant="5" id="zdp-gT-NgE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="artistsLabel" destination="aca-b0-B8i" id="YMP-i7-IfT"/>
                                             <outlet property="blurView" destination="W4B-Pa-wld" id="2p0-FA-YGe"/>

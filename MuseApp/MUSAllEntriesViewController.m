@@ -47,20 +47,20 @@
     [self performInitialFetchRequest];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
-
     
-//
-//    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
-//    
-//    item1.actionBlock = ^{
-//        NSLog(@"test element 1");
-//    };
-//    
-//    
-//    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
-//    self.verticalMenu.appearsBehindNavigationBar = YES;
-//    
-//    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
+    
+    //
+    //    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+    //
+    //    item1.actionBlock = ^{
+    //        NSLog(@"test element 1");
+    //    };
+    //
+    //
+    //    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
+    //    self.verticalMenu.appearsBehindNavigationBar = YES;
+    //
+    //    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
     
 }
 
@@ -85,12 +85,12 @@
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
     entryFetch.sortDescriptors = @[sortDescriptor];
-
+    
     
     // set fetch count
     self.currentFetchCount = 3;
     [entryFetch setFetchLimit:self.currentFetchCount];
-
+    
     // Create and initialize the fetch results controller.
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
                                                                  managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:@"cache"];
@@ -104,7 +104,7 @@
 
 -(void)setUpInfiniteScrollWithFetchRequest {
     [self.entriesTableView addInfiniteScrollWithHandler:^(UITableView* tableView) {
-
+        
         if (self.currentFetchCount < self.totalNumberOfEntries) {
             NSLog(@"are you in here?");
             NSLog(@" CURRENT FETCH COUNT %ld", self.currentFetchCount);
@@ -117,7 +117,7 @@
             [self.resultsController performFetch:nil];
             [tableView setContentOffset:CGPointMake(0, tableView.contentSize.height) animated:YES];
         }
-
+        
         // finish infinite scroll animation
         [tableView finishInfiniteScroll];
         [tableView reloadData];
@@ -299,6 +299,62 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+    if (!cell) {
+        cell = [[MUSEntryTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"entryCell"];
+        
+        // Remove inset of iOS 7 separators.
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            cell.separatorInset = UIEdgeInsetsZero;
+        }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        
+        // Setting the background color of the cell.
+        cell.contentView.backgroundColor = [UIColor darkGrayColor];
+    }
+    
+    // Configuring the views and colors.
+    UIView *checkView = [self viewWithImageName:@"camera"];
+    UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
+    
+    UIView *crossView = [self viewWithImageName:@"camera"];
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    
+    UIView *clockView = [self viewWithImageName:@"camera"];
+    UIColor *yellowColor = [UIColor colorWithRed:254.0 / 255.0 green:217.0 / 255.0 blue:56.0 / 255.0 alpha:1.0];
+    
+    UIView *deleteView = [self viewWithImageName:@"delete"];
+    
+    // Setting the default inactive state color to the tableView background color.
+    [cell setDefaultColor:[UIColor whiteColor]];
+    
+    
+    // Adding gestures per state basis.
+    [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"Checkmark\" cell");
+    }];
+    
+    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState2 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"Cross\" cell");
+    }];
+    
+    [cell setSwipeGestureWithView:clockView color:yellowColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did swipe \"Clock\" cell");
+    }];
+    
+    [cell setSwipeGestureWithView:deleteView color:redColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState4 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        NSLog(@"Did delete \"List\" cell");
+        
+        // delete
+        
+        
+        
+    }];
+    
+    
+    
+    
+    
+    
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     
     // set cell values
@@ -307,10 +363,9 @@
     
     // playlist text
     NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
-
+    
+    // ARTIST LABEL LOGIC
     if (formattedPlaylistForThisEntry.count == 0) {
-        
-        
         cell.artistsLabel.text = @"—";
     }
     else if (formattedPlaylistForThisEntry.count == 1 ) {
@@ -324,6 +379,14 @@
     
     return cell;
 }
+
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
+}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
