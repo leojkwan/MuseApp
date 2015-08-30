@@ -351,9 +351,19 @@
             [self.store.managedObjectContext deleteObject:managedObject];
             [self.store.managedObjectContext save:nil];
         }];
+        
         [alert showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
         
+        // when alert is dismissed
+        [alert alertIsDismissed:^{
+            [cell swipeToOriginWithCompletion:^{
+                NSLog(@"Cell swiped back!");
+            }];
+            NSLog(@"SCLAlertView dismissed!");
+        }];
+  
     }];
+    
     
 
     
