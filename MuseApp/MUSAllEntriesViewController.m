@@ -300,57 +300,24 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
-    if (!cell) {
-        cell = [[MUSEntryTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"entryCell"];
-        
-        // Remove inset of iOS 7 separators.
-        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-            cell.separatorInset = UIEdgeInsetsZero;
-        }
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-        
-        // Setting the background color of the cell.
-        cell.contentView.backgroundColor = [UIColor darkGrayColor];
-    }
     
-    // Configuring the views and colors.
-
-        UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    [cell setUpSwipeOptionsForCell:cell];
     
-    UIView *deleteView = [self viewWithImageName:@"delete"];
-    
-    // Setting the default inactive state color to the tableView background color.
-    [cell setDefaultColor:[UIColor darkGrayColor]];
-    cell.firstTrigger = 0.50;
-
-    
-    // Adding gestures per state basis.
-//    [cell setSwipeGestureWithView:checkView color:greenColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-//        NSLog(@"Did swipe \"Checkmark\" cell");
-//    }];
-//    
-//    [cell setSwipeGestureWithView:crossView color:redColor mode:MCSwipeTableViewCellModeSwitch state:MCSwipeTableViewCellState2 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-//        NSLog(@"Did swipe \"Cross\" cell");
-//    }];
-
     /// DELETE SWIPE LOGIC
-    [cell setSwipeGestureWithView:deleteView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        NSLog(@"Did delete \"List\" cell");
-
+    [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        
         // alert user
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         alert.shouldDismissOnTapOutside = YES;
         alert.showAnimationType = FadeIn;
-
+        
         [alert addButton:@"Delete" actionBlock:^(void) {
-            NSLog(@"DELETE BUTTON  tapped");
             NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
             [self.store.managedObjectContext deleteObject:managedObject];
             [self.store.managedObjectContext save:nil];
         }];
         
         [alert showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
-        
         // when alert is dismissed
         [alert alertIsDismissed:^{
             [cell swipeToOriginWithCompletion:^{
@@ -358,46 +325,15 @@
             }];
             NSLog(@"SCLAlertView dismissed!");
         }];
-  
+        
     }];
     
     
-
-    
-    
-    
-    
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
+    [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
     
-    // set cell values
-    cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
-    cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
-    
-    // playlist text
-    NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
-    
-    // ARTIST LABEL LOGIC
-    if (formattedPlaylistForThisEntry.count == 0) {
-        cell.artistsLabel.text = @"—";
-    }
-    else if (formattedPlaylistForThisEntry.count == 1 ) {
-        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
-        cell.artistsLabel.text = oneArtist;
-    }
-    else if (formattedPlaylistForThisEntry.count > 1) {
-        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
-        cell.artistsLabel.text = moreThanOneArtist;
-    }
     
     return cell;
-}
-
-- (UIView *)viewWithImageName:(NSString *)imageName {
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [imageView setFrame:CGRectMake(0, 0, 200, 200)];
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
 }
 
 

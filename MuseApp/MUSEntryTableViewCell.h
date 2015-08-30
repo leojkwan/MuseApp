@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MCSwipeTableViewCell.h>
+#import "Entry.h"
 
 @interface MUSEntryTableViewCell : MCSwipeTableViewCell<MCSwipeTableViewCellDelegate>
 
@@ -16,5 +17,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *entryTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistsLabel;
 @property (weak, nonatomic) IBOutlet UIView *blurView;
+@property (nonatomic, strong) UIView *deleteView;
+
+-(void)setUpSwipeOptionsForCell:(MUSEntryTableViewCell *)cell;
+-(void)configureArtistLabelLogicCell:(MUSEntryTableViewCell *)cell entry:(Entry *)entryForThisRow;
+
 
 @end
