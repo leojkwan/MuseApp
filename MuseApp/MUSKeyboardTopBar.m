@@ -8,6 +8,9 @@
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
 
+#define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
+
+
 @interface MUSKeyboardTopBar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIToolbar *keyboardToolBar;
@@ -129,7 +132,7 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 
 
 -(UIBarButtonItem *)cameraButton {
-    UIButton* cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 30)];
+    UIButton* cameraButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
     [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
     
@@ -139,7 +142,7 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 }
 
 -(UIBarButtonItem *)backButton {
-    UIButton* backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    UIButton* backButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     
@@ -151,9 +154,9 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 
 
 -(UIBarButtonItem *)playlistButton {
-    UIButton* seePlaylistButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 30)];
+    UIButton* seePlaylistButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
     [seePlaylistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"equalizer"] forState:UIControlStateNormal];
+    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"playlist"] forState:UIControlStateNormal];
     
     // set up camera bar button
     UIBarButtonItem *seePlaylistBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:seePlaylistButton];
@@ -162,7 +165,7 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 
 -(UIBarButtonItem *)pinSongButton {
 
-    UIButton* addSongButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    UIButton* addSongButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
     [addSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [addSongButton setBackgroundImage:[UIImage imageNamed:@"addToPlaylist"] forState:UIControlStateNormal];
     

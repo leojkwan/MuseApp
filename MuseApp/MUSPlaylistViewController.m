@@ -11,6 +11,7 @@
 #import "MUSDataStore.h"
 #import "MUSSongTableViewCell.h"
 #import <Masonry.h>
+#import <NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.h>
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -18,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *currentSongView;
 @property (weak, nonatomic) IBOutlet UIImageView *maskImageView;
 @property (nonatomic, strong) MUSDataStore *store;
+@property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
 
 @end
 
@@ -29,11 +32,10 @@
     self.store = [MUSDataStore sharedDataStore];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
-    
-    
     self.currentSongView.image = self.artworkForNowPlayingSong;
     
 }
+
 
 - (IBAction)exitButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -51,6 +53,22 @@
     // Number of rows is the number of time zones in the region for the specified section.
     return self.playlistForThisEntry.count;
 }
+
+
+//FIXME some problem
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
+    NSString *artistStringAtThisRow = self.playlistForThisEntry[indexPath.row][0];
+    NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
+    NSNumber *songNumber = @(indexPath.row + 1);
+    cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
+    cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
+    cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
+    return cell;
+}
+
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
@@ -81,20 +99,6 @@
     }
 }
 
-
-//FIXME some problem
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
-    NSString *artistStringAtThisRow = self.playlistForThisEntry[indexPath.row][0];
-    NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
-    NSNumber *songNumber = @(indexPath.row + 1);
-    cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
-    cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
-    cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
-    return cell;
-}
 
 
 
