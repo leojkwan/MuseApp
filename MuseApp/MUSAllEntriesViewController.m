@@ -313,7 +313,10 @@
         cell.contentView.backgroundColor = [UIColor darkGrayColor];
     }
     
-    // Configuring the views and colors.    
+    // Configuring the views and colors.
+
+        UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    
     UIView *deleteView = [self viewWithImageName:@"delete"];
     
     // Setting the default inactive state color to the tableView background color.
