@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MUSIconAnimation.h"
 
 @interface MUSSongTableViewCell : UITableViewCell
 
@@ -14,5 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *songTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *artistLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *animatingIcon;
 
 @end

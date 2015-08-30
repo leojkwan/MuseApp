@@ -12,6 +12,7 @@
 #import "MUSSongTableViewCell.h"
 #import <Masonry.h>
 #import <NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.h>
+#import "MUSIconAnimation.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -83,12 +84,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
+    
+    // Set Up artist and song title labels
     NSString *artistStringAtThisRow = self.playlistForThisEntry[indexPath.row][0];
     NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
     NSNumber *songNumber = @(indexPath.row + 1);
     cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
+    
+    // set up image
     cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
+    
+    //set up animating icon
+    [cell.animatingIcon startAnimating];
+    
+    
+    
+    
     return cell;
 }
 
