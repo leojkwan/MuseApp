@@ -91,7 +91,7 @@
     NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
     NSNumber *songNumber = @(indexPath.row + 1);
     cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
-    cell.artistLabel.text = [NSString stringWithFormat:@" by %@." , artistStringAtThisRow];
+    cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
     cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
     return cell;
 }
