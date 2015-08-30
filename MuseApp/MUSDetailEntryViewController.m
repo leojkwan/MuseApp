@@ -83,7 +83,6 @@
 }
 
 -(void)listenForSongChanges {
-    
     NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
     [currentMusicPlayingNotifications addObserver: self
                                          selector: @selector(nowPlayingItemChanged:)
@@ -91,9 +90,6 @@
                                            object: self.musicPlayer.myPlayer];
     
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
-    
-    
-    
 }
 
 - (void)nowPlayingItemChanged:(id) sender {
@@ -341,7 +337,8 @@
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
-        dvc.artworkForNowPlayingSong = [self.musicPlayer.currentlyPlayingSong.artwork imageWithSize:CGSizeMake(self.view.frame.size.width, 300)];
+        dvc.musicPlayer = self.musicPlayer;
+        dvc.artworkForNowPlayingSong = [self.musicPlayer.currentlyPlayingSong.artwork imageWithSize:CGSizeMake(500, 500)];
         [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             dvc.artworkImagesForThisEntry = artworkImages;
         }];

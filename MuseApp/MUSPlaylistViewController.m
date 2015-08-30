@@ -30,9 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
+    [self listenForSongChanges];
+    [self updateNowPlayingItem:nil];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
-    self.currentSongView.image = self.artworkForNowPlayingSong;
+//    self.currentSongView.image = self.artworkForNowPlayingSong;
     
 }
 
@@ -48,12 +50,33 @@
     
 }
 
+#pragma mark - music notifications and handling
+
+-(void)listenForSongChanges {
+    NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
+    [currentMusicPlayingNotifications addObserver: self
+                                         selector: @selector(updateNowPlayingItem:)
+                                             name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
+                                           object: self.musicPlayer.myPlayer];
+    
+    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
+}
+
+- (void)updateNowPlayingItem:(id) sender {
+    UIImage *currentSongImage = [self.musicPlayer.currentlyPlayingSong.artwork imageWithSize:CGSizeMake(self.view.frame.size.width, 300)];
+    self.currentSongView.image = currentSongImage;
+    self.currentSongLabel.text = self.musicPlayer.currentlyPlayingSong.title;
+    self.currentArtistLabel.text = self.musicPlayer.currentlyPlayingSong.artist;
+//    self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
+}
+
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Number of rows is the number of time zones in the region for the specified section.
     return self.playlistForThisEntry.count;
 }
-
 
 //FIXME some problem
 
