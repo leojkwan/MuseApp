@@ -22,6 +22,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
+#import <CWStatusBarNotification.h>
 
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
@@ -37,7 +38,6 @@
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewToContentViewBottomConstraint;
 
 @end
 
@@ -83,7 +83,6 @@
 }
 
 -(void)listenForSongChanges {
-    
     NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
     [currentMusicPlayingNotifications addObserver: self
                                          selector: @selector(nowPlayingItemChanged:)
@@ -91,13 +90,10 @@
                                            object: self.musicPlayer.myPlayer];
     
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
-    
-    
-    
 }
 
 - (void)nowPlayingItemChanged:(id) sender {
-    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
+//    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
 }
 
 -(void)MUStoolbar {
@@ -304,13 +300,34 @@
         [self createNewEntry];
     }
     
+    
+    // check if song is pinnable
+    
+    
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
-    pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
-    pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
+    pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
+    pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
+    
+    // give notification
+    
+    CWStatusBarNotification *pinSuccessNotification = [CWStatusBarNotification new];
+    pinSuccessNotification.notificationStyle = CWNotificationStyleStatusBarNotification;
+    pinSuccessNotification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    pinSuccessNotification.notificationAnimationOutStyle = CWNotificationAnimationStyleBottom;
+    NSString *successMessage = [NSString stringWithFormat:@"Successfully Pinned '%@'", pinnedSong.songName];
+    pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+    pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
+    pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
+    pinSuccessNotification.notificationLabelHeight = 30;
+    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
+    [pinSuccessNotification displayNotificationWithMessage:successMessage forDuration:0.7];
+
+    
+
     // Format this song and add to array
     NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
     [arrayForThisSong addObject:pinnedSong.artistName];
@@ -341,7 +358,8 @@
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
-        dvc.artworkForNowPlayingSong = [self.musicPlayer.currentlyPlayingSong.artwork imageWithSize:CGSizeMake(self.view.frame.size.width, 300)];
+        dvc.musicPlayer = self.musicPlayer;
+//        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
         [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             dvc.artworkImagesForThisEntry = artworkImages;
         }];

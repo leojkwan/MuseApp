@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Entry.h"
-#import "MUSCircleGradient.h"
+#import "MUSMusicPlayer.h"
 
 @interface MUSPlaylistViewController : UIViewController
 
 @property (nonatomic, strong) Entry *destinationEntry;
 @property (nonatomic, strong) NSMutableArray *playlistForThisEntry;
-@property MUSCircleGradient* gradientView;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
-@property (nonatomic, strong) UIImage *artworkForNowPlayingSong;
-
+//@property (nonatomic, strong) UIImage *artworkForNowPlayingSong;
+@property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 
 @end

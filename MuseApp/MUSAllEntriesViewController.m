@@ -15,14 +15,25 @@
 #import "NSSet+MUSExtraMethod.h"
 #import <FCVerticalMenuItem.h>
 #import <FCVerticalMenu.h>
+#import <UIScrollView+InfiniteScroll.h>
+#import <SCLAlertView.h>
+#import <JTHamburgerButton.h>
 
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate>
+
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate, FCVerticalMenuDelegate>
+
+
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
 @property (weak, nonatomic) IBOutlet UISearchBar *entrySearchBar;
 @property (nonatomic, strong) FCVerticalMenu *verticalMenu;
+@property NSInteger currentFetchCount;
+@property NSInteger totalNumberOfEntries;
+
+
+
 
 @end
 
@@ -39,38 +50,92 @@
     // set searchbar delegate
     self.entrySearchBar.delegate = self;
     [self.entrySearchBar setShowsScopeBar:YES];
+    [self performInitialFetchRequest];
+    [self setUpInfiniteScrollWithFetchRequest];
+    [self getCountForTotalEntries];
     
     
-    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+    JTHamburgerButton *JTButton = [[JTHamburgerButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [JTButton addTarget:self action:@selector(didCloseButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
+    JTButton.lineColor = [UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1];
+    JTButton.lineWidth = 35;
+    JTButton.lineHeight = 2;
+    JTButton.lineSpacing = 5;
+
+
+    [ JTButton updateAppearance];
+    UIBarButtonItem *JTBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:JTButton];
+
+    self.navigationItem.leftBarButtonItem = JTBarButtonItem;
+
     
-    item1.actionBlock = ^{
-        NSLog(@"test element 1");
-    };
     
     
-    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
-    self.verticalMenu.appearsBehindNavigationBar = YES;
+}
+
+#pragma mark -  JT Hamburger methods
+
+
+- (void)didCloseButtonTouch:(JTHamburgerButton *)sender
+{
+    if(sender.currentMode == JTHamburgerButtonModeHamburger){
+        [sender setCurrentModeWithAnimation:JTHamburgerButtonModeCross];
+        
+        
+        FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+        
+        item1.actionBlock = ^{
+            NSLog(@"test element 1");
+        };
+        self.verticalMenu.delegate = self;
+        self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
+        self.verticalMenu.appearsBehindNavigationBar = YES;
+        self.verticalMenu.liveBlurBackgroundStyle = UIBlurEffectStyleDark;
+        self.verticalMenu.backgroundAlpha = .8;
+        [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
+
+
+    }
+    else{
+        [sender setCurrentModeWithAnimation:JTHamburgerButtonModeHamburger];
+        [self.verticalMenu dismissWithCompletionBlock:^{
+            //
+        }];
+    }
+}
+
+
+
+#pragma mark- Fetch Request helper methods
+
+-(void)getCountForTotalEntries {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity: [NSEntityDescription entityForName:@"MUSEntry" inManagedObjectContext: self.store.managedObjectContext]];
+    NSError *error = nil;
+    NSUInteger count = [self.store.managedObjectContext countForFetchRequest: request error: &error];
+    self.totalNumberOfEntries = count;
+    NSLog(@"TOTAL NUMBER OF ENTRIES %ld" , count);
+}
+
+
+-(void)performInitialFetchRequest {
     
-    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
-    
-    
+    // delete cache every time
+//    [NSFetchedResultsController deleteCacheWithName:@"cache"];
     
     // Create the sort descriptors array.
-    
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-
     entryFetch.sortDescriptors = @[sortDescriptor];
     
     
-    
-    
+    // set fetch count
+    self.currentFetchCount = 3;
+    [entryFetch setFetchLimit:self.currentFetchCount];
     
     // Create and initialize the fetch results controller.
-    
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
                                                                  managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
-    
     
     // set fetch results delegate
     self.resultsController.delegate = self;
@@ -78,7 +143,29 @@
     
 }
 
-// filter search results
+
+-(void)setUpInfiniteScrollWithFetchRequest {
+    [self.entriesTableView addInfiniteScrollWithHandler:^(UITableView* tableView) {
+        
+        if (self.currentFetchCount < self.totalNumberOfEntries) {
+            NSLog(@"are you in here?");
+            NSLog(@" CURRENT FETCH COUNT %ld", self.currentFetchCount);
+            NSLog(@" TOTAL NUMBER OF ENTRIES %ld", self.totalNumberOfEntries);
+            // delete cache every time
+            [NSFetchedResultsController deleteCacheWithName:nil];
+            // just make sure to call finishInfiniteScroll in the end
+            self.currentFetchCount += 2;
+            [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
+            [self.resultsController performFetch:nil];
+            [tableView setContentOffset:CGPointMake(0, tableView.contentSize.height) animated:YES];
+        }
+        
+        // finish infinite scroll animation
+        [tableView finishInfiniteScroll];
+        [tableView reloadData];
+    }];
+}
+
 
 
 #pragma mark - Search Bar Delegate
@@ -114,7 +201,7 @@
     
     // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
-        
+        NSLog(@"does this search query happen?");
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
@@ -179,10 +266,21 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
+    // nav bar UI
+    // Set the nav bar font
+
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
+      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
+      NSFontAttributeName, nil]];
+    
+
+    
+    
     [self.entriesTableView reloadData];
 }
-
-
 
 
 #pragma mark - UITable View Delegate methods
@@ -254,49 +352,42 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+    
+    [cell setUpSwipeOptionsForCell:cell];
+    
+    /// DELETE SWIPE LOGIC
+    [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        
+        // alert user
+        SCLAlertView *alert = [[SCLAlertView alloc] init];
+        alert.shouldDismissOnTapOutside = YES;
+        alert.showAnimationType = FadeIn;
+        
+        [alert addButton:@"Delete" actionBlock:^(void) {
+            NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
+            [self.store.managedObjectContext deleteObject:managedObject];
+            [self.store.managedObjectContext save:nil];
+        }];
+        
+        [alert showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
+        // when alert is dismissed
+        [alert alertIsDismissed:^{
+            [cell swipeToOriginWithCompletion:^{
+                NSLog(@"Cell swiped back!");
+            }];
+            NSLog(@"SCLAlertView dismissed!");
+        }];
+        
+    }];
+    
+    
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-    
-    // set cell values
-    NSLog(@"do you get callled in celll for row?");
-    cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
-    cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
-    
-    // playlist text
-    NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
-    
-//    if (formattedPlaylistForThisEntry.count > 0) {
-//        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
-//        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
-//        cell.artistsLabel.text = @" — ";
-//        if (formattedPlaylistForThisEntry.count == 1 ) {
-//            cell.artistsLabel.text = oneArtist;
-//        } else if (formattedPlaylistForThisEntry.count > 1) {
-//            cell.artistsLabel.text = moreThanOneArtist;
-//        }
-//    }
-    
-    if (formattedPlaylistForThisEntry.count == 0) {
-        
-        
-        cell.artistsLabel.text = @"—";
-    }
-    else if (formattedPlaylistForThisEntry.count == 1 ) {
-        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
-        cell.artistsLabel.text = oneArtist;
-    }
-    else if (formattedPlaylistForThisEntry.count > 1) {
-        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
-        cell.artistsLabel.text = moreThanOneArtist;
-    }
-    
-    
-    
-    
-    
+    [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
     
     
     return cell;
 }
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
