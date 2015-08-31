@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
+    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
     [self listenForSongChanges];
     [self listenForPlaybackState];
     [self updateButtonStatus];
@@ -59,12 +60,28 @@
     [self.playlistTableView reloadData];
 }
 - (IBAction)playbackButtonPressed:(id)sender {
+    // change music player playback state
     
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         [self.musicPlayer.myPlayer pause];
     } else {
         [self.musicPlayer.myPlayer play];
     }
+    
+    // if external music is playing...
+    // get all songs in one array so I can check whether the now playing song is part of the list, if not, load a fresh playlist
+    NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];
+
+    for (NSArray *song in self.playlistForThisEntry) {
+        NSString *songName = song[1];
+        [songTitleArray addObject:songName];
+    }
+    
+    NSLog(@"%@", self.playlistForThisEntry);
+        if (![songTitleArray containsObject:self.currentPlayingSongString]) {
+            [self loadPlaylistArrayForThisEntryIntoPlayer];
+        }
+
     [self updateButtonStatus];
     [self.playlistTableView reloadData];
 }
@@ -113,17 +130,17 @@
                                              name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                            object: self.musicPlayer.myPlayer];
     
-    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
 }
 
 - (void)updateNowPlayingItem:(id) sender {
-    [self performSelector:@selector(loadUILabels) withObject:self afterDelay:0.5];
+    [self performSelector:@selector(loadUILabels) withObject:self afterDelay:0.0];
 }
 
 -(void)loadUILabels {
     self.currentSongLabel.text = [self.musicPlayer.myPlayer nowPlayingItem].title;
     self.currentArtistLabel.text = [self.musicPlayer.myPlayer nowPlayingItem].artist;
-    self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
+    self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
+    [self.playlistTableView reloadData];
 }
 
 
@@ -154,23 +171,25 @@
     
     //set up animating icon
     self.currentPlayingSongString = [self.musicPlayer.myPlayer nowPlayingItem].title;
+    NSLog(@"%@", self.currentPlayingSongString);
     if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString ] && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        NSLog(@"when do you get called?");
+        NSLog(@"Do you ever get in this playing song conditional?");
         [cell.animatingIcon startAnimating];
         [cell.animatingIcon setHidden:NO];
-    } else if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString ] && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePaused){
-        [cell.animatingIcon startAnimating];
-        [cell.animatingIcon setHidden:NO];
-    } else {
+    }
+//    else if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString ] && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePaused){
+//        NSLog(@"Do you ever get in this paused song conditional?");
+//        [cell.animatingIcon stopAnimating];
+//        [cell.animatingIcon setHidden:NO];
+//    }
+    
+    else {
+        NSLog(@"Do you ever get in this else song conditional?");
         // hide all icons of not playing cell
         [cell.animatingIcon setHidden:YES];
     }
         return cell;
 }
-
-
-
-
 
 
 
@@ -209,7 +228,7 @@
             MPMediaItemCollection *playlistCollectionForThisEntry = response;
             // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
             [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-//            [self.musicPlayer.myPlayer play];
+            [self.musicPlayer.myPlayer play];
         }];
     }
 }
