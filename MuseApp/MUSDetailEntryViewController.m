@@ -93,7 +93,7 @@
 }
 
 - (void)nowPlayingItemChanged:(id) sender {
-    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
+//    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
 }
 
 -(void)MUStoolbar {
@@ -302,8 +302,8 @@
     
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
-    pinnedSong.artistName = self.musicPlayer.currentlyPlayingSong.artist;
-    pinnedSong.songName = self.musicPlayer.currentlyPlayingSong.title;
+    pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
+    pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
@@ -338,7 +338,7 @@
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
-        dvc.artworkForNowPlayingSong = [self.musicPlayer.currentlyPlayingSong.artwork imageWithSize:CGSizeMake(500, 500)];
+//        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
         [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             dvc.artworkImagesForThisEntry = artworkImages;
         }];

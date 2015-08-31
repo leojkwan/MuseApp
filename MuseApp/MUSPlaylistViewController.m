@@ -22,6 +22,7 @@
 @property (nonatomic, strong) MUSDataStore *store;
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
+@property (nonatomic, strong) NSString *currentPlayingSongString;
 
 @end
 
@@ -32,11 +33,25 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     [self listenForSongChanges];
-    [self updateNowPlayingItem:nil];
+    [self loadUILabels];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
-//    self.currentSongView.image = self.artworkForNowPlayingSong;
-    
+    self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
+   
+}
+
+
+
+#pragma mark - music player actions
+- (IBAction)nextButtonPressed:(id)sender {
+    NSLog(@"This is the index of the currently playing song! %ld", [self.musicPlayer.myPlayer indexOfNowPlayingItem]);
+    [self.musicPlayer.myPlayer skipToNextItem];
+    [self.playlistTableView reloadData];
+
+}
+- (IBAction)backButtonPressed:(id)sender {
+    [self.musicPlayer.myPlayer skipToPreviousItem];
+    [self.playlistTableView reloadData];
 }
 
 
@@ -64,15 +79,39 @@
 }
 
 - (void)updateNowPlayingItem:(id) sender {
-    UIImage *currentSongImage = [self.musicPlayer.currentlyPlayingSong.artwork imageWithSize:CGSizeMake(self.view.frame.size.width, 300)];
-    self.currentSongView.image = currentSongImage;
-    self.currentSongLabel.text = self.musicPlayer.currentlyPlayingSong.title;
-    self.currentArtistLabel.text = self.musicPlayer.currentlyPlayingSong.artist;
-//    self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
+    [self performSelector:@selector(loadUILabels) withObject:self afterDelay:0.5];
+}
+
+-(void)loadUILabels {
+    self.currentSongLabel.text = [self.musicPlayer.myPlayer nowPlayingItem].title;
+    self.currentArtistLabel.text = [self.musicPlayer.myPlayer nowPlayingItem].artist;
+    self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
 }
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
+  
+//    // skip to appropriate selected row
+//    [self loadPlaylistArrayForThisEntryIntoPlayer];
+//    for (int i = 0; i <= indexPath.row; i++) {
+//        [self.musicPlayer.myPlayer skipToNextItem];
+//    }
+//    
+//    // set currently playing song after all the skips
+//    [self.musicPlayer.myPlayer play];
+//    [self.playlistTableView reloadData];
+//
+//    
+//    NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
+//    self.currentPlayingSongString = [self.musicPlayer.myPlayer nowPlayingItem].title;
+//    
+//    [cell.animatingIcon setHidden:NO];
+//    [cell.animatingIcon startAnimating];
 
+    [self.playlistTableView reloadData];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Number of rows is the number of time zones in the region for the specified section.
@@ -93,16 +132,29 @@
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
     
     // set up image
-    cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
+    if (self.artworkImagesForThisEntry[indexPath.row]) {
+        cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
+    } else {
+        cell.songArtworkImageView.image = nil;
+    }
     
     //set up animating icon
-    [cell.animatingIcon startAnimating];
-    
-    
-    
-    
-    return cell;
+    self.currentPlayingSongString = [self.musicPlayer.myPlayer nowPlayingItem].title;
+    if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString]) {
+        NSLog(@"when do you get called?");
+        [cell.animatingIcon startAnimating];
+        [cell.animatingIcon setHidden:NO];
+    } else {
+        // hide all icons of not playing cell
+        [cell.animatingIcon setHidden:YES];
+    }
+        return cell;
 }
+
+
+
+
+
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,7 +186,16 @@
     }
 }
 
-
+-(void)loadPlaylistArrayForThisEntryIntoPlayer {
+    if (self.destinationEntry != nil) {
+        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+            MPMediaItemCollection *playlistCollectionForThisEntry = response;
+            // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
+            [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+//            [self.musicPlayer.myPlayer play];
+        }];
+    }
+}
 
 
 @end

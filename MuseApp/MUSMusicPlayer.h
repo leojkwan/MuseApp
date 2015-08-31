@@ -15,13 +15,13 @@
 @interface MUSMusicPlayer : NSObject
 
 @property (nonatomic, strong) MPMusicPlayerController *myPlayer;
-@property (nonatomic, strong) MPMediaItem *currentlyPlayingSong;
+//@property (nonatomic, strong) MPMediaItem *currentlyPlayingSong;
 
 
 -(instancetype)init;
 -(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block;
 -(void)loadPlaylistArtworkForThisEntryWithCompletionBlock:(void (^)(NSMutableArray *))block;
--(void)removeMusicNotifications;
+//-(void)removeMusicNotifications;
 
 
 
