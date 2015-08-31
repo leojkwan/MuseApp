@@ -378,9 +378,12 @@
                                     <constraint firstAttribute="width" secondItem="PPa-Hf-fAj" secondAttribute="height" multiplier="60:59" id="p7h-4Y-U2F"/>
                                     <constraint firstAttribute="width" constant="60" id="wTe-ue-OZ4"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="play">
+                                <state key="normal" backgroundImage="playSong">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playbackButtonPressed:" destination="EiH-fH-8rA" eventType="touchUpInside" id="JWG-jW-flk"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsw-20-kjJ">
                                 <rect key="frame" x="360" y="375" width="60" height="59"/>
@@ -388,7 +391,7 @@
                                     <constraint firstAttribute="width" secondItem="hsw-20-kjJ" secondAttribute="height" multiplier="60:59" id="HI3-7J-hP9"/>
                                     <constraint firstAttribute="width" constant="60" id="tyP-nA-XPW"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="play">
+                                <state key="normal" backgroundImage="forwardSong">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -401,7 +404,7 @@
                                     <constraint firstAttribute="width" constant="60" id="D6p-tt-uVR"/>
                                     <constraint firstAttribute="width" secondItem="Rkt-KV-iwU" secondAttribute="height" multiplier="60:59" id="pl5-sv-NWL"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="play">
+                                <state key="normal" backgroundImage="backSong">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -512,6 +515,7 @@
                         <outlet property="currentSongLabel" destination="9Tc-bh-YFe" id="tTM-f1-aLa"/>
                         <outlet property="currentSongView" destination="CYa-uC-MdH" id="ud0-JI-3hu"/>
                         <outlet property="maskImageView" destination="Jn9-Qy-1Yd" id="64p-rY-KcZ"/>
+                        <outlet property="playbackButtonStatus" destination="PPa-Hf-fAj" id="RCl-Jb-o8K"/>
                         <outlet property="playlistTableView" destination="zrV-tN-fmH" id="VcT-P9-c3v"/>
                     </connections>
                 </viewController>
@@ -540,8 +544,10 @@
     </scenes>
     <resources>
         <image name="Tune" width="352" height="416"/>
+        <image name="backSong" width="75" height="75"/>
         <image name="blackMask" width="951" height="635"/>
-        <image name="play" width="52" height="50"/>
+        <image name="forwardSong" width="75" height="75"/>
+        <image name="playSong" width="75" height="75"/>
         <image name="quitButton" width="14" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>

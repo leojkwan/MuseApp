@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
 @property (nonatomic, strong) NSString *currentPlayingSongString;
+@property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
+@property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 
 @end
 
@@ -33,12 +35,15 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     [self listenForSongChanges];
+    [self listenForPlaybackState];
+    [self updateButtonStatus];
     [self loadUILabels];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
     self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
    
 }
+
 
 
 
@@ -53,6 +58,17 @@
     [self.musicPlayer.myPlayer skipToPreviousItem];
     [self.playlistTableView reloadData];
 }
+- (IBAction)playbackButtonPressed:(id)sender {
+    
+    if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+        [self.musicPlayer.myPlayer pause];
+    } else {
+        [self.musicPlayer.myPlayer play];
+    }
+    [self updateButtonStatus];
+    [self.playlistTableView reloadData];
+}
+
 
 
 - (IBAction)exitButtonPressed:(id)sender {
@@ -68,9 +84,31 @@
 
 #pragma mark - music notifications and handling
 
+- (void)updateButtonStatus {
+    if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+        [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
+    } else {
+        [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
+    }
+}
+
+-(void)updatePlaybackButton:(id)sender {
+    NSLog(@"SONG STOPPED OR STARTED!");
+    [self updateButtonStatus];
+    [self.playlistTableView reloadData];
+}
+
+-(void)listenForPlaybackState {
+    [self.currentMusicPlayingNotifications addObserver: self
+                                selector: @selector (updatePlaybackButton:)
+                                    name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
+                                  object: self.musicPlayer.myPlayer];
+}
+
+
 -(void)listenForSongChanges {
-    NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
-    [currentMusicPlayingNotifications addObserver: self
+    self.currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
+    [self.currentMusicPlayingNotifications addObserver: self
                                          selector: @selector(updateNowPlayingItem:)
                                              name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                            object: self.musicPlayer.myPlayer];
@@ -88,30 +126,6 @@
     self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
 }
 
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
-  
-//    // skip to appropriate selected row
-//    [self loadPlaylistArrayForThisEntryIntoPlayer];
-//    for (int i = 0; i <= indexPath.row; i++) {
-//        [self.musicPlayer.myPlayer skipToNextItem];
-//    }
-//    
-//    // set currently playing song after all the skips
-//    [self.musicPlayer.myPlayer play];
-//    [self.playlistTableView reloadData];
-//
-//    
-//    NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
-//    self.currentPlayingSongString = [self.musicPlayer.myPlayer nowPlayingItem].title;
-//    
-//    [cell.animatingIcon setHidden:NO];
-//    [cell.animatingIcon startAnimating];
-
-    [self.playlistTableView reloadData];
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Number of rows is the number of time zones in the region for the specified section.
@@ -140,8 +154,11 @@
     
     //set up animating icon
     self.currentPlayingSongString = [self.musicPlayer.myPlayer nowPlayingItem].title;
-    if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString]) {
+    if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString ] && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         NSLog(@"when do you get called?");
+        [cell.animatingIcon startAnimating];
+        [cell.animatingIcon setHidden:NO];
+    } else if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString ] && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePaused){
         [cell.animatingIcon startAnimating];
         [cell.animatingIcon setHidden:NO];
     } else {
