@@ -80,7 +80,7 @@
 -(void)performInitialFetchRequest {
     
     // delete cache every time
-    [NSFetchedResultsController deleteCacheWithName:@"cache"];
+//    [NSFetchedResultsController deleteCacheWithName:@"cache"];
     
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
@@ -94,7 +94,7 @@
     
     // Create and initialize the fetch results controller.
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:@"cache"];
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
     
     // set fetch results delegate
     self.resultsController.delegate = self;
@@ -111,7 +111,7 @@
             NSLog(@" CURRENT FETCH COUNT %ld", self.currentFetchCount);
             NSLog(@" TOTAL NUMBER OF ENTRIES %ld", self.totalNumberOfEntries);
             // delete cache every time
-            [NSFetchedResultsController deleteCacheWithName:@"cache"];
+            [NSFetchedResultsController deleteCacheWithName:nil];
             // just make sure to call finishInfiniteScroll in the end
             self.currentFetchCount += 2;
             [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
@@ -160,7 +160,7 @@
     
     // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
-        
+        NSLog(@"does this search query happen?");
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];

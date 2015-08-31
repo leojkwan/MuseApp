@@ -6,7 +6,6 @@ PODS:
   - IHKeyboardAvoiding (2.4)
   - Masonry (0.6.2)
   - MCSwipeTableViewCell (2.1.4)
-  - NAKPlaybackIndicatorView (0.0.3)
   - SCLAlertView-Objective-C (0.7.4)
   - UIScrollView-InfiniteScroll (0.7.3)
 
@@ -18,7 +17,6 @@ DEPENDENCIES:
   - IHKeyboardAvoiding
   - Masonry
   - MCSwipeTableViewCell (~> 2.1.4)
-  - NAKPlaybackIndicatorView
   - SCLAlertView-Objective-C
   - UIScrollView-InfiniteScroll
 
@@ -30,7 +28,6 @@ SPEC CHECKSUMS:
   IHKeyboardAvoiding: f470ea004ae9befb3b10ff4db20d37af10f43e59
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
-  NAKPlaybackIndicatorView: 794dd97576fe074bb1844c19ebcbf7509384a47f
   SCLAlertView-Objective-C: 15ebfdac06ca289ba1f29fe34b5a03da6bd3fe37
   UIScrollView-InfiniteScroll: b6c7d6d155dca7f9c5dd43813ecffeb301b3d50c
 

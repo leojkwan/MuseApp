@@ -11,7 +11,6 @@
 #import "MUSDataStore.h"
 #import "MUSSongTableViewCell.h"
 #import <Masonry.h>
-#import <NAKPlaybackIndicatorView/NAKPlaybackIndicatorView.h>
 #import "MUSIconAnimation.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
