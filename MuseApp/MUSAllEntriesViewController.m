@@ -17,9 +17,12 @@
 #import <FCVerticalMenu.h>
 #import <UIScrollView+InfiniteScroll.h>
 #import <SCLAlertView.h>
+#import <JTHamburgerButton.h>
 
 
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate>
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate, FCVerticalMenuDelegate>
+
+
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -28,6 +31,8 @@
 @property (nonatomic, strong) FCVerticalMenu *verticalMenu;
 @property NSInteger currentFetchCount;
 @property NSInteger totalNumberOfEntries;
+
+
 
 
 @end
@@ -50,22 +55,58 @@
     [self getCountForTotalEntries];
     
     
-    //
-    //    FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
-    //
-    //    item1.actionBlock = ^{
-    //        NSLog(@"test element 1");
-    //    };
-    //
-    //
-    //    self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
-    //    self.verticalMenu.appearsBehindNavigationBar = YES;
-    //
-    //    [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
+    JTHamburgerButton *JTButton = [[JTHamburgerButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    [JTButton addTarget:self action:@selector(didCloseButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
+    JTButton.lineColor = [UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1];
+    JTButton.lineWidth = 35;
+    JTButton.lineHeight = 2;
+    JTButton.lineSpacing = 5;
+
+
+    [ JTButton updateAppearance];
+    UIBarButtonItem *JTBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:JTButton];
+
+    self.navigationItem.leftBarButtonItem = JTBarButtonItem;
+
+    
+    
     
 }
 
-#pragma mark-
+#pragma mark -  JT Hamburger methods
+
+
+- (void)didCloseButtonTouch:(JTHamburgerButton *)sender
+{
+    if(sender.currentMode == JTHamburgerButtonModeHamburger){
+        [sender setCurrentModeWithAnimation:JTHamburgerButtonModeCross];
+        
+        
+        FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
+        
+        item1.actionBlock = ^{
+            NSLog(@"test element 1");
+        };
+        self.verticalMenu.delegate = self;
+        self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
+        self.verticalMenu.appearsBehindNavigationBar = YES;
+        self.verticalMenu.liveBlurBackgroundStyle = UIBlurEffectStyleDark;
+        self.verticalMenu.backgroundAlpha = .8;
+        [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
+
+
+    }
+    else{
+        [sender setCurrentModeWithAnimation:JTHamburgerButtonModeHamburger];
+        [self.verticalMenu dismissWithCompletionBlock:^{
+            //
+        }];
+    }
+}
+
+
+
+#pragma mark- Fetch Request helper methods
 
 -(void)getCountForTotalEntries {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -225,10 +266,21 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
+    // nav bar UI
+    // Set the nav bar font
+
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
+      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
+      NSFontAttributeName, nil]];
+    
+
+    
+    
     [self.entriesTableView reloadData];
 }
-
-
 
 
 #pragma mark - UITable View Delegate methods

@@ -24,7 +24,6 @@
 @property (nonatomic, strong) NSString *currentPlayingSongString;
 @property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
-
 @end
 
 @implementation MUSPlaylistViewController
@@ -42,6 +41,8 @@
     self.playlistTableView.dataSource = self;
     self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
    
+    
+    
 }
 
 
@@ -95,7 +96,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    
 }
 
 #pragma mark - music notifications and handling
@@ -212,6 +212,8 @@
         Song *songToDelete = [songsForThisEntry objectAtIndex:indexPath.row];
         [self.destinationEntry removeSongsObject:songToDelete];
         
+        // reload collection queue with updated playlist
+        [self loadPlaylistArrayForThisEntryIntoPlayer];
         
         // Save to Core Data
         [self.store save];
