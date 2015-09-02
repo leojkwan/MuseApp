@@ -54,27 +54,28 @@
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
     
+//    [self createMenuItem];
     
+   
+
+   
+
+}
+
+#pragma mark -  JT Hamburger methods
+
+-(void)createMenuItem {
     JTHamburgerButton *JTButton = [[JTHamburgerButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
     [JTButton addTarget:self action:@selector(didCloseButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
     JTButton.lineColor = [UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1];
     JTButton.lineWidth = 35;
     JTButton.lineHeight = 2;
     JTButton.lineSpacing = 5;
-
-
-    [ JTButton updateAppearance];
+    
+    [JTButton updateAppearance];
     UIBarButtonItem *JTBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:JTButton];
-
     self.navigationItem.leftBarButtonItem = JTBarButtonItem;
-
-    
-    
-    
 }
-
-#pragma mark -  JT Hamburger methods
-
 
 - (void)didCloseButtonTouch:(JTHamburgerButton *)sender
 {
@@ -198,7 +199,6 @@
     // reload table view data!
     [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     
-    
     // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
         NSLog(@"does this search query happen?");
@@ -231,7 +231,6 @@
     // clear search
     searchBar.text = @"";
     NSPredicate *predicate = nil;
-    
     [self.resultsController.fetchRequest setPredicate:predicate];
     [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
     

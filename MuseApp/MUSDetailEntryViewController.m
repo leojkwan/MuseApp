@@ -47,18 +47,12 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     
-    NSLog(@"%@", self.destinationEntry.dateInString);
-    
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-    // set up music player
-    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    [self setUpMusicPlayer];
     
-    [self playPlaylistForThisEntry];
-    [self listenForSongChanges];
     [self setUpParallaxForExistingEntries];
-    
     
     self.textView.delegate = self;
     self.textView.text = self.destinationEntry.content;
@@ -71,33 +65,24 @@
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     self.keyboardTopBar.delegate = self;
-    
+    [self MUStoolbar];
+
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(self.view.mas_width);
+        //make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
     
     
-    [self MUStoolbar];
 }
 
--(void)listenForSongChanges {
-    NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
-    [currentMusicPlayingNotifications addObserver: self
-                                         selector: @selector(nowPlayingItemChanged:)
-                                             name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-                                           object: self.musicPlayer.myPlayer];
-    
-    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
-}
-
-- (void)nowPlayingItemChanged:(id) sender {
-//    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
+-(void)setUpMusicPlayer {
+    // set up music player
+    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    [self playPlaylistForThisEntry];
 }
 
 -(void)MUStoolbar {
-    // hacky as shit
     self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
@@ -189,7 +174,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
     [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
-//    [self.scrollView setContentSize:[self.scrollView frame].size];
+    //    [self.scrollView setContentSize:[self.scrollView frame].size];
     
     
     [self.navigationController setNavigationBarHidden:YES];
@@ -299,11 +284,8 @@
     if(self.destinationEntry == nil){
         [self createNewEntry];
     }
-    
-    
     // check if song is pinnable
-    
-    
+    //....
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
     pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
@@ -325,9 +307,9 @@
     pinSuccessNotification.notificationLabelHeight = 30;
     pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
     [pinSuccessNotification displayNotificationWithMessage:successMessage forDuration:0.7];
-
     
-
+    
+    
     // Format this song and add to array
     NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
     [arrayForThisSong addObject:pinnedSong.artistName];
@@ -359,7 +341,7 @@
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
-//        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
+        //        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
         [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             dvc.artworkImagesForThisEntry = artworkImages;
         }];
