@@ -17,10 +17,11 @@
 #import <FCVerticalMenu.h>
 #import <UIScrollView+InfiniteScroll.h>
 #import <SCLAlertView.h>
+#import "MUSSearchBarDelegate.h"
 #import <JTHamburgerButton.h>
 
 
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchControllerDelegate, FCVerticalMenuDelegate>
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, FCVerticalMenuDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
@@ -32,7 +33,7 @@
 @property NSInteger currentFetchCount;
 @property NSInteger totalNumberOfEntries;
 
-
+@property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
 
 
 @end
@@ -47,14 +48,20 @@
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     
-    // set searchbar delegate
-    self.entrySearchBar.delegate = self;
+
     [self.entrySearchBar setShowsScopeBar:YES];
     [self performInitialFetchRequest];
+    
+    // set searchbar delegate
+    
+    self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
+    self.entrySearchBar.delegate = self.searchBarHelperObject;
+    
+    
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
     
-//    [self createMenuItem];
+//    [self createMenuItem];nN
     
    
 
@@ -170,92 +177,96 @@
 
 
 #pragma mark - Search Bar Delegate
-
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    [searchBar resignFirstResponder];
-}
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    if (searchBar.text.length == 0) {
-        NSLog(@"THERE IS NOTHING HERE?");
-    }
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
-    NSString *query = searchText;
-    
-    // IF THERE NO CHARACTERS IN SEARCH BAR
-    NSPredicate *predicate = nil;
-    
-    [self.resultsController.fetchRequest setPredicate:predicate];
-    [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
-    
-    NSError *error = nil;
-    if (![[self resultsController] performFetch:&error]) {
-        // Handle error
-        exit(-1);
-    }
-    
-    // reload table view data!
-    [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    
-    // IF THERE ARE CHARACTERS IN SEARCH BAR
-    if (query && query.length) {
-        NSLog(@"does this search query happen?");
-        // create a query
-        NSFetchRequest *request
-        = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"content contains[cd] %@", query];
-        
-        
-        [self.resultsController.fetchRequest setPredicate:predicate];
-        [self.resultsController.fetchRequest setFetchLimit:5]; //
-        [self.store.managedObjectContext executeFetchRequest:request
-                                                       error:nil];
-        
-        
-    }
-    
-    if (![[self resultsController] performFetch:&error]) {
-        // Handle error
-        exit(-1);
-    }
-    
-    [self.entriesTableView reloadData];
-}
-
-
--(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    
-    // clear search
-    searchBar.text = @"";
-    NSPredicate *predicate = nil;
-    [self.resultsController.fetchRequest setPredicate:predicate];
-    [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
-    
-    NSError *error = nil;
-    if (![[self resultsController] performFetch:&error]) {
-        // Handle error
-        exit(-1);
-    }
-    
-    // reload table view data!
-    [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    
-    
-    // hide keyboard and cancel button!
-    [searchBar setShowsCancelButton:NO animated:YES];
-    [searchBar resignFirstResponder];
-}
-
-
-
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [searchBar setShowsCancelButton:YES animated:YES];
-    
-}
+//
+//-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+//    [searchBar resignFirstResponder];
+//}
+//- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+//    if (searchBar.text.length == 0) {
+//        NSLog(@"THERE IS NOTHING HERE?");
+//    }
+//}
+//
+//- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+//    
+//    NSString *query = searchText;
+//    
+//    // IF THERE NO CHARACTERS IN SEARCH BAR
+//    NSPredicate *predicate = nil;
+//    
+//    [self.resultsController.fetchRequest setPredicate:predicate];
+//    [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
+//    
+//    NSError *error = nil;
+//    if (![[self resultsController] performFetch:&error]) {
+//        // Handle error
+//        exit(-1);
+//    }
+//    
+//    // reload table view data!
+//    [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+//    
+//    // IF THERE ARE CHARACTERS IN SEARCH BAR
+//    if (query && query.length) {
+//        NSLog(@"does this search query happen?");
+//        // create a query
+//        NSFetchRequest *request
+//        = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
+//        
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"content contains[cd] %@", query];
+//        
+//        
+//        [self.resultsController.fetchRequest setPredicate:predicate];
+//        [self.resultsController.fetchRequest setFetchLimit:5]; //
+//        [self.store.managedObjectContext executeFetchRequest:request
+//                                                       error:nil];
+//        
+//        
+//    }
+//    
+//    if (![[self resultsController] performFetch:&error]) {
+//        // Handle error
+//        exit(-1);
+//    }
+//    
+//    [self.entriesTableView reloadData];
+//}
+//
+//
+//-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+//    
+//    // clear search
+//    searchBar.text = @"";
+//    NSPredicate *predicate = nil;
+//    [self.resultsController.fetchRequest setPredicate:predicate];
+//    [self.resultsController.fetchRequest setFetchLimit:0]; // 0 is no limit!
+//    
+//    NSError *error = nil;
+//    if (![[self resultsController] performFetch:&error]) {
+//        // Handle error
+//        exit(-1);
+//    }
+//    
+//    // reload table view data!
+//    [self.entriesTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+//    
+//    
+//    // hide keyboard and cancel button!
+//    [searchBar setShowsCancelButton:NO animated:YES];
+//    [searchBar resignFirstResponder];
+//}
+//
+//
+//
+//-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+//{
+//    [searchBar setShowsCancelButton:YES animated:YES];
+//    
+//}
+//
+//
+//
+//
 
 
 - (IBAction)addButtonPressed:(id)sender {
@@ -274,9 +285,6 @@
      [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
       [UIFont fontWithName:@"AvenirNext-Medium" size:21],
       NSFontAttributeName, nil]];
-    
-
-    
     
     [self.entriesTableView reloadData];
 }
