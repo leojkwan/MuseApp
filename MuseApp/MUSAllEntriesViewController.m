@@ -184,7 +184,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [self prefersStatusBarHidden];
 
     
     // nav bar UIw

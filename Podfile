@@ -6,7 +6,6 @@ target 'MuseApp' do
 pod 'APParallaxHeader'
 pod 'Masonry'
 pod 'AFBlurSegue', '~> 1.2.1'
-pod 'CRMediaPickerController'
 pod 'IHKeyboardAvoiding'
 pod "FCVerticalMenu"
 pod 'UIScrollView-InfiniteScroll'
