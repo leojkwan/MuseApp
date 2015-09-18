@@ -8,7 +8,6 @@
 #import "UIImage+Resize.h"
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
-
 #import "MUSDetailEntryViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
@@ -24,10 +23,12 @@
 #import <IHKeyboardAvoiding.h>
 #import <CWStatusBarNotification.h>
 
+#import "MUSNotificationDelegate.h"
+
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
 
-//@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -39,6 +40,7 @@
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
+
 @end
 
 @implementation MUSDetailEntryViewController
@@ -47,18 +49,12 @@
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     
-    NSLog(@"%@", self.destinationEntry.dateInString);
-    
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-    // set up music player
-    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    [self setUpMusicPlayer];
     
-    [self playPlaylistForThisEntry];
-    [self listenForSongChanges];
     [self setUpParallaxForExistingEntries];
-    
     
     self.textView.delegate = self;
     self.textView.text = self.destinationEntry.content;
@@ -71,33 +67,24 @@
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     self.keyboardTopBar.delegate = self;
-    
+    [self MUStoolbar];
+
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(self.view.mas_width);
+        //make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
     
     
-    [self MUStoolbar];
 }
 
--(void)listenForSongChanges {
-    NSNotificationCenter *currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
-    [currentMusicPlayingNotifications addObserver: self
-                                         selector: @selector(nowPlayingItemChanged:)
-                                             name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-                                           object: self.musicPlayer.myPlayer];
-    
-    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
-}
-
-- (void)nowPlayingItemChanged:(id) sender {
-//    self.musicPlayer.currentlyPlayingSong = [self.musicPlayer.myPlayer nowPlayingItem];
+-(void)setUpMusicPlayer {
+    // set up music player
+    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    [self playPlaylistForThisEntry];
 }
 
 -(void)MUStoolbar {
-    // hacky as shit
     self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
@@ -189,7 +176,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
     [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
-//    [self.scrollView setContentSize:[self.scrollView frame].size];
+    //    [self.scrollView setContentSize:[self.scrollView frame].size];
     
     
     [self.navigationController setNavigationBarHidden:YES];
@@ -235,27 +222,6 @@
 
 #pragma mark- photo selection methods
 
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [self.textView resignFirstResponder];
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        return;
-    };
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    imagePicker.allowsEditing = YES;
-    if (buttonIndex == 0 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    } else if (buttonIndex == 1 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    [self presentViewController:imagePicker animated:YES completion:nil];
-}
-
-
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -280,13 +246,33 @@
 #pragma mark - button pressed methods
 
 -(void)selectPhoto:(id)sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    imagePicker.allowsEditing = YES;
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
-    [actionSheet addButtonWithTitle:@"Take Photo"];
-    [actionSheet addButtonWithTitle:@"Select photo from camera"];
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:@"Cancel"];
-    actionSheet.cancelButtonIndex = 2;
-    [actionSheet showInView:self.view];
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    // CANCEL
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
+    }]];
+    
+    // CAMERA ROLL
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+        
+    }]];
+    // TAKE PHOTO
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }]];
+    
+    // Present action sheet.
+    [self presentViewController:actionSheet animated:YES completion:nil];
     
 }
 
@@ -299,11 +285,7 @@
     if(self.destinationEntry == nil){
         [self createNewEntry];
     }
-    
-    
     // check if song is pinnable
-    
-    
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
     pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
@@ -311,23 +293,9 @@
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
-    
-    // give notification
-    
-    CWStatusBarNotification *pinSuccessNotification = [CWStatusBarNotification new];
-    pinSuccessNotification.notificationStyle = CWNotificationStyleStatusBarNotification;
-    pinSuccessNotification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
-    pinSuccessNotification.notificationAnimationOutStyle = CWNotificationAnimationStyleBottom;
-    NSString *successMessage = [NSString stringWithFormat:@"Successfully Pinned '%@'", pinnedSong.songName];
-    pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
-    pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
-    pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
-    pinSuccessNotification.notificationLabelHeight = 30;
-    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
-    [pinSuccessNotification displayNotificationWithMessage:successMessage forDuration:0.7];
+    [self displayNotificationForSongName:pinnedSong.songName];
 
     
-
     // Format this song and add to array
     NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
     [arrayForThisSong addObject:pinnedSong.artistName];
@@ -349,6 +317,21 @@
 }
 
 
+-(void)displayNotificationForSongName:(NSString *)title{
+    
+    CWStatusBarNotification *pinSuccessNotification = [CWStatusBarNotification new];
+    pinSuccessNotification.notificationStyle = CWNotificationStyleStatusBarNotification;
+    pinSuccessNotification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    pinSuccessNotification.notificationAnimationOutStyle = CWNotificationAnimationStyleBottom;
+    NSString *successMessage = [NSString stringWithFormat:@"Successfully Pinned '%@'", title];
+    pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+    pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
+    pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
+    pinSuccessNotification.notificationLabelHeight = 30;
+    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
+    [pinSuccessNotification displayNotificationWithMessage:successMessage forDuration:0.7];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -359,7 +342,7 @@
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
-//        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
+        //        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
         [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             dvc.artworkImagesForThisEntry = artworkImages;
         }];

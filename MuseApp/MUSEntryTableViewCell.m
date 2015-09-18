@@ -12,8 +12,7 @@
 @implementation MUSEntryTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
-    
+ 
 }
 
 // prevents cell image from fluttering on selected and scroll
@@ -68,6 +67,7 @@
     return imageView;
 }
 
+
 -(void)configureArtistLabelLogicCell:(MUSEntryTableViewCell *)cell entry:(Entry *)entryForThisRow {
     
     // set cell values
@@ -89,8 +89,6 @@
         NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
         cell.artistsLabel.text = moreThanOneArtist;
     }
-    
-    
     
     
 }

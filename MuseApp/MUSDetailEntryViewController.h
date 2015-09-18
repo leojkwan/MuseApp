@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Entry.h"
 
+@protocol MUSNotificationDelegate
+-(void)displayNotificationForSongName:(NSString *)title;
+@end
+
 @interface MUSDetailEntryViewController : UIViewController
 
 @property (nonatomic, strong) Entry *destinationEntry;
+@property (nonatomic, assign) id <MUSNotificationDelegate> delegate;
 
 @end
