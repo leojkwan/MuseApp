@@ -48,14 +48,14 @@
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     
-
-    [self.entrySearchBar setShowsScopeBar:YES];
+    
     [self performInitialFetchRequest];
     
     // set searchbar delegate
     
     self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
     self.entrySearchBar.delegate = self.searchBarHelperObject;
+    [self.entrySearchBar setShowsScopeBar:YES];
     
     
     [self setUpInfiniteScrollWithFetchRequest];
@@ -187,7 +187,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
     
-    // nav bar UI
+    // nav bar UIw
     // Set the nav bar font
 
     [self.navigationController.navigationBar setTitleTextAttributes:

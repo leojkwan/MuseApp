@@ -279,6 +279,7 @@
 	NSString *photoLibraryButton = NSLocalizedString(@"Photo Library", nil);
 	NSString *savedPhotosButton = NSLocalizedString(@"Saved Photos", nil);
 	NSString *cameraButton = NSLocalizedString(@"Camera", nil);
+
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
