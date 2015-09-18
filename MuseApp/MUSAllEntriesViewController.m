@@ -43,7 +43,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // set shared datastore and table view delegate
-    
     self.store = [MUSDataStore sharedDataStore];
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
@@ -61,9 +60,10 @@
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
     
-//    [self createMenuItem];nN
+    self.entriesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-   
+    
+
 
    
 
@@ -292,13 +292,13 @@
             }];
             NSLog(@"SCLAlertView dismissed!");
         }];
-        
     }];
     
     
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
-    
+     cell.entryTitleLabel.text = [cell.entryTitleLabel.text capitalizedString];
+
     
     return cell;
 }

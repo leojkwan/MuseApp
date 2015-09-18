@@ -8,7 +8,6 @@
 #import "UIImage+Resize.h"
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
-
 #import "MUSDetailEntryViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
@@ -24,10 +23,12 @@
 #import <IHKeyboardAvoiding.h>
 #import <CWStatusBarNotification.h>
 
+#import "MUSNotificationDelegate.h"
+
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
 
-//@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
+
 
 @end
 
@@ -219,27 +221,6 @@
 
 
 #pragma mark- photo selection methods
-//
-//
-//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    [self.textView resignFirstResponder];
-//    if (buttonIndex == actionSheet.cancelButtonIndex) {
-//        return;
-//    };
-//    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-//    imagePicker.delegate = self;
-//    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-//    imagePicker.allowsEditing = YES;
-//    if (buttonIndex == 0 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//    } else if (buttonIndex == 1 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-//        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//    }
-//    [self presentViewController:imagePicker animated:YES completion:nil];
-//}
-//
-//
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -265,12 +246,10 @@
 #pragma mark - button pressed methods
 
 -(void)selectPhoto:(id)sender {
-    
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     imagePicker.allowsEditing = YES;
-
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     // CANCEL
@@ -307,7 +286,6 @@
         [self createNewEntry];
     }
     // check if song is pinnable
-    //....
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
     pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
@@ -315,22 +293,8 @@
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
-    
-    // give notification
-    
-    CWStatusBarNotification *pinSuccessNotification = [CWStatusBarNotification new];
-    pinSuccessNotification.notificationStyle = CWNotificationStyleStatusBarNotification;
-    pinSuccessNotification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
-    pinSuccessNotification.notificationAnimationOutStyle = CWNotificationAnimationStyleBottom;
-    NSString *successMessage = [NSString stringWithFormat:@"Successfully Pinned '%@'", pinnedSong.songName];
-    pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
-    pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
-    pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
-    pinSuccessNotification.notificationLabelHeight = 30;
-    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
-    [pinSuccessNotification displayNotificationWithMessage:successMessage forDuration:0.7];
-    
-    
+    [self displayNotificationForSongName:pinnedSong.songName];
+
     
     // Format this song and add to array
     NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
@@ -352,6 +316,21 @@
     
 }
 
+
+-(void)displayNotificationForSongName:(NSString *)title{
+    
+    CWStatusBarNotification *pinSuccessNotification = [CWStatusBarNotification new];
+    pinSuccessNotification.notificationStyle = CWNotificationStyleStatusBarNotification;
+    pinSuccessNotification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    pinSuccessNotification.notificationAnimationOutStyle = CWNotificationAnimationStyleBottom;
+    NSString *successMessage = [NSString stringWithFormat:@"Successfully Pinned '%@'", title];
+    pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+    pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
+    pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
+    pinSuccessNotification.notificationLabelHeight = 30;
+    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
+    [pinSuccessNotification displayNotificationWithMessage:successMessage forDuration:0.7];
+}
 
 #pragma mark - Navigation
 
