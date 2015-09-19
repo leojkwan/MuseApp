@@ -19,11 +19,12 @@
 #import <SCLAlertView.h>
 #import "MUSSearchBarDelegate.h"
 #import <JTHamburgerButton.h>
-
+#import "MUSHomeViewController.h"
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, FCVerticalMenuDelegate>
 
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -51,7 +52,6 @@
     [self performInitialFetchRequest];
     
     // set searchbar delegate
-    
     self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
     self.entrySearchBar.delegate = self.searchBarHelperObject;
     [self.entrySearchBar setShowsScopeBar:YES];
@@ -61,10 +61,13 @@
     [self getCountForTotalEntries];
     
     self.entriesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    
 
+    UINavigationItem *newItem = [[UINavigationItem alloc] init];
+    UIBarButtonItem *addEntry = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonPressed:)];
+    newItem.rightBarButtonItem = addEntry;
 
+    newItem.title = @"Recent";
+    [self.navBar setItems:@[newItem]];
    
 
 }
@@ -177,18 +180,14 @@
 
 
 
-- (IBAction)addButtonPressed:(id)sender {
+
+- (void)addButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-
-    
-    // nav bar UIw
-    // Set the nav bar font
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
@@ -197,6 +196,7 @@
     
     [self.entriesTableView reloadData];
 }
+
 
 
 #pragma mark - UITable View Delegate methods

@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "RKSwipeBetweenViewControllers.h"
+#import "MUSAllEntriesViewController.h"
+#import "MUSHomeViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +21,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    
+    RKSwipeBetweenViewControllers *navigationController = [[RKSwipeBetweenViewControllers alloc]initWithRootViewController:pageController];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MUSHomeViewController* vc1 = [storyboard instantiateViewControllerWithIdentifier:@"home"];
+    MUSHomeViewController* vc2 = [storyboard instantiateViewControllerWithIdentifier:@"allEntries"];
+    [navigationController.viewControllerArray addObjectsFromArray:@[vc1,vc2]];
+
+    
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
+    
+    
+    [application setStatusBarHidden:YES];
+
     return YES;
 }
 
@@ -106,7 +127,7 @@
     if (!coordinator) {
         return nil;
     }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     return _managedObjectContext;
 }
