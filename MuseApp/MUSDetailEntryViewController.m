@@ -3,6 +3,7 @@
 //  MuseApp
 
 // Categories
+#import "UIFont+MUSFonts.h"
 #import "NSDate+ExtraMethods.h"
 #import "UIButton+ExtraMethods.h"
 #import "UIImage+Resize.h"
@@ -21,8 +22,10 @@
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
 #import <CWStatusBarNotification.h>
-#import <ZSSRichTextEditor.h>
-#import "MUSNotificationDelegate.h"
+
+
+#import "NSAttributedString+MUSExtraMethods.h"
+
 
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
@@ -38,7 +41,6 @@
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
-
 @end
 
 @implementation MUSDetailEntryViewController
@@ -51,30 +53,24 @@
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
     [self setUpMusicPlayer];
-    
     [self setUpParallaxForExistingEntries];
-    
-    self.textView.delegate = self;
-    self.textView.text = self.destinationEntry.content;
-    [self checkSizeOfContentForTextView:self.textView];
-    
-    
-    
-    // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
-    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
-    self.textView.inputAccessoryView = self.keyboardTopBar;
-    self.keyboardTopBar.delegate = self;
-    [self MUStoolbar];
+    [self setUpTextView];
+    [self setUpToolbarAndKeyboard];
 
-    
+    // set bottom contraints
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        //make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-    
-    
+
 }
+
+-(void)setUpTextView {
+    self.textView.delegate = self;
+    self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
+    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+    [self checkSizeOfContentForTextView:self.textView];
+}
+
 
 -(void)setUpMusicPlayer {
     // set up music player
@@ -82,11 +78,19 @@
     [self playPlaylistForThisEntry];
 }
 
--(void)MUStoolbar {
+-(void)setUpToolbarAndKeyboard {
+    
+    // Set up textview keyboard accessory view
     self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.navigationController.view addSubview:self.MUSToolBar];
+    
+    // Set up textview toolbar input
+    self.keyboardTopBar.delegate = self;
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
+    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
+    self.textView.inputAccessoryView = self.keyboardTopBar;
     
 }
 
@@ -126,11 +130,20 @@
 }
 
 
-
 -(void)textViewDidChange:(UITextView *)textView
 {
     [self checkSizeOfContentForTextView:textView];
     NSLog(@"%ld", textView.text.length);
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView {
+    NSLog(@"start");
+    self.textView.text = self.destinationEntry.content;
+    self.textView.font = [UIFont returnFontsForDefaultString];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
@@ -142,6 +155,7 @@
         [textView sizeToFit];
         [textView layoutIfNeeded];
         [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            
             // add bottom space between between text view and scrolling content view
             make.height.equalTo(self.textView.mas_height).with.offset(200);
         }];
@@ -171,11 +185,13 @@
     [self.MUSToolBar setHidden:YES];
 }
 
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
     [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
-    //    [self.scrollView setContentSize:[self.scrollView frame].size];
-    
     
     [self.navigationController setNavigationBarHidden:YES];
     [self.MUSToolBar setHidden:NO];
@@ -195,7 +211,7 @@
     
     // save to core data
     [self.store save];
-    
+    NSLog(@"are you here?");
     // dismiss view controller
     [self.textView endEditing:YES];
 }

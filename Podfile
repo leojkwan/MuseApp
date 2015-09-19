@@ -13,7 +13,7 @@ pod 'MCSwipeTableViewCell', '~> 2.1.4'
 pod 'SCLAlertView-Objective-C'
 pod 'JTHamburgerButton', '~> 1.0'
 pod 'CWStatusBarNotification', '~> 2.3.3'
-pod 'ZSSRichTextEditor'
+pod 'AttributedMarkdown', :git => 'https://github.com/dreamwieber/AttributedMarkdown.git'
 
 end
 

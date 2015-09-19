@@ -8,6 +8,8 @@
 
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
+#import "NSAttributedString+MUSExtraMethods.h"
+
 
 @implementation MUSEntryTableViewCell
 
@@ -72,8 +74,9 @@
     
     // set cell values
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
-    cell.entryTitleLabel.text = entryForThisRow.titleOfEntry;
-    
+    cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
+
+
     // playlist text
     NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
     
