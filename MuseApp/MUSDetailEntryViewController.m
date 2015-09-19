@@ -28,7 +28,7 @@
 
 
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, APParallaxViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -55,6 +55,8 @@
     [self setUpMusicPlayer];
     [self setUpParallaxForExistingEntries];
     [self setUpTextView];
+
+    
     [self setUpToolbarAndKeyboard];
 
     // set bottom contraints
@@ -80,18 +82,18 @@
 
 -(void)setUpToolbarAndKeyboard {
     
+    // Set up textview toolbar input
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
+    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
+    self.textView.inputAccessoryView = self.keyboardTopBar;
+    self.keyboardTopBar.delegate = self;
+
+    
     // Set up textview keyboard accessory view
     self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.navigationController.view addSubview:self.MUSToolBar];
-    
-    // Set up textview toolbar input
-    self.keyboardTopBar.delegate = self;
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
-    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
-    self.textView.inputAccessoryView = self.keyboardTopBar;
-    
 }
 
 -(void)setUpParallaxForExistingEntries {
@@ -127,6 +129,9 @@
 }
 -(void)didSelectBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)didSelectTitleButton:(id)sender {
+    [self.textView insertText:@"#"];
 }
 
 

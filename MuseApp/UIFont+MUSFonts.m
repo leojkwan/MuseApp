@@ -36,6 +36,15 @@
     UIFont *h1Font = [UIFont fontWithName:@"AvenirNext-Bold" size:24.0];
     [attributes setObject:@{NSFontAttributeName : h1Font} forKey:@(H1)];
     
+    // h2
+    UIFont *h2Font = [UIFont fontWithName:@"AvenirNext-Bold" size:18.0];
+    [attributes setObject:@{NSFontAttributeName : h2Font} forKey:@(H2)];
+    
+    // h3
+    UIFont *h3Font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17.0];
+    [attributes setObject:@{NSFontAttributeName : h3Font} forKey:@(H3)];
+
+    
     // em
     UIFont *emFont = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:18.0];
     [attributes setObject:@{NSFontAttributeName : emFont} forKey:@(EMPH)];

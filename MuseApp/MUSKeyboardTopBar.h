@@ -15,6 +15,7 @@
 -(void)didSelectPlaylistButton:(id)sender;
 -(void)didSelectAddSongButton:(id)sender;
 -(void)didSelectBackButton:(id)sender;
+-(void)didSelectTitleButton:(id)sender;
 
 @end
 

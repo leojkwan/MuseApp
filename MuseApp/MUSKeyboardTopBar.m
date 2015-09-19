@@ -23,15 +23,12 @@
 @implementation MUSKeyboardTopBar
 
 
-
-
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if(self) {
         [self commonInit];
     }
-    
     return self;
 }
 
@@ -53,8 +50,6 @@
     return self;
 }
 
-
-
 -(instancetype)initWithToolbar{
     self = [super init];
     if (self) {
@@ -73,7 +68,6 @@
     return self;
 }
 
-
 -(void)commonInit {
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self.class)
                                   owner:self
@@ -89,7 +83,6 @@
   }
 
 
-//
 -(void)setUpToolBarButtons {
 self.toolbarButtonItems = [[NSMutableArray alloc] init];
 
@@ -113,6 +106,8 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
     self.keyboardButtonItems = [[NSMutableArray alloc] init];
     
     // set up bar buttons items in this order left to right
+    [self.keyboardButtonItems addObject:[self makeTitleButton]];
+    [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
     [self.keyboardButtonItems addObject:[self cameraButton]];
     [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
     [self.keyboardButtonItems addObject:[self pinSongButton]];
@@ -130,13 +125,21 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 
 #pragma mark - Create Buttons
 
+-(UIBarButtonItem *)makeTitleButton {
+    UIButton* makeTitleButton = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 35, 25)];
+    [makeTitleButton addTarget:self action:@selector(titleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [makeTitleButton setBackgroundImage:[UIImage imageNamed:@"title"] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *makeTitleBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:makeTitleButton];
+    return makeTitleBarButtonItem;
+}
+
 
 -(UIBarButtonItem *)cameraButton {
     UIButton* cameraButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
     [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
     
-    // set up camera bar button
     UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:cameraButton];
     return cameraBarButtonItem;
 }
@@ -146,7 +149,6 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     
-    // set up camera bar button
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:backButton];
     return backBarButtonItem;
 }
@@ -189,7 +191,6 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 
     // set up done bar button
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
-    
     NSDictionary *doneBarButtonItemAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor yellowColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:doneBarButtonItemAppearanceDict forState:UIControlStateNormal];
     return doneBarButtonItem;
@@ -207,6 +208,11 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
     [self.delegate didSelectPlaylistButton:sender];
 }
 
+-(void)titleButtonPressed:(id)sender {
+    NSLog(@"titleButtonPressed");
+    [self.delegate didSelectTitleButton:sender];
+}
+
 -(void)doneButtonPressed:(id)sender{
     NSLog(@"doneButtonPressed");
     [self.delegate didSelectDoneButton:sender];;
@@ -221,7 +227,6 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
     NSLog(@"pinSongButtonPressed");
     [self.delegate didSelectAddSongButton:sender];
 }
-
 
 #pragma mark - Button Pressed methods
 -(void)cameraButtonPressed:(id)sender{

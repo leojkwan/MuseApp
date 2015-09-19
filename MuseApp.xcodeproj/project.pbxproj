@@ -102,7 +102,6 @@
 		94DEB3151B8A2C1C001509C9 /* MUSAllEntriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAllEntriesViewController.m; sourceTree = "<group>"; };
 		94DEB31A1B8A2EE8001509C9 /* MUSDetailEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSDetailEntryViewController.h; sourceTree = "<group>"; };
 		94DEB31B1B8A2EE8001509C9 /* MUSDetailEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSDetailEntryViewController.m; sourceTree = "<group>"; };
-		94EED0261BAC77030068694A /* MuseApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MuseApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		94EED0291BAC77210068694A /* MUSNotificationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSNotificationDelegate.h; sourceTree = "<group>"; };
 		94EED02A1BAC77210068694A /* MUSNotificationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSNotificationDelegate.m; sourceTree = "<group>"; };
 		94FE82BE1BACC67D00A247CD /* MUSTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSTextViewDelegate.h; sourceTree = "<group>"; };
@@ -299,7 +298,6 @@
 				94EED02A1BAC77210068694A /* MUSNotificationDelegate.m */,
 				945576CF1B975BEB0018C5E0 /* MUSSearchBarDelegate.h */,
 				945576D01B975BEB0018C5E0 /* MUSSearchBarDelegate.m */,
-				94EED0261BAC77030068694A /* MuseApp-Bridging-Header.h */,
 			);
 			name = "Delegate Helpers";
 			sourceTree = "<group>";
