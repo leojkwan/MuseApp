@@ -66,7 +66,6 @@
     UIBarButtonItem *addEntry = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonPressed:)];
     newItem.rightBarButtonItem = addEntry;
 
-
     newItem.title = @"Recent";
     [self.navBar setItems:@[newItem]];
    
@@ -177,6 +176,7 @@
         [tableView reloadData];
     }];
 }
+
 
 
 

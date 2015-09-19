@@ -31,10 +31,9 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MUSHomeViewController* vc1 = [storyboard instantiateViewControllerWithIdentifier:@"home"];
     MUSHomeViewController* vc2 = [storyboard instantiateViewControllerWithIdentifier:@"allEntries"];
-    
-
     [navigationController.viewControllerArray addObjectsFromArray:@[vc1,vc2]];
 
+    
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     

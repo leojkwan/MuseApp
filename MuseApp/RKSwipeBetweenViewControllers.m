@@ -51,8 +51,8 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
 {
     [super viewDidLoad];
 
-    self.navigationBar.barTintColor = [UIColor yellowColor]; // adjust status bar color
-    self.navigationBar.translucent = YES;
+    self.navigationBar.barTintColor = [UIColor colorWithRed:0.03 green:0.27 blue:0.38 alpha:1]; // adjust status bar color
+    self.navigationBar.translucent = NO;
     viewControllerArray = [[NSMutableArray alloc]init];
     self.currentPageIndex = 0;
     self.isPageScrollingFlag = NO;
@@ -68,7 +68,8 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
 
 //%%% sets up the tabs using a loop.  You can take apart the loop to customize individual buttons, but remember to tag the buttons.  (button.tag=0 and the second button.tag=1, etc)
 -(void)setupSegmentButtons {
-    navigationView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width,self.navigationBar.frame.size.height)];
+    
+    navigationView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.navigationBar.frame.size.width,self.navigationBar.frame.size.height)];
     
     NSInteger numControllers = [viewControllerArray count];
     
@@ -81,7 +82,7 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
         [navigationView addSubview:button];
         
         button.tag = i; //%%% IMPORTANT: if you make your own custom buttons, you have to tag them appropriately
-        button.backgroundColor = [UIColor colorWithRed:0.03 green:0.97 blue:0.08 alpha:1];//%%% buttoncolors
+        button.backgroundColor = [UIColor colorWithRed:0.03 green:0.27 blue:0.38 alpha:1];//%%% buttoncolors
         
         [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         button.titleLabel.font =  [UIFont fontWithName:@"AvenirNext-Medium" size:15.0];
@@ -125,9 +126,9 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
 
 //%%% sets up the selection bar under the buttons on the navigation bar
 -(void)setupSelector {
-    selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.view.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
-    selectionBar.backgroundColor = [UIColor greenColor]; //%%% sbcolor
-    selectionBar.alpha = 0.8; //%%% sbalpha
+    selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
+    selectionBar.backgroundColor = [UIColor whiteColor]; //%%% sbcolor
+    selectionBar.alpha = 1.0; //%%% sbalpha
     [navigationView addSubview:selectionBar];
 }
 
