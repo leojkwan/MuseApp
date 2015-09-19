@@ -21,10 +21,21 @@
 #import <JTHamburgerButton.h>
 #import "MUSHomeViewController.h"
 
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, FCVerticalMenuDelegate>
+typedef enum ScrollDirection {
+    ScrollDirectionNone,
+    ScrollDirectionRight,
+    ScrollDirectionLeft,
+    ScrollDirectionUp,
+    ScrollDirectionDown,
+    ScrollDirectionCrazy,
+} ScrollDirection;
 
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, FCVerticalMenuDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (nonatomic, assign) CGFloat lastContentOffset;
+@property (nonatomic, assign) CGFloat lastButtonAlpha;
+@property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
+@property (weak, nonatomic) IBOutlet UINavigationBar *customNavBar;
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -55,22 +66,38 @@
     self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
     self.entrySearchBar.delegate = self.searchBarHelperObject;
     [self.entrySearchBar setShowsScopeBar:YES];
-    
-    
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
     
-    self.entriesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
+    
+    
+//    self.entriesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    UINavigationItem *newItem = [[UINavigationItem alloc] init];
+    UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
     UIBarButtonItem *addEntry = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonPressed:)];
-    newItem.rightBarButtonItem = addEntry;
-
-    newItem.title = @"Recent";
-    [self.navBar setItems:@[newItem]];
-   
+    UIBarButtonItem *bookmark = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(addButtonPressed:)];
+    navigationItem.rightBarButtonItem = addEntry;
+    navigationItem.leftBarButtonItem = bookmark;
+//    navigationItem.title = @"Recent";
+    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    test.backgroundColor = [UIColor yellowColor];
+    navigationItem.titleView = test;
+    [self.customNavBar setItems:@[navigationItem]];
 
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    ScrollDirection scrollDirection;
+    if (self.lastContentOffset > scrollView.contentOffset.y) {
+        scrollDirection = ScrollDirectionUp;
+//    NSLog(@"up");
+    } else if (self.lastContentOffset < scrollView.contentOffset.y) {
+        scrollDirection = ScrollDirectionDown;
+}
+}
+
 
 #pragma mark -  JT Hamburger methods
 
@@ -114,7 +141,6 @@
         }];
     }
 }
-
 
 
 #pragma mark- Fetch Request helper methods
@@ -181,7 +207,7 @@
 
 
 
-- (void)addButtonPressed:(id)sender {
+-(IBAction)addButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
 
