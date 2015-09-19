@@ -101,14 +101,12 @@ typedef enum ScrollDirection {
             NSLog(@"down");
         }
 }
+    if (scrollView.contentOffset.y <= 10) {
+        self.addEntryButton.alpha = 1;
+    }
     self.lastContentOffset =  scrollView.contentOffset.y;
-    
+
 }
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
-    NSLog(@"at the top");
-}      // called when scrolling animation finished. may be called immediately if already at top
-
 
 
 #pragma mark -  JT Hamburger methods
