@@ -70,19 +70,14 @@ typedef enum ScrollDirection {
     [self getCountForTotalEntries];
     
     
-    
-    
-    
-//    self.entriesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
     UIBarButtonItem *addEntry = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonPressed:)];
-    UIBarButtonItem *bookmark = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(addButtonPressed:)];
     navigationItem.rightBarButtonItem = addEntry;
-    navigationItem.leftBarButtonItem = bookmark;
-//    navigationItem.title = @"Recent";
+    
+
     UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    test.backgroundColor = [UIColor yellowColor];
+    test.backgroundColor = [UIColor grayColor];
     navigationItem.titleView = test;
     [self.customNavBar setItems:@[navigationItem]];
 
@@ -92,11 +87,28 @@ typedef enum ScrollDirection {
     ScrollDirection scrollDirection;
     if (self.lastContentOffset > scrollView.contentOffset.y) {
         scrollDirection = ScrollDirectionUp;
-//    NSLog(@"up");
+        self.addEntryButton.alpha += .1;
+        if (self.addEntryButton.alpha <= 0) {
+            self.addEntryButton.alpha = 0;
+            NSLog(@"down");
+        }
+    NSLog(@"up");
     } else if (self.lastContentOffset < scrollView.contentOffset.y) {
         scrollDirection = ScrollDirectionDown;
+        self.addEntryButton.alpha -= .1;
+        if (self.addEntryButton.alpha >= 1) {
+            self.addEntryButton.alpha = 1;
+            NSLog(@"down");
+        }
 }
+    self.lastContentOffset =  scrollView.contentOffset.y;
+    
 }
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
+    NSLog(@"at the top");
+}      // called when scrolling animation finished. may be called immediately if already at top
+
 
 
 #pragma mark -  JT Hamburger methods
