@@ -3,15 +3,36 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="bwy-Kg-gKn">
+            <objects>
+                <viewController storyboardIdentifier="home" id="Reu-be-NJQ" customClass="MUSHomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kJ4-kJ-0hA"/>
+                        <viewControllerLayoutGuide type="bottom" id="uE5-7z-dT4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pjV-Zx-bcQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cv7-5r-Xs1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1118" y="661"/>
+        </scene>
         <!--All Entries View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MUSAllEntriesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="allEntries" id="BYZ-38-t0r" customClass="MUSAllEntriesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -20,29 +41,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WEj-il-E2J" userLabel="Custom Menu">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <subviews>
+                                    <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="xnc-gG-wEY">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <animations/>
+                                        <items>
+                                            <navigationItem title="Title" id="aRN-ns-vUN"/>
+                                        </items>
+                                    </navigationBar>
+                                </subviews>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstItem="xnc-gG-wEY" firstAttribute="top" secondItem="WEj-il-E2J" secondAttribute="topMargin" constant="48" id="Bbe-gG-sp2"/>
+                                    <constraint firstAttribute="height" constant="44" id="Hhv-b3-fFs"/>
+                                    <constraint firstItem="xnc-gG-wEY" firstAttribute="leading" secondItem="WEj-il-E2J" secondAttribute="leading" id="IgW-Gc-gnM"/>
+                                    <constraint firstItem="xnc-gG-wEY" firstAttribute="top" secondItem="WEj-il-E2J" secondAttribute="top" id="KEB-sC-iqO"/>
+                                    <constraint firstAttribute="bottom" secondItem="xnc-gG-wEY" secondAttribute="bottom" id="Qzk-ig-91a"/>
+                                    <constraint firstItem="xnc-gG-wEY" firstAttribute="trailing" secondItem="WEj-il-E2J" secondAttribute="trailing" id="SH2-8L-2kg"/>
+                                    <constraint firstItem="xnc-gG-wEY" firstAttribute="top" secondItem="WEj-il-E2J" secondAttribute="top" id="Voo-FQ-GmY"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Bbe-gG-sp2"/>
+                                        <exclude reference="Voo-FQ-GmY"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="300" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" barStyle="black" searchBarStyle="prominent" placeholder="Search Entries" id="Nrv-c5-FiE">
-                                    <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <animations/>
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="entryCell" rowHeight="300" id="gqG-Ad-0h7" customClass="MUSEntryTableViewCell">
-                                        <rect key="frame" x="0.0" y="109" width="600" height="300"/>
+                                        <rect key="frame" x="0.0" y="45" width="600" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gqG-Ad-0h7" id="eNI-8R-pxV">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAw-cv-2Tg" customClass="UIImageView">
-                                                    <rect key="frame" x="5" y="4" width="590" height="289.5"/>
+                                                    <rect key="frame" x="5" y="4" width="590" height="290"/>
                                                     <subviews>
                                                         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
-                                                            <rect key="frame" x="5" y="140" width="580" height="144.5"/>
+                                                            <rect key="frame" x="5" y="140" width="580" height="145"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-b0-B8i" userLabel="artists">
                                                                     <rect key="frame" x="26" y="131" width="290" height="0.0"/>
@@ -146,32 +195,36 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WEj-il-E2J" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0kH-ze-hgP"/>
+                            <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="WEj-il-E2J" secondAttribute="bottom" id="22T-j2-54s"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cdu-m1-0ky" secondAttribute="bottom" id="2bJ-T1-ZF7"/>
-                            <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="top" id="7Zt-pi-bNb"/>
+                            <constraint firstItem="cdu-m1-0ky" firstAttribute="topMargin" secondItem="WEj-il-E2J" secondAttribute="bottomMargin" id="51b-28-VPt"/>
                             <constraint firstAttribute="trailing" secondItem="cdu-m1-0ky" secondAttribute="trailing" id="8tI-Bs-WWf"/>
-                            <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="9BM-oP-wc6"/>
+                            <constraint firstAttribute="trailing" secondItem="WEj-il-E2J" secondAttribute="trailing" id="A5g-OA-528"/>
+                            <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="WEj-il-E2J" secondAttribute="bottom" id="BRP-s5-5Uw"/>
+                            <constraint firstItem="WEj-il-E2J" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OPi-sd-PUh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WEj-il-E2J" secondAttribute="bottom" constant="556" id="W2Q-NW-AlL"/>
+                            <constraint firstItem="WEj-il-E2J" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="firstBaseline" id="aCv-h1-H49"/>
+                            <constraint firstItem="WEj-il-E2J" firstAttribute="bottom" secondItem="cdu-m1-0ky" secondAttribute="top" id="aY3-I0-DF1"/>
                             <constraint firstItem="cdu-m1-0ky" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bVw-xQ-Amf"/>
-                            <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="y9H-i8-Vqe"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="9BM-oP-wc6"/>
-                                <exclude reference="y9H-i8-Vqe"/>
+                                <exclude reference="aCv-h1-H49"/>
+                                <exclude reference="aY3-I0-DF1"/>
+                                <exclude reference="22T-j2-54s"/>
+                                <exclude reference="51b-28-VPt"/>
+                                <exclude reference="W2Q-NW-AlL"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="D9t-CD-br7">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="OUN-rN-Ycv">
-                            <connections>
-                                <action selector="addButtonPressed:" destination="BYZ-38-t0r" id="DXn-hI-eAY"/>
-                                <segue destination="YMB-QV-Zfr" kind="show" identifier="newEntrySegue" id="Klu-mj-AwA"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationItem key="navigationItem" id="D9t-CD-br7"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="entriesTableView" destination="cdu-m1-0ky" id="VwI-5t-7BB"/>
                         <outlet property="entrySearchBar" destination="Nrv-c5-FiE" id="ZJV-a8-1Pc"/>
+                        <outlet property="navBar" destination="xnc-gG-wEY" id="naQ-cp-jCe"/>
                         <outlet property="searchDisplayController" destination="tug-bA-8Zp" id="jP4-MT-KEF"/>
                         <segue destination="YMB-QV-Zfr" kind="show" identifier="detailEntrySegue" id="4m1-OZ-cgF"/>
                     </connections>
@@ -692,7 +745,4 @@
         <image name="playSong" width="75" height="75"/>
         <image name="quitButton" width="14" height="14"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Klu-mj-AwA"/>
-    </inferredMetricsTieBreakers>
 </document>
