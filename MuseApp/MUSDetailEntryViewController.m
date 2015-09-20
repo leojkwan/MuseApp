@@ -303,11 +303,13 @@
     if(self.destinationEntry == nil){
         [self createNewEntry];
     }
-    // check if song is pinnable
+
+    
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
     pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
     pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
+    NSLog(@"This is the persistent ID: %llu", [self.musicPlayer.myPlayer nowPlayingItem].persistentID);
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
