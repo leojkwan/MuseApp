@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		940398091BAE467500F45256 /* MUSAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940398081BAE467500F45256 /* MUSAlertViewController.m */; settings = {ASSET_TAGS = (); }; };
+		940398091BAE467500F45256 /* MUSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 940398081BAE467500F45256 /* MUSAlertView.m */; settings = {ASSET_TAGS = (); }; };
+		9403981B1BAF0E3800F45256 /* Song+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 940398141BAF0E3800F45256 /* Song+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		9403981C1BAF0E3800F45256 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 940398161BAF0E3800F45256 /* Song.m */; settings = {ASSET_TAGS = (); }; };
+		9403981D1BAF0E3800F45256 /* Entry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 940398181BAF0E3800F45256 /* Entry+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		9403981E1BAF0E3800F45256 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403981A1BAF0E3800F45256 /* Entry.m */; settings = {ASSET_TAGS = (); }; };
 		940A85E21B8B9697008C5D2E /* UIButton+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */; };
 		940A85E51B8B99B9008C5D2E /* MUSPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85E41B8B99B9008C5D2E /* MUSPlaylistViewController.m */; };
 		940ACD2E1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 940ACD2D1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m */; };
@@ -28,8 +32,6 @@
 		94A86B621B8E92AD00A45E79 /* MUSKeyboardTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A86B611B8E92AD00A45E79 /* MUSKeyboardTopBar.m */; };
 		94B146B21BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */; settings = {ASSET_TAGS = (); }; };
 		94B146B51BAD00C700A135E4 /* MUSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B146B41BAD00C700A135E4 /* MUSHomeViewController.m */; settings = {ASSET_TAGS = (); }; };
-		94C4B58D1B914F1800BDBB27 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B58A1B914F1800BDBB27 /* Song.m */; };
-		94C4B58E1B914F1800BDBB27 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B58C1B914F1800BDBB27 /* Entry.m */; };
 		94C4B5911B914F5A00BDBB27 /* Entry+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B5901B914F5A00BDBB27 /* Entry+ExtraMethods.m */; };
 		94C4B5971B91516D00BDBB27 /* NSDate+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C4B5961B91516D00BDBB27 /* NSDate+ExtraMethods.m */; };
 		94DB5CA91B8FC7B9008EC8B5 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DB5CA81B8FC7B9008EC8B5 /* UIImage+Resize.m */; };
@@ -56,8 +58,16 @@
 /* Begin PBXFileReference section */
 		37C7CC5993CE8D4DA87E2D26 /* Pods-MuseApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseApp/Pods-MuseApp.release.xcconfig"; sourceTree = "<group>"; };
 		8DBE9CBC1F7E542A4F577310 /* libPods-MuseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		940398071BAE467500F45256 /* MUSAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAlertViewController.h; sourceTree = "<group>"; };
-		940398081BAE467500F45256 /* MUSAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAlertViewController.m; sourceTree = "<group>"; };
+		940398071BAE467500F45256 /* MUSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAlertView.h; sourceTree = "<group>"; };
+		940398081BAE467500F45256 /* MUSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAlertView.m; sourceTree = "<group>"; };
+		940398131BAF0E3800F45256 /* Song+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Song+CoreDataProperties.h"; sourceTree = "<group>"; };
+		940398141BAF0E3800F45256 /* Song+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Song+CoreDataProperties.m"; sourceTree = "<group>"; };
+		940398151BAF0E3800F45256 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
+		940398161BAF0E3800F45256 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
+		940398171BAF0E3800F45256 /* Entry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Entry+CoreDataProperties.h"; sourceTree = "<group>"; };
+		940398181BAF0E3800F45256 /* Entry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Entry+CoreDataProperties.m"; sourceTree = "<group>"; };
+		940398191BAF0E3800F45256 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
+		9403981A1BAF0E3800F45256 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 		940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ExtraMethods.h"; sourceTree = "<group>"; };
 		940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ExtraMethods.m"; sourceTree = "<group>"; };
 		940A85E31B8B99B9008C5D2E /* MUSPlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSPlaylistViewController.h; sourceTree = "<group>"; };
@@ -91,14 +101,10 @@
 		94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUSKeyboardTopBar.xib; sourceTree = "<group>"; };
 		94A86B601B8E92AD00A45E79 /* MUSKeyboardTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSKeyboardTopBar.h; sourceTree = "<group>"; };
 		94A86B611B8E92AD00A45E79 /* MUSKeyboardTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSKeyboardTopBar.m; sourceTree = "<group>"; };
-		94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKSwipeBetweenViewControllers.h; sourceTree = "<group>"; };
-		94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKSwipeBetweenViewControllers.m; sourceTree = "<group>"; };
+		94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RKSwipeBetweenViewControllers.h; path = MuseApp/RKSwipeBetweenViewControllers.h; sourceTree = "<group>"; };
+		94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RKSwipeBetweenViewControllers.m; path = MuseApp/RKSwipeBetweenViewControllers.m; sourceTree = "<group>"; };
 		94B146B31BAD00C700A135E4 /* MUSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSHomeViewController.h; sourceTree = "<group>"; };
 		94B146B41BAD00C700A135E4 /* MUSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSHomeViewController.m; sourceTree = "<group>"; };
-		94C4B5891B914F1800BDBB27 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
-		94C4B58A1B914F1800BDBB27 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
-		94C4B58B1B914F1800BDBB27 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
-		94C4B58C1B914F1800BDBB27 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 		94C4B58F1B914F5A00BDBB27 /* Entry+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Entry+ExtraMethods.h"; sourceTree = "<group>"; };
 		94C4B5901B914F5A00BDBB27 /* Entry+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Entry+ExtraMethods.m"; sourceTree = "<group>"; };
 		94C4B5951B91516D00BDBB27 /* NSDate+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ExtraMethods.h"; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 		5617EA71E77992F81548B0E2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */,
+				94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */,
 				FB068C5D55F63EBB0CDAC82E /* Pods-MuseApp.debug.xcconfig */,
 				37C7CC5993CE8D4DA87E2D26 /* Pods-MuseApp.release.xcconfig */,
 			);
@@ -183,18 +191,20 @@
 		9438AA631B8A543A00644EB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				940398071BAE467500F45256 /* MUSAlertViewController.h */,
-				940398081BAE467500F45256 /* MUSAlertViewController.m */,
-				94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */,
-				94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */,
+				940398131BAF0E3800F45256 /* Song+CoreDataProperties.h */,
+				940398141BAF0E3800F45256 /* Song+CoreDataProperties.m */,
+				940398151BAF0E3800F45256 /* Song.h */,
+				940398161BAF0E3800F45256 /* Song.m */,
+				940398171BAF0E3800F45256 /* Entry+CoreDataProperties.h */,
+				940398181BAF0E3800F45256 /* Entry+CoreDataProperties.m */,
+				940398191BAF0E3800F45256 /* Entry.h */,
+				9403981A1BAF0E3800F45256 /* Entry.m */,
+				940398071BAE467500F45256 /* MUSAlertView.h */,
+				940398081BAE467500F45256 /* MUSAlertView.m */,
 				940ACD2F1B8BE8660029230B /* Categories */,
 				94EED0251BAC769A0068694A /* Delegate Helpers */,
 				940ACD301B8BE8A00029230B /* Datastore */,
 				94AF0FB81B8F8444001B906F /* Custom Cells */,
-				94C4B5891B914F1800BDBB27 /* Song.h */,
-				94C4B58A1B914F1800BDBB27 /* Song.m */,
-				94C4B58B1B914F1800BDBB27 /* Entry.h */,
-				94C4B58C1B914F1800BDBB27 /* Entry.m */,
 				944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */,
 				94939D391B8B7618003396ED /* MUSMusicPlayer.h */,
 				94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */,
@@ -463,15 +473,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9403981C1BAF0E3800F45256 /* Song.m in Sources */,
 				9461111A1B90B6B400CD86C9 /* MUSSongTableViewCell.m in Sources */,
 				940ACD2E1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m in Sources */,
 				940A85E51B8B99B9008C5D2E /* MUSPlaylistViewController.m in Sources */,
 				94939D3B1B8B7618003396ED /* MUSMusicPlayer.m in Sources */,
 				9441AF8E1BACB3A300884345 /* MUSTestVC.m in Sources */,
+				9403981E1BAF0E3800F45256 /* Entry.m in Sources */,
 				94C4B5911B914F5A00BDBB27 /* Entry+ExtraMethods.m in Sources */,
+				9403981B1BAF0E3800F45256 /* Song+CoreDataProperties.m in Sources */,
 				94FE82C01BACC67D00A247CD /* MUSTextViewDelegate.m in Sources */,
 				944994471B8A1DF400A3E6CF /* MuseApp.xcdatamodeld in Sources */,
 				94C4B5971B91516D00BDBB27 /* NSDate+ExtraMethods.m in Sources */,
+				9403981D1BAF0E3800F45256 /* Entry+CoreDataProperties.m in Sources */,
 				94B146B51BAD00C700A135E4 /* MUSHomeViewController.m in Sources */,
 				941DC4541B93A2AB00304B55 /* MUSIconAnimation.m in Sources */,
 				94DEB2F81B8A20EE001509C9 /* MUSDataStore.m in Sources */,
@@ -481,13 +495,11 @@
 				9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */,
 				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
 				94EED02B1BAC77210068694A /* MUSNotificationDelegate.m in Sources */,
-				940398091BAE467500F45256 /* MUSAlertViewController.m in Sources */,
-				94C4B58E1B914F1800BDBB27 /* Entry.m in Sources */,
+				940398091BAE467500F45256 /* MUSAlertView.m in Sources */,
 				94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */,
 				94FE82C61BACD04400A247CD /* UIFont+MUSFonts.m in Sources */,
 				94A86B621B8E92AD00A45E79 /* MUSKeyboardTopBar.m in Sources */,
 				944994411B8A1DF400A3E6CF /* main.m in Sources */,
-				94C4B58D1B914F1800BDBB27 /* Song.m in Sources */,
 				94FE82C91BACE22A00A247CD /* NSAttributedString+MUSExtraMethods.m in Sources */,
 				94DB5CA91B8FC7B9008EC8B5 /* UIImage+Resize.m in Sources */,
 				94B146B21BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m in Sources */,

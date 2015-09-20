@@ -12,11 +12,10 @@
 #import <SCLAlertView.h>
 
 
-@interface MUSAlertViewController : NSObject
-
--(instancetype)initDeleteAlertForController:(NSFetchedResultsController *)controller indexPath:(NSIndexPath *)indexPath;
+@interface MUSAlertView : NSObject
 
 @property (strong ,nonatomic) SCLAlertView *deleteAlertView;
 
+-(instancetype)initDeleteAlertForController:(NSFetchedResultsController *)controller indexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -6,17 +6,17 @@
 //  Copyright © 2015 Leo Kwan. All rights reserved.
 //
 
-#import "MUSAlertViewController.h"
+#import "MUSAlertView.h"
 #import "MUSDataStore.h"
 #import <SCLAlertView.h>
 
 
-@interface MUSAlertViewController ()
+@interface MUSAlertView ()
 @property (nonatomic, strong) MUSDataStore *store;
 
 @end
 
-@implementation MUSAlertViewController
+@implementation MUSAlertView
 
 
 -(instancetype)initDeleteAlertForController:(NSFetchedResultsController *)controller indexPath:(NSIndexPath *)indexPath {

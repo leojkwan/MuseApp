@@ -2,7 +2,7 @@
 //  Entry.h
 //  
 //
-//  Created by Leo Kwan on 8/28/15.
+//  Created by Leo Kwan on 9/20/15.
 //
 //
 
@@ -11,24 +11,17 @@
 
 @class Song;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Entry : NSManagedObject
 
-@property (nonatomic, retain) NSString * content;
-@property (nonatomic, retain) NSData * coverImage;
-@property (nonatomic, retain) NSDate * createdAt;
-@property (nonatomic, retain) NSString * titleOfEntry;
-@property (nonatomic, retain) NSString * dateInString;
-@property (nonatomic, retain) NSSet *songs;
-@end
-
-@interface Entry (CoreDataGeneratedAccessors)
-
-- (void)addSongsObject:(Song *)value;
-- (void)removeSongsObject:(Song *)value;
-- (void)addSongs:(NSSet *)values;
-- (void)removeSongs:(NSSet *)values;
+// Insert code here to declare functionality of your managed object subclass
 
 -(NSString *)getTitleOfContent;
 
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Entry+CoreDataProperties.h"

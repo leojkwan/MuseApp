@@ -10,6 +10,7 @@
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "MUSDetailEntryViewController.h"
+#import "MUSAllEntriesViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import <Masonry/Masonry.h>
@@ -21,7 +22,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
-#import "MUSAlertViewController.h"
+#import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
 #import "NSAttributedString+MUSExtraMethods.h"
 
@@ -64,6 +65,8 @@
     }];
 
 }
+
+
 
 -(void)setUpTextView {
     self.textView.delegate = self;
@@ -128,6 +131,7 @@
 }
 -(void)didSelectBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+    [self.MUSToolBar setHidden:YES];
 }
 -(void)didSelectTitleButton:(id)sender {
     [self.textView insertText:@"#"];
@@ -184,11 +188,6 @@
 }
 
 
--(void)viewWillDisappear:(BOOL)animated {
-    //    [self.musicPlayer removeMusicNotifications];
-    [self.MUSToolBar setHidden:YES];
-}
-
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
@@ -222,6 +221,7 @@
 
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+    
     self.destinationEntry = newEntry;
     if (self.textView.text == nil) {
         newEntry.content = @"";
@@ -291,6 +291,7 @@
     
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
+
     
 }
 
@@ -302,25 +303,25 @@
     
     if(self.destinationEntry == nil){
         [self createNewEntry];
+        self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
     }
 
     
     // Create managed object on CoreData
     Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
+    
     pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
     pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
-    NSLog(@"This is the persistent ID: %llu", [self.musicPlayer.myPlayer nowPlayingItem].persistentID);
+    NSLog(@"%@", pinnedSong.songName);
+    // convert long long to nsnumber
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+    pinnedSong.persistentID = songPersistentNumber;
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
     [self displayNotificationForSongName:pinnedSong.songName];
 
-    
-    // Format this song and add to array
-    NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
-    [arrayForThisSong addObject:pinnedSong.artistName];
-    [arrayForThisSong addObject:pinnedSong.songName];
-    [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
+    [self.formattedPlaylistForThisEntry addObject:pinnedSong];
     
     // Add song to Core Data
     [self.destinationEntry addSongsObject:pinnedSong];
@@ -358,16 +359,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
+    
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
-        //        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
-        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
-            dvc.artworkImagesForThisEntry = artworkImages;
-        }];
+
+
     }
-    
+    NSLog(@"segue");
     
 }
 

@@ -24,12 +24,15 @@
 @property (nonatomic, strong) NSString *currentPlayingSongString;
 @property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
+@property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
+
 @end
 
 @implementation MUSPlaylistViewController
 
 
 - (void)viewDidLoad {
+    NSLog(@"DVC loaded");
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
@@ -39,9 +42,13 @@
     [self loadUILabels];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
-    self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
-}
+    
+    
+    [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+        self.artworkImagesForThisEntry = artworkImages;
+    }];
 
+}
 
 
 
@@ -69,13 +76,15 @@
     // get all songs in one array so I can check whether the now playing song is part of the list, if not, load a fresh playlist
     NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];
 
-    for (NSArray *song in self.playlistForThisEntry) {
-        NSString *songName = song[1];
-        [songTitleArray addObject:songName];
+    for (Song *song in self.playlistForThisEntry) {
+        NSNumber *songID = song.persistentID;
+        [songTitleArray addObject:songID];
     }
     
     NSLog(@"%@", self.playlistForThisEntry);
-        if (![songTitleArray containsObject:self.currentPlayingSongString]) {
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+
+        if (![songTitleArray containsObject:songPersistentNumber]) {
             [self loadPlaylistArrayForThisEntryIntoPlayer];
         }
 
@@ -125,7 +134,6 @@
                                          selector: @selector(updateNowPlayingItem:)
                                              name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                            object: self.musicPlayer.myPlayer];
-    
 }
 
 - (void)updateNowPlayingItem:(id) sender {
@@ -151,8 +159,10 @@
     MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
     
     // Set Up artist and song title labels
-    NSString *artistStringAtThisRow = self.playlistForThisEntry[indexPath.row][0];
-    NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
+    Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
+    NSString *artistStringAtThisRow = songForThisRow.artistName;
+    NSString *songStringAtThisRow = songForThisRow.songName;
+    
     NSNumber *songNumber = @(indexPath.row + 1);
     cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];

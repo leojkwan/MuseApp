@@ -2,20 +2,15 @@
 //  Song.m
 //  
 //
-//  Created by Leo Kwan on 8/28/15.
+//  Created by Leo Kwan on 9/20/15.
 //
 //
 
 #import "Song.h"
 #import "Entry.h"
 
-
 @implementation Song
 
-@dynamic artistName;
-@dynamic genre;
-@dynamic pinnedAt;
-@dynamic songName;
-@dynamic entry;
+// Insert code here to add functionality to your managed object subclass
 
 @end

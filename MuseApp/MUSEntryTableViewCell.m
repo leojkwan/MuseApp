@@ -8,6 +8,8 @@
 
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
+//#import "Song+CoreDataProperties.h"
+#import "Song.h"
 #import "NSAttributedString+MUSExtraMethods.h"
 
 
@@ -78,18 +80,22 @@
 
 
     // playlist text
-    NSMutableArray *formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
+    NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
     
     // ARTIST LABEL LOGIC
-    if (formattedPlaylistForThisEntry.count == 0) {
+    
+
+    if (songsOrderedByDatePinned.count == 0) {
         cell.artistsLabel.text = @"—";
     }
-    else if (formattedPlaylistForThisEntry.count == 1 ) {
-        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,formattedPlaylistForThisEntry[0][0]];
+    else if (songsOrderedByDatePinned.count == 1 ) {
+        Song *firstSongForThisRow = songsOrderedByDatePinned[0];
+        NSString *oneArtist = [NSString stringWithFormat:@"%@" ,firstSongForThisRow.artistName];
         cell.artistsLabel.text = oneArtist;
     }
-    else if (formattedPlaylistForThisEntry.count > 1) {
-        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", formattedPlaylistForThisEntry[0][0]];
+    else if (songsOrderedByDatePinned.count > 1) {
+        Song *firstSongForThisRow = songsOrderedByDatePinned[0];
+        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", firstSongForThisRow.artistName];
         cell.artistsLabel.text = moreThanOneArtist;
     }
     
