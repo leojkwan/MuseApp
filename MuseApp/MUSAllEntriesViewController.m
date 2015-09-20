@@ -17,7 +17,7 @@
 #import <FCVerticalMenu.h>
 #import <UIScrollView+InfiniteScroll.h>
 #import <SCLAlertView.h>
-#import "MUSAlertViewController.h"
+#import "MUSAlertView.h"
 #import "MUSSearchBarDelegate.h"
 #import <JTHamburgerButton.h>
 #import "MUSHomeViewController.h"
@@ -299,7 +299,7 @@ typedef enum ScrollDirection {
     /// DELETE SWIPE LOGIC
     [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         
-        MUSAlertViewController *alert = [[MUSAlertViewController alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
+        MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
         [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
         [alert.deleteAlertView alertIsDismissed:^{
             [cell swipeToOriginWithCompletion:nil];

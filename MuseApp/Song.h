@@ -2,7 +2,7 @@
 //  Song.h
 //  
 //
-//  Created by Leo Kwan on 8/28/15.
+//  Created by Leo Kwan on 9/20/15.
 //
 //
 
@@ -11,12 +11,14 @@
 
 @class Entry;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Song : NSManagedObject
 
-@property (nonatomic, retain) NSString * artistName;
-@property (nonatomic, retain) NSString * genre;
-@property (nonatomic, retain) NSDate * pinnedAt;
-@property (nonatomic, retain) NSString * songName;
-@property (nonatomic, retain) Entry *entry;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Song+CoreDataProperties.h"
