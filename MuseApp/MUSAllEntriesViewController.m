@@ -45,6 +45,7 @@ typedef enum ScrollDirection {
 @property NSInteger currentFetchCount;
 @property NSInteger totalNumberOfEntries;
 
+
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
 
 
@@ -96,7 +97,6 @@ typedef enum ScrollDirection {
         self.addEntryButton.alpha -= .1;
         if (self.addEntryButton.alpha >= 1) {
             self.addEntryButton.alpha = 1;
-            NSLog(@"down");
         }
     }
     if (scrollView.contentOffset.y <= 10) {
