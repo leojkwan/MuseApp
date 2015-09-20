@@ -56,21 +56,9 @@
                                              forProperty:MPMediaItemPropertyPersistentID];
 
             
-//            MPMediaPropertyPredicate *artistPredicate =
-//            [MPMediaPropertyPredicate predicateWithValue:song[0]
-//                                             forProperty:MPMediaItemPropertyArtist];
-//            
-//            
-//            MPMediaPropertyPredicate *songPredicate =
-//            [MPMediaPropertyPredicate predicateWithValue:song[1]
-//                                             forProperty:MPMediaItemPropertyTitle];
-            
-            
             MPMediaQuery *songAndArtistQuery = [ [MPMediaQuery alloc] init];
             
             [songAndArtistQuery addFilterPredicate:persistentIDPredicate];
-//            [songAndArtistQuery addFilterPredicate:artistPredicate];
-//            [songAndArtistQuery addFilterPredicate:songPredicate];
             
             // Store the queried MPMediaItems in an NSArray
             NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];

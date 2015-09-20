@@ -186,15 +186,7 @@
         }];
     }
 }
-//
-//
-//-(void)viewWillDisappear:(BOOL)animated {
-//    
-//    if (self.isMovingToParentViewController) {
-//        [self.MUSToolBar setHidden:YES];
-//    }
-////    }
-//}
+
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
@@ -299,7 +291,6 @@
     
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
-    [self setUpToolbarAndKeyboard];
 
     
 }
@@ -330,12 +321,6 @@
     
     [self displayNotificationForSongName:pinnedSong.songName];
 
-    
-    // Format this song and add to array
-    
-//    NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
-//    [arrayForThisSong addObject:pinnedSong.artistName];
-//    [arrayForThisSong addObject:pinnedSong.songName];
     [self.formattedPlaylistForThisEntry addObject:pinnedSong];
     
     // Add song to Core Data
@@ -380,11 +365,7 @@
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
 
-        
-//        
-//        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
-//            dvc.artworkImagesForThisEntry = artworkImages;
-//        }];
+
     }
     NSLog(@"segue");
     
