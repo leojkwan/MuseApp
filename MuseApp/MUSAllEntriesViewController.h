@@ -12,4 +12,5 @@
 
 @interface MUSAllEntriesViewController : UIViewController
 
+
 @end

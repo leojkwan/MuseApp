@@ -54,7 +54,6 @@
     
     // IF THERE ARE CHARACTERS IN SEARCH BAR
     if (query && query.length) {
-        NSLog(@"does this search query happen?");
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];

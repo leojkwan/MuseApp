@@ -17,6 +17,7 @@
 #import <FCVerticalMenu.h>
 #import <UIScrollView+InfiniteScroll.h>
 #import <SCLAlertView.h>
+#import "MUSAlertViewController.h"
 #import "MUSSearchBarDelegate.h"
 #import <JTHamburgerButton.h>
 #import "MUSHomeViewController.h"
@@ -27,7 +28,6 @@ typedef enum ScrollDirection {
     ScrollDirectionLeft,
     ScrollDirectionUp,
     ScrollDirectionDown,
-    ScrollDirectionCrazy,
 } ScrollDirection;
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, FCVerticalMenuDelegate, UIScrollViewDelegate>
@@ -70,17 +70,17 @@ typedef enum ScrollDirection {
     [self getCountForTotalEntries];
     
     
-
+    
     UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
     UIBarButtonItem *addEntry = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonPressed:)];
     navigationItem.rightBarButtonItem = addEntry;
     
-
+    
     UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     test.backgroundColor = [UIColor grayColor];
     navigationItem.titleView = test;
     [self.customNavBar setItems:@[navigationItem]];
-
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -90,9 +90,7 @@ typedef enum ScrollDirection {
         self.addEntryButton.alpha += .1;
         if (self.addEntryButton.alpha <= 0) {
             self.addEntryButton.alpha = 0;
-            NSLog(@"down");
         }
-    NSLog(@"up");
     } else if (self.lastContentOffset < scrollView.contentOffset.y) {
         scrollDirection = ScrollDirectionDown;
         self.addEntryButton.alpha -= .1;
@@ -100,12 +98,11 @@ typedef enum ScrollDirection {
             self.addEntryButton.alpha = 1;
             NSLog(@"down");
         }
-}
+    }
     if (scrollView.contentOffset.y <= 10) {
         self.addEntryButton.alpha = 1;
     }
     self.lastContentOffset =  scrollView.contentOffset.y;
-
 }
 
 
@@ -129,7 +126,6 @@ typedef enum ScrollDirection {
     if(sender.currentMode == JTHamburgerButtonModeHamburger){
         [sender setCurrentModeWithAnimation:JTHamburgerButtonModeCross];
         
-        
         FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
         
         item1.actionBlock = ^{
@@ -141,8 +137,8 @@ typedef enum ScrollDirection {
         self.verticalMenu.liveBlurBackgroundStyle = UIBlurEffectStyleDark;
         self.verticalMenu.backgroundAlpha = .8;
         [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
-
-
+        
+        
     }
     else{
         [sender setCurrentModeWithAnimation:JTHamburgerButtonModeHamburger];
@@ -168,7 +164,7 @@ typedef enum ScrollDirection {
 -(void)performInitialFetchRequest {
     
     // delete cache every time
-//    [NSFetchedResultsController deleteCacheWithName:@"cache"];
+    //    [NSFetchedResultsController deleteCacheWithName:@"cache"];
     
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
@@ -195,11 +191,10 @@ typedef enum ScrollDirection {
     [self.entriesTableView addInfiniteScrollWithHandler:^(UITableView* tableView) {
         
         if (self.currentFetchCount < self.totalNumberOfEntries) {
-            NSLog(@"are you in here?");
-            NSLog(@" CURRENT FETCH COUNT %ld", self.currentFetchCount);
-            NSLog(@" TOTAL NUMBER OF ENTRIES %ld", self.totalNumberOfEntries);
+            
             // delete cache every time
             [NSFetchedResultsController deleteCacheWithName:nil];
+            
             // just make sure to call finishInfiniteScroll in the end
             self.currentFetchCount += 2;
             [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
@@ -224,7 +219,7 @@ typedef enum ScrollDirection {
 
 -(void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-
+    
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
       [UIFont fontWithName:@"AvenirNext-Medium" size:21],
@@ -238,13 +233,11 @@ typedef enum ScrollDirection {
 #pragma mark - UITable View Delegate methods
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[self.resultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     if ([[self.resultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
         return [sectionInfo numberOfObjects];
@@ -257,6 +250,10 @@ typedef enum ScrollDirection {
     return 300;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
+
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
@@ -264,9 +261,6 @@ typedef enum ScrollDirection {
     return [theSection name];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
-}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
@@ -276,8 +270,6 @@ typedef enum ScrollDirection {
     sectionLabel.textAlignment = NSTextAlignmentCenter;
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
     sectionLabel.textColor = [UIColor colorWithRed:0.93 green:0.87 blue:0.1 alpha:1];
-    
-    
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
@@ -297,8 +289,6 @@ typedef enum ScrollDirection {
     return YES;
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -309,35 +299,22 @@ typedef enum ScrollDirection {
     /// DELETE SWIPE LOGIC
     [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         
-        // alert user
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        alert.shouldDismissOnTapOutside = YES;
-        alert.showAnimationType = FadeIn;
-        
-        [alert addButton:@"Delete" actionBlock:^(void) {
-            NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
-            [self.store.managedObjectContext deleteObject:managedObject];
-            [self.store.managedObjectContext save:nil];
-        }];
-        
-        [alert showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
-        // when alert is dismissed
-        [alert alertIsDismissed:^{
-            [cell swipeToOriginWithCompletion:^{
-                NSLog(@"Cell swiped back!");
-            }];
-            NSLog(@"SCLAlertView dismissed!");
+        MUSAlertViewController *alert = [[MUSAlertViewController alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
+        [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
+        [alert.deleteAlertView alertIsDismissed:^{
+            [cell swipeToOriginWithCompletion:nil];
         }];
     }];
     
     
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
-     cell.entryTitleLabel.text = [cell.entryTitleLabel.text capitalizedString];
-
+    cell.entryTitleLabel.text = [cell.entryTitleLabel.text capitalizedString];
+    
     
     return cell;
 }
+
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -345,10 +322,7 @@ typedef enum ScrollDirection {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
 }
 
-
 #pragma mark - NSFetchedResultsControllerDelegate methods
-
-
 
 -(void) controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.entriesTableView beginUpdates];
@@ -411,7 +385,6 @@ typedef enum ScrollDirection {
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    
     // this reloads the table view data on reappearing
     [self.entriesTableView reloadData];
     [self.entriesTableView endUpdates];

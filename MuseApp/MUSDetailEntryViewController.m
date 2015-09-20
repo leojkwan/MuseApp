@@ -21,9 +21,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
+#import "MUSAlertViewController.h"
 #import <CWStatusBarNotification.h>
-
-
 #import "NSAttributedString+MUSExtraMethods.h"
 
 
@@ -216,7 +215,6 @@
     
     // save to core data
     [self.store save];
-    NSLog(@"are you here?");
     // dismiss view controller
     [self.textView endEditing:YES];
 }
