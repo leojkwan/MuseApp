@@ -47,8 +47,6 @@ typedef enum ScrollDirection {
 
 
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
-
-
 @end
 
 @implementation MUSAllEntriesViewController
@@ -59,6 +57,10 @@ typedef enum ScrollDirection {
     self.store = [MUSDataStore sharedDataStore];
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
+    
+    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/us/album/the-hills/id1017804831?i=1017805136&uo=4"];
+    [[UIApplication sharedApplication] openURL:url];
+
     
     
     [self performInitialFetchRequest];
