@@ -12,18 +12,22 @@
 @implementation NSSet (MUSExtraMethod)
 
 +(NSMutableArray *)convertPlaylistArrayFromSet:(NSSet *)set {
-        NSArray *playlistArrayForThisEntry = [[set allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinnedAt" ascending:YES]]];
     
-    // Pull artist and song strings from Sorted Songs Array above
-    NSMutableArray *playlistArrayWithSongsInCorrectFormat = [[NSMutableArray alloc] init];
+        NSMutableArray *playlistArrayForThisEntry = [[set allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinnedAt" ascending:YES]]];
+//
+//    // Pull artist and song strings from Sorted Songs Array above
+//    NSMutableArray *playlistArrayWithSongsInCorrectFormat = [[NSMutableArray alloc] init];
+//    
+//    for (Song *song in playlistArrayForThisEntry) {
+//        NSMutableArray *songArray = [[NSMutableArray alloc] init];
+//        [songArray addObject:song.artistName];
+//        [songArray addObject:song.songName];
+//        [playlistArrayWithSongsInCorrectFormat addObject:songArray];
+//    }
+//    return playlistArrayWithSongsInCorrectFormat;
     
-    for (Song *song in playlistArrayForThisEntry) {
-        NSMutableArray *songArray = [[NSMutableArray alloc] init];
-        [songArray addObject:song.artistName];
-        [songArray addObject:song.songName];
-        [playlistArrayWithSongsInCorrectFormat addObject:songArray];
-    }
-    return playlistArrayWithSongsInCorrectFormat;
+    return playlistArrayForThisEntry;
+    
 }
 
 

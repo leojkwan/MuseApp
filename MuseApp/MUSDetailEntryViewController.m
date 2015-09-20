@@ -311,8 +311,9 @@
     pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
     pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
     
-    MPMediaItem *nowPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
-    NSLog(@"This is the persistent ID: %llu",nowPlayingItem.persistentID);
+    // convert long long to nsnumber
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+    pinnedSong.persistentID = songPersistentNumber;
     pinnedSong.pinnedAt = [NSDate date];
     pinnedSong.entry = self.destinationEntry;
     
@@ -320,10 +321,11 @@
 
     
     // Format this song and add to array
-    NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
-    [arrayForThisSong addObject:pinnedSong.artistName];
-    [arrayForThisSong addObject:pinnedSong.songName];
-    [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
+    
+//    NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
+//    [arrayForThisSong addObject:pinnedSong.artistName];
+//    [arrayForThisSong addObject:pinnedSong.songName];
+//    [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
     
     // Add song to Core Data
     [self.destinationEntry addSongsObject:pinnedSong];

@@ -43,27 +43,34 @@
 }
 
 
--(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSMutableArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block {
+-(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block {
     
     self.playlistCollection = [[NSMutableArray alloc] init];
     
     if (playlist.count > 0) {
         
-        for (NSArray *song in playlist) {
+        for (Song *song in playlist) {
             
-            MPMediaPropertyPredicate *artistPredicate =
-            [MPMediaPropertyPredicate predicateWithValue:song[0]
-                                             forProperty:MPMediaItemPropertyArtist];
+            MPMediaPropertyPredicate *persistentIDPredicate =
+            [MPMediaPropertyPredicate predicateWithValue:song.persistentID
+                                             forProperty:MPMediaItemPropertyPersistentID];
+
             
-            
-            MPMediaPropertyPredicate *songPredicate =
-            [MPMediaPropertyPredicate predicateWithValue:song[1]
-                                             forProperty:MPMediaItemPropertyTitle];
+//            MPMediaPropertyPredicate *artistPredicate =
+//            [MPMediaPropertyPredicate predicateWithValue:song[0]
+//                                             forProperty:MPMediaItemPropertyArtist];
+//            
+//            
+//            MPMediaPropertyPredicate *songPredicate =
+//            [MPMediaPropertyPredicate predicateWithValue:song[1]
+//                                             forProperty:MPMediaItemPropertyTitle];
             
             
             MPMediaQuery *songAndArtistQuery = [ [MPMediaQuery alloc] init];
-            [songAndArtistQuery addFilterPredicate:artistPredicate];
-            [songAndArtistQuery addFilterPredicate:songPredicate];
+            
+            [songAndArtistQuery addFilterPredicate:persistentIDPredicate];
+//            [songAndArtistQuery addFilterPredicate:artistPredicate];
+//            [songAndArtistQuery addFilterPredicate:songPredicate];
             
             // Store the queried MPMediaItems in an NSArray
             NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];
