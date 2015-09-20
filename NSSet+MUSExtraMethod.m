@@ -13,8 +13,10 @@
 
 +(NSMutableArray *)convertPlaylistArrayFromSet:(NSSet *)set {
     
-        NSMutableArray *playlistArrayForThisEntry = [[set allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinnedAt" ascending:YES]]];
-//
+        NSArray *playlistArrayForThisEntry = [[set allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinnedAt" ascending:YES]]];
+
+    
+    //
 //    // Pull artist and song strings from Sorted Songs Array above
 //    NSMutableArray *playlistArrayWithSongsInCorrectFormat = [[NSMutableArray alloc] init];
 //    
@@ -26,7 +28,7 @@
 //    }
 //    return playlistArrayWithSongsInCorrectFormat;
     
-    return playlistArrayForThisEntry;
+    return [playlistArrayForThisEntry mutableCopy];
     
 }
 
