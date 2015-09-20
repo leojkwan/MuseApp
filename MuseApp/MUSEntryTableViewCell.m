@@ -84,16 +84,17 @@
     
     // ARTIST LABEL LOGIC
     
-    Song *firstSongForThisRow = songsOrderedByDatePinned[0];
 
     if (songsOrderedByDatePinned.count == 0) {
         cell.artistsLabel.text = @"—";
     }
     else if (songsOrderedByDatePinned.count == 1 ) {
+        Song *firstSongForThisRow = songsOrderedByDatePinned[0];
         NSString *oneArtist = [NSString stringWithFormat:@"%@" ,firstSongForThisRow.artistName];
         cell.artistsLabel.text = oneArtist;
     }
     else if (songsOrderedByDatePinned.count > 1) {
+        Song *firstSongForThisRow = songsOrderedByDatePinned[0];
         NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", firstSongForThisRow.artistName];
         cell.artistsLabel.text = moreThanOneArtist;
     }

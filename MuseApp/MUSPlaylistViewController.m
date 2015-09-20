@@ -24,12 +24,15 @@
 @property (nonatomic, strong) NSString *currentPlayingSongString;
 @property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
+@property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
+
 @end
 
 @implementation MUSPlaylistViewController
 
 
 - (void)viewDidLoad {
+    NSLog(@"DVC loaded");
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
@@ -45,12 +48,7 @@
         self.artworkImagesForThisEntry = artworkImages;
     }];
 
-
-
-
-    self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
 }
-
 
 
 
@@ -79,12 +77,14 @@
     NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];
 
     for (Song *song in self.playlistForThisEntry) {
-        NSString *songName = song.artistName;
-        [songTitleArray addObject:songName];
+        NSNumber *songID = song.persistentID;
+        [songTitleArray addObject:songID];
     }
     
     NSLog(@"%@", self.playlistForThisEntry);
-        if (![songTitleArray containsObject:self.currentPlayingSongString]) {
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+
+        if (![songTitleArray containsObject:songPersistentNumber]) {
             [self loadPlaylistArrayForThisEntryIntoPlayer];
         }
 
@@ -134,7 +134,6 @@
                                          selector: @selector(updateNowPlayingItem:)
                                              name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                            object: self.musicPlayer.myPlayer];
-    
 }
 
 - (void)updateNowPlayingItem:(id) sender {

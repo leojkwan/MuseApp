@@ -10,6 +10,7 @@
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "MUSDetailEntryViewController.h"
+#import "MUSAllEntriesViewController.h"
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import <Masonry/Masonry.h>
@@ -64,6 +65,8 @@
     }];
 
 }
+
+
 
 -(void)setUpTextView {
     self.textView.delegate = self;
@@ -128,6 +131,7 @@
 }
 -(void)didSelectBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+    [self.MUSToolBar setHidden:YES];
 }
 -(void)didSelectTitleButton:(id)sender {
     [self.textView insertText:@"#"];
@@ -182,12 +186,15 @@
         }];
     }
 }
-
-
--(void)viewWillDisappear:(BOOL)animated {
-    //    [self.musicPlayer removeMusicNotifications];
-    [self.MUSToolBar setHidden:YES];
-}
+//
+//
+//-(void)viewWillDisappear:(BOOL)animated {
+//    
+//    if (self.isMovingToParentViewController) {
+//        [self.MUSToolBar setHidden:YES];
+//    }
+////    }
+//}
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
@@ -292,6 +299,8 @@
     
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
+    [self setUpToolbarAndKeyboard];
+
     
 }
 
@@ -377,7 +386,7 @@
 //            dvc.artworkImagesForThisEntry = artworkImages;
 //        }];
     }
-    
+    NSLog(@"segue");
     
 }
 
