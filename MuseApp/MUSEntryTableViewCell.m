@@ -94,7 +94,7 @@
         cell.artistsLabel.text = oneArtist;
     }
     else if (songsOrderedByDatePinned.count > 1) {
-        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", firstSongForThisRow];
+        NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", firstSongForThisRow.artistName];
         cell.artistsLabel.text = moreThanOneArtist;
     }
     

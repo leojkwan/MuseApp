@@ -93,8 +93,8 @@
                                                 <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAw-cv-2Tg" customClass="UIImageView">
                                                     <rect key="frame" x="5" y="5" width="590" height="290"/>
                                                     <subviews>
-                                                        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
-                                                            <rect key="frame" x="5" y="140.5" width="580" height="144.5"/>
+                                                        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W4B-Pa-wld">
+                                                            <rect key="frame" x="5" y="137" width="580" height="144.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aca-b0-B8i" userLabel="artists">
                                                                     <rect key="frame" x="26" y="131.5" width="290" height="0.0"/>

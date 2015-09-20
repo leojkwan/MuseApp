@@ -310,7 +310,7 @@
     
     pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
     pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
-    
+    NSLog(@"%@", pinnedSong.songName);
     // convert long long to nsnumber
     NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
     pinnedSong.persistentID = songPersistentNumber;
@@ -325,7 +325,7 @@
 //    NSMutableArray *arrayForThisSong = [[NSMutableArray alloc] init];
 //    [arrayForThisSong addObject:pinnedSong.artistName];
 //    [arrayForThisSong addObject:pinnedSong.songName];
-//    [self.formattedPlaylistForThisEntry addObject:arrayForThisSong];
+    [self.formattedPlaylistForThisEntry addObject:pinnedSong];
     
     // Add song to Core Data
     [self.destinationEntry addSongsObject:pinnedSong];
@@ -363,11 +363,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
+        
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
-        //        dvc.artworkForNowPlayingSong = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
+
+        
+        
         [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             dvc.artworkImagesForThisEntry = artworkImages;
         }];

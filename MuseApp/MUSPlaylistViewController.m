@@ -69,8 +69,8 @@
     // get all songs in one array so I can check whether the now playing song is part of the list, if not, load a fresh playlist
     NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];
 
-    for (NSArray *song in self.playlistForThisEntry) {
-        NSString *songName = song[1];
+    for (Song *song in self.playlistForThisEntry) {
+        NSString *songName = song.artistName;
         [songTitleArray addObject:songName];
     }
     
@@ -151,8 +151,10 @@
     MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
     
     // Set Up artist and song title labels
-    NSString *artistStringAtThisRow = self.playlistForThisEntry[indexPath.row][0];
-    NSString *songStringAtThisRow = self.playlistForThisEntry[indexPath.row][1];
+    Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
+    NSString *artistStringAtThisRow = songForThisRow.artistName;
+    NSString *songStringAtThisRow = songForThisRow.songName;
+    
     NSNumber *songNumber = @(indexPath.row + 1);
     cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
