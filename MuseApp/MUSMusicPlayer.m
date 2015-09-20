@@ -24,8 +24,6 @@
     
     if (self) {
         _myPlayer = [[MPMusicPlayerController  alloc] init];
-        // set currently playing song on instantiation
-//        self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
     }
     return self;
 }
@@ -73,7 +71,6 @@
             // add MPMediaItems into MPMediaCollection
             [self.playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
         }
-        
         // at this point I have an array full of the media items that I want, which is playlist collection
         
         MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
@@ -97,36 +94,5 @@
     }
     completionBlock(NO);
 }
-//
-//-(void) enableSongListeningNotifications {
-//    
-//    self.currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
-//    [self.currentMusicPlayingNotifications addObserver: self
-//                                              selector: @selector(nowPlayingItemChanged:)
-//                                                  name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-//                                                object: self.myPlayer];
-//    
-//    [self.myPlayer beginGeneratingPlaybackNotifications];
-//}
-
-//
-//- (void)nowPlayingItemChanged:(id) sender {
-//    self.currentlyPlayingSong = [self.myPlayer nowPlayingItem];
-//    NSLog(@"are you picking this up?");
-//}
-//
-//
-//-(void)removeMusicNotifications {
-//        [self.currentMusicPlayingNotifications removeObserver:self
-//                                           name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-//                                         object:self.myPlayer];
-//
-//        [self.currentMusicPlayingNotifications removeObserver:self
-//                                           name:MPMusicPlayerControllerPlaybackStateDidChangeNotification
-//                                         object:self.myPlayer];
-//        [self.myPlayer endGeneratingPlaybackNotifications];
-//}
-//
-
 
 @end

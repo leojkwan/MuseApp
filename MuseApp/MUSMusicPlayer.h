@@ -15,7 +15,7 @@
 @interface MUSMusicPlayer : NSObject
 
 @property (nonatomic, strong) MPMusicPlayerController *myPlayer;
-//@property (nonatomic, strong) MPMediaItem *currentlyPlayingSong;
+
 
 
 -(instancetype)init;

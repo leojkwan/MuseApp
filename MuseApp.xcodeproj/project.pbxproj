@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		940398091BAE467500F45256 /* MUSAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940398081BAE467500F45256 /* MUSAlertViewController.m */; settings = {ASSET_TAGS = (); }; };
 		940A85E21B8B9697008C5D2E /* UIButton+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */; };
 		940A85E51B8B99B9008C5D2E /* MUSPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940A85E41B8B99B9008C5D2E /* MUSPlaylistViewController.m */; };
 		940ACD2E1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 940ACD2D1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		37C7CC5993CE8D4DA87E2D26 /* Pods-MuseApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseApp/Pods-MuseApp.release.xcconfig"; sourceTree = "<group>"; };
 		8DBE9CBC1F7E542A4F577310 /* libPods-MuseApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		940398071BAE467500F45256 /* MUSAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAlertViewController.h; sourceTree = "<group>"; };
+		940398081BAE467500F45256 /* MUSAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAlertViewController.m; sourceTree = "<group>"; };
 		940A85E01B8B9697008C5D2E /* UIButton+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ExtraMethods.h"; sourceTree = "<group>"; };
 		940A85E11B8B9697008C5D2E /* UIButton+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ExtraMethods.m"; sourceTree = "<group>"; };
 		940A85E31B8B99B9008C5D2E /* MUSPlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSPlaylistViewController.h; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 		9438AA631B8A543A00644EB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				940398071BAE467500F45256 /* MUSAlertViewController.h */,
+				940398081BAE467500F45256 /* MUSAlertViewController.m */,
 				94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */,
 				94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */,
 				940ACD2F1B8BE8660029230B /* Categories */,
@@ -476,6 +481,7 @@
 				9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */,
 				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
 				94EED02B1BAC77210068694A /* MUSNotificationDelegate.m in Sources */,
+				940398091BAE467500F45256 /* MUSAlertViewController.m in Sources */,
 				94C4B58E1B914F1800BDBB27 /* Entry.m in Sources */,
 				94DEB31C1B8A2EE8001509C9 /* MUSDetailEntryViewController.m in Sources */,
 				94FE82C61BACD04400A247CD /* UIFont+MUSFonts.m in Sources */,

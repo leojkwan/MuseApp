@@ -72,7 +72,7 @@
 
 -(void)configureArtistLabelLogicCell:(MUSEntryTableViewCell *)cell entry:(Entry *)entryForThisRow {
     
-    // set cell values
+    // set views
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
 

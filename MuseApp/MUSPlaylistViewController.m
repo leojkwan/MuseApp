@@ -40,9 +40,6 @@
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
     self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];;
-   
-    
-    
 }
 
 
@@ -95,7 +92,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self prefersStatusBarHidden];
 }
 
@@ -149,7 +145,6 @@
     return self.playlistForThisEntry.count;
 }
 
-//FIXME some problem
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -162,6 +157,7 @@
     cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
     
+    
     // set up image
     if (self.artworkImagesForThisEntry[indexPath.row]) {
         cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
@@ -169,25 +165,13 @@
         cell.songArtworkImageView.image = nil;
     }
     
-    //set up animating icon
-    self.currentPlayingSongString = [self.musicPlayer.myPlayer nowPlayingItem].title;
-    NSLog(@"%@", self.currentPlayingSongString);
-    if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString ] && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        NSLog(@"Do you ever get in this playing song conditional?");
-        [cell.animatingIcon startAnimating];
-        [cell.animatingIcon setHidden:NO];
-    }
-//    else if ([songStringAtThisRow isEqualToString:self.currentPlayingSongString ] && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePaused){
-//        NSLog(@"Do you ever get in this paused song conditional?");
-//        [cell.animatingIcon stopAnimating];
-//        [cell.animatingIcon setHidden:NO];
-//    }
     
-    else {
-        NSLog(@"Do you ever get in this else song conditional?");
-        // hide all icons of not playing cell
-        [cell.animatingIcon setHidden:YES];
+    NSUInteger indexPathForAnimation = [self.musicPlayer.myPlayer indexOfNowPlayingItem];
+    if (indexPath.row == indexPathForAnimation) {
+        [cell.animatingIcon startAnimating];
     }
+    
+    
         return cell;
 }
 
