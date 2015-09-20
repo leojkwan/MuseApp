@@ -222,6 +222,7 @@
 
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+    
     self.destinationEntry = newEntry;
     if (self.textView.text == nil) {
         newEntry.content = @"";
@@ -302,6 +303,7 @@
     
     if(self.destinationEntry == nil){
         [self createNewEntry];
+        self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
     }
 
     
@@ -363,17 +365,17 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
-        
+    
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
 
         
-        
-        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
-            dvc.artworkImagesForThisEntry = artworkImages;
-        }];
+//        
+//        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+//            dvc.artworkImagesForThisEntry = artworkImages;
+//        }];
     }
     
     
