@@ -107,7 +107,7 @@ typedef enum{
 
 -(void)setUpParallaxForExistingEntries {
     self.coverImageView = [[UIImageView alloc] init];
-    if (self.destinationEntry != nil) {
+    if (self.destinationEntry != nil && self.destinationEntry.coverImage != nil) {
         // Set Image For This Entry with Parallax
         [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];

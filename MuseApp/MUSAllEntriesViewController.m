@@ -10,12 +10,12 @@
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import "Song.h"
+#import "MUSImagelessEntryCell.h"
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
 #import <FCVerticalMenuItem.h>
 #import <FCVerticalMenu.h>
-#import <UIScrollView+InfiniteScroll.h>
 #import <SCLAlertView.h>
 #import "MUSAlertView.h"
 #import "MUSSearchBarDelegate.h"
@@ -141,7 +141,7 @@ typedef enum ScrollDirection {
 }
 
 -(void)setUpSpinner {
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [spinner startAnimating];
     spinner.frame = CGRectMake(0, 0, 320, 44);
     self.entriesTableView.tableFooterView = spinner;
@@ -267,6 +267,10 @@ typedef enum ScrollDirection {
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
+    if (entryForThisRow.coverImage == nil) {
+        return 200;
+    }
     return 300;
 }
 
@@ -312,7 +316,16 @@ typedef enum ScrollDirection {
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+    Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
+    
+    MUSEntryTableViewCell *cell;
+    MUSImagelessEntryCell *cell;
+    
+    if (entryForThisRow.coverImage == nil) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+    }
     
     [cell setUpSwipeOptionsForCell:cell];
     
@@ -327,14 +340,15 @@ typedef enum ScrollDirection {
     }];
     
     
-    Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
     cell.entryTitleLabel.text = [cell.entryTitleLabel.text capitalizedString];
-    
     
     return cell;
 }
 
+-(void)setUpAlertForCell:(UITableViewCell *)cell{
+    
+}
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -8,7 +8,6 @@ pod 'Masonry'
 pod 'AFBlurSegue', '~> 1.2.1'
 pod 'IHKeyboardAvoiding'
 pod "FCVerticalMenu"
-pod 'UIScrollView-InfiniteScroll'
 pod 'MCSwipeTableViewCell', '~> 2.1.4'
 pod 'SCLAlertView-Objective-C'
 pod 'JTHamburgerButton', '~> 1.0'

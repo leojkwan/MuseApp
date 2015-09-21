@@ -16,6 +16,7 @@
 		9411D26E1BB06DAF00B28DA7 /* Entry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411D2691BB06DAF00B28DA7 /* Entry+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		9411D26F1BB06DAF00B28DA7 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411D26B1BB06DAF00B28DA7 /* Entry.m */; settings = {ASSET_TAGS = (); }; };
 		9411D2721BB06FDA00B28DA7 /* Song+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411D2711BB06FDA00B28DA7 /* Song+MUSExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		9411D2751BB0887900B28DA7 /* MUSImagelessEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411D2741BB0887900B28DA7 /* MUSImagelessEntryCell.m */; settings = {ASSET_TAGS = (); }; };
 		941DC4541B93A2AB00304B55 /* MUSIconAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 941DC4531B93A2AB00304B55 /* MUSIconAnimation.m */; };
 		9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */; };
 		944994411B8A1DF400A3E6CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944994401B8A1DF400A3E6CF /* main.m */; };
@@ -77,6 +78,8 @@
 		9411D26B1BB06DAF00B28DA7 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 		9411D2701BB06FDA00B28DA7 /* Song+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Song+MUSExtraMethods.h"; sourceTree = "<group>"; };
 		9411D2711BB06FDA00B28DA7 /* Song+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Song+MUSExtraMethods.m"; sourceTree = "<group>"; };
+		9411D2731BB0887900B28DA7 /* MUSImagelessEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSImagelessEntryCell.h; sourceTree = "<group>"; };
+		9411D2741BB0887900B28DA7 /* MUSImagelessEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSImagelessEntryCell.m; sourceTree = "<group>"; };
 		941DC4521B93A2AB00304B55 /* MUSIconAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSIconAnimation.h; sourceTree = "<group>"; };
 		941DC4531B93A2AB00304B55 /* MUSIconAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSIconAnimation.m; sourceTree = "<group>"; };
 		9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSEntryTableViewCell.h; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 		94AF0FB81B8F8444001B906F /* Custom Cells */ = {
 			isa = PBXGroup;
 			children = (
+				9411D2731BB0887900B28DA7 /* MUSImagelessEntryCell.h */,
+				9411D2741BB0887900B28DA7 /* MUSImagelessEntryCell.m */,
 				9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */,
 				9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */,
 				946111181B90B6B400CD86C9 /* MUSSongTableViewCell.h */,
@@ -497,6 +502,7 @@
 				945576D11B975BEB0018C5E0 /* MUSSearchBarDelegate.m in Sources */,
 				940A85E21B8B9697008C5D2E /* UIButton+ExtraMethods.m in Sources */,
 				9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */,
+				9411D2751BB0887900B28DA7 /* MUSImagelessEntryCell.m in Sources */,
 				94DEB3161B8A2C1C001509C9 /* MUSAllEntriesViewController.m in Sources */,
 				94EED02B1BAC77210068694A /* MUSNotificationDelegate.m in Sources */,
 				9411D2721BB06FDA00B28DA7 /* Song+MUSExtraMethods.m in Sources */,
