@@ -384,11 +384,11 @@ typedef enum{
         pinSuccessNotification.notificationLabelBackgroundColor = [UIColor redColor];
         
     } else if(self.musicPlayerStatus == Playing) {
-        _message = [NSString stringWithFormat:@"Successfully Pinned '%@'", currentSong.title];
+        _message = [NSString stringWithFormat:@"Successfully Pinned '%@", currentSong.title];
         pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
         
     } else if(self.musicPlayerStatus == AlreadyPinned) {
-        _message = [NSString stringWithFormat:@"%@ is already pinned!'", currentSong.title];
+        _message = [NSString stringWithFormat:@"%@ is already pinned!", currentSong.title];
         pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1];
     }
     
