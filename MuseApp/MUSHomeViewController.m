@@ -7,7 +7,17 @@
 //
 
 #import "MUSHomeViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
+
 
 @implementation MUSHomeViewController
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    
+
+}
 
 @end

@@ -15,5 +15,4 @@
 
 -(instancetype)initWithTableView:(UITableView *)tableView resultsController:(NSFetchedResultsController *)controller;
 
-
 @end

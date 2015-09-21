@@ -10,17 +10,19 @@
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import "Song.h"
+#import "MUSImagelessEntryCell.h"
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
 #import <FCVerticalMenuItem.h>
 #import <FCVerticalMenu.h>
-#import <UIScrollView+InfiniteScroll.h>
 #import <SCLAlertView.h>
 #import "MUSAlertView.h"
 #import "MUSSearchBarDelegate.h"
 #import <JTHamburgerButton.h>
 #import "MUSHomeViewController.h"
+
+
 
 typedef enum ScrollDirection {
     ScrollDirectionNone,
@@ -44,9 +46,8 @@ typedef enum ScrollDirection {
 @property (nonatomic, strong) FCVerticalMenu *verticalMenu;
 @property NSInteger currentFetchCount;
 @property NSInteger totalNumberOfEntries;
-
-
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
+
 @end
 
 @implementation MUSAllEntriesViewController
@@ -58,10 +59,11 @@ typedef enum ScrollDirection {
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     
-//    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/us/album/the-hills/id1017804831?i=1017805136&uo=4"];
-//    [[UIApplication sharedApplication] openURL:url];
-//
-//    
+    //    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/us/album/the-hills/id1017804831?i=1017805136&uo=4"];
+    //    [[UIApplication sharedApplication] openURL:url];
+    //
+    //
+    
     
     [self performInitialFetchRequest];
     
@@ -83,8 +85,21 @@ typedef enum ScrollDirection {
     test.backgroundColor = [UIColor grayColor];
     navigationItem.titleView = test;
     [self.customNavBar setItems:@[navigationItem]];
-    
 }
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
+      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
+      NSFontAttributeName, nil]];
+    
+    [self.entriesTableView reloadData];
+}
+
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     ScrollDirection scrollDirection;
@@ -105,7 +120,33 @@ typedef enum ScrollDirection {
         self.addEntryButton.alpha = 1;
     }
     self.lastContentOffset =  scrollView.contentOffset.y;
+    
+    
+    // Set up iphone hitting bottom of table view
+    CGPoint offset = self.entriesTableView.contentOffset;
+    CGRect bounds = self.entriesTableView.bounds;
+    CGSize size = self.entriesTableView.contentSize;
+    UIEdgeInsets inset = self.entriesTableView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    float reload_distance = 10;
+    
+    if(y > h + reload_distance) {
+        [self setUpSpinner];
+    }
 }
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self setUpInfiniteScrollWithFetchRequest];
+}
+
+-(void)setUpSpinner {
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [spinner startAnimating];
+    spinner.frame = CGRectMake(0, 0, 320, 44);
+    self.entriesTableView.tableFooterView = spinner;
+}
+
 
 
 #pragma mark -  JT Hamburger methods
@@ -165,9 +206,6 @@ typedef enum ScrollDirection {
 
 -(void)performInitialFetchRequest {
     
-    // delete cache every time
-    //    [NSFetchedResultsController deleteCacheWithName:@"cache"];
-    
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
@@ -175,7 +213,7 @@ typedef enum ScrollDirection {
     
     
     // set fetch count
-    self.currentFetchCount = 3;
+    self.currentFetchCount = 5;
     [entryFetch setFetchLimit:self.currentFetchCount];
     
     // Create and initialize the fetch results controller.
@@ -190,44 +228,24 @@ typedef enum ScrollDirection {
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
-    [self.entriesTableView addInfiniteScrollWithHandler:^(UITableView* tableView) {
+    
+    if (self.currentFetchCount < self.totalNumberOfEntries) {
+        // delete cache every time
+        [NSFetchedResultsController deleteCacheWithName:nil];
+        // just make sure to call finishInfiniteScroll in the end
+        self.currentFetchCount += 5;
+        [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
+        [self.resultsController performFetch:nil];
         
-        if (self.currentFetchCount < self.totalNumberOfEntries) {
-            
-            // delete cache every time
-            [NSFetchedResultsController deleteCacheWithName:nil];
-            
-            // just make sure to call finishInfiniteScroll in the end
-            self.currentFetchCount += 2;
-            [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
-            [self.resultsController performFetch:nil];
-            [tableView setContentOffset:CGPointMake(0, tableView.contentSize.height) animated:YES];
-        }
-        
-        // finish infinite scroll animation
-        [tableView finishInfiniteScroll];
-        [tableView reloadData];
-    }];
+        [self.entriesTableView reloadData];
+    } else {
+        self.entriesTableView.tableFooterView = nil;
+    }
 }
-
-
-
 
 
 -(IBAction)addButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
-}
-
-
--(void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
-      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
-      NSFontAttributeName, nil]];
-    
-    [self.entriesTableView reloadData];
 }
 
 
@@ -249,6 +267,10 @@ typedef enum ScrollDirection {
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
+    if (entryForThisRow.coverImage == nil) {
+        return 200;
+    }
     return 300;
 }
 
@@ -294,29 +316,49 @@ typedef enum ScrollDirection {
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
-    
-    [cell setUpSwipeOptionsForCell:cell];
-    
-    /// DELETE SWIPE LOGIC
-    [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-        
-        MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
-        [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
-        [alert.deleteAlertView alertIsDismissed:^{
-            [cell swipeToOriginWithCompletion:nil];
-        }];
-    }];
-    
-    
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-    [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
-    cell.entryTitleLabel.text = [cell.entryTitleLabel.text capitalizedString];
     
+    if (entryForThisRow.coverImage == nil) {
+        MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
+        /// DELETE SWIPE LOGIC
+        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+            
+            MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
+            [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
+            [alert.deleteAlertView alertIsDismissed:^{
+                [cell swipeToOriginWithCompletion:nil];
+            }];
+        }];
+        
+        
+        [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
+        [cell setUpSwipeOptionsForCell:cell];
+        return cell;
+    } else {
+        
+         MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+        
+        /// DELETE SWIPE LOGIC
+        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+            
+            MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
+            [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
+            [alert.deleteAlertView alertIsDismissed:^{
+                [cell swipeToOriginWithCompletion:nil];
+            }];
+        }];
+        
+        
+        [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
+        [cell setUpSwipeOptionsForCell:cell];
+        return cell;
+    }
     
-    return cell;
 }
 
+-(void)setUpAlertForCell:(UITableViewCell *)cell{
+    
+}
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -397,6 +439,9 @@ typedef enum ScrollDirection {
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    //clear search bar on segue
+    [self.searchBarHelperObject searchBarCancelButtonClicked:self.entrySearchBar];
     
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
         MUSDetailEntryViewController *dvc = segue.destinationViewController;

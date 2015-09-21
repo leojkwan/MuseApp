@@ -15,6 +15,7 @@
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
+#import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
 #import <UIScrollView+APParallaxHeader.h>
@@ -106,7 +107,7 @@ typedef enum{
 
 -(void)setUpParallaxForExistingEntries {
     self.coverImageView = [[UIImageView alloc] init];
-    if (self.destinationEntry != nil) {
+    if (self.destinationEntry != nil && self.destinationEntry.coverImage != nil) {
         // Set Image For This Entry with Parallax
         [self.scrollView.parallaxView setDelegate:self];
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
@@ -216,7 +217,6 @@ typedef enum{
 }
 
 - (void)saveButtonTapped:(id)sender {
-    
     if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
@@ -229,7 +229,8 @@ typedef enum{
     
     // save to core data
     [self.store save];
-    // dismiss view controller
+    
+    // dismiss keyboard
     [self.textView endEditing:YES];
 }
 
@@ -307,7 +308,6 @@ typedef enum{
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
     
-    
 }
 
 -(void)playlistButtonPressed:id {
@@ -349,9 +349,9 @@ typedef enum{
             self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
         }
         // Create managed object on CoreData
-        Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
-        pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
-        pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
+        MPMediaItem *currentSong = [self.musicPlayer.myPlayer nowPlayingItem];
+        Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
+        
         // convert long long to nsnumber
         NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
         pinnedSong.persistentID = songPersistentNumber;

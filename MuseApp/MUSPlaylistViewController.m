@@ -101,6 +101,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self prefersStatusBarHidden];
+    
+    
 }
 
 #pragma mark - music notifications and handling

@@ -1,48 +1,32 @@
 //
-//  MUSEntryTableViewCell.m
+//  MUSImagelessEntryCell.m
 //  MuseApp
 //
-//  Created by Leo Kwan on 8/23/15.
-//  Copyright (c) 2015 Leo Kwan. All rights reserved.
+//  Created by Leo Kwan on 9/21/15.
+//  Copyright © 2015 Leo Kwan. All rights reserved.
 //
 
+#import "MUSImagelessEntryCell.h"
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "Song.h"
-#import "MUSAlertView.h"
 #import "NSAttributedString+MUSExtraMethods.h"
 
+@interface MUSImagelessEntryCell ()
 
-@implementation MUSEntryTableViewCell
+@end
+
+@implementation MUSImagelessEntryCell
+
 
 - (void)awakeFromNib {
     
+} 
 
- 
-}
-
-// prevents cell image from fluttering on selected and scroll
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    UIColor *color = self.blurView.backgroundColor;
-    [super setSelected:selected animated:animated];
-    
-    if (selected){
-        self.blurView.backgroundColor = color;
-    }
-}
-
--(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
-    UIColor *color = self.blurView.backgroundColor;
-    [super setHighlighted:highlighted animated:animated];
-    
-    if (highlighted){
-        self.blurView.backgroundColor = color;
-    }
-}
 
 // MCSwipable Cell
 -(void)setUpSwipeOptionsForCell:(MUSEntryTableViewCell *)cell {
-
+    
     if (!cell) {
         cell = [[MUSEntryTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"entryCell"];
         
@@ -64,7 +48,6 @@
     cell.firstTrigger = 0.50;
 }
 
-
 - (UIView *)viewWithImageName:(NSString *)imageName {
     UIImage *image = [UIImage imageNamed:imageName];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -74,18 +57,18 @@
 }
 
 
--(void)configureArtistLabelLogicCell:(MUSEntryTableViewCell *)cell entry:(Entry *)entryForThisRow {
+
+-(void)configureArtistLabelLogicCell:(MUSImagelessEntryCell *)cell entry:(Entry *)entryForThisRow {
     
-    // set views
-    cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
 
-
+    
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
     
     // ARTIST LABEL LOGIC
+
     if (songsOrderedByDatePinned.count == 0) {
         cell.artistsLabel.text = @"—";
     }
@@ -105,3 +88,4 @@
 
 
 @end
+
