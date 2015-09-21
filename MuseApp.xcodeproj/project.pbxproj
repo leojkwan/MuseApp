@@ -26,6 +26,7 @@
 		944994521B8A1DF400A3E6CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944994501B8A1DF400A3E6CF /* LaunchScreen.xib */; };
 		9449945E1B8A1DF400A3E6CF /* MuseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */; };
 		945576D11B975BEB0018C5E0 /* MUSSearchBarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 945576D01B975BEB0018C5E0 /* MUSSearchBarDelegate.m */; };
+		945BC5EF1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 945BC5EE1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		9461111A1B90B6B400CD86C9 /* MUSSongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 946111191B90B6B400CD86C9 /* MUSSongTableViewCell.m */; };
 		94939D3B1B8B7618003396ED /* MUSMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */; };
 		94A86B5F1B8E929800A45E79 /* MUSKeyboardTopBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */; };
@@ -94,6 +95,8 @@
 		9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuseAppTests.m; sourceTree = "<group>"; };
 		945576CF1B975BEB0018C5E0 /* MUSSearchBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSearchBarDelegate.h; sourceTree = "<group>"; };
 		945576D01B975BEB0018C5E0 /* MUSSearchBarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSearchBarDelegate.m; sourceTree = "<group>"; };
+		945BC5ED1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MUSExtraMethods.h"; sourceTree = "<group>"; };
+		945BC5EE1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MUSExtraMethods.m"; sourceTree = "<group>"; };
 		946111181B90B6B400CD86C9 /* MUSSongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSongTableViewCell.h; sourceTree = "<group>"; };
 		946111191B90B6B400CD86C9 /* MUSSongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSongTableViewCell.m; sourceTree = "<group>"; };
 		94939D391B8B7618003396ED /* MUSMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSMusicPlayer.h; sourceTree = "<group>"; };
@@ -165,10 +168,12 @@
 				94FE82C51BACD04400A247CD /* UIFont+MUSFonts.m */,
 				94C4B58F1B914F5A00BDBB27 /* Entry+ExtraMethods.h */,
 				94C4B5901B914F5A00BDBB27 /* Entry+ExtraMethods.m */,
-				94DB5CA71B8FC7B9008EC8B5 /* UIImage+Resize.h */,
 				94FE82C71BACE22A00A247CD /* NSAttributedString+MUSExtraMethods.h */,
 				94FE82C81BACE22A00A247CD /* NSAttributedString+MUSExtraMethods.m */,
+				94DB5CA71B8FC7B9008EC8B5 /* UIImage+Resize.h */,
 				94DB5CA81B8FC7B9008EC8B5 /* UIImage+Resize.m */,
+				945BC5ED1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.h */,
+				945BC5EE1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m */,
 				940ACD2C1B8BA5CA0029230B /* NSSet+MUSExtraMethod.h */,
 				940ACD2D1B8BA5CA0029230B /* NSSet+MUSExtraMethod.m */,
 				94C4B5951B91516D00BDBB27 /* NSDate+ExtraMethods.h */,
@@ -502,6 +507,7 @@
 				944994411B8A1DF400A3E6CF /* main.m in Sources */,
 				94FE82C91BACE22A00A247CD /* NSAttributedString+MUSExtraMethods.m in Sources */,
 				94DB5CA91B8FC7B9008EC8B5 /* UIImage+Resize.m in Sources */,
+				945BC5EF1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m in Sources */,
 				94B146B21BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
