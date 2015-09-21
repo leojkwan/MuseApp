@@ -63,7 +63,7 @@ typedef enum ScrollDirection {
     //    [[UIApplication sharedApplication] openURL:url];
     //
     //
-  
+    
     
     [self performInitialFetchRequest];
     
@@ -85,8 +85,6 @@ typedef enum ScrollDirection {
     test.backgroundColor = [UIColor grayColor];
     navigationItem.titleView = test;
     [self.customNavBar setItems:@[navigationItem]];
-    
-    
 }
 
 
@@ -122,7 +120,33 @@ typedef enum ScrollDirection {
         self.addEntryButton.alpha = 1;
     }
     self.lastContentOffset =  scrollView.contentOffset.y;
+    
+    
+    // Set up iphone hitting bottom of table view
+    CGPoint offset = self.entriesTableView.contentOffset;
+    CGRect bounds = self.entriesTableView.bounds;
+    CGSize size = self.entriesTableView.contentSize;
+    UIEdgeInsets inset = self.entriesTableView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    float reload_distance = 10;
+    
+    if(y > h + reload_distance) {
+        [self setUpSpinner];
+    }
 }
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self setUpInfiniteScrollWithFetchRequest];
+}
+
+-(void)setUpSpinner {
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    spinner.frame = CGRectMake(0, 0, 320, 44);
+    self.entriesTableView.tableFooterView = spinner;
+}
+
 
 
 #pragma mark -  JT Hamburger methods
@@ -182,9 +206,6 @@ typedef enum ScrollDirection {
 
 -(void)performInitialFetchRequest {
     
-    // delete cache every time
-    //    [NSFetchedResultsController deleteCacheWithName:@"cache"];
-    
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
@@ -192,7 +213,7 @@ typedef enum ScrollDirection {
     
     
     // set fetch count
-    self.currentFetchCount = 3;
+    self.currentFetchCount = 5;
     [entryFetch setFetchLimit:self.currentFetchCount];
     
     // Create and initialize the fetch results controller.
@@ -207,36 +228,25 @@ typedef enum ScrollDirection {
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
-    [self.entriesTableView addInfiniteScrollWithHandler:^(UITableView* tableView) {
+    
+    if (self.currentFetchCount < self.totalNumberOfEntries) {
+        // delete cache every time
+        [NSFetchedResultsController deleteCacheWithName:nil];
+        // just make sure to call finishInfiniteScroll in the end
+        self.currentFetchCount += 5;
+        [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
+        [self.resultsController performFetch:nil];
         
-        if (self.currentFetchCount < self.totalNumberOfEntries) {
-            
-            // delete cache every time
-            [NSFetchedResultsController deleteCacheWithName:nil];
-            
-            // just make sure to call finishInfiniteScroll in the end
-            self.currentFetchCount += 2;
-            [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
-            [self.resultsController performFetch:nil];
-            [tableView setContentOffset:CGPointMake(0, tableView.contentSize.height) animated:YES];
-        }
-        
-        // finish infinite scroll animation
-        [tableView finishInfiniteScroll];
-        [tableView reloadData];
-    }];
+        [self.entriesTableView reloadData];
+    } else {
+        self.entriesTableView.tableFooterView = nil;
+    }
 }
-
-
-
 
 
 -(IBAction)addButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
-
-
-
 
 
 

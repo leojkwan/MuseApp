@@ -415,7 +415,7 @@ static const void *kPBInfiniteScrollStateKey = &kPBInfiniteScrollStateKey;
     contentInset.bottom -= state.indicatorInset;
     
     // Remove extra inset added to pad infinite scroll
-    contentInset.bottom -= state.extraBottomInset;
+//    contentInset.bottom -= state.extraBottomInset;
     
     // Reset indicator view inset
     state.indicatorInset = 0;

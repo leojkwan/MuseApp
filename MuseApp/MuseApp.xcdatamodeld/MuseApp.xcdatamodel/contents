@@ -9,6 +9,7 @@
         <relationship name="songs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MUSSong" inverseName="entry" inverseEntity="MUSSong" syncable="YES"/>
     </entity>
     <entity name="MUSSong" representedClassName="Song" syncable="YES">
+        <attribute name="albumTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="persistentID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -18,6 +19,6 @@
     </entity>
     <elements>
         <element name="MUSEntry" positionX="-342" positionY="-15" width="128" height="135"/>
-        <element name="MUSSong" positionX="-54" positionY="-9" width="128" height="135"/>
+        <element name="MUSSong" positionX="-54" positionY="-9" width="128" height="150"/>
     </elements>
 </model>

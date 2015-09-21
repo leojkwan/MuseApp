@@ -2,7 +2,7 @@
 //  Entry.h
 //  
 //
-//  Created by Leo Kwan on 9/20/15.
+//  Created by Leo Kwan on 9/21/15.
 //
 //
 
@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Insert code here to declare functionality of your managed object subclass
 
 //-(NSString *)getTitleOfContent;
-
 
 @end
 

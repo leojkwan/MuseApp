@@ -59,11 +59,12 @@
         NSPredicate *contentPredicate = [NSPredicate predicateWithFormat:@"content contains[cd] %@", query];
         NSPredicate *songNamePredicate = [NSPredicate predicateWithFormat:@"songs.songName contains[cd] %@", query];
         NSPredicate *songArtistPredicate = [NSPredicate predicateWithFormat:@"songs.artistName contains[cd] %@", query];
+        NSPredicate *albumPredicate = [NSPredicate predicateWithFormat:@"songs.albumTitle contains[cd] %@", query];
         NSPredicate *genrePredicate = [NSPredicate predicateWithFormat:@"songs.genre contains[cd] %@", query];
         NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"dateInString contains[cd] %@", query];
         
         NSPredicate *compoundPredicate
-        = [NSCompoundPredicate orPredicateWithSubpredicates:@[contentPredicate,songNamePredicate, genrePredicate, songArtistPredicate, datePredicate]];
+        = [NSCompoundPredicate orPredicateWithSubpredicates:@[contentPredicate,albumPredicate,songNamePredicate, genrePredicate, songArtistPredicate, datePredicate]];
 
         
         [self.controller.fetchRequest setPredicate:compoundPredicate];

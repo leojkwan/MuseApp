@@ -2,7 +2,7 @@
 //  Entry.m
 //  
 //
-//  Created by Leo Kwan on 9/20/15.
+//  Created by Leo Kwan on 9/21/15.
 //
 //
 
@@ -13,10 +13,9 @@
 
 // Insert code here to add functionality to your managed object subclass
 
--(NSString *)getTitleOfContent {
-    NSString *titleString = [[self.content componentsSeparatedByString:@"\n"] objectAtIndex:0];
-    return titleString;
-}
-
+//-(NSString *)getTitleOfContent {
+//    NSString *titleString = [[self.content componentsSeparatedByString:@"\n"] objectAtIndex:0];
+//    return titleString;
+//}
 
 @end

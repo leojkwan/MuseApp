@@ -15,6 +15,7 @@
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
+#import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
 #import <UIScrollView+APParallaxHeader.h>
@@ -348,11 +349,8 @@ typedef enum{
             self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
         }
         // Create managed object on CoreData
-        Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
-        pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
-        pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
-        pinnedSong.genre = [self.musicPlayer.myPlayer nowPlayingItem].genre;
-
+        MPMediaItem *currentSong = [self.musicPlayer.myPlayer nowPlayingItem];
+        Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
         
         // convert long long to nsnumber
         NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
