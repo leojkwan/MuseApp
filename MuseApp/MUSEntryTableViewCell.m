@@ -9,12 +9,15 @@
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "Song.h"
+#import "MUSAlertView.h"
 #import "NSAttributedString+MUSExtraMethods.h"
 
 
 @implementation MUSEntryTableViewCell
 
 - (void)awakeFromNib {
+    
+
  
 }
 
@@ -76,14 +79,13 @@
     // set views
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
+    cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
 
 
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
     
     // ARTIST LABEL LOGIC
-    
-
     if (songsOrderedByDatePinned.count == 0) {
         cell.artistsLabel.text = @"—";
     }

@@ -229,7 +229,7 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellDirection) {
         _modeForState1 = mode;
     }
     
-    if ((state & MCSwipeTableViewCellState2) == MCSwipeTableViewCellState2) {
+    if ((state & MCSwipeTableViewCellState2) == MCSwipeTableViewC       ellState2) {
         _completionBlock2 = completionBlock;
         _view2 = view;
         _color2 = color;

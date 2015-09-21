@@ -13,7 +13,6 @@
 #import "NSAttributedString+MUSExtraMethods.h"
 
 @interface MUSImagelessEntryCell ()
-@property (nonatomic, strong) UIView *deleteView;
 
 @end
 
@@ -23,6 +22,7 @@
 - (void)awakeFromNib {
     
 } 
+
 
 // MCSwipable Cell
 -(void)setUpSwipeOptionsForCell:(MUSEntryTableViewCell *)cell {
@@ -37,20 +37,32 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         
         // Setting the background color of the cell.
-        cell.contentView.backgroundColor = [UIColor whiteColor];
+        cell.contentView.backgroundColor = [UIColor darkGrayColor];
     }
+    
+    // Configuring the views and colors.
+    self.deleteView = [self viewWithImageName:@"delete"];
     
     // Setting the default inactive state color to the tableView background color.
     [cell setDefaultColor:[UIColor darkGrayColor]];
     cell.firstTrigger = 0.50;
 }
 
+- (UIView *)viewWithImageName:(NSString *)imageName {
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [imageView setFrame:CGRectMake(0, 0, 200, 200)];
+    imageView.contentMode = UIViewContentModeCenter;
+    return imageView;
+}
 
 
--(void)configureArtistLabelLogicCell:(MUSEntryTableViewCell *)cell entry:(Entry *)entryForThisRow {
+
+-(void)configureArtistLabelLogicCell:(MUSImagelessEntryCell *)cell entry:(Entry *)entryForThisRow {
     
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
-    
+    cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
+
     
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];

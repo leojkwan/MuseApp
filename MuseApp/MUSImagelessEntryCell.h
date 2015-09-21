@@ -15,5 +15,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *entryTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistsLabel;
+@property (nonatomic, strong) UIView *deleteView;
+
+-(void)setUpSwipeOptionsForCell:(MUSImagelessEntryCell *)cell;
+-(void)configureArtistLabelLogicCell:(MUSImagelessEntryCell *)cell entry:(Entry *)entryForThisRow;
 
 @end
