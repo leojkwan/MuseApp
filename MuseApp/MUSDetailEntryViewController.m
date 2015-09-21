@@ -29,7 +29,8 @@
 typedef enum{
     Playing,
     NotPlaying,
-    Invalid
+    Invalid,
+    AlreadyPinned
 }PlayerStatus;
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
@@ -306,8 +307,17 @@ typedef enum{
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         
         MPMediaEntityPersistentID songPersistentNumber = [self.musicPlayer.myPlayer nowPlayingItem].persistentID;
+
         [self.musicPlayer checkIfSongIsInLocalLibrary:songPersistentNumber withCompletionBlock:^(BOOL local) {
             if (local) {
+                
+                for (Song *song in self.formattedPlaylistForThisEntry) {
+                    NSString *currentTrack = [self.musicPlayer.myPlayer nowPlayingItem].title;
+                    if ([currentTrack isEqualToString: song.songName]) {
+                        self.musicPlayerStatus = AlreadyPinned;
+                        return;
+                    }
+                }
                 self.musicPlayerStatus = Playing;
             } else {
                 self.musicPlayerStatus = Invalid;
@@ -367,14 +377,21 @@ typedef enum{
     
     if (self.musicPlayerStatus == NotPlaying){
         _message = @"No Song Playing.";
-        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor redColor];
+        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor grayColor];
+        
     } else if(self.musicPlayerStatus == Invalid) {
         _message = @"Not a valid song in your iTunes library!";
         pinSuccessNotification.notificationLabelBackgroundColor = [UIColor redColor];
+        
     } else if(self.musicPlayerStatus == Playing) {
         _message = [NSString stringWithFormat:@"Successfully Pinned '%@'", currentSong.title];
         pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+        
+    } else if(self.musicPlayerStatus == AlreadyPinned) {
+        _message = [NSString stringWithFormat:@"%@ is already pinned!'", currentSong.title];
+        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1];
     }
+    
     pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
     pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
     pinSuccessNotification.notificationLabelHeight = 30;
