@@ -269,7 +269,7 @@ typedef enum ScrollDirection {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
      Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 200;
+        return 150;
     }
     return 300;
 }
@@ -320,37 +320,32 @@ typedef enum ScrollDirection {
     
     if (entryForThisRow.coverImage == nil) {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
-        /// DELETE SWIPE LOGIC
+        [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
+        [cell setUpSwipeOptionsForCell:cell];
+        
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-            
+    
             MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
             [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
             [alert.deleteAlertView alertIsDismissed:^{
                 [cell swipeToOriginWithCompletion:nil];
             }];
         }];
+
         
-        
-        [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
-        [cell setUpSwipeOptionsForCell:cell];
         return cell;
     } else {
         
          MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
-        
-        /// DELETE SWIPE LOGIC
+        [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
+        [cell setUpSwipeOptionsForCell:cell];
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-            
             MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
             [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
             [alert.deleteAlertView alertIsDismissed:^{
                 [cell swipeToOriginWithCompletion:nil];
             }];
         }];
-        
-        
-        [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
-        [cell setUpSwipeOptionsForCell:cell];
         return cell;
     }
     
