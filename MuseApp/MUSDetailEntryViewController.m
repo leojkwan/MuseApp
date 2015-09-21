@@ -73,6 +73,7 @@ typedef enum{
 
 
 
+
 -(void)setUpTextView {
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
@@ -121,6 +122,7 @@ typedef enum{
 
 
 
+
 #pragma mark  - Keyboard delegate methods
 -(void)didSelectCameraButton:(id)sender {
     [self selectPhoto:sender];
@@ -149,15 +151,24 @@ typedef enum{
     NSLog(@"%ld", textView.text.length);
 }
 
+
+
 -(void)textViewDidBeginEditing:(UITextView *)textView {
     NSLog(@"start");
     self.textView.text = self.destinationEntry.content;
     self.textView.font = [UIFont returnFontsForDefaultString];
 }
 
+
+
+
+
 -(void)textViewDidEndEditing:(UITextView *)textView {
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
+
+
+
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     if ([textView.text length] < 700) {
@@ -198,7 +209,7 @@ typedef enum{
 
 -(void)viewWillAppear:(BOOL)animated {
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
-    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
+    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:50];
     
     [self.navigationController setNavigationBarHidden:YES];
     [self.MUSToolBar setHidden:NO];
