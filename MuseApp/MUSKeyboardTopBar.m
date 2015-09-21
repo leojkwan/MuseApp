@@ -7,6 +7,7 @@
 #import "MUSKeyboardTopBar.h"
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
+#import "UIImage+MUSExtraMethods.h"
 
 #define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
 
@@ -102,7 +103,6 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 }
 
 -(void)setUpKeyboardButtons {
-    // create buttons array
     self.keyboardButtonItems = [[NSMutableArray alloc] init];
     
     // set up bar buttons items in this order left to right
@@ -168,7 +168,7 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 -(UIBarButtonItem *)pinSongButton {
 
     UIButton* addSongButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-    [addSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+     [addSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [addSongButton setBackgroundImage:[UIImage imageNamed:@"addToPlaylist"] forState:UIControlStateNormal];
     
     UIBarButtonItem *addSongBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:addSongButton];

@@ -29,7 +29,6 @@
 }
 
 -(void)loadPlaylistArtworkForThisEntryWithCompletionBlock:(void (^)(NSMutableArray *))block {
-    
     NSMutableArray *arrayOfSongImages = [[NSMutableArray alloc] init];
     for (MPMediaItem *song in self.playlistCollection) {
         UIImage *artworkForThisSong = [song.artwork imageWithSize:CGSizeMake(200, 200)];
@@ -55,9 +54,7 @@
             [MPMediaPropertyPredicate predicateWithValue:song.persistentID
                                              forProperty:MPMediaItemPropertyPersistentID];
 
-            
             MPMediaQuery *songAndArtistQuery = [ [MPMediaQuery alloc] init];
-            
             [songAndArtistQuery addFilterPredicate:persistentIDPredicate];
             
             // Store the queried MPMediaItems in an NSArray
@@ -76,15 +73,15 @@
     return nil;
 }
 
--(void)checkIfSongIsInLocalLibrary:(NSString *)songString withCompletionBlock:(void (^) (BOOL)) completionBlock {
+-(void)checkIfSongIsInLocalLibrary:(MPMediaEntityPersistentID)persistentID withCompletionBlock:(void (^) (BOOL)) completionBlock {
     
     MPMediaQuery *everything = [[MPMediaQuery alloc] init];
     NSArray *allSongs = [everything items];
-    
-    
+
     for (MPMediaItem *song in allSongs) {
-        if ([song.title isEqualToString:songString]) {
+        if (song.persistentID == persistentID) {
             completionBlock(YES);
+            return;
         }
     }
     completionBlock(NO);

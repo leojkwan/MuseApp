@@ -26,11 +26,15 @@
 #import <CWStatusBarNotification.h>
 #import "NSAttributedString+MUSExtraMethods.h"
 
-
+typedef enum{
+    Playing,
+    NotPlaying,
+    Invalid
+}PlayerStatus;
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
 
-
+@property (nonatomic,assign) PlayerStatus musicPlayerStatus;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -55,15 +59,15 @@
     [self setUpMusicPlayer];
     [self setUpParallaxForExistingEntries];
     [self setUpTextView];
-
+    
     
     [self setUpToolbarAndKeyboard];
-
+    
     // set bottom contraints
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-
+    
 }
 
 
@@ -84,18 +88,18 @@
 
 -(void)setUpToolbarAndKeyboard {
     
-    // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
-    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
-    self.textView.inputAccessoryView = self.keyboardTopBar;
-    self.keyboardTopBar.delegate = self;
-
-    
     // Set up textview keyboard accessory view
     self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.navigationController.view addSubview:self.MUSToolBar];
+    
+    // Set up textview toolbar input
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
+    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
+    self.textView.inputAccessoryView = self.keyboardTopBar;
+    self.keyboardTopBar.delegate = self;
+    
 }
 
 -(void)setUpParallaxForExistingEntries {
@@ -179,7 +183,6 @@
     if (self.destinationEntry != nil) {
         [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
             MPMediaItemCollection *playlistCollectionForThisEntry = response;
-            
             // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
             [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
             [self.musicPlayer.myPlayer play];
@@ -269,7 +272,7 @@
     imagePicker.allowsEditing = YES;
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-
+    
     // CANCEL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [self dismissViewControllerAnimated:YES completion:^{
@@ -291,7 +294,7 @@
     
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
-
+    
     
 }
 
@@ -299,59 +302,87 @@
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }
 
--(void)pinSongButtonPressed:id {
-    
-    if(self.destinationEntry == nil){
-        [self createNewEntry];
-        self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
+-(void)getSongPlayingStatus {
+    if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+        
+        MPMediaEntityPersistentID songPersistentNumber = [self.musicPlayer.myPlayer nowPlayingItem].persistentID;
+        [self.musicPlayer checkIfSongIsInLocalLibrary:songPersistentNumber withCompletionBlock:^(BOOL local) {
+            if (local) {
+                self.musicPlayerStatus = Playing;
+            } else {
+                self.musicPlayerStatus = Invalid;
+            }
+        }];
+    } else if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePaused || self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStateStopped) {
+        self.musicPlayerStatus = NotPlaying;
     }
-
-    
-    // Create managed object on CoreData
-    Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
-    
-    pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
-    pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
-    NSLog(@"%@", pinnedSong.songName);
-    // convert long long to nsnumber
-    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
-    pinnedSong.persistentID = songPersistentNumber;
-    pinnedSong.pinnedAt = [NSDate date];
-    pinnedSong.entry = self.destinationEntry;
-    
-    [self displayNotificationForSongName:pinnedSong.songName];
-
-    [self.formattedPlaylistForThisEntry addObject:pinnedSong];
-    
-    // Add song to Core Data
-    [self.destinationEntry addSongsObject:pinnedSong];
-    
-    // reset the collection array
-    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
-        MPMediaItemCollection *playlistCollectionForThisEntry = response;
-        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-    }];
-    
-    // Save to Core Data
-    [self.store save];
-    
 }
 
 
--(void)displayNotificationForSongName:(NSString *)title{
+-(void)pinSongButtonPressed:id {
+    [self getSongPlayingStatus];
+    
+    if (self.musicPlayerStatus == Playing) {
+        if(self.destinationEntry == nil){
+            [self createNewEntry];
+            self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
+        }
+        // Create managed object on CoreData
+        Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
+        pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
+        pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
+        // convert long long to nsnumber
+        NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+        pinnedSong.persistentID = songPersistentNumber;
+        pinnedSong.pinnedAt = [NSDate date];
+        pinnedSong.entry = self.destinationEntry;
+        
+        [self displayPinnedSongNotification];
+        [self.formattedPlaylistForThisEntry addObject:pinnedSong];
+        // Add song to Core Data
+        [self.destinationEntry addSongsObject:pinnedSong];
+        
+        // reset the collection array
+        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+            MPMediaItemCollection *playlistCollectionForThisEntry = response;
+            [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+        }];
+        // Save to Core Data
+        [self.store save];
+    }
+    [self displayPinnedSongNotification];
+}
+
+
+-(void)displayPinnedSongNotification{
+    
+    MPMediaItem *currentSong = self.musicPlayer.myPlayer.nowPlayingItem;
+    NSString *_message;
     
     CWStatusBarNotification *pinSuccessNotification = [CWStatusBarNotification new];
     pinSuccessNotification.notificationStyle = CWNotificationStyleStatusBarNotification;
     pinSuccessNotification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
     pinSuccessNotification.notificationAnimationOutStyle = CWNotificationAnimationStyleBottom;
-    NSString *successMessage = [NSString stringWithFormat:@"Successfully Pinned '%@'", title];
-    pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+    
+    
+    if (self.musicPlayerStatus == NotPlaying){
+        _message = @"No Song Playing.";
+        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor redColor];
+    } else if(self.musicPlayerStatus == Invalid) {
+        _message = @"Not a valid song in your iTunes library!";
+        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor redColor];
+    } else if(self.musicPlayerStatus == Playing) {
+        _message = [NSString stringWithFormat:@"Successfully Pinned '%@'", currentSong.title];
+        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+    }
     pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
     pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
     pinSuccessNotification.notificationLabelHeight = 30;
-    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17];
-    [pinSuccessNotification displayNotificationWithMessage:successMessage forDuration:0.7];
+    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-Medium" size:15];
+    [pinSuccessNotification displayNotificationWithMessage:_message forDuration:0.7];
 }
+
+
 
 #pragma mark - Navigation
 
@@ -359,13 +390,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
-    
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
         dvc.musicPlayer = self.musicPlayer;
-
-
+        
+        
     }
     NSLog(@"segue");
     
