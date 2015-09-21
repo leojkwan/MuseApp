@@ -59,17 +59,17 @@
         NSPredicate *contentPredicate = [NSPredicate predicateWithFormat:@"content contains[cd] %@", query];
         NSPredicate *songNamePredicate = [NSPredicate predicateWithFormat:@"songs.songName contains[cd] %@", query];
         NSPredicate *songArtistPredicate = [NSPredicate predicateWithFormat:@"songs.artistName contains[cd] %@", query];
+        NSPredicate *genrePredicate = [NSPredicate predicateWithFormat:@"songs.genre contains[cd] %@", query];
         NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"dateInString contains[cd] %@", query];
         
         NSPredicate *compoundPredicate
-        = [NSCompoundPredicate orPredicateWithSubpredicates:@[contentPredicate,songNamePredicate, songArtistPredicate, datePredicate]];
+        = [NSCompoundPredicate orPredicateWithSubpredicates:@[contentPredicate,songNamePredicate, genrePredicate, songArtistPredicate, datePredicate]];
 
         
         [self.controller.fetchRequest setPredicate:compoundPredicate];
         [self.controller.fetchRequest setFetchLimit:5]; //
         [self.store.managedObjectContext executeFetchRequest:request
                                                        error:nil];
-        
         
     }
     
@@ -83,7 +83,6 @@
 
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    
     // clear search
     searchBar.text = @"";
     NSPredicate *predicate = nil;
@@ -98,8 +97,6 @@
     
     // reload table view data!
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    
-    
     // hide keyboard and cancel button!
     [searchBar setShowsCancelButton:NO animated:YES];
     [searchBar resignFirstResponder];

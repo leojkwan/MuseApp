@@ -19,7 +19,6 @@
 + (instancetype)sharedDataStore;
 
 - (void)save;
-//- (void )fetchEntries;
 - (NSURL *)applicationDocumentsDirectory;
 
 

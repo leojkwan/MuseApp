@@ -22,6 +22,8 @@
 #import <JTHamburgerButton.h>
 #import "MUSHomeViewController.h"
 
+
+
 typedef enum ScrollDirection {
     ScrollDirectionNone,
     ScrollDirectionRight,
@@ -44,9 +46,8 @@ typedef enum ScrollDirection {
 @property (nonatomic, strong) FCVerticalMenu *verticalMenu;
 @property NSInteger currentFetchCount;
 @property NSInteger totalNumberOfEntries;
-
-
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
+
 @end
 
 @implementation MUSAllEntriesViewController
@@ -58,10 +59,11 @@ typedef enum ScrollDirection {
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     
-//    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/us/album/the-hills/id1017804831?i=1017805136&uo=4"];
-//    [[UIApplication sharedApplication] openURL:url];
-//
-//    
+    //    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/us/album/the-hills/id1017804831?i=1017805136&uo=4"];
+    //    [[UIApplication sharedApplication] openURL:url];
+    //
+    //
+  
     
     [self performInitialFetchRequest];
     
@@ -84,7 +86,22 @@ typedef enum ScrollDirection {
     navigationItem.titleView = test;
     [self.customNavBar setItems:@[navigationItem]];
     
+    
 }
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
+      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
+      NSFontAttributeName, nil]];
+    
+    [self.entriesTableView reloadData];
+}
+
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     ScrollDirection scrollDirection;
@@ -219,16 +236,7 @@ typedef enum ScrollDirection {
 }
 
 
--(void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
-      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
-      NSFontAttributeName, nil]];
-    
-    [self.entriesTableView reloadData];
-}
+
 
 
 
@@ -397,6 +405,9 @@ typedef enum ScrollDirection {
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    //clear search bar on segue
+    [self.searchBarHelperObject searchBarCancelButtonClicked:self.entrySearchBar];
     
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
         MUSDetailEntryViewController *dvc = segue.destinationViewController;

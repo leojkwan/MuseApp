@@ -216,7 +216,6 @@ typedef enum{
 }
 
 - (void)saveButtonTapped:(id)sender {
-    
     if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
@@ -229,7 +228,8 @@ typedef enum{
     
     // save to core data
     [self.store save];
-    // dismiss view controller
+    
+    // dismiss keyboard
     [self.textView endEditing:YES];
 }
 
@@ -307,7 +307,6 @@ typedef enum{
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
     
-    
 }
 
 -(void)playlistButtonPressed:id {
@@ -352,6 +351,9 @@ typedef enum{
         Song *pinnedSong = [NSEntityDescription insertNewObjectForEntityForName:@"MUSSong" inManagedObjectContext:self.store.managedObjectContext];
         pinnedSong.artistName = [self.musicPlayer.myPlayer nowPlayingItem].artist;
         pinnedSong.songName = [self.musicPlayer.myPlayer nowPlayingItem].title;
+        pinnedSong.genre = [self.musicPlayer.myPlayer nowPlayingItem].genre;
+
+        
         // convert long long to nsnumber
         NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
         pinnedSong.persistentID = songPersistentNumber;

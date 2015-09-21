@@ -23,13 +23,7 @@
         for (int i = 0; i < imageNames.count; i++) {
             [_images addObject:[UIImage imageNamed:[imageNames objectAtIndex:i]]];
         }
-        
-
-        
-        
-        
-        
-        
+         
         // set image array to my animation property
         self.animationImages = _images;
         self.animationDuration = 1.2;
