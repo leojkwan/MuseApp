@@ -14,6 +14,7 @@
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
+#import "NSDate+ExtraMethods.h"
 #import <FCVerticalMenuItem.h>
 #import <FCVerticalMenu.h>
 #import <SCLAlertView.h>
@@ -63,6 +64,8 @@ typedef enum ScrollDirection {
     //    [[UIApplication sharedApplication] openURL:url];
     //
     //
+    
+    
     
     
     [self performInitialFetchRequest];
@@ -271,7 +274,7 @@ typedef enum ScrollDirection {
     if (entryForThisRow.coverImage == nil) {
         return 125;
     }
-    return 325;
+    return 350;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

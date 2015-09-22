@@ -10,12 +10,18 @@
 
 @implementation NSDate (ExtraMethods)
 
--(NSString *)returnFormattedDateString{
+-(NSString *)returnMonthAndYear{
     NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
     [monthAndYearFormatter setDateFormat:@"MMMM YYYY"];
     NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:self];
     return monthAndYearOfSection;
 }
 
+-(NSString *)returnDayMonthDateFromDate{
+    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
+    [monthAndYearFormatter setDateFormat:@"EEEE MMMM dd"];
+    NSString *dayMonthDate = [monthAndYearFormatter stringFromDate:self];
+    return dayMonthDate;
+}
 
 @end
