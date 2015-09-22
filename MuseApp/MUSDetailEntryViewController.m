@@ -15,6 +15,7 @@
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
@@ -247,8 +248,7 @@ typedef enum{
     newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
     NSDate *currentDate = [NSDate date];
     newEntry.createdAt = currentDate;
-    newEntry.dateInString = [currentDate returnFormattedDateString];
-    NSLog(@"%@", newEntry.createdAt);
+    newEntry.dateInString = [currentDate returnMonthAndYear];
     return newEntry;
 }
 
@@ -301,13 +301,13 @@ typedef enum{
     }]];
     // TAKE PHOTO
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:imagePicker animated:YES completion:nil];
     }]];
     
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
-    
 }
 
 -(void)playlistButtonPressed:id {
@@ -318,7 +318,7 @@ typedef enum{
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         
         MPMediaEntityPersistentID songPersistentNumber = [self.musicPlayer.myPlayer nowPlayingItem].persistentID;
-
+        
         [self.musicPlayer checkIfSongIsInLocalLibrary:songPersistentNumber withCompletionBlock:^(BOOL local) {
             if (local) {
                 

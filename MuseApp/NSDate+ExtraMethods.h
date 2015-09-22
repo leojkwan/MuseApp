@@ -10,7 +10,9 @@
 
 @interface NSDate (ExtraMethods)
 
--(NSString *)returnFormattedDateString;
+-(NSString *)returnMonthAndYear;
+
+-(NSString *)returnDayMonthDateFromDate;
 
 
 @end

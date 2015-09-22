@@ -10,6 +10,7 @@
 #import "NSSet+MUSExtraMethod.h"
 #import "Song.h"
 #import "MUSAlertView.h"
+#import "NSDate+ExtraMethods.h"
 #import "NSAttributedString+MUSExtraMethods.h"
 
 
@@ -17,27 +18,6 @@
 
 - (void)awakeFromNib {
     
-
- 
-}
-
-// prevents cell image from fluttering on selected and scroll
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    UIColor *color = self.blurView.backgroundColor;
-    [super setSelected:selected animated:animated];
-    
-    if (selected){
-        self.blurView.backgroundColor = color;
-    }
-}
-
--(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
-    UIColor *color = self.blurView.backgroundColor;
-    [super setHighlighted:highlighted animated:animated];
-    
-    if (highlighted){
-        self.blurView.backgroundColor = color;
-    }
 }
 
 // MCSwipable Cell
@@ -80,7 +60,7 @@
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
-
+    cell.datePinnedLabel.text = [entryForThisRow.createdAt returnDayMonthDateFromDate];
 
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
