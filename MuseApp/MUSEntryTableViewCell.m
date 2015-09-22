@@ -57,11 +57,12 @@
 -(void)configureArtistLabelLogicCell:(MUSEntryTableViewCell *)cell entry:(Entry *)entryForThisRow {
     
     // set views
-    cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
     cell.datePinnedLabel.text = [entryForThisRow.createdAt returnDayMonthDateFromDate];
-
+    
+    cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
+    
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
     
