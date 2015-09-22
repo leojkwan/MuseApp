@@ -272,7 +272,7 @@ typedef enum ScrollDirection {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
      Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 125;
+        return 150;
     }
     return 350;
 }
@@ -327,35 +327,38 @@ typedef enum ScrollDirection {
         [cell setUpSwipeOptionsForCell:cell];
         
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-    
-            MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
-            [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
-            [alert.deleteAlertView alertIsDismissed:^{
-                [cell swipeToOriginWithCompletion:nil];
+                [self presentDeleteSheet:cell indexPath:indexPath];
             }];
-        }];
-
-        
         return cell;
     } else {
-        
          MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-            MUSAlertView *alert = [[MUSAlertView alloc] initDeleteAlertForController:self.resultsController indexPath:indexPath];
-            [alert.deleteAlertView showError:self title:@"Delete Entry" subTitle:@"Are you sure you want to delete this entry?" closeButtonTitle:nil duration:0.0f]; // Warning
-            [alert.deleteAlertView alertIsDismissed:^{
-                [cell swipeToOriginWithCompletion:nil];
-            }];
+            [self presentDeleteSheet:cell indexPath:indexPath];
         }];
         return cell;
     }
-    
 }
 
--(void)setUpAlertForCell:(UITableViewCell *)cell{
+-(void)presentDeleteSheet:(MCSwipeTableViewCell *)cell indexPath:(NSIndexPath*)indexPath {
     
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
+    
+    // Delete
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Delete Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self.store.managedObjectContext deleteObject:managedObject];
+        [self.store.managedObjectContext save:nil];
+    }]];
+    
+    // Cancel
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [cell swipeToOriginWithCompletion:nil];
+    }]];
+    
+    // Present action sheet.
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 
@@ -445,7 +448,6 @@ typedef enum ScrollDirection {
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-        
         dvc.destinationEntry = entryForThisRow;
     }
     

@@ -9,6 +9,7 @@
 #import "MUSImagelessEntryCell.h"
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
+#import "NSDate+ExtraMethods.h"
 #import "Song.h"
 #import "NSAttributedString+MUSExtraMethods.h"
 
@@ -59,12 +60,10 @@
 
 
 -(void)configureArtistLabelLogicCell:(MUSImagelessEntryCell *)cell entry:(Entry *)entryForThisRow {
-//
-//    NSString *capitalString = [entryForThisRow.titleOfEntry capitalizedString];
-//    cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:capitalString];
-    
+
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
+    cell.datePinnedLabel.text = [entryForThisRow.createdAt returnDayMonthDateFromDate];
     
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
