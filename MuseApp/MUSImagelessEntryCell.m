@@ -59,10 +59,9 @@
 
 
 -(void)configureArtistLabelLogicCell:(MUSImagelessEntryCell *)cell entry:(Entry *)entryForThisRow {
-    
-    cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
-    cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
 
+    NSString *capitalString = [entryForThisRow.titleOfEntry capitalizedString];
+    cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:capitalString];
     
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];

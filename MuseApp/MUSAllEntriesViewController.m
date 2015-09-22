@@ -141,7 +141,7 @@ typedef enum ScrollDirection {
 }
 
 -(void)setUpSpinner {
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [spinner startAnimating];
     spinner.frame = CGRectMake(0, 0, 320, 44);
     self.entriesTableView.tableFooterView = spinner;
@@ -269,9 +269,9 @@ typedef enum ScrollDirection {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
      Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 150;
+        return 125;
     }
-    return 300;
+    return 325;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

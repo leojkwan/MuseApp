@@ -11,10 +11,8 @@
 @implementation NSDate (ExtraMethods)
 
 -(NSString *)returnFormattedDateString{
-    
     NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
     [monthAndYearFormatter setDateFormat:@"MMMM YYYY"];
-
     NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:self];
     return monthAndYearOfSection;
 }
