@@ -222,7 +222,7 @@ typedef enum ScrollDirection {
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
-    
+    self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
