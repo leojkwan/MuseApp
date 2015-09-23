@@ -19,7 +19,7 @@
 
 -(NSString *)returnDayMonthDateFromDate{
     NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
-    [monthAndYearFormatter setDateFormat:@"EEEE MMMM dd"];
+    [monthAndYearFormatter setDateFormat:@"EEEE, MMMM dd"];
     NSString *dayMonthDate = [monthAndYearFormatter stringFromDate:self];
     return dayMonthDate;
 }

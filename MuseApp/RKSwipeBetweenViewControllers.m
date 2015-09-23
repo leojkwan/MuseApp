@@ -11,16 +11,16 @@
 
 //%%% customizeable button attributes
 CGFloat X_BUFFER = 0.0; //%%% the number of pixels on either side of the segment
-CGFloat Y_BUFFER = 14.0; //%%% number of pixels on top of the segment
+CGFloat Y_BUFFER = 8.0; //%%% number of pixels on top of the segment
 CGFloat HEIGHT = 30.0; //%%% height of the segment
 
 //%%% customizeable selector bar attributes (the black bar under the buttons)
 CGFloat BOUNCE_BUFFER = 10.0; //%%% adds bounce to the selection bar when you scroll
-CGFloat ANIMATION_SPEED = 0.2; //%%% the number of seconds it takes to complete the animation
+CGFloat ANIMATION_SPEED = 0.005; //%%% the number of seconds it takes to complete the animation
 CGFloat SELECTOR_Y_BUFFER = 40.0; //%%% the y-value of the bar that shows what page you are on (0 is the top)
-CGFloat SELECTOR_HEIGHT = 4.0; //%%% thickness of the selector bar
+CGFloat SELECTOR_HEIGHT = 6.0; //%%% thickness of the selector bar
 
-CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy offset.  I'm going to look for a better workaround in the future
+CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy offset.  I'm going to look for a better workaround in the future
 
 @interface RKSwipeBetweenViewControllers ()
 
@@ -51,7 +51,7 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
 {
     [super viewDidLoad];
 
-    self.navigationBar.barTintColor = [UIColor colorWithRed:0.03 green:0.27 blue:0.38 alpha:1]; // adjust status bar color
+    self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
     viewControllerArray = [[NSMutableArray alloc]init];
     self.currentPageIndex = 0;
@@ -82,12 +82,14 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
         [navigationView addSubview:button];
         
         button.tag = i; //%%% IMPORTANT: if you make your own custom buttons, you have to tag them appropriately
-        button.backgroundColor = [UIColor colorWithRed:0.03 green:0.27 blue:0.38 alpha:1];//%%% buttoncolors
+        button.backgroundColor = [UIColor whiteColor];//%%% buttoncolors
         
         [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        button.titleLabel.font =  [UIFont fontWithName:@"AvenirNext-Medium" size:15.0];
+        button.titleLabel.font =  [UIFont fontWithName:@"AvenirNext-Medium" size:20.0];
+        button.titleLabel.textColor = [UIColor blackColor];
         [button setTitle:[buttonText objectAtIndex:i] forState:UIControlStateNormal]; //%%%buttontitle
-    }
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+}
     
     pageController.navigationController.navigationBar.topItem.titleView = navigationView;
     
@@ -127,7 +129,7 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
 //%%% sets up the selection bar under the buttons on the navigation bar
 -(void)setupSelector {
     selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
-    selectionBar.backgroundColor = [UIColor whiteColor]; //%%% sbcolor
+    selectionBar.backgroundColor = [UIColor grayColor]; //%%% sbcolor
     selectionBar.alpha = 1.0; //%%% sbalpha
     [navigationView addSubview:selectionBar];
 }

@@ -80,10 +80,6 @@ typedef enum ScrollDirection {
     
     
     UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
-    UIBarButtonItem *addEntry = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonPressed:)];
-    navigationItem.rightBarButtonItem = addEntry;
-    
-    
     UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     test.backgroundColor = [UIColor grayColor];
     navigationItem.titleView = test;
@@ -272,9 +268,9 @@ typedef enum ScrollDirection {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
      Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 150;
+        return 125;
     }
-    return 350;
+    return 325;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -325,7 +321,6 @@ typedef enum ScrollDirection {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
                 [self presentDeleteSheet:cell indexPath:indexPath];
             }];

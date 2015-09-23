@@ -107,8 +107,8 @@
 		94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUSKeyboardTopBar.xib; sourceTree = "<group>"; };
 		94A86B601B8E92AD00A45E79 /* MUSKeyboardTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSKeyboardTopBar.h; sourceTree = "<group>"; };
 		94A86B611B8E92AD00A45E79 /* MUSKeyboardTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSKeyboardTopBar.m; sourceTree = "<group>"; };
-		94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RKSwipeBetweenViewControllers.h; path = MuseApp/RKSwipeBetweenViewControllers.h; sourceTree = "<group>"; };
-		94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RKSwipeBetweenViewControllers.m; path = MuseApp/RKSwipeBetweenViewControllers.m; sourceTree = "<group>"; };
+		94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKSwipeBetweenViewControllers.h; sourceTree = "<group>"; };
+		94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKSwipeBetweenViewControllers.m; sourceTree = "<group>"; };
 		94B146B31BAD00C700A135E4 /* MUSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSHomeViewController.h; sourceTree = "<group>"; };
 		94B146B41BAD00C700A135E4 /* MUSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSHomeViewController.m; sourceTree = "<group>"; };
 		94C4B58F1B914F5A00BDBB27 /* Entry+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Entry+ExtraMethods.h"; sourceTree = "<group>"; };
@@ -156,8 +156,6 @@
 		5617EA71E77992F81548B0E2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */,
-				94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */,
 				FB068C5D55F63EBB0CDAC82E /* Pods-MuseApp.debug.xcconfig */,
 				37C7CC5993CE8D4DA87E2D26 /* Pods-MuseApp.release.xcconfig */,
 			);
@@ -207,6 +205,8 @@
 				9411D2711BB06FDA00B28DA7 /* Song+MUSExtraMethods.m */,
 				9411D2681BB06DAF00B28DA7 /* Entry+CoreDataProperties.h */,
 				9411D2691BB06DAF00B28DA7 /* Entry+CoreDataProperties.m */,
+				94939D391B8B7618003396ED /* MUSMusicPlayer.h */,
+				94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */,
 				9411D26A1BB06DAF00B28DA7 /* Entry.h */,
 				9411D26B1BB06DAF00B28DA7 /* Entry.m */,
 				940398071BAE467500F45256 /* MUSAlertView.h */,
@@ -216,8 +216,6 @@
 				940ACD301B8BE8A00029230B /* Datastore */,
 				94AF0FB81B8F8444001B906F /* Custom Cells */,
 				944994451B8A1DF400A3E6CF /* MuseApp.xcdatamodeld */,
-				94939D391B8B7618003396ED /* MUSMusicPlayer.h */,
-				94939D3A1B8B7618003396ED /* MUSMusicPlayer.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -226,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
+				944994421B8A1DF400A3E6CF /* AppDelegate.h */,
+				944994431B8A1DF400A3E6CF /* AppDelegate.m */,
 				941DC4521B93A2AB00304B55 /* MUSIconAnimation.h */,
 				941DC4531B93A2AB00304B55 /* MUSIconAnimation.m */,
 				94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */,
@@ -238,6 +238,8 @@
 		9438AA651B8A545700644EB8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */,
+				94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */,
 				94B146B31BAD00C700A135E4 /* MUSHomeViewController.h */,
 				94B146B41BAD00C700A135E4 /* MUSHomeViewController.m */,
 				940A85E31B8B99B9008C5D2E /* MUSPlaylistViewController.h */,
@@ -288,8 +290,6 @@
 			isa = PBXGroup;
 			children = (
 				944994501B8A1DF400A3E6CF /* LaunchScreen.xib */,
-				944994421B8A1DF400A3E6CF /* AppDelegate.h */,
-				944994431B8A1DF400A3E6CF /* AppDelegate.m */,
 				9449943F1B8A1DF400A3E6CF /* Info.plist */,
 				944994401B8A1DF400A3E6CF /* main.m */,
 			);
