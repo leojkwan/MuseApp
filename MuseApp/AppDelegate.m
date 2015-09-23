@@ -20,9 +20,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    // remove hairline for nav bar
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-//
+    
+    // remove hairline for nav bar
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     
     // code for segmeented view controller
@@ -36,6 +36,7 @@
     MUSHomeViewController* vc1 = [storyboard instantiateViewControllerWithIdentifier:@"home"];
     MUSHomeViewController* vc2 = [storyboard instantiateViewControllerWithIdentifier:@"allEntries"];
     [navigationController.viewControllerArray addObjectsFromArray:@[vc1,vc2]];
+
     
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];

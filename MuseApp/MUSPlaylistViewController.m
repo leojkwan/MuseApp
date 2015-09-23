@@ -53,7 +53,6 @@
 
 #pragma mark - music player actions
 - (IBAction)nextButtonPressed:(id)sender {
-    NSLog(@"This is the index of the currently playing song! %ld", [self.musicPlayer.myPlayer indexOfNowPlayingItem]);
     [self.musicPlayer.myPlayer skipToNextItem];
     [self.playlistTableView reloadData];
 

@@ -17,8 +17,8 @@ CGFloat HEIGHT = 40.0; //%%% height of the segment
 //%%% customizeable selector bar attributes (the black bar under the buttons)
 CGFloat BOUNCE_BUFFER = 10.0; //%%% adds bounce to the selection bar when you scroll
 CGFloat ANIMATION_SPEED = 0.005; //%%% the number of seconds it takes to complete the animation
-CGFloat SELECTOR_Y_BUFFER = 40.0; //%%% the y-value of the bar that shows what page you are on (0 is the top)
-CGFloat SELECTOR_HEIGHT = 4.0; //%%% thickness of the selector bar
+CGFloat SELECTOR_Y_BUFFER = 41.0; //%%% the y-value of the bar that shows what page you are on (0 is the top)
+CGFloat SELECTOR_HEIGHT = 6.0; //%%% thickness of the selector bar
 
 CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy offset.  I'm going to look for a better workaround in the future
 
@@ -50,9 +50,10 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
 {
     [super viewDidLoad];
     
-    self.navigationBar.barTintColor = [UIColor clearColor]; // adjust status bar color
-    self.navigationBar.translucent = YES;
-    //    self.navigationBar.backgroundColor = [UIColor whiteColor];
+    self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
+    self.navigationBar.translucent = NO;
+    self.navigationBar.backgroundColor = [UIColor whiteColor];
+    
     viewControllerArray = [[NSMutableArray alloc]init];
     self.currentPageIndex = 0;
     self.isPageScrollingFlag = NO;
@@ -69,8 +70,7 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
 //%%% sets up the tabs using a loop.  You can take apart the loop to customize individual buttons, but remember to tag the buttons.  (button.tag=0 and the second button.tag=1, etc)
 -(void)setupSegmentButtons {
     
-    navigationView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.navigationBar.frame.size.width,self.navigationBar.frame.size.height)];
-    
+    navigationView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.navigationBar.frame.size.width,self.navigationBar.frame.size.height + 5)];
     NSInteger numControllers = [viewControllerArray count];
     
     if (!buttonText) {
@@ -82,11 +82,10 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
         [navigationView addSubview:button];
         
         button.tag = i; //%%% IMPORTANT: if you make your own custom buttons, you have to tag them appropriately
-        button.backgroundColor = [UIColor clearColor];//%%% buttoncolors
         
         [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         button.titleLabel.font =  [UIFont fontWithName:@"AvenirNext-Medium" size:20.0];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setTitle:[buttonText objectAtIndex:i] forState:UIControlStateNormal]; //%%%buttontitle
         
     }
@@ -129,7 +128,7 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
 //%%% sets up the selection bar under the buttons on the navigation bar
 -(void)setupSelector {
     selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
-    selectionBar.backgroundColor = [UIColor grayColor]; //%%% sbcolor
+    selectionBar.backgroundColor = [UIColor colorWithRed:0.98 green:0.75 blue:0.24 alpha:1]; //%%% sbcolor
     selectionBar.alpha = 1.0; //%%% sbalpha
     [navigationView addSubview:selectionBar];
 }
@@ -143,6 +142,7 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
         [self setupPageViewController];
         [self setupSegmentButtons];
         self.hasAppearedFlag = YES;
+
     }
 }
 

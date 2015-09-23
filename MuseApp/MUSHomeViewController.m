@@ -8,7 +8,7 @@
 
 #import "MUSHomeViewController.h"
 #import "NSDate+ExtraMethods.h"
-
+#import <Masonry.h>
 
 @interface MUSHomeViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -22,7 +22,6 @@
     [super viewDidLoad];
     self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
     
-
 }
 
 @end
