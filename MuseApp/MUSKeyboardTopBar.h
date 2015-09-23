@@ -22,7 +22,7 @@
 @interface MUSKeyboardTopBar : UIView
 
 @property (nonatomic, assign) id<MUSKeyboardInputDelegate> delegate;
-@property (nonatomic, strong) UIBarButtonItem *cameraBarButtonItem;
+//@property (nonatomic, strong) UIBarButtonItem *cameraBarButtonItem;
 
 
 -(instancetype)initWithToolbar;

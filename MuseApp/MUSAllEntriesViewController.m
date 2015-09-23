@@ -20,6 +20,7 @@
 #import <SCLAlertView.h>
 #import "MUSAlertView.h"
 #import "MUSSearchBarDelegate.h"
+#import "MUSEntryToolbar.h"
 #import <JTHamburgerButton.h>
 #import "MUSHomeViewController.h"
 
@@ -49,6 +50,8 @@ typedef enum ScrollDirection {
 @property NSInteger totalNumberOfEntries;
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
 
+@property (strong, nonatomic) MUSEntryToolbar *toolbar;
+
 @end
 
 @implementation MUSAllEntriesViewController
@@ -65,8 +68,10 @@ typedef enum ScrollDirection {
     //
     //
     
-    
-    
+    self.toolbar = [[MUSEntryToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+    [self.navigationController.view addSubview:self.toolbar];
+
+
     
     [self performInitialFetchRequest];
     

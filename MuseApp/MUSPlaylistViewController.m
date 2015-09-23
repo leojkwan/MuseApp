@@ -46,7 +46,7 @@
     [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
         self.artworkImagesForThisEntry = artworkImages;
     }];
-
+    
 }
 
 
@@ -55,7 +55,7 @@
 - (IBAction)nextButtonPressed:(id)sender {
     [self.musicPlayer.myPlayer skipToNextItem];
     [self.playlistTableView reloadData];
-
+    
 }
 - (IBAction)backButtonPressed:(id)sender {
     [self.musicPlayer.myPlayer skipToPreviousItem];
@@ -73,7 +73,7 @@
     // if external music is playing...
     // get all songs in one array so I can check whether the now playing song is part of the list, if not, load a fresh playlist
     NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];
-
+    
     for (Song *song in self.playlistForThisEntry) {
         NSNumber *songID = song.persistentID;
         [songTitleArray addObject:songID];
@@ -81,11 +81,11 @@
     
     NSLog(@"%@", self.playlistForThisEntry);
     NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
-
-        if (![songTitleArray containsObject:songPersistentNumber]) {
-            [self loadPlaylistArrayForThisEntryIntoPlayer];
-        }
-
+    
+    if (![songTitleArray containsObject:songPersistentNumber]) {
+        [self loadPlaylistArrayForThisEntryIntoPlayer];
+    }
+    
     [self updateButtonStatus];
     [self.playlistTableView reloadData];
 }
@@ -122,18 +122,18 @@
 
 -(void)listenForPlaybackState {
     [self.currentMusicPlayingNotifications addObserver: self
-                                selector: @selector (updatePlaybackButton:)
-                                    name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
-                                  object: self.musicPlayer.myPlayer];
+                                              selector: @selector (updatePlaybackButton:)
+                                                  name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
+                                                object: self.musicPlayer.myPlayer];
 }
 
 
 -(void)listenForSongChanges {
     self.currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
     [self.currentMusicPlayingNotifications addObserver: self
-                                         selector: @selector(updateNowPlayingItem:)
-                                             name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-                                           object: self.musicPlayer.myPlayer];
+                                              selector: @selector(updateNowPlayingItem:)
+                                                  name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
+                                                object: self.musicPlayer.myPlayer];
 }
 
 - (void)updateNowPlayingItem:(id) sender {
@@ -180,9 +180,7 @@
     if (indexPath.row == indexPathForAnimation) {
         [cell.animatingIcon startAnimating];
     }
-    
-    
-        return cell;
+    return cell;
 }
 
 
