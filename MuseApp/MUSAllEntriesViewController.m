@@ -38,7 +38,7 @@ typedef enum ScrollDirection {
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic, assign) CGFloat lastButtonAlpha;
 @property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
-@property (weak, nonatomic) IBOutlet UINavigationBar *customNavBar;
+
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -78,12 +78,7 @@ typedef enum ScrollDirection {
     [self getCountForTotalEntries];
     
     
-    
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
-    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    test.backgroundColor = [UIColor grayColor];
-    navigationItem.titleView = test;
-    [self.customNavBar setItems:@[navigationItem]];
+
 }
 
 
