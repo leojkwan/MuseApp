@@ -18,8 +18,10 @@
 
 + (instancetype)sharedDataStore;
 
+
 - (void)save;
 - (NSURL *)applicationDocumentsDirectory;
+
 
 
 @end

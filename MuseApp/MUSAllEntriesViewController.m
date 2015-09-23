@@ -51,7 +51,8 @@
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     self.toolbar.delegate = self;
-
+    
+    
     
     [self performInitialFetchRequest];
     

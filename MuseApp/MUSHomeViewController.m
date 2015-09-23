@@ -12,6 +12,7 @@
 
 @interface MUSHomeViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *greetingLabel;
 
 
 @end
@@ -20,8 +21,18 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+
     self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
     
+    if ( [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]  != NULL) {
+            self.greetingLabel.text = [NSString stringWithFormat:@"Good Morning %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
+    }
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"] );
+}
+
+-(BOOL)prefersStatusBarHidden {
+    [self setNeedsStatusBarAppearanceUpdate];
+    return NO;
 }
 
 @end

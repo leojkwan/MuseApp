@@ -49,7 +49,10 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.pageScrollView setBounces:NO];
+    [self.pageScrollView setBouncesZoom:NO];
+    self.
     self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
     self.navigationBar.backgroundColor = [UIColor whiteColor];
@@ -66,6 +69,7 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
+
 
 //%%% sets up the tabs using a loop.  You can take apart the loop to customize individual buttons, but remember to tag the buttons.  (button.tag=0 and the second button.tag=1, etc)
 -(void)setupSegmentButtons {

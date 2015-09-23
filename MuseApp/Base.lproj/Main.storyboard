@@ -31,26 +31,37 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5:10pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
-                                <rect key="frame" x="30" y="83" width="74" height="28.5"/>
+                                <rect key="frame" x="30" y="80" width="55" height="20.5"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="25"/>
+                                <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5:10pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OK4-mb-iil">
-                                <rect key="frame" x="30" y="40" width="74" height="28.5"/>
+                                <rect key="frame" x="30" y="20" width="118.5" height="45.5"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="25"/>
+                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good Morning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
-                                <rect key="frame" x="30" y="189" width="205.5" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good Morning" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
+                                <rect key="frame" x="30" y="178" width="550" height="32.5"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="35"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kg-wm-48i">
+                                <rect key="frame" x="388" y="279" width="100" height="100"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="F5v-wU-vGd"/>
+                                    <constraint firstAttribute="width" secondItem="2kg-wm-48i" secondAttribute="height" multiplier="1:1" id="aer-lo-hq0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="+"/>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,6 +75,9 @@
                             <constraint firstItem="rDZ-Bt-EyT" firstAttribute="top" secondItem="kJ4-kJ-0hA" secondAttribute="bottom" constant="76" id="T7n-n6-geQ"/>
                             <constraint firstItem="OK4-mb-iil" firstAttribute="top" secondItem="kJ4-kJ-0hA" secondAttribute="bottom" constant="20" id="UAS-ob-H1c"/>
                             <constraint firstAttribute="trailing" secondItem="5v7-bT-6lq" secondAttribute="trailing" id="asD-pQ-4B1"/>
+                            <constraint firstAttribute="trailing" secondItem="rDZ-Bt-EyT" secondAttribute="trailing" constant="20" id="bi8-Nw-Gax"/>
+                            <constraint firstItem="2kg-wm-48i" firstAttribute="leading" secondItem="5v7-bT-6lq" secondAttribute="trailing" constant="-212" id="cMz-2c-rXR"/>
+                            <constraint firstItem="2kg-wm-48i" firstAttribute="top" secondItem="5v7-bT-6lq" secondAttribute="bottom" constant="-321" id="f7D-LP-E7q"/>
                             <constraint firstItem="A7g-mA-BcG" firstAttribute="leading" secondItem="OK4-mb-iil" secondAttribute="leading" id="gwu-4m-6Hw"/>
                             <constraint firstItem="OK4-mb-iil" firstAttribute="leading" secondItem="pjV-Zx-bcQ" secondAttribute="leadingMargin" constant="10" id="m8R-mb-hwh"/>
                             <constraint firstItem="5v7-bT-6lq" firstAttribute="top" secondItem="pjV-Zx-bcQ" secondAttribute="top" constant="-45" id="o84-sF-g6z"/>
@@ -79,13 +93,15 @@
                             </mask>
                         </variation>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="dateLabel" destination="OK4-mb-iil" id="gdl-HD-dsJ"/>
+                        <outlet property="dateLabel" destination="A7g-mA-BcG" id="lah-5F-ueB"/>
+                        <outlet property="greetingLabel" destination="rDZ-Bt-EyT" id="8nI-ww-ArF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cv7-5r-Xs1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1118" y="661"/>
+            <point key="canvasLocation" x="952" y="591"/>
         </scene>
         <!--All Entries View Controller-->
         <scene sceneID="tne-QT-ifu">
