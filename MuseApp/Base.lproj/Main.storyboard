@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AqN-Ha-MZr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AqN-Ha-MZr">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Home View Controller-->
@@ -110,7 +109,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" barStyle="black" searchBarStyle="prominent" placeholder="Search Entries" id="Nrv-c5-FiE">
+                                <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Search Entries" id="Nrv-c5-FiE">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <animations/>
@@ -336,23 +335,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFK-DZ-zTS">
-                                <rect key="frame" x="505" y="505" width="75" height="75"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XI8-Pb-aVz" customClass="MUSEntryToolbar">
+                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
                                 <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="qFK-DZ-zTS" secondAttribute="height" multiplier="1:1" id="6UD-PA-B9l"/>
-                                    <constraint firstAttribute="width" constant="122" id="9NM-R1-C2c"/>
+                                    <constraint firstAttribute="height" constant="60" id="SVz-tg-TDn"/>
                                 </constraints>
-                                <state key="normal" image="addButton"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="9NM-R1-C2c"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="addButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hyV-VY-Ph7"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -360,14 +350,14 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cdu-m1-0ky" secondAttribute="bottom" id="2bJ-T1-ZF7"/>
                             <constraint firstAttribute="trailing" secondItem="qAu-mX-itU" secondAttribute="trailing" id="3K9-yG-0Ka"/>
                             <constraint firstAttribute="trailing" secondItem="cdu-m1-0ky" secondAttribute="trailing" id="8tI-Bs-WWf"/>
+                            <constraint firstAttribute="trailing" secondItem="XI8-Pb-aVz" secondAttribute="trailing" id="Btl-og-SFg"/>
                             <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="YQf-Fh-mBO"/>
+                            <constraint firstItem="XI8-Pb-aVz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aAo-a1-A7z"/>
                             <constraint firstItem="cdu-m1-0ky" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bVw-xQ-Amf"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="qFK-DZ-zTS" secondAttribute="bottom" constant="20" id="fab-56-X5h"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="XI8-Pb-aVz" secondAttribute="bottom" id="czf-Ui-STZ"/>
                             <constraint firstItem="qAu-mX-itU" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="-40" id="irm-y7-Ud5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qFK-DZ-zTS" secondAttribute="trailing" id="mxQ-2M-55Y"/>
                             <constraint firstItem="qAu-mX-itU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rMk-mc-bN0"/>
                             <constraint firstAttribute="bottomMargin" secondItem="qAu-mX-itU" secondAttribute="bottom" id="ukw-Qh-Vrx"/>
-                            <constraint firstItem="qFK-DZ-zTS" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/8" id="up0-P9-RpG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="D9t-CD-br7"/>
@@ -375,10 +365,10 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addEntryButton" destination="qFK-DZ-zTS" id="OP1-aW-hQW"/>
                         <outlet property="entriesTableView" destination="cdu-m1-0ky" id="VwI-5t-7BB"/>
                         <outlet property="entrySearchBar" destination="Nrv-c5-FiE" id="ZJV-a8-1Pc"/>
                         <outlet property="searchDisplayController" destination="tug-bA-8Zp" id="jP4-MT-KEF"/>
+                        <outlet property="toolbar" destination="XI8-Pb-aVz" id="fYx-6i-3ZE"/>
                         <segue destination="YMB-QV-Zfr" kind="show" identifier="detailEntrySegue" id="4m1-OZ-cgF"/>
                     </connections>
                 </viewController>
@@ -831,7 +821,6 @@
     </scenes>
     <resources>
         <image name="Tune" width="352" height="416"/>
-        <image name="addButton" width="372" height="372"/>
         <image name="backSong" width="75" height="75"/>
         <image name="blackMask" width="951" height="635"/>
         <image name="forwardSong" width="75" height="75"/>

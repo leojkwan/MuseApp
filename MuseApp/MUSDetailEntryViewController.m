@@ -62,8 +62,6 @@ typedef enum{
     [self setUpMusicPlayer];
     [self setUpParallaxForExistingEntries];
     [self setUpTextView];
-    
-    
     [self setUpToolbarAndKeyboard];
     
     // set bottom contraints

@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MUSEntryToolbar : UIToolbar
+@protocol MUSEntryToolbarDelegate <NSObject>
+-(void)didSelectAddButton:(id)sender;
+@end
 
+
+@interface MUSEntryToolbar : UIView
+
+@property (nonatomic, assign) id<MUSEntryToolbarDelegate> delegate;
 
 
 @end
