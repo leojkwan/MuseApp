@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Insert code here to declare functionality of your managed object subclass
 
--(instancetype)initWithTitle:(NSString *)title artist:(NSString*)artist genre:(NSString *)genre album:(NSString *)genre;
-
 @end
 
 NS_ASSUME_NONNULL_END

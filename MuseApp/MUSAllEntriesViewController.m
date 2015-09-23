@@ -194,7 +194,6 @@ typedef enum ScrollDirection {
     NSError *error = nil;
     NSUInteger count = [self.store.managedObjectContext countForFetchRequest: request error: &error];
     self.totalNumberOfEntries = count;
-    NSLog(@"TOTAL NUMBER OF ENTRIES %ld" , count);
 }
 
 
@@ -222,7 +221,10 @@ typedef enum ScrollDirection {
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
-    self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
+    
+    self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
+    
+    
     if (self.currentFetchCount < self.totalNumberOfEntries) {
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];

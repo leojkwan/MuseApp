@@ -149,8 +149,6 @@ typedef enum{
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-    [self checkSizeOfContentForTextView:textView];
-    NSLog(@"%ld", textView.text.length);
 }
 
 
