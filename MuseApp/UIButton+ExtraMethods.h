@@ -13,5 +13,8 @@
 +(UIButton *)createPinSongButton;
 +(UIButton *)createPlaylistButton;
 +(UIButton *)createCameraButton;
++(UIButton*)createHomeButtonWithFrame:(CGRect)frame;
++(UIButton*)createEntriesButtonWithFrame:(CGRect)frame;
+
 
 @end

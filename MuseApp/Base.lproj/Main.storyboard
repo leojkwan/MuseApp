@@ -97,11 +97,31 @@
                     <connections>
                         <outlet property="dateLabel" destination="A7g-mA-BcG" id="lah-5F-ueB"/>
                         <outlet property="greetingLabel" destination="rDZ-Bt-EyT" id="8nI-ww-ArF"/>
+                        <outlet property="timeLabel" destination="OK4-mb-iil" id="4B0-fX-lpU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cv7-5r-Xs1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="952" y="591"/>
+        </scene>
+        <!--Stats View Controller-->
+        <scene sceneID="KyG-nn-0mb">
+            <objects>
+                <viewController storyboardIdentifier="stats" id="pXg-8r-5Nf" customClass="MUSStatsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Up7-ya-2gL"/>
+                        <viewControllerLayoutGuide type="bottom" id="9EI-ez-DJz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yb0-lT-KnW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IHE-Oe-kOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1670" y="514"/>
         </scene>
         <!--All Entries View Controller-->
         <scene sceneID="tne-QT-ifu">
