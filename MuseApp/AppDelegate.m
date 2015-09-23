@@ -19,9 +19,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
+    // remove hairline for nav bar
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     
+    // code for segmeented view controller
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
     UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -32,12 +36,10 @@
     MUSHomeViewController* vc1 = [storyboard instantiateViewControllerWithIdentifier:@"home"];
     MUSHomeViewController* vc2 = [storyboard instantiateViewControllerWithIdentifier:@"allEntries"];
     [navigationController.viewControllerArray addObjectsFromArray:@[vc1,vc2]];
-
     
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
-    
-    
+
     [application setStatusBarHidden:YES];
 
     return YES;

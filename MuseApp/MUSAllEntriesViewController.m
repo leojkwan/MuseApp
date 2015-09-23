@@ -38,7 +38,7 @@ typedef enum ScrollDirection {
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic, assign) CGFloat lastButtonAlpha;
 @property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
-@property (weak, nonatomic) IBOutlet UINavigationBar *customNavBar;
+
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -78,16 +78,7 @@ typedef enum ScrollDirection {
     [self getCountForTotalEntries];
     
     
-    
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
-    UIBarButtonItem *addEntry = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonPressed:)];
-    navigationItem.rightBarButtonItem = addEntry;
-    
-    
-    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    test.backgroundColor = [UIColor grayColor];
-    navigationItem.titleView = test;
-    [self.customNavBar setItems:@[navigationItem]];
+
 }
 
 
@@ -231,7 +222,7 @@ typedef enum ScrollDirection {
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
-    
+    self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 20, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
@@ -272,9 +263,9 @@ typedef enum ScrollDirection {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
      Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 150;
+        return 125;
     }
-    return 350;
+    return 325;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -325,7 +316,6 @@ typedef enum ScrollDirection {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
                 [self presentDeleteSheet:cell indexPath:indexPath];
             }];

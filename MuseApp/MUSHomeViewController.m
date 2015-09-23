@@ -7,15 +7,20 @@
 //
 
 #import "MUSHomeViewController.h"
-#import <AudioToolbox/AudioToolbox.h>
-#import <AVFoundation/AVFoundation.h>
+#import "NSDate+ExtraMethods.h"
 
 
+@interface MUSHomeViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+
+@end
 
 @implementation MUSHomeViewController
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
     
 
 }
