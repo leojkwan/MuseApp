@@ -9,19 +9,20 @@
 #import "MUSHomeViewController.h"
 #import "NSDate+ExtraMethods.h"
 #import <Masonry.h>
+#import "MUSTimeFetcher.h"
 
-typedef enum {
-    Morning,
-    Afternoon,
-    Evening
-} TimeOfDay;
 
-@interface MUSHomeViewController ()
+@interface MUSHomeViewController ()<CurrentTimeDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *greetingLabel;
-@property(strong, nonatomic)  NSDateFormatter *dateFormatter;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (nonatomic,assign) TimeOfDay time;
+@property (weak, nonatomic) IBOutlet UIButton *mood1icon;
+@property (weak, nonatomic) IBOutlet UIButton *mood2icon;
+@property (weak, nonatomic) IBOutlet UIButton *mood3icon;
+@property (weak, nonatomic) IBOutlet UIButton *mood4icon;
+@property (strong, nonatomic) MUSTimeFetcher* timeManager;
+
 
 @end
 
@@ -29,36 +30,34 @@ typedef enum {
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    [self getTimeOfDay];
+    self.timeManager = [[MUSTimeFetcher alloc] init];
+    
+    self.timeManager.delegate = self;
+    self.time = self.timeManager.timeOfDay;
     self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
-    
-    
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setTimeStyle: NSDateFormatterShortStyle];
-    
-    [NSTimer scheduledTimerWithTimeInterval:1.0
-                                     target:self
-                                   selector:@selector(targetMethod:)
-                                   userInfo:nil
-                                    repeats:YES];
-    
-    
-    
+    [self presentGreeting];
+}
+
+-(void)updatedTime:(NSString *)timeString {
+    self.timeLabel.text = timeString;
+}
+
+-(void)presentGreeting {
+    [self.greetingLabel sizeToFit];
     if ( [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]  != NULL) {
         // IF THERE IS A USERNAME
         switch (self.time) {
             case Morning:
-                        self.greetingLabel.text = [NSString stringWithFormat:@"Good Morning %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
+                self.greetingLabel.text = [NSString stringWithFormat:@"Good Morning %@!", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
                 break;
-                case Afternoon:
-                        self.greetingLabel.text = [NSString stringWithFormat:@"Good Afternoon %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
+            case Afternoon:
+                self.greetingLabel.text = [NSString stringWithFormat:@"Good Afternoon %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
+                break;
             default:
-                        self.greetingLabel.text = [NSString stringWithFormat:@"Good Evening %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
+                self.greetingLabel.text = [NSString stringWithFormat:@"Good Evening %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
                 break;
         }
-        
-
-            // ELSE
+        // ELSE
     } else {
         switch (self.time) {
             case Morning:
@@ -71,25 +70,6 @@ typedef enum {
                 break;
         }
     }
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"] );
-}
-
--(void)getTimeOfDay {
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:[NSDate date]];
-    NSInteger hour = [components hour];
-    if(hour >= 0 && hour < 12)
-        self.time = Morning;
-        else if(hour >= 12 && hour < 17)
-            self.time = Afternoon;
-    else if(hour >= 17)
-        self.time = Evening;
-}
-
-
--(void)targetMethod:(id)sender
-{
-    NSString *currentTime = [self.dateFormatter stringFromDate: [NSDate date]];
-    self.timeLabel.text = currentTime;
 }
 
 

@@ -47,6 +47,8 @@
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
     
+    
+    // if name has never been set...
     if ([[NSUserDefaults standardUserDefaults]
          stringForKey:@"userFirstName"] == nil) {
         [[NSUserDefaults standardUserDefaults] setObject:userFirstName forKey:@"userFirstName"];
