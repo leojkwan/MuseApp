@@ -25,6 +25,8 @@
 @property (strong, nonatomic) MUSTimeFetcher* timeManager;
 @property (strong, nonatomic) MUSGreetingManager* greetManager;
 
+@property (weak, nonatomic) IBOutlet UIView *scrollContentView;
+
 @end
 
 
@@ -35,6 +37,10 @@
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
     [self setUpIconTint: [self.colorStore iconTint]];
+    
+    [self.scrollContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@1000);
+    }];
 }
 
 -(void)setUpCurrentTime {

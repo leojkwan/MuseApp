@@ -31,6 +31,8 @@
 		9449944F1B8A1DF400A3E6CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9449944E1B8A1DF400A3E6CF /* Images.xcassets */; };
 		944994521B8A1DF400A3E6CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944994501B8A1DF400A3E6CF /* LaunchScreen.xib */; };
 		9449945E1B8A1DF400A3E6CF /* MuseAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */; };
+		9451D9791BB4B00600D9C3B9 /* MUSActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9451D9781BB4B00600D9C3B9 /* MUSActionView.m */; settings = {ASSET_TAGS = (); }; };
+		9451D97B1BB4B01400D9C3B9 /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451D97A1BB4B01400D9C3B9 /* MUSActionView.xib */; settings = {ASSET_TAGS = (); }; };
 		945576D11B975BEB0018C5E0 /* MUSSearchBarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 945576D01B975BEB0018C5E0 /* MUSSearchBarDelegate.m */; };
 		945BC5EF1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 945BC5EE1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		9461111A1B90B6B400CD86C9 /* MUSSongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 946111191B90B6B400CD86C9 /* MUSSongTableViewCell.m */; };
@@ -113,6 +115,9 @@
 		944994571B8A1DF400A3E6CF /* MuseAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9449945C1B8A1DF400A3E6CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9449945D1B8A1DF400A3E6CF /* MuseAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuseAppTests.m; sourceTree = "<group>"; };
+		9451D9771BB4B00600D9C3B9 /* MUSActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSActionView.h; sourceTree = "<group>"; };
+		9451D9781BB4B00600D9C3B9 /* MUSActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSActionView.m; sourceTree = "<group>"; };
+		9451D97A1BB4B01400D9C3B9 /* MUSActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUSActionView.xib; sourceTree = "<group>"; };
 		945576CF1B975BEB0018C5E0 /* MUSSearchBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSearchBarDelegate.h; sourceTree = "<group>"; };
 		945576D01B975BEB0018C5E0 /* MUSSearchBarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSearchBarDelegate.m; sourceTree = "<group>"; };
 		945BC5ED1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MUSExtraMethods.h"; sourceTree = "<group>"; };
@@ -254,6 +259,9 @@
 				941DC4531B93A2AB00304B55 /* MUSIconAnimation.m */,
 				94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */,
 				9478475D1BB3134300F245A5 /* MUSEntryToolbar.xib */,
+				9451D9771BB4B00600D9C3B9 /* MUSActionView.h */,
+				9451D9781BB4B00600D9C3B9 /* MUSActionView.m */,
+				9451D97A1BB4B01400D9C3B9 /* MUSActionView.xib */,
 				947847621BB315F200F245A5 /* MUSEntryToolbar.h */,
 				947847631BB315F200F245A5 /* MUSEntryToolbar.m */,
 				94A86B601B8E92AD00A45E79 /* MUSKeyboardTopBar.h */,
@@ -463,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94A86B5F1B8E929800A45E79 /* MUSKeyboardTopBar.xib in Resources */,
+				9451D97B1BB4B01400D9C3B9 /* MUSActionView.xib in Resources */,
 				9449944D1B8A1DF400A3E6CF /* Main.storyboard in Resources */,
 				9478475E1BB3134300F245A5 /* MUSEntryToolbar.xib in Resources */,
 				944994521B8A1DF400A3E6CF /* LaunchScreen.xib in Resources */,
@@ -527,6 +536,7 @@
 				94FE82C01BACC67D00A247CD /* MUSTextViewDelegate.m in Sources */,
 				9411D26C1BB06DAF00B28DA7 /* Song+CoreDataProperties.m in Sources */,
 				944994471B8A1DF400A3E6CF /* MuseApp.xcdatamodeld in Sources */,
+				9451D9791BB4B00600D9C3B9 /* MUSActionView.m in Sources */,
 				94C4B5971B91516D00BDBB27 /* NSDate+ExtraMethods.m in Sources */,
 				94B146B51BAD00C700A135E4 /* MUSHomeViewController.m in Sources */,
 				9411D26E1BB06DAF00B28DA7 /* Entry+CoreDataProperties.m in Sources */,
