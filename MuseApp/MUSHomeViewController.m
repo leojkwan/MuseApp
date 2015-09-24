@@ -12,7 +12,7 @@
 #import "UIButton+ExtraMethods.h"
 #import "MUSTimeFetcher.h"
 #import "MUSColorSheet.h"
-
+#import "MUSGreetingManager.h"
 
 @interface MUSHomeViewController ()<CurrentTimeDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -22,10 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *action1Icon;
 @property (weak, nonatomic) IBOutlet UIButton *action2Icon;
 @property (strong, nonatomic) MUSColorSheet* colorStore;
-
-
 @property (strong, nonatomic) MUSTimeFetcher* timeManager;
-
+@property (strong, nonatomic) MUSGreetingManager* greetManager;
 
 @end
 
@@ -61,41 +59,9 @@
 }
 
 -(void)presentGreeting {
-
-    if ( [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]  != NULL) {
-        // IF THERE IS A USERNAME
-        switch (self.time) {
-            case Morning:
-                self.greetingLabel.text = [NSString stringWithFormat:@"Good Morning %@!", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-            case Afternoon:
-                self.greetingLabel.text = [NSString stringWithFormat:@"Good Afternoon %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-            case LateNight:
-                self.greetingLabel.text = [NSString stringWithFormat:@"It's late at night %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-            default:
-                self.greetingLabel.text = [NSString stringWithFormat:@"Good Evening %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-                
-
-                
-        }
-        
-        
-        // ELSE
-    } else {
-        switch (self.time) {
-            case Morning:
-                self.greetingLabel.text = @"Good Morning.";
-                break;
-            case Afternoon:
-                self.greetingLabel.text = @"Good Afternoon.";
-            default:
-                self.greetingLabel.text = @"Good Evening.";
-                break;
-        }
-    }
+     NSString *userFirstName = [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"];
+    self.greetManager = [[MUSGreetingManager alloc] initWithTimeOfDay:self.time firstName:userFirstName];
+    self.greetingLabel.text = [self.greetManager usergreeting];
 }
 
 

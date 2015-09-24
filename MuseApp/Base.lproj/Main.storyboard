@@ -80,6 +80,7 @@
                                     <constraint firstAttribute="width" secondItem="SGQ-Qv-HLh" secondAttribute="height" multiplier="1:1" id="e4v-Pp-xzM"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="addToPlaylist"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="LG1-zN-azm"/>
@@ -1046,6 +1047,7 @@
     </scenes>
     <resources>
         <image name="Tune" width="352" height="416"/>
+        <image name="addToPlaylist" width="105" height="105"/>
         <image name="backSong" width="75" height="75"/>
         <image name="blackMask" width="951" height="635"/>
         <image name="forwardSong" width="75" height="75"/>

@@ -21,13 +21,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
-    MUSColorSheet *userColorTheme = [[MUSColorSheet alloc] init];
-    
-    
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    // system font color
+    NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    [[UIBarButtonItem appearance] setTitleTextAttributes:systemFontColor forState:UIControlStateNormal];
     
     // remove hairline for nav bar
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     
     // code for segmeented view controller
@@ -51,8 +50,7 @@
     // username First Name
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
-    
-    
+
     // if name has never been set...
     if ([[NSUserDefaults standardUserDefaults]
          stringForKey:@"userFirstName"] == nil) {

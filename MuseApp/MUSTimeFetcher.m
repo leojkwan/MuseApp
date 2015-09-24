@@ -39,11 +39,11 @@
 -(TimeOfDay)getTimeOfDay {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:[NSDate date]];
     NSInteger hour = [components hour];
-    if(hour > 4 && hour < 11)
+    if(hour > 3 && hour < 12)
         return Morning;
     else if(hour >= 12 && hour < 17)
         return Afternoon;
-    else if (hour >= 17 && hour < 24) {
+    else if (hour >= 17 && hour < 23) {
         return Evening;
     } else
     return LateNight;
