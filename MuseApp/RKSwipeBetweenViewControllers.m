@@ -8,7 +8,7 @@
 //  @cwRichardKim for regular updates
 
 #import "RKSwipeBetweenViewControllers.h"
-
+#import "UIButton+ExtraMethods.h"
 //%%% customizeable button attributes
 CGFloat X_BUFFER = 0.0; //%%% the number of pixels on either side of the segment
 CGFloat Y_BUFFER = 5.0; //%%% number of pixels on top of the segment
@@ -49,7 +49,10 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.pageScrollView setBounces:NO];
+    [self.pageScrollView setBouncesZoom:NO];
+    self.
     self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
     self.navigationBar.backgroundColor = [UIColor whiteColor];
@@ -67,59 +70,39 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
     return UIStatusBarStyleLightContent;
 }
 
+
 //%%% sets up the tabs using a loop.  You can take apart the loop to customize individual buttons, but remember to tag the buttons.  (button.tag=0 and the second button.tag=1, etc)
 -(void)setupSegmentButtons {
     
     navigationView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.navigationBar.frame.size.width,self.navigationBar.frame.size.height + 5)];
     NSInteger numControllers = [viewControllerArray count];
-    
-    if (!buttonText) {
-        buttonText = [[NSArray alloc]initWithObjects: @"Home",@"Timeline",@"third",@"fourth",@"etc",@"etc",@"etc",@"etc",nil]; //%%%buttontitle
-    }
-    
-    for (int i = 0; i<numControllers; i++) {
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(X_BUFFER+i*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
-        [navigationView addSubview:button];
-        
-        button.tag = i; //%%% IMPORTANT: if you make your own custom buttons, you have to tag them appropriately
-        
-        [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        button.titleLabel.font =  [UIFont fontWithName:@"AvenirNext-Medium" size:20.0];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [button setTitle:[buttonText objectAtIndex:i] forState:UIControlStateNormal]; //%%%buttontitle
-        
-    }
-    
     pageController.navigationController.navigationBar.topItem.titleView = navigationView;
     
     
-    //%%% example custom buttons example:
-    /*
-     NSInteger width = (self.view.frame.size.width-(2*X_BUFFER))/3;
-     UIButton *leftButton = [[UIButton alloc]initWithFrame:CGRectMake(X_BUFFER, Y_BUFFER, width, HEIGHT)];
-     UIButton *middleButton = [[UIButton alloc]initWithFrame:CGRectMake(X_BUFFER+width, Y_BUFFER, width, HEIGHT)];
-     UIButton *rightButton = [[UIButton alloc]initWithFrame:CGRectMake(X_BUFFER+2*width, Y_BUFFER, width, HEIGHT)];
-     
-     [self.navigationBar addSubview:leftButton];
-     [self.navigationBar addSubview:middleButton];
-     [self.navigationBar addSubview:rightButton];
-     
-     leftButton.tag = 0;
-     middleButton.tag = 1;
-     rightButton.tag = 2;
-     
-     leftButton.backgroundColor = [UIColor colorWithRed:0.03 green:0.07 blue:0.08 alpha:1];
-     middleButton.backgroundColor = [UIColor colorWithRed:0.03 green:0.07 blue:0.08 alpha:1];
-     rightButton.backgroundColor = [UIColor colorWithRed:0.03 green:0.07 blue:0.08 alpha:1];
-     
-     [leftButton addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-     [middleButton addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-     [rightButton addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-     
-     [leftButton setTitle:@"left" forState:UIControlStateNormal];
-     [middleButton setTitle:@"middle" forState:UIControlStateNormal];
-     [rightButton setTitle:@"right" forState:UIControlStateNormal];
-     */
+    
+    
+    UIButton *leftButton =   [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    UIButton *rightButton =    [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+
+    NSArray *buttonsArray = @[leftButton,rightButton];
+    
+    
+    for (UIButton *button in buttonsArray) {
+        [self.navigationBar addSubview:button];
+        button.titleLabel.font =  [UIFont fontWithName:@"AvenirNext-Medium" size:20.0];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    leftButton.tag = 0;
+    rightButton.tag = 1;
+    UIButton *homeButton = [UIButton createHomeButtonWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 30, 30)];
+    homeButton.userInteractionEnabled = NO;
+    [leftButton addSubview:homeButton];
+    UIButton *entriesButton = [UIButton createEntriesButtonWithFrame:CGRectMake(leftButton.frame.size.width/2, -10, 50, 50)];
+    entriesButton.userInteractionEnabled = NO;
+    [rightButton addSubview:entriesButton];
+
     
     [self setupSelector];
 }
@@ -142,7 +125,7 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
         [self setupPageViewController];
         [self setupSegmentButtons];
         self.hasAppearedFlag = YES;
-
+        
     }
 }
 

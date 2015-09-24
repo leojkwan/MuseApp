@@ -21,36 +21,24 @@
 #import "MUSAlertView.h"
 #import "MUSSearchBarDelegate.h"
 #import "MUSEntryToolbar.h"
-#import <JTHamburgerButton.h>
 #import "MUSHomeViewController.h"
 
 
 
-typedef enum ScrollDirection {
-    ScrollDirectionNone,
-    ScrollDirectionRight,
-    ScrollDirectionLeft,
-    ScrollDirectionUp,
-    ScrollDirectionDown,
-} ScrollDirection;
-
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, FCVerticalMenuDelegate, UIScrollViewDelegate>
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, MUSEntryToolbarDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic, assign) CGFloat lastButtonAlpha;
-@property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
 
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSFetchedResultsController *resultsController;
 @property (weak, nonatomic) IBOutlet UISearchBar *entrySearchBar;
-@property (nonatomic, strong) FCVerticalMenu *verticalMenu;
 @property NSInteger currentFetchCount;
 @property NSInteger totalNumberOfEntries;
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
-
-@property (strong, nonatomic) MUSEntryToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet MUSEntryToolbar *toolbar;
 
 @end
 
@@ -62,16 +50,9 @@ typedef enum ScrollDirection {
     self.store = [MUSDataStore sharedDataStore];
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
+    self.toolbar.delegate = self;
     
-    //    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/us/album/the-hills/id1017804831?i=1017805136&uo=4"];
-    //    [[UIApplication sharedApplication] openURL:url];
-    //
-    //
     
-    self.toolbar = [[MUSEntryToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-    [self.navigationController.view addSubview:self.toolbar];
-
-
     
     [self performInitialFetchRequest];
     
@@ -82,8 +63,6 @@ typedef enum ScrollDirection {
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
     
-    
-
 }
 
 
@@ -101,25 +80,6 @@ typedef enum ScrollDirection {
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    ScrollDirection scrollDirection;
-    if (self.lastContentOffset > scrollView.contentOffset.y) {
-        scrollDirection = ScrollDirectionUp;
-        self.addEntryButton.alpha += .1;
-        if (self.addEntryButton.alpha <= 0) {
-            self.addEntryButton.alpha = 0;
-        }
-    } else if (self.lastContentOffset < scrollView.contentOffset.y) {
-        scrollDirection = ScrollDirectionDown;
-        self.addEntryButton.alpha -= .1;
-        if (self.addEntryButton.alpha >= 1) {
-            self.addEntryButton.alpha = 1;
-        }
-    }
-    if (scrollView.contentOffset.y <= 10) {
-        self.addEntryButton.alpha = 1;
-    }
-    self.lastContentOffset =  scrollView.contentOffset.y;
-    
     
     // Set up iphone hitting bottom of table view
     CGPoint offset = self.entriesTableView.contentOffset;
@@ -144,50 +104,6 @@ typedef enum ScrollDirection {
     [spinner startAnimating];
     spinner.frame = CGRectMake(0, 0, 320, 44);
     self.entriesTableView.tableFooterView = spinner;
-}
-
-
-
-#pragma mark -  JT Hamburger methods
-
--(void)createMenuItem {
-    JTHamburgerButton *JTButton = [[JTHamburgerButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
-    [JTButton addTarget:self action:@selector(didCloseButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
-    JTButton.lineColor = [UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1];
-    JTButton.lineWidth = 35;
-    JTButton.lineHeight = 2;
-    JTButton.lineSpacing = 5;
-    
-    [JTButton updateAppearance];
-    UIBarButtonItem *JTBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:JTButton];
-    self.navigationItem.leftBarButtonItem = JTBarButtonItem;
-}
-
-- (void)didCloseButtonTouch:(JTHamburgerButton *)sender
-{
-    if(sender.currentMode == JTHamburgerButtonModeHamburger){
-        [sender setCurrentModeWithAnimation:JTHamburgerButtonModeCross];
-        
-        FCVerticalMenuItem *item1 = [[FCVerticalMenuItem alloc] initWithTitle:@"First Menu" andIconImage:[UIImage imageNamed:@"tune"]];
-        
-        item1.actionBlock = ^{
-            NSLog(@"test element 1");
-        };
-        self.verticalMenu.delegate = self;
-        self.verticalMenu = [[FCVerticalMenu alloc] initWithItems:@[item1]];
-        self.verticalMenu.appearsBehindNavigationBar = YES;
-        self.verticalMenu.liveBlurBackgroundStyle = UIBlurEffectStyleDark;
-        self.verticalMenu.backgroundAlpha = .8;
-        [self.verticalMenu showFromNavigationBar:self.navigationController.navigationBar inView:self.view];
-        
-        
-    }
-    else{
-        [sender setCurrentModeWithAnimation:JTHamburgerButtonModeHamburger];
-        [self.verticalMenu dismissWithCompletionBlock:^{
-            //
-        }];
-    }
 }
 
 
@@ -244,11 +160,9 @@ typedef enum ScrollDirection {
     }
 }
 
-
--(IBAction)addButtonPressed:(id)sender {
+-(void)didSelectAddButton:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
-
 
 
 #pragma mark - UITable View Delegate methods

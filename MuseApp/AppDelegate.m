@@ -27,24 +27,36 @@
     
     // code for segmeented view controller
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+
+    // set this color to match segment view
+    self.window.backgroundColor = [UIColor whiteColor];
     
     UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
     RKSwipeBetweenViewControllers *navigationController = [[RKSwipeBetweenViewControllers alloc]initWithRootViewController:pageController];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MUSHomeViewController* vc1 = [storyboard instantiateViewControllerWithIdentifier:@"home"];
-    MUSHomeViewController* vc2 = [storyboard instantiateViewControllerWithIdentifier:@"allEntries"];
-    [navigationController.viewControllerArray addObjectsFromArray:@[vc1,vc2]];
 
-    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"home"];
+    MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"allEntries"];
+    [navigationController.viewControllerArray addObjectsFromArray:@[home, entries]];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
+    
 
-    [application setStatusBarHidden:YES];
-
+    // username First Name
+    NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
+    NSString *userFirstName = (NSString*) [components objectAtIndex:0];
+    
+    
+    // if name has never been set...
+    if ([[NSUserDefaults standardUserDefaults]
+         stringForKey:@"userFirstName"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setObject:userFirstName forKey:@"userFirstName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
