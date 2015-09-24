@@ -96,11 +96,11 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
     
     leftButton.tag = 0;
     rightButton.tag = 1;
-//    [leftButton setTitle:@"Home" forState:UIControlStateNormal];
     UIButton *homeButton = [UIButton createHomeButtonWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 30, 30)];
+    homeButton.userInteractionEnabled = NO;
     [leftButton addSubview:homeButton];
-//    [rightButton setTitle:@"Timeline" forState:UIControlStateNormal];
     UIButton *entriesButton = [UIButton createEntriesButtonWithFrame:CGRectMake(leftButton.frame.size.width/2, -10, 50, 50)];
+    entriesButton.userInteractionEnabled = NO;
     [rightButton addSubview:entriesButton];
 
     

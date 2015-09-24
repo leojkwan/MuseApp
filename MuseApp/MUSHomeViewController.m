@@ -36,6 +36,8 @@
     self.time = self.timeManager.timeOfDay;
     self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
     [self presentGreeting];
+    
+
 }
 
 -(void)updatedTime:(NSString *)timeString {
@@ -43,7 +45,18 @@
 }
 
 -(void)presentGreeting {
-    [self.greetingLabel sizeToFit];
+//    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//    if (screenBounds.size.height < 569) {
+//        // iphone 5s less]
+//        self.greetingLabel.font = [UIFont fontWithName:@"Futura-Medium" size:23];
+//        self.dateLabel.font = [UIFont fontWithName:@"GillSans-Light" size:17];
+//    } else {
+//        // iphone 6 and up
+//        self.greetingLabel.font = [UIFont fontWithName:@"Futura-Medium" size:30];
+//        self.dateLabel.font = [UIFont fontWithName:@"GillSans-Light" size:23];
+//    }
+//    
+    
     if ( [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]  != NULL) {
         // IF THERE IS A USERNAME
         switch (self.time) {
@@ -56,7 +69,12 @@
             default:
                 self.greetingLabel.text = [NSString stringWithFormat:@"Good Evening %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
                 break;
+                
+
+                
         }
+        
+        
         // ELSE
     } else {
         switch (self.time) {
