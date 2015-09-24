@@ -12,7 +12,8 @@
 typedef enum {
     Morning,
     Afternoon,
-    Evening
+    Evening,
+    LateNight
 } TimeOfDay;
 
 @protocol  CurrentTimeDelegate <NSObject>

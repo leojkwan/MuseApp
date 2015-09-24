@@ -6,7 +6,6 @@
 #import "UIFont+MUSFonts.h"
 #import "NSDate+ExtraMethods.h"
 #import "UIButton+ExtraMethods.h"
-#import "UIImage+Resize.h"
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "MUSDetailEntryViewController.h"
@@ -19,6 +18,7 @@
 #import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
+#import "UIImagePickerController+ExtraMethods.h"
 #import <UIScrollView+APParallaxHeader.h>
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -27,6 +27,7 @@
 #import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
 #import "NSAttributedString+MUSExtraMethods.h"
+@import Photos;
 
 typedef enum{
     Playing,
@@ -79,6 +80,10 @@ typedef enum{
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     [self checkSizeOfContentForTextView:self.textView];
+}
+
+-(BOOL)shouldAutorotate {
+    return NO;
 }
 
 
@@ -275,12 +280,13 @@ typedef enum{
 #pragma mark - button pressed methods
 
 -(void)selectPhoto:(id)sender {
+    
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.allowsEditing = YES;
-    
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     // CANCEL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -291,16 +297,50 @@ typedef enum{
     // CAMERA ROLL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:imagePicker animated:YES completion:nil];
+        UIAlertController *alertController= [UIAlertController
+                                             alertControllerWithTitle:nil
+                                             message:NSLocalizedString(@"Your have disabled photo access.", nil)
+                                             preferredStyle:UIAlertControllerStyleActionSheet];
+        [alertController addAction:[UIAlertAction
+                                    actionWithTitle:NSLocalizedString(@"Open Settings", @"Photos access denied: open the settings app to change privacy settings")
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction *action) {
+                                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                                    }]
+         ];
+        [alertController addAction:[UIAlertAction
+                                    actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                    style:UIAlertActionStyleDefault
+                                    handler:nil]];
         
+
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            switch (status)
+            {
+                case PHAuthorizationStatusAuthorized:
+                    // present camera roll
+                    [self presentViewController:imagePicker animated:YES completion:nil];
+                    break;
+                default:
+                    [self presentViewController:alertController animated:YES completion:nil];
+                    break;
+            }
+        }];
+
+  
     }]];
     // TAKE PHOTO
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:imagePicker animated:YES completion:nil];
+        if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }
     }]];
+    
+    if (actionSheet.popoverPresentationController) {
+        actionSheet.popoverPresentationController.sourceView = sender;
+        actionSheet.popoverPresentationController.sourceRect = [sender bounds];
+    }
     
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];

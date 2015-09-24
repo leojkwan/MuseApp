@@ -4,7 +4,7 @@
 //
 //  Created by Leo Kwan on 9/21/15.
 //  Copyright © 2015 Leo Kwan. All rights reserved.
-//
+
 
 #import "MUSImagelessEntryCell.h"
 #import "MUSEntryTableViewCell.h"

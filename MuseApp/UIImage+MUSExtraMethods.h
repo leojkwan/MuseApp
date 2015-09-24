@@ -11,6 +11,7 @@
 @interface UIImage (MUSExtraMethods)
 
 + (UIImage *)imageWithColor:(UIColor *)color;
+-(void)makeImageTemplate;
 
 
 @end
