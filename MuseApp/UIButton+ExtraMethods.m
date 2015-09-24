@@ -33,19 +33,8 @@
     return seePlaylistButton;
 }
 
-+(UIButton*)createHomeButtonWithFrame:(CGRect)frame {
-    CGRect barButtonFrame = frame;
-    UIButton *seePlaylistButton = [[UIButton alloc] initWithFrame:barButtonFrame];
-    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"home"] forState:UIControlStateNormal];
-    return seePlaylistButton;
-}
 
-+(UIButton*)createEntriesButtonWithFrame:(CGRect)frame {
-    CGRect barButtonFrame = frame;
-    UIButton *seePlaylistButton = [[UIButton alloc] initWithFrame:barButtonFrame];
-    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"icon1"] forState:UIControlStateNormal];
-    return seePlaylistButton;
-}
+
 +(UIButton*)createShuffleButtonWithFrame:(CGRect)frame tintColor:(UIColor *)color {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:frame];

@@ -96,13 +96,14 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
     
     leftButton.tag = 0;
     rightButton.tag = 1;
-    UIButton *homeButton = [UIButton createHomeButtonWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 30, 30)];
-    homeButton.userInteractionEnabled = NO;
-    [leftButton addSubview:homeButton];
-    UIButton *entriesButton = [UIButton createEntriesButtonWithFrame:CGRectMake(leftButton.frame.size.width/2, -10, 50, 50)];
-    entriesButton.userInteractionEnabled = NO;
-    [rightButton addSubview:entriesButton];
-
+    
+    UIImageView *homeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 30, 30)];
+    homeImageView.image = [UIImage imageNamed:@"home"];
+    [leftButton addSubview:homeImageView];
+    
+    UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightButton.frame.size.width/2, 0, 30, 30)];
+    timelineImageView.image = [UIImage imageNamed:@"playlist"];
+    [rightButton addSubview:timelineImageView];
     
     [self setupSelector];
 }
