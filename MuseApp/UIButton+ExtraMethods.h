@@ -15,6 +15,7 @@
 +(UIButton *)createCameraButton;
 +(UIButton*)createHomeButtonWithFrame:(CGRect)frame;
 +(UIButton*)createEntriesButtonWithFrame:(CGRect)frame;
++(UIButton*)createShuffleButtonWithFrame:(CGRect)frame tintColor:(UIColor *)color;
 
 
 @end

@@ -6,7 +6,6 @@
 #import "UIFont+MUSFonts.h"
 #import "NSDate+ExtraMethods.h"
 #import "UIButton+ExtraMethods.h"
-#import "UIImage+Resize.h"
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "MUSDetailEntryViewController.h"

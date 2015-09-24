@@ -34,7 +34,9 @@
     
     // h1
     UIFont *h1Font = [UIFont fontWithName:@"AvenirNext-Bold" size:24.0];
+    UIColor *h1Color = [UIColor yellowColor];
     [attributes setObject:@{NSFontAttributeName : h1Font} forKey:@(H1)];
+    [attributes setObject:@{NSForegroundColorAttributeName : h1Color} forKey:@(H1)];
     
     // h2
     UIFont *h2Font = [UIFont fontWithName:@"AvenirNext-Bold" size:18.0];

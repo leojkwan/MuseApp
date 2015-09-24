@@ -46,6 +46,14 @@
     [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"icon1"] forState:UIControlStateNormal];
     return seePlaylistButton;
 }
++(UIButton*)createShuffleButtonWithFrame:(CGRect)frame tintColor:(UIColor *)color {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:frame];
+    button.tintColor = color;
+    UIImage *image = [[UIImage imageNamed:@"playlist"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [button setImage:image forState:UIControlStateNormal];
+    return button;
+}
 
 
 @end

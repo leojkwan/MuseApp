@@ -24,4 +24,8 @@
     return image;
 }
 
+-(void)makeImageTemplate{
+    [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+}
+
 @end

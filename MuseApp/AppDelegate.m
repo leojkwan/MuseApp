@@ -10,6 +10,7 @@
 #import "RKSwipeBetweenViewControllers.h"
 #import "MUSAllEntriesViewController.h"
 #import "MUSHomeViewController.h"
+#import "MUSColorSheet.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
+    MUSColorSheet *userColorTheme = [[MUSColorSheet alloc] init];
+    
     
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     

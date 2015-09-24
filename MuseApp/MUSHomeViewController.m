@@ -9,7 +9,9 @@
 #import "MUSHomeViewController.h"
 #import "NSDate+ExtraMethods.h"
 #import <Masonry.h>
+#import "UIButton+ExtraMethods.h"
 #import "MUSTimeFetcher.h"
+#import "MUSColorSheet.h"
 
 
 @interface MUSHomeViewController ()<CurrentTimeDelegate>
@@ -17,46 +19,49 @@
 @property (weak, nonatomic) IBOutlet UILabel *greetingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (nonatomic,assign) TimeOfDay time;
-@property (weak, nonatomic) IBOutlet UIButton *mood1icon;
-@property (weak, nonatomic) IBOutlet UIButton *mood2icon;
-@property (weak, nonatomic) IBOutlet UIButton *mood3icon;
-@property (weak, nonatomic) IBOutlet UIButton *mood4icon;
+@property (weak, nonatomic) IBOutlet UIButton *action1Icon;
+@property (weak, nonatomic) IBOutlet UIButton *action2Icon;
+@property (strong, nonatomic) MUSColorSheet* colorStore;
+
+
 @property (strong, nonatomic) MUSTimeFetcher* timeManager;
 
 
 @end
 
+
 @implementation MUSHomeViewController
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    [self setUpCurrentTime];
+    self.colorStore = [MUSColorSheet sharedInstance];
+    [self setUpIconTint: [self.colorStore iconTint]];
+}
+
+-(void)setUpCurrentTime {
     self.timeManager = [[MUSTimeFetcher alloc] init];
-    
     self.timeManager.delegate = self;
     self.time = self.timeManager.timeOfDay;
     self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
     [self presentGreeting];
-    
-
 }
+
+
+
+-(void)setUpIconTint:(UIColor *)color {
+    UIImage *image = [[UIImage imageNamed:@"icon1"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.action1Icon setImage:image forState:UIControlStateNormal];
+    self.action1Icon.tintColor = color;
+}
+
 
 -(void)updatedTime:(NSString *)timeString {
     self.timeLabel.text = timeString;
 }
 
 -(void)presentGreeting {
-//    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-//    if (screenBounds.size.height < 569) {
-//        // iphone 5s less]
-//        self.greetingLabel.font = [UIFont fontWithName:@"Futura-Medium" size:23];
-//        self.dateLabel.font = [UIFont fontWithName:@"GillSans-Light" size:17];
-//    } else {
-//        // iphone 6 and up
-//        self.greetingLabel.font = [UIFont fontWithName:@"Futura-Medium" size:30];
-//        self.dateLabel.font = [UIFont fontWithName:@"GillSans-Light" size:23];
-//    }
-//    
-    
+
     if ( [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]  != NULL) {
         // IF THERE IS A USERNAME
         switch (self.time) {
@@ -65,6 +70,9 @@
                 break;
             case Afternoon:
                 self.greetingLabel.text = [NSString stringWithFormat:@"Good Afternoon %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
+                break;
+            case LateNight:
+                self.greetingLabel.text = [NSString stringWithFormat:@"It's late at night %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
                 break;
             default:
                 self.greetingLabel.text = [NSString stringWithFormat:@"Good Evening %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
