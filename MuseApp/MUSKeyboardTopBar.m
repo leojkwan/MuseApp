@@ -191,8 +191,7 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 
     // set up done bar button
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
-    NSDictionary *doneBarButtonItemAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor yellowColor]};
-    [[UIBarButtonItem appearance] setTitleTextAttributes:doneBarButtonItemAppearanceDict forState:UIControlStateNormal];
+
     return doneBarButtonItem;
 }
 

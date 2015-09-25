@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MUSActionView">
+            <connections>
+                <outlet property="actionView" destination="XRb-pt-iRf" id="eDe-jQ-vL0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="XRb-pt-iRf">
+            <rect key="frame" x="0.0" y="0.0" width="702" height="377"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMJ-SB-2Qr" userLabel="add">
+                    <rect key="frame" x="482" y="144" width="88" height="88"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="ba1-Zi-0Wu"/>
+                        <constraint firstAttribute="width" secondItem="dMJ-SB-2Qr" secondAttribute="height" multiplier="1:1" id="zyx-Ua-9wC"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="pencil"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="ba1-Zi-0Wu"/>
+                            <exclude reference="zyx-Ua-9wC"/>
+                        </mask>
+                    </variation>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
+                    <rect key="frame" x="480" y="223" width="92" height="27.5"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Shuffle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
+                    <rect key="frame" x="145" y="251" width="61" height="27.5"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3O-oH-r3C" userLabel="Vertical Rule">
+                    <rect key="frame" x="350" y="151" width="1" height="75"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="TXZ-zO-SXg"/>
+                        <constraint firstAttribute="height" constant="75" id="laC-bh-D5i"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhS-6c-F0Q" userLabel="play">
+                    <rect key="frame" x="131" y="144" width="88" height="88"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="zhS-6c-F0Q" secondAttribute="height" multiplier="1:1" id="Uj9-9T-C8f"/>
+                        <constraint firstAttribute="width" constant="50" id="mKT-Tt-Y7T"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="addToPlaylist"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Uj9-9T-C8f"/>
+                            <exclude reference="mKT-Tt-Y7T"/>
+                        </mask>
+                    </variation>
+                </button>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="zhS-6c-F0Q" firstAttribute="centerY" secondItem="U3O-oH-r3C" secondAttribute="centerY" id="7Xq-Cr-lXT"/>
+                <constraint firstItem="U3O-oH-r3C" firstAttribute="centerX" secondItem="XRb-pt-iRf" secondAttribute="centerX" id="B2D-eR-PF8"/>
+                <constraint firstItem="RQU-Vl-6t9" firstAttribute="top" secondItem="dMJ-SB-2Qr" secondAttribute="bottom" constant="10" id="EDr-3K-sb4"/>
+                <constraint firstItem="zhS-6c-F0Q" firstAttribute="centerX" secondItem="XRb-pt-iRf" secondAttribute="centerX" multiplier="1/2" id="OMk-Wf-hEi"/>
+                <constraint firstItem="U3O-oH-r3C" firstAttribute="centerY" secondItem="XRb-pt-iRf" secondAttribute="centerY" id="ThI-Xo-K0V"/>
+                <constraint firstItem="RQU-Vl-6t9" firstAttribute="centerX" secondItem="dMJ-SB-2Qr" secondAttribute="centerX" id="XTK-oz-f19"/>
+                <constraint firstItem="zhS-6c-F0Q" firstAttribute="width" secondItem="zhS-6c-F0Q" secondAttribute="height" multiplier="1:1" id="bIQ-eo-QSe"/>
+                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerY" secondItem="U3O-oH-r3C" secondAttribute="centerY" id="dbR-tG-sod"/>
+                <constraint firstItem="XJe-xa-ObB" firstAttribute="top" secondItem="zhS-6c-F0Q" secondAttribute="bottom" constant="10" id="fJT-of-tXT"/>
+                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerY" secondItem="zhS-6c-F0Q" secondAttribute="centerY" id="fPl-fe-FG3"/>
+                <constraint firstItem="XJe-xa-ObB" firstAttribute="centerX" secondItem="zhS-6c-F0Q" secondAttribute="centerX" id="fVR-5O-UL9"/>
+                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerX" secondItem="XRb-pt-iRf" secondAttribute="centerX" multiplier="1.5" id="ooq-hh-9e8"/>
+                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="width" secondItem="XRb-pt-iRf" secondAttribute="width" multiplier="1/8" id="pmd-lH-M1p"/>
+                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="width" secondItem="dMJ-SB-2Qr" secondAttribute="height" multiplier="1:1" id="rXX-04-5bc"/>
+                <constraint firstItem="zhS-6c-F0Q" firstAttribute="width" secondItem="XRb-pt-iRf" secondAttribute="width" multiplier="1/8" id="vmI-zK-h0A"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="fPl-fe-FG3"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="410" y="355.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="addToPlaylist" width="105" height="105"/>
+        <image name="pencil" width="50" height="50"/>
+    </resources>
+</document>

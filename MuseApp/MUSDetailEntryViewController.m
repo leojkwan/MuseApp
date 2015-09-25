@@ -72,9 +72,6 @@ typedef enum{
     
 }
 
-
-
-
 -(void)setUpTextView {
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
@@ -161,10 +158,6 @@ typedef enum{
     self.textView.text = self.destinationEntry.content;
     self.textView.font = [UIFont returnFontsForDefaultString];
 }
-
-
-
-
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
@@ -284,7 +277,6 @@ typedef enum{
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
-    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.allowsEditing = YES;
     
@@ -297,38 +289,31 @@ typedef enum{
     // CAMERA ROLL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        UIAlertController *alertController= [UIAlertController
-                                             alertControllerWithTitle:nil
-                                             message:NSLocalizedString(@"Your have disabled photo access.", nil)
-                                             preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction
-                                    actionWithTitle:NSLocalizedString(@"Open Settings", @"Photos access denied: open the settings app to change privacy settings")
-                                    style:UIAlertActionStyleDefault
-                                    handler:^(UIAlertAction *action) {
-                                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                                    }]
-         ];
-        [alertController addAction:[UIAlertAction
-                                    actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
-                                    style:UIAlertActionStyleDefault
-                                    handler:nil]];
-        
+        [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypePhotoLibrary withSuccessHandler:^{
 
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            switch (status)
-            {
-                case PHAuthorizationStatusAuthorized:
-                    // present camera roll
-                    [self presentViewController:imagePicker animated:YES completion:nil];
-                    break;
-                default:
-                    [self presentViewController:alertController animated:YES completion:nil];
-                    break;
-            }
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        } andFailure:^{
+            UIAlertController *alertController= [UIAlertController
+                                                 alertControllerWithTitle:nil
+                                                 message:NSLocalizedString(@"You have disabled Photos access", nil)
+                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+            [alertController addAction:[UIAlertAction
+                                        actionWithTitle:NSLocalizedString(@"Open Settings", @"Photos access denied: open the settings app to change privacy settings")
+                                        style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction *action) {
+                                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                                        }]
+             ];
+            [alertController addAction:[UIAlertAction
+                                        actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                        style:UIAlertActionStyleDefault
+                                        handler:NULL]
+             ];
+            [self presentViewController:alertController animated:YES completion:^{}];
         }];
-
-  
     }]];
+        
+    
     // TAKE PHOTO
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {

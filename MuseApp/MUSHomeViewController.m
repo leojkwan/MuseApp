@@ -12,19 +12,25 @@
 #import "UIButton+ExtraMethods.h"
 #import "MUSTimeFetcher.h"
 #import "MUSColorSheet.h"
+#import "MUSActionView.h"
+#import "MUSGreetingManager.h"
 
+@import QuartzCore;
 
-@interface MUSHomeViewController ()<CurrentTimeDelegate>
+@interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *greetingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (nonatomic,assign) TimeOfDay time;
-@property (weak, nonatomic) IBOutlet UIButton *action1Icon;
-@property (weak, nonatomic) IBOutlet UIButton *action2Icon;
+
 @property (strong, nonatomic) MUSColorSheet* colorStore;
-
-
 @property (strong, nonatomic) MUSTimeFetcher* timeManager;
+@property (strong, nonatomic) MUSGreetingManager* greetManager;
+@property (weak, nonatomic) IBOutlet UIView *scrollContentView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) NSArray *cardsArray;
+@property (nonatomic, assign) CGFloat lastContentOffset;
 
 
 @end
@@ -34,9 +40,45 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    self.scrollView.delegate = self;
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
-    [self setUpIconTint: [self.colorStore iconTint]];
+    [self setUpScrollContent];
+    [self setUpPagingControl];
+  }
+
+
+-(void) setUpScrollContent {
+    
+    MUSActionView *actionView1 = [[MUSActionView alloc] init];
+    MUSActionView *actionView2 = [[MUSActionView alloc] init];
+    MUSActionView *actionView3 = [[MUSActionView alloc] init];
+    MUSActionView *actionView4 = [[MUSActionView alloc] init];
+    MUSActionView *actionView5 = [[MUSActionView alloc] init];
+
+    self.cardsArray = @[actionView1,actionView2, actionView3, actionView4, actionView5];
+    [self.scrollContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(self.scrollView.mas_height).multipliedBy(self.cardsArray.count);
+    }];
+    
+    [self.scrollContentView addSubview:self.cardsArray[0]];
+    [self.cardsArray[0] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.and.height.equalTo(self.scrollView);
+        make.left.and.top.and.right.equalTo(self.scrollContentView);
+    }];
+    
+    [self.scrollContentView addSubview:self.cardsArray[1]];
+    [self.cardsArray[1] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.and.height.equalTo(self.scrollView);
+        make.left.and.right.equalTo(self.scrollContentView);
+        make.top.equalTo(actionView1.mas_bottom);
+    }];
+    
+    
+    
+    
+
+    
 }
 
 -(void)setUpCurrentTime {
@@ -47,13 +89,19 @@
     [self presentGreeting];
 }
 
-
-
--(void)setUpIconTint:(UIColor *)color {
-    UIImage *image = [[UIImage imageNamed:@"icon1"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.action1Icon setImage:image forState:UIControlStateNormal];
-    self.action1Icon.tintColor = color;
+-(void)setUpPagingControl {
+    self.pageControl.numberOfPages = self.cardsArray.count;
+    self.pageControl.currentPage = 0;
+    self.pageControl.transform = CGAffineTransformMakeRotation(M_PI_2);
 }
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView  {
+    CGFloat pageHeight = self.scrollView.frame.size.height;
+    NSInteger page = floor((self.scrollView.contentOffset.y - pageHeight / 2) / pageHeight) + 1;
+    self.pageControl.currentPage = page;
+}
+
+
 
 
 -(void)updatedTime:(NSString *)timeString {
@@ -61,41 +109,9 @@
 }
 
 -(void)presentGreeting {
-
-    if ( [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]  != NULL) {
-        // IF THERE IS A USERNAME
-        switch (self.time) {
-            case Morning:
-                self.greetingLabel.text = [NSString stringWithFormat:@"Good Morning %@!", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-            case Afternoon:
-                self.greetingLabel.text = [NSString stringWithFormat:@"Good Afternoon %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-            case LateNight:
-                self.greetingLabel.text = [NSString stringWithFormat:@"It's late at night %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-            default:
-                self.greetingLabel.text = [NSString stringWithFormat:@"Good Evening %@.", [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"]];
-                break;
-                
-
-                
-        }
-        
-        
-        // ELSE
-    } else {
-        switch (self.time) {
-            case Morning:
-                self.greetingLabel.text = @"Good Morning.";
-                break;
-            case Afternoon:
-                self.greetingLabel.text = @"Good Afternoon.";
-            default:
-                self.greetingLabel.text = @"Good Evening.";
-                break;
-        }
-    }
+     NSString *userFirstName = [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"];
+    self.greetManager = [[MUSGreetingManager alloc] initWithTimeOfDay:self.time firstName:userFirstName];
+    self.greetingLabel.text = [self.greetManager usergreeting];
 }
 
 
