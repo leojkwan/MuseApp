@@ -19,7 +19,8 @@
     
     if (self) {
         _timeOfDay = [self getTimeOfDay];
-        [NSTimer scheduledTimerWithTimeInterval:1.0
+        
+        [NSTimer scheduledTimerWithTimeInterval:0.2
                                          target:self
                                        selector:@selector(getCurrentTime)
                                        userInfo:nil
