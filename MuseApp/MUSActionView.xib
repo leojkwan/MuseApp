@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMJ-SB-2Qr" userLabel="add">
-                    <rect key="frame" x="501" y="163" width="50" height="50"/>
+                    <rect key="frame" x="482" y="144" width="88" height="88"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="ba1-Zi-0Wu"/>
@@ -32,14 +32,14 @@
                         </mask>
                     </variation>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
                     <rect key="frame" x="480" y="223" width="92" height="27.5"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shuffle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Shuffle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
                     <rect key="frame" x="145" y="251" width="61" height="27.5"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
@@ -56,7 +56,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhS-6c-F0Q" userLabel="play">
-                    <rect key="frame" x="123" y="136" width="105" height="105"/>
+                    <rect key="frame" x="131" y="144" width="88" height="88"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="zhS-6c-F0Q" secondAttribute="height" multiplier="1:1" id="Uj9-9T-C8f"/>
@@ -66,8 +66,8 @@
                     <state key="normal" image="addToPlaylist"/>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="mKT-Tt-Y7T"/>
                             <exclude reference="Uj9-9T-C8f"/>
+                            <exclude reference="mKT-Tt-Y7T"/>
                         </mask>
                     </variation>
                 </button>
@@ -87,7 +87,9 @@
                 <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerY" secondItem="zhS-6c-F0Q" secondAttribute="centerY" id="fPl-fe-FG3"/>
                 <constraint firstItem="XJe-xa-ObB" firstAttribute="centerX" secondItem="zhS-6c-F0Q" secondAttribute="centerX" id="fVR-5O-UL9"/>
                 <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerX" secondItem="XRb-pt-iRf" secondAttribute="centerX" multiplier="1.5" id="ooq-hh-9e8"/>
+                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="width" secondItem="XRb-pt-iRf" secondAttribute="width" multiplier="1/8" id="pmd-lH-M1p"/>
                 <constraint firstItem="dMJ-SB-2Qr" firstAttribute="width" secondItem="dMJ-SB-2Qr" secondAttribute="height" multiplier="1:1" id="rXX-04-5bc"/>
+                <constraint firstItem="zhS-6c-F0Q" firstAttribute="width" secondItem="XRb-pt-iRf" secondAttribute="width" multiplier="1/8" id="vmI-zK-h0A"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">

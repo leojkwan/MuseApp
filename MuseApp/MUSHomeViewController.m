@@ -50,16 +50,35 @@
 
 -(void) setUpScrollContent {
     
-    MUSActionView *actionView = [[MUSActionView alloc] init];
-    self.cardsArray = @[actionView,actionView];
+    MUSActionView *actionView1 = [[MUSActionView alloc] init];
+    MUSActionView *actionView2 = [[MUSActionView alloc] init];
+    MUSActionView *actionView3 = [[MUSActionView alloc] init];
+    MUSActionView *actionView4 = [[MUSActionView alloc] init];
+    MUSActionView *actionView5 = [[MUSActionView alloc] init];
+
+    self.cardsArray = @[actionView1,actionView2, actionView3, actionView4, actionView5];
     [self.scrollContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.scrollView.mas_height).multipliedBy(self.cardsArray.count);
     }];
-    [self.scrollContentView addSubview:actionView];
-    [actionView mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.scrollContentView addSubview:self.cardsArray[0]];
+    [self.cardsArray[0] mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.and.height.equalTo(self.scrollView);
         make.left.and.top.and.right.equalTo(self.scrollContentView);
     }];
+    
+    [self.scrollContentView addSubview:self.cardsArray[1]];
+    [self.cardsArray[1] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.and.height.equalTo(self.scrollView);
+        make.left.and.right.equalTo(self.scrollContentView);
+        make.top.equalTo(actionView1.mas_bottom);
+    }];
+    
+    
+    
+    
+
+    
 }
 
 -(void)setUpCurrentTime {
@@ -77,17 +96,12 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView  {
-    static NSInteger previousPage = 0;
     CGFloat pageHeight = self.scrollView.frame.size.height;
     NSInteger page = floor((self.scrollView.contentOffset.y - pageHeight / 2) / pageHeight) + 1;
     self.pageControl.currentPage = page;
 }
 
-//-(void)setUpIconTint:(UIColor *)color {
-//    UIImage *image = [[UIImage imageNamed:@"icon1"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-//    [self.action1Icon setImage:image forState:UIControlStateNormal];
-//    self.action1Icon.tintColor = color;
-//}
+
 
 
 -(void)updatedTime:(NSString *)timeString {
