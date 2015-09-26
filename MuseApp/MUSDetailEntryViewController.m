@@ -77,6 +77,7 @@ typedef enum{
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     [self checkSizeOfContentForTextView:self.textView];
+    NSLog(@"%@", self.textView.attributedText);
 }
 
 -(BOOL)shouldAutorotate {

@@ -12,7 +12,7 @@
 @interface MUSSongTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *songArtworkImageView;
-
+@property (weak, nonatomic) IBOutlet UILabel *songNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *songTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *artistLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *animatingIcon;

@@ -92,9 +92,9 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 [self.toolbarButtonItems addObject:[self backButton]];
 [self.toolbarButtonItems addObject:[self flexSpaceButton]];
 [self.toolbarButtonItems addObject:[self cameraButton]];
-[self.toolbarButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
 [self.toolbarButtonItems addObject:[self pinSongButton]];
-[self.toolbarButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
 [self.toolbarButtonItems addObject:[self playlistButton]];
 
 
