@@ -10,7 +10,7 @@
         <!--Home View Controller-->
         <scene sceneID="bwy-Kg-gKn">
             <objects>
-                <viewController storyboardIdentifier="home" id="Reu-be-NJQ" customClass="MUSHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="Reu-be-NJQ" customClass="MUSHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kJ4-kJ-0hA"/>
                         <viewControllerLayoutGuide type="bottom" id="uE5-7z-dT4"/>
@@ -45,7 +45,7 @@
                                     </mask>
                                 </variation>
                             </pageControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
                                 <rect key="frame" x="15" y="67" width="300" height="23"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="20"/>
@@ -103,7 +103,7 @@
                                     <rect key="frame" x="0.0" y="110" width="400" height="230"/>
                                 </variation>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" misplaced="YES" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
                                 <rect key="frame" x="15" y="20" width="540" height="39"/>
                                 <animations/>
                                 <constraints>
@@ -182,6 +182,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="xQR-4A-d6c"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="dateLabel" destination="A7g-mA-BcG" id="lah-5F-ueB"/>
@@ -194,31 +195,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cv7-5r-Xs1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="952" y="591"/>
-        </scene>
-        <!--Stats View Controller-->
-        <scene sceneID="KyG-nn-0mb">
-            <objects>
-                <viewController storyboardIdentifier="stats" id="pXg-8r-5Nf" customClass="MUSStatsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Up7-ya-2gL"/>
-                        <viewControllerLayoutGuide type="bottom" id="9EI-ez-DJz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yb0-lT-KnW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IHE-Oe-kOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1670" y="514"/>
+            <point key="canvasLocation" x="1764" y="591"/>
         </scene>
         <!--All Entries View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="allEntries" id="BYZ-38-t0r" customClass="MUSAllEntriesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AllEntriesVC" id="BYZ-38-t0r" customClass="MUSAllEntriesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -510,12 +492,12 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1152" y="1649"/>
+            <point key="canvasLocation" x="1063" y="1386"/>
         </scene>
         <!--Detail Entry View Controller-->
         <scene sceneID="sch-Iy-1Au">
             <objects>
-                <viewController id="YMB-QV-Zfr" customClass="MUSDetailEntryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddEntryVC" id="YMB-QV-Zfr" customClass="MUSDetailEntryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HkU-rT-e6I"/>
                         <viewControllerLayoutGuide type="bottom" id="Fk7-yd-NUU"/>
@@ -576,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPA-Py-Sjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1880" y="1224"/>
+            <point key="canvasLocation" x="2342" y="1232"/>
         </scene>
         <!--Playlist View Controller-->
         <scene sceneID="byn-GK-WCn">
@@ -669,9 +651,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Playlist for this Entry" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTd-An-ypY">
-                                <rect key="frame" x="24" y="473" width="159.5" height="23.5"/>
+                                <rect key="frame" x="24" y="473" width="157" height="23.5"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -740,22 +722,22 @@
                                                         <constraint firstAttribute="width" secondItem="4s5-JG-xZf" secondAttribute="height" multiplier="1:1" id="I60-X6-s8s"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZV-pf-Ny3">
-                                                    <rect key="frame" x="91" y="18" width="431" height="23.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Song Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZV-pf-Ny3">
+                                                    <rect key="frame" x="105" y="18" width="417" height="23.5"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                     <color key="textColor" red="0.97827888257575757" green="0.97827888257575757" blue="0.97827888257575757" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2QP-w9-G2P">
-                                                    <rect key="frame" x="91" y="46" width="15" height="18"/>
+                                                    <rect key="frame" x="89" y="46" width="15" height="18"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWV-1f-Bc2">
-                                                    <rect key="frame" x="114" y="45" width="408" height="20.5"/>
+                                                    <rect key="frame" x="112" y="45" width="410" height="20.5"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
                                                     <color key="textColor" red="0.97254901959999995" green="0.70980392160000005" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -769,11 +751,19 @@
                                                         <constraint firstAttribute="width" constant="50" id="tqo-Xj-b4O"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" misplaced="YES" text="1." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3e-So-xpX">
+                                                    <rect key="frame" x="89" y="21" width="11" height="18"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="2QP-w9-G2P" firstAttribute="centerY" secondItem="aWV-1f-Bc2" secondAttribute="centerY" id="2fC-lu-N1v"/>
+                                                <constraint firstItem="k3e-So-xpX" firstAttribute="leading" secondItem="4s5-JG-xZf" secondAttribute="trailing" constant="7.5" id="8fP-cO-ihP"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="4s5-JG-xZf" secondAttribute="bottom" constant="5" id="CAz-Yy-yZ5"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="aWV-1f-Bc2" secondAttribute="trailing" constant="8" id="GvP-zc-XFN"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="dZV-pf-Ny3" secondAttribute="trailing" constant="10" id="Jfo-Lp-JrN"/>
@@ -787,15 +777,20 @@
                                                 <constraint firstItem="2QP-w9-G2P" firstAttribute="leading" secondItem="dZV-pf-Ny3" secondAttribute="leading" id="dK6-Rt-qug"/>
                                                 <constraint firstItem="4s5-JG-xZf" firstAttribute="top" secondItem="dZV-pf-Ny3" secondAttribute="top" constant="-5" id="eBF-nc-Tj4"/>
                                                 <constraint firstItem="aWV-1f-Bc2" firstAttribute="top" secondItem="dZV-pf-Ny3" secondAttribute="bottom" constant="10" id="etB-1u-ARs"/>
+                                                <constraint firstItem="dZV-pf-Ny3" firstAttribute="leading" secondItem="k3e-So-xpX" secondAttribute="trailing" constant="5" id="kFT-lL-YYz"/>
+                                                <constraint firstItem="2QP-w9-G2P" firstAttribute="leading" secondItem="k3e-So-xpX" secondAttribute="leading" id="kVj-RC-KND"/>
                                                 <constraint firstItem="2QP-w9-G2P" firstAttribute="centerY" secondItem="aWV-1f-Bc2" secondAttribute="centerY" id="m5b-n5-X18"/>
                                                 <constraint firstItem="dZV-pf-Ny3" firstAttribute="leading" secondItem="4s5-JG-xZf" secondAttribute="trailing" constant="10" id="rKc-9k-epm"/>
                                                 <constraint firstItem="4s5-JG-xZf" firstAttribute="leading" secondItem="A1q-oN-Fs3" secondAttribute="leadingMargin" id="sDJ-Xi-5aS"/>
+                                                <constraint firstItem="k3e-So-xpX" firstAttribute="centerY" secondItem="dZV-pf-Ny3" secondAttribute="centerY" id="td9-QD-MGd"/>
                                                 <constraint firstItem="iMT-VA-fYc" firstAttribute="leading" secondItem="aWV-1f-Bc2" secondAttribute="trailing" constant="10" id="zTe-ad-hNn"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="Jfo-Lp-JrN"/>
+                                                    <exclude reference="dK6-Rt-qug"/>
                                                     <exclude reference="m5b-n5-X18"/>
+                                                    <exclude reference="Jfo-Lp-JrN"/>
+                                                    <exclude reference="rKc-9k-epm"/>
                                                     <exclude reference="GvP-zc-XFN"/>
                                                     <exclude reference="Yxd-E3-99b"/>
                                                     <exclude reference="etB-1u-ARs"/>
@@ -808,6 +803,7 @@
                                             <outlet property="animatingIcon" destination="iMT-VA-fYc" id="W8o-6u-PRm"/>
                                             <outlet property="artistLabel" destination="aWV-1f-Bc2" id="xzB-1z-FaL"/>
                                             <outlet property="songArtworkImageView" destination="4s5-JG-xZf" id="jK5-DB-Lhx"/>
+                                            <outlet property="songNumberLabel" destination="k3e-So-xpX" id="xGo-hi-agZ"/>
                                             <outlet property="songTitleLabel" destination="dZV-pf-Ny3" id="kOS-A7-TJG"/>
                                         </connections>
                                     </tableViewCell>
@@ -940,7 +936,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ci-1Y-Ic6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2585" y="1324"/>
+            <point key="canvasLocation" x="3397" y="1324"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aCi-gx-sov">
@@ -960,6 +956,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ps1-h7-fOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="372" y="1689"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sXD-O4-frR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YTl-G5-Xzm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uOx-uY-6wU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Reu-be-NJQ" kind="relationship" relationship="rootViewController" id="Rxd-BZ-Qvo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xcZ-mv-BlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="952" y="591"/>
         </scene>
     </scenes>
     <resources>

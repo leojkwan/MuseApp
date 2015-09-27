@@ -38,10 +38,9 @@
     UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
     RKSwipeBetweenViewControllers *navigationController = [[RKSwipeBetweenViewControllers alloc]initWithRootViewController:pageController];
-
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"home"];
-    MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"allEntries"];
+    MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
+    MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
     [navigationController.viewControllerArray addObjectsFromArray:@[home, entries]];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];

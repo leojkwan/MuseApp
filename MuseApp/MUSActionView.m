@@ -12,6 +12,8 @@
 
 @interface MUSActionView ()
 @property (strong, nonatomic) IBOutlet UIView *actionView;
+@property (weak, nonatomic) IBOutlet UIButton *randomSongButton;
+@property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
 
 @end
 
@@ -49,9 +51,17 @@
     [self.actionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
     }];
-    
-    
 }
+
+- (IBAction)addButtonTapped:(id)sender {
+    [self.delegate didSelectAddButton:self];
+}
+
+- (IBAction)shuffleButtonTapped:(id)sender {
+    [self.delegate didSelectShuffleButton:self];
+}
+
+
 
 
 @end

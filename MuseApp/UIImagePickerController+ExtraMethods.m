@@ -15,6 +15,7 @@
 + (void)obtainPermissionForMediaSourceType:(UIImagePickerControllerSourceType)sourceType withSuccessHandler:(void (^) ())successHandler andFailure:(void (^) ())failureHandler {
     
     if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary || sourceType == UIImagePickerControllerSourceTypeSavedPhotosAlbum){
+
         // Denied when photo disabled, authorized when photos is enabled. Not affected by camera
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
             switch (status) {
@@ -34,6 +35,9 @@
             }
         }];
     }
+    
+    
+    
     else if (sourceType == UIImagePickerControllerSourceTypeCamera){
         // Checks for Camera access:
         AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];

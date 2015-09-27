@@ -9,6 +9,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MUSActionView">
             <connections>
                 <outlet property="actionView" destination="XRb-pt-iRf" id="eDe-jQ-vL0"/>
+                <outlet property="addEntryButton" destination="dMJ-SB-2Qr" id="hun-0r-ENw"/>
+                <outlet property="randomSongButton" destination="zhS-6c-F0Q" id="Bvc-CP-gb6"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,6 +33,9 @@
                             <exclude reference="zyx-Ua-9wC"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <action selector="addButtonTapped:" destination="-1" eventType="touchUpInside" id="ir3-pU-wnF"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
                     <rect key="frame" x="480" y="223" width="92" height="27.5"/>
@@ -39,8 +44,8 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Shuffle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
-                    <rect key="frame" x="145" y="251" width="61" height="27.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Surprise Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
+                    <rect key="frame" x="122.5" y="242" width="106.5" height="27.5"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,6 +75,9 @@
                             <exclude reference="mKT-Tt-Y7T"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <action selector="shuffleButtonTapped:" destination="-1" eventType="touchUpInside" id="nOF-1G-ijP"/>
+                    </connections>
                 </button>
             </subviews>
             <animations/>

@@ -73,6 +73,16 @@
     return nil;
 }
 
+
+-(void)returnRandomSongInLibraryWithCompletionBlock:(void (^)(MPMediaItemCollection *))block {
+    MPMediaQuery *allSongsQuery = [ [MPMediaQuery alloc] init];
+    NSArray *resultingMediaItemFromQuery = [allSongsQuery items];
+    NSUInteger randomNumberInSongCount = arc4random_uniform((uint32_t) [resultingMediaItemFromQuery count]);
+    MPMediaItem *randomSong = [resultingMediaItemFromQuery objectAtIndex:randomNumberInSongCount];
+    MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:@[randomSong]];
+    block(currentPlaylistCollection);
+}
+
 -(void)checkIfSongIsInLocalLibrary:(MPMediaEntityPersistentID)persistentID withCompletionBlock:(void (^) (BOOL)) completionBlock {
     
     MPMediaQuery *everything = [[MPMediaQuery alloc] init];

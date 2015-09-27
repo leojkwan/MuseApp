@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 
+
 @end
 
 @implementation MUSPlaylistViewController
@@ -70,19 +71,10 @@
         [self.musicPlayer.myPlayer play];
     }
     
+
     // if external music is playing...
     // get all songs in one array so I can check whether the now playing song is part of the list, if not, load a fresh playlist
-    NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];
-    
-    for (Song *song in self.playlistForThisEntry) {
-        NSNumber *songID = song.persistentID;
-        [songTitleArray addObject:songID];
-    }
-    
-    NSLog(@"%@", self.playlistForThisEntry);
-    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
-    
-    if (![songTitleArray containsObject:songPersistentNumber]) {
+    if (![self currentlyPlayingSongIsInPlaylist]) {
         [self loadPlaylistArrayForThisEntryIntoPlayer];
     }
     
@@ -100,8 +92,23 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self prefersStatusBarHidden];
+}
+
+-(BOOL)currentlyPlayingSongIsInPlaylist {
+    NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];
     
+    for (Song *song in self.playlistForThisEntry) {
+        NSNumber *songID = song.persistentID;
+        [songTitleArray addObject:songID];
+    }
     
+    NSLog(@"%@", self.playlistForThisEntry);
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+    
+    if (![songTitleArray containsObject:songPersistentNumber]) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - music notifications and handling
@@ -163,10 +170,9 @@
     NSString *artistStringAtThisRow = songForThisRow.artistName;
     NSString *songStringAtThisRow = songForThisRow.songName;
     
-    NSNumber *songNumber = @(indexPath.row + 1);
-    cell.songTitleLabel.text = [NSString stringWithFormat:@"%@.  %@", songNumber, songStringAtThisRow];
+    cell.songTitleLabel.text = [NSString stringWithFormat:@"%@", songStringAtThisRow];
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
-    
+    cell.songNumberLabel.text = [NSString stringWithFormat: @"%ld.", (long)indexPath.row + 1];
     
     // set up image
     if (self.artworkImagesForThisEntry[indexPath.row]) {
@@ -175,9 +181,10 @@
         cell.songArtworkImageView.image = nil;
     }
     
-    
     NSUInteger indexPathForAnimation = [self.musicPlayer.myPlayer indexOfNowPlayingItem];
-    if (indexPath.row == indexPathForAnimation) {
+    NSLog(@"%@", self.currentSongLabel.text);
+        NSLog(@"%@", cell.songTitleLabel.text);
+    if (indexPath.row == indexPathForAnimation && [self.currentSongLabel.text isEqualToString:cell.songTitleLabel.text]) {
         [cell.animatingIcon startAnimating];
     }
     return cell;

@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ActionViewDelegate <NSObject>
+
+
+-(void)didSelectAddButton:(id)sender;
+-(void)didSelectShuffleButton:(id)sender;
+
+@end
+
 @interface MUSActionView : UIView
 
+@property  (nonatomic, assign) id <ActionViewDelegate> delegate;
 @end
