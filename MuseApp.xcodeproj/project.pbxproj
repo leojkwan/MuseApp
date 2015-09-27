@@ -249,9 +249,6 @@
 		9438AA641B8A544400644EB8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
-				944994421B8A1DF400A3E6CF /* AppDelegate.h */,
-				944994431B8A1DF400A3E6CF /* AppDelegate.m */,
 				941DC4521B93A2AB00304B55 /* MUSIconAnimation.h */,
 				941DC4531B93A2AB00304B55 /* MUSIconAnimation.m */,
 				94A86B5E1B8E929800A45E79 /* MUSKeyboardTopBar.xib */,
@@ -311,6 +308,9 @@
 		9449943D1B8A1DF400A3E6CF /* MuseApp */ = {
 			isa = PBXGroup;
 			children = (
+				9449944B1B8A1DF400A3E6CF /* Main.storyboard */,
+				944994421B8A1DF400A3E6CF /* AppDelegate.h */,
+				944994431B8A1DF400A3E6CF /* AppDelegate.m */,
 				9438AA641B8A544400644EB8 /* Views */,
 				9438AA651B8A545700644EB8 /* View Controllers */,
 				9438AA631B8A543A00644EB8 /* Models */,
@@ -691,6 +691,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MuseApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.leojkwan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -708,6 +709,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MuseApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.leojkwan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
