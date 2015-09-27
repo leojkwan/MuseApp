@@ -7,6 +7,8 @@
 //
 
 #import "MUSHomeViewController.h"
+#import "MUSDetailEntryViewController.h"
+#import "MUSAllEntriesViewController.h"
 #import "NSDate+ExtraMethods.h"
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
@@ -17,7 +19,9 @@
 
 @import QuartzCore;
 
-@interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate>
+@interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate, ActionViewDelegate>
+
+
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *greetingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -31,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) NSArray *cardsArray;
 @property (nonatomic, assign) CGFloat lastContentOffset;
+
+// xibs
+@property (strong, nonatomic) MUSActionView* actionView;
 
 
 @end
@@ -50,13 +57,14 @@
 
 -(void) setUpScrollContent {
     
-    MUSActionView *actionView1 = [[MUSActionView alloc] init];
+    self.actionView = [[MUSActionView alloc] init];
+    self.actionView.delegate = self;
     MUSActionView *actionView2 = [[MUSActionView alloc] init];
     MUSActionView *actionView3 = [[MUSActionView alloc] init];
     MUSActionView *actionView4 = [[MUSActionView alloc] init];
     MUSActionView *actionView5 = [[MUSActionView alloc] init];
 
-    self.cardsArray = @[actionView1,actionView2, actionView3, actionView4, actionView5];
+    self.cardsArray = @[self.actionView,actionView2, actionView3, actionView4, actionView5];
     [self.scrollContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.scrollView.mas_height).multipliedBy(self.cardsArray.count);
     }];
@@ -71,14 +79,29 @@
     [self.cardsArray[1] mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.and.height.equalTo(self.scrollView);
         make.left.and.right.equalTo(self.scrollContentView);
-        make.top.equalTo(actionView1.mas_bottom);
+        make.top.equalTo(self.actionView.mas_bottom);
     }];
-    
-    
-    
-    
 
+}
+
+-(void)viewWillAppear:(BOOL)animated   {
+    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     
+}
+
+-(void)didSelectAddButton:(id)sender {
+    NSLog(@" add");
+    
+    
+    // do any setup you need for myNewVC
+    
+    MUSDetailEntryViewController *addEntryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEntryVC"];
+    [self.navigationController pushViewController: addEntryVC animated:YES];
+}
+
+-(void)didSelectShuffleButton:(id)sender {
+    NSLog(@" shuffle");
 }
 
 -(void)setUpCurrentTime {

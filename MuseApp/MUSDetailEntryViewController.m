@@ -75,8 +75,16 @@ typedef enum{
 -(void)setUpTextView {
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
+    NSLog(@"%@", self.textView.text);
+    if (self.destinationEntry == nil) {
+        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
+        self.textView.textColor = [UIColor lightGrayColor];
+    } else{
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+    }
     [self checkSizeOfContentForTextView:self.textView];
+    
+    
     NSLog(@"%@", self.textView.attributedText);
 }
 
@@ -156,6 +164,9 @@ typedef enum{
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
     NSLog(@"start");
+    if (self.textView.textColor == [UIColor lightGrayColor]) {
+        self.textView.textColor = [UIColor blackColor];
+    }
     self.textView.text = self.destinationEntry.content;
     self.textView.font = [UIFont returnFontsForDefaultString];
 }
@@ -207,7 +218,6 @@ typedef enum{
 -(void)viewWillAppear:(BOOL)animated {
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
     [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:50];
-    
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.MUSToolBar setHidden:NO];
 }
@@ -273,6 +283,7 @@ typedef enum{
 
 #pragma mark - button pressed methods
 
+
 -(void)selectPhoto:(id)sender {
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -289,9 +300,8 @@ typedef enum{
     
     // CAMERA ROLL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
+    
         [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypePhotoLibrary withSuccessHandler:^{
-
             [self presentViewController:imagePicker animated:YES completion:nil];
         } andFailure:^{
             UIAlertController *alertController= [UIAlertController
@@ -310,27 +320,36 @@ typedef enum{
                                         style:UIAlertActionStyleDefault
                                         handler:NULL]
              ];
-            [self presentViewController:alertController animated:YES completion:^{}];
+            
+            alertController.popoverPresentationController.sourceView = sender;
+            alertController.popoverPresentationController.sourceRect = [sender bounds];
+            [self presentViewController:alertController animated:YES completion:nil];
         }];
     }]];
+    
+    
         
     
     // TAKE PHOTO
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
             imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//            
+//            actionSheet.popoverPresentationController.sourceView = sender;
+//            actionSheet.popoverPresentationController.sourceRect = [sender bounds];
             [self presentViewController:imagePicker animated:YES completion:nil];
         }
     }]];
     
-    if (actionSheet.popoverPresentationController) {
-        actionSheet.popoverPresentationController.sourceView = sender;
-        actionSheet.popoverPresentationController.sourceRect = [sender bounds];
-    }
-    
+    actionSheet.popoverPresentationController.sourceView = sender;
+    actionSheet.popoverPresentationController.sourceRect = [sender bounds];
+
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
+
+
+
 
 -(void)playlistButtonPressed:id {
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];

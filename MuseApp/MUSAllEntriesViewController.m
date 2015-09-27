@@ -69,11 +69,10 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
-      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
-      NSFontAttributeName, nil]];
+//    [self.navigationController.navigationBar setTitleTextAttributes:
+//     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
+//      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
+//      NSFontAttributeName, nil]];
     
     [self.entriesTableView reloadData];
 }

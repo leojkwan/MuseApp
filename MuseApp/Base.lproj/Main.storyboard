@@ -10,7 +10,7 @@
         <!--Home View Controller-->
         <scene sceneID="bwy-Kg-gKn">
             <objects>
-                <viewController storyboardIdentifier="home" id="Reu-be-NJQ" customClass="MUSHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="Reu-be-NJQ" customClass="MUSHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kJ4-kJ-0hA"/>
                         <viewControllerLayoutGuide type="bottom" id="uE5-7z-dT4"/>
@@ -45,7 +45,7 @@
                                     </mask>
                                 </variation>
                             </pageControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
                                 <rect key="frame" x="15" y="67" width="300" height="23"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="20"/>
@@ -103,7 +103,7 @@
                                     <rect key="frame" x="0.0" y="110" width="400" height="230"/>
                                 </variation>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" misplaced="YES" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
                                 <rect key="frame" x="15" y="20" width="540" height="39"/>
                                 <animations/>
                                 <constraints>
@@ -182,6 +182,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="xQR-4A-d6c"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="dateLabel" destination="A7g-mA-BcG" id="lah-5F-ueB"/>
@@ -194,31 +195,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cv7-5r-Xs1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="952" y="591"/>
-        </scene>
-        <!--Stats View Controller-->
-        <scene sceneID="KyG-nn-0mb">
-            <objects>
-                <viewController storyboardIdentifier="stats" id="pXg-8r-5Nf" customClass="MUSStatsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Up7-ya-2gL"/>
-                        <viewControllerLayoutGuide type="bottom" id="9EI-ez-DJz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yb0-lT-KnW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IHE-Oe-kOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1670" y="514"/>
+            <point key="canvasLocation" x="1764" y="591"/>
         </scene>
         <!--All Entries View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="allEntries" id="BYZ-38-t0r" customClass="MUSAllEntriesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AllEntriesVC" id="BYZ-38-t0r" customClass="MUSAllEntriesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -510,12 +492,12 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1152" y="1649"/>
+            <point key="canvasLocation" x="1063" y="1386"/>
         </scene>
         <!--Detail Entry View Controller-->
         <scene sceneID="sch-Iy-1Au">
             <objects>
-                <viewController id="YMB-QV-Zfr" customClass="MUSDetailEntryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddEntryVC" id="YMB-QV-Zfr" customClass="MUSDetailEntryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HkU-rT-e6I"/>
                         <viewControllerLayoutGuide type="bottom" id="Fk7-yd-NUU"/>
@@ -576,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPA-Py-Sjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1880" y="1224"/>
+            <point key="canvasLocation" x="2692" y="1224"/>
         </scene>
         <!--Playlist View Controller-->
         <scene sceneID="byn-GK-WCn">
@@ -954,7 +936,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ci-1Y-Ic6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2585" y="1324"/>
+            <point key="canvasLocation" x="3397" y="1324"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aCi-gx-sov">
@@ -974,6 +956,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ps1-h7-fOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="372" y="1689"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sXD-O4-frR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YTl-G5-Xzm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uOx-uY-6wU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Reu-be-NJQ" kind="relationship" relationship="rootViewController" id="Rxd-BZ-Qvo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xcZ-mv-BlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="952" y="591"/>
         </scene>
     </scenes>
     <resources>

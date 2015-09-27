@@ -18,7 +18,6 @@
 		9411D2721BB06FDA00B28DA7 /* Song+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411D2711BB06FDA00B28DA7 /* Song+MUSExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		9411D2751BB0887900B28DA7 /* MUSImagelessEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411D2741BB0887900B28DA7 /* MUSImagelessEntryCell.m */; settings = {ASSET_TAGS = (); }; };
 		941DC4541B93A2AB00304B55 /* MUSIconAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 941DC4531B93A2AB00304B55 /* MUSIconAnimation.m */; };
-		94327E0F1BB34D6D00B5465E /* MUSStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94327E0E1BB34D6D00B5465E /* MUSStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		9438AA621B8A543700644EB8 /* MUSEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */; };
 		943C95A81BB465FE00047549 /* UIColor+MUSColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 943C95A71BB465FE00047549 /* UIColor+MUSColors.m */; settings = {ASSET_TAGS = (); }; };
 		943C95AB1BB4662A00047549 /* MUSColorSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 943C95AA1BB4662A00047549 /* MUSColorSheet.m */; settings = {ASSET_TAGS = (); }; };
@@ -91,8 +90,6 @@
 		9411D2741BB0887900B28DA7 /* MUSImagelessEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSImagelessEntryCell.m; sourceTree = "<group>"; };
 		941DC4521B93A2AB00304B55 /* MUSIconAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSIconAnimation.h; sourceTree = "<group>"; };
 		941DC4531B93A2AB00304B55 /* MUSIconAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSIconAnimation.m; sourceTree = "<group>"; };
-		94327E0D1BB34D6D00B5465E /* MUSStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSStatsViewController.h; sourceTree = "<group>"; };
-		94327E0E1BB34D6D00B5465E /* MUSStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSStatsViewController.m; sourceTree = "<group>"; };
 		9438AA601B8A543700644EB8 /* MUSEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSEntryTableViewCell.h; sourceTree = "<group>"; };
 		9438AA611B8A543700644EB8 /* MUSEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSEntryTableViewCell.m; sourceTree = "<group>"; };
 		943C95A61BB465FE00047549 /* UIColor+MUSColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MUSColors.h"; sourceTree = "<group>"; };
@@ -275,8 +272,6 @@
 			children = (
 				94B146B01BACFFD100A135E4 /* RKSwipeBetweenViewControllers.h */,
 				94B146B11BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m */,
-				94327E0D1BB34D6D00B5465E /* MUSStatsViewController.h */,
-				94327E0E1BB34D6D00B5465E /* MUSStatsViewController.m */,
 				94B146B31BAD00C700A135E4 /* MUSHomeViewController.h */,
 				94B146B41BAD00C700A135E4 /* MUSHomeViewController.m */,
 				94DEB3141B8A2C1C001509C9 /* MUSAllEntriesViewController.h */,
@@ -438,7 +433,7 @@
 				TargetAttributes = {
 					9449943A1B8A1DF400A3E6CF = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 9RXLE5FXUN;
+						DevelopmentTeam = DWCYJ9H353;
 					};
 					944994561B8A1DF400A3E6CF = {
 						CreatedOnToolsVersion = 6.4;
@@ -561,7 +556,6 @@
 				944994411B8A1DF400A3E6CF /* main.m in Sources */,
 				94FE82C91BACE22A00A247CD /* NSAttributedString+MUSExtraMethods.m in Sources */,
 				943C95AB1BB4662A00047549 /* MUSColorSheet.m in Sources */,
-				94327E0F1BB34D6D00B5465E /* MUSStatsViewController.m in Sources */,
 				945BC5EF1BAF7E8F00D135D9 /* UIImage+MUSExtraMethods.m in Sources */,
 				943C95A81BB465FE00047549 /* UIColor+MUSColors.m in Sources */,
 				94B146B21BACFFD100A135E4 /* RKSwipeBetweenViewControllers.m in Sources */,
@@ -702,6 +696,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MuseApp/MuseApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -717,6 +712,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.leojkwan.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MuseApp/MuseApp-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
