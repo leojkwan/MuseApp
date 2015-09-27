@@ -29,6 +29,9 @@
 #import "NSAttributedString+MUSExtraMethods.h"
 @import Photos;
 
+
+
+
 typedef enum{
     Playing,
     NotPlaying,
@@ -200,16 +203,20 @@ typedef enum{
 
 
 -(void)playPlaylistForThisEntry {
-    if (self.destinationEntry != nil) {
+    if (self.entryType == ExistingEntry ) {
         [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
             MPMediaItemCollection *playlistCollectionForThisEntry = response;
             // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
             [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
             [self.musicPlayer.myPlayer play];
         }];
+    } else if (self.entryType == RandomSong) {
+        [self.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
+            [self.musicPlayer.myPlayer setQueueWithItemCollection:randomSong];
+            [self.musicPlayer.myPlayer play];
+        }];
     }
 }
-
 
 -(BOOL)prefersStatusBarHidden{
     return YES;

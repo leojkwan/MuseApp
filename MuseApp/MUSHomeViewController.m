@@ -92,16 +92,17 @@
 
 -(void)didSelectAddButton:(id)sender {
     NSLog(@" add");
-    
-    
     // do any setup you need for myNewVC
-    
     MUSDetailEntryViewController *addEntryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEntryVC"];
     [self.navigationController pushViewController: addEntryVC animated:YES];
 }
 
 -(void)didSelectShuffleButton:(id)sender {
     NSLog(@" shuffle");
+    MUSDetailEntryViewController *addEntryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEntryVC"];
+    addEntryVC.entryType = RandomSong;
+    [self.navigationController pushViewController: addEntryVC animated:YES];
+
 }
 
 -(void)setUpCurrentTime {
@@ -136,6 +137,8 @@
     self.greetManager = [[MUSGreetingManager alloc] initWithTimeOfDay:self.time firstName:userFirstName];
     self.greetingLabel.text = [self.greetManager usergreeting];
 }
+
+
 
 
 @end

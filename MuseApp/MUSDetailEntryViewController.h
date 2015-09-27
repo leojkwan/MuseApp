@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Entry.h"
 
+typedef enum{
+    NewEntry,
+    RandomSong,
+    ExistingEntry
+}EntryType;
+
 @protocol MUSNotificationDelegate
 -(void)displayNotificationForSongName:(NSString *)title;
 @end
@@ -17,5 +23,6 @@
 
 @property (nonatomic, strong) Entry *destinationEntry;
 @property (nonatomic, assign) id <MUSNotificationDelegate> delegate;
+@property (nonatomic, assign) EntryType entryType;
 
 @end

@@ -69,11 +69,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-//    [self.navigationController.navigationBar setTitleTextAttributes:
-//     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
-//      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
-//      NSFontAttributeName, nil]];
-    
     [self.entriesTableView reloadData];
 }
 
@@ -360,6 +355,10 @@
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
         dvc.destinationEntry = entryForThisRow;
+        if (entryForThisRow != nil)
+            dvc.entryType = ExistingEntry;
+         else
+             dvc.entryType = NewEntry;
     }
     
 }

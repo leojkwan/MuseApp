@@ -558,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPA-Py-Sjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2692" y="1224"/>
+            <point key="canvasLocation" x="2342" y="1232"/>
         </scene>
         <!--Playlist View Controller-->
         <scene sceneID="byn-GK-WCn">
