@@ -17,10 +17,10 @@ CGFloat HEIGHT = 40.0; //%%% height of the segment
 //%%% customizeable selector bar attributes (the black bar under the buttons)
 CGFloat BOUNCE_BUFFER = 10.0; //%%% adds bounce to the selection bar when you scroll
 CGFloat ANIMATION_SPEED = 0.005; //%%% the number of seconds it takes to complete the animation
-CGFloat SELECTOR_Y_BUFFER = 41.0; //%%% the y-value of the bar that shows what page you are on (0 is the top)
+CGFloat SELECTOR_Y_BUFFER = 38.0; //%%% the y-value of the bar that shows what page you are on (0 is the top)
 CGFloat SELECTOR_HEIGHT = 6.0; //%%% thickness of the selector bar
 
-CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy offset.  I'm going to look for a better workaround in the future
+CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy offset.  I'm going to look for a better workaround in the future
 
 @interface RKSwipeBetweenViewControllers ()
 @property (nonatomic) UIScrollView *pageScrollView;
@@ -73,16 +73,12 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
 
 //%%% sets up the tabs using a loop.  You can take apart the loop to customize individual buttons, but remember to tag the buttons.  (button.tag=0 and the second button.tag=1, etc)
 -(void)setupSegmentButtons {
-    
-    navigationView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.navigationBar.frame.size.width,self.navigationBar.frame.size.height + 5)];
+
     NSInteger numControllers = [viewControllerArray count];
-    pageController.navigationController.navigationBar.topItem.titleView = navigationView;
-    
-    
-    
-    
+
     UIButton *leftButton =   [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
     UIButton *rightButton =    [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    
 
     NSArray *buttonsArray = @[leftButton,rightButton];
     
@@ -103,6 +99,10 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
     
     UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightButton.frame.size.width/2, 0, 30, 30)];
     timelineImageView.image = [UIImage imageNamed:@"playlist"];
+    
+    UITapGestureRecognizer *iconTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSegmentButtonAction:)];
+    [timelineImageView addGestureRecognizer:iconTap];
+    [homeImageView addGestureRecognizer:iconTap];
     [rightButton addSubview:timelineImageView];
     
     [self setupSelector];
@@ -114,7 +114,7 @@ CGFloat X_OFFSET = 12.0; //%%% for some reason there's a little bit of a glitchy
     selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
     selectionBar.backgroundColor = [UIColor colorWithRed:0.98 green:0.75 blue:0.24 alpha:1]; //%%% sbcolor
     selectionBar.alpha = 1.0; //%%% sbalpha
-    [navigationView addSubview:selectionBar];
+    [self.navigationBar addSubview:selectionBar];
 }
 
 
