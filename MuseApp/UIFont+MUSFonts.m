@@ -19,8 +19,8 @@
     
     // PARAGRAPH FONT
     // p
-    UIFont *paragraphFont = [UIFont fontWithName:@"AvenirNext-Medium" size:18.0];
-    
+    UIFont *paragraphFont = [UIFont fontWithName:@"Avenir-Light" size:18.0];
+    UIColor *pColor = [UIColor darkGrayColor];
     NSMutableParagraphStyle* pParagraphStyle = [[NSMutableParagraphStyle alloc]init];
 
     pParagraphStyle.paragraphSpacing = 12;
@@ -28,6 +28,7 @@
     NSDictionary *pAttributes = @{
                                   NSFontAttributeName : paragraphFont,
                                   NSParagraphStyleAttributeName : pParagraphStyle,
+                                NSForegroundColorAttributeName : pColor
                                   };
     
     [attributes setObject:pAttributes forKey:@(PARA)];
@@ -49,6 +50,9 @@
     UIFont *h3Font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:17.0];
     [attributes setObject:@{NSFontAttributeName : h3Font} forKey:@(H3)];
 
+    // h4
+    UIFont *h4Font = [UIFont fontWithName:@"AvenirNext-Medium" size:17.0];
+    [attributes setObject:@{NSFontAttributeName : h4Font} forKey:@(H4)];
     
     // em
     UIFont *emFont = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:18.0];
@@ -95,7 +99,7 @@
     }
 
 +(UIFont *)returnFontsForDefaultString {
-   return [UIFont fontWithName:@"AvenirNext-Medium" size:18.0];
+   return [UIFont fontWithName:@"Avenir-Light" size:18.0];
 }
 
 @end

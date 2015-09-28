@@ -80,7 +80,7 @@ typedef enum{
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
     NSLog(@"%@", self.textView.text);
     if (self.destinationEntry == nil) {
-        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
+        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"####Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
     } else{
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
@@ -159,19 +159,13 @@ typedef enum{
 }
 
 
--(void)textViewDidChange:(UITextView *)textView
-{
-}
-
-
-
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-    NSLog(@"start");
     if (self.textView.textColor == [UIColor lightGrayColor]) {
         self.textView.textColor = [UIColor blackColor];
     }
     self.textView.text = self.destinationEntry.content;
     self.textView.font = [UIFont returnFontsForDefaultString];
+    self.textView.textColor = [UIColor darkGrayColor];
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
@@ -254,7 +248,10 @@ typedef enum{
     self.destinationEntry = newEntry;
     if (self.textView.text == nil) {
         newEntry.content = @"";
-    } else {
+    } else if (self.textView.textColor == [UIColor lightGrayColor]){
+        newEntry.content = @""; // wipe attributed placeholder text because text it not nil despite new entry
+    }
+    else {
         newEntry.content = self.textView.text;
     }
     newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
@@ -305,35 +302,92 @@ typedef enum{
         }];
     }]];
     
+    
+    
+    
     // CAMERA ROLL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
     
-        [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypePhotoLibrary withSuccessHandler:^{
-            [self presentViewController:imagePicker animated:YES completion:nil];
-        } andFailure:^{
-            UIAlertController *alertController= [UIAlertController
-                                                 alertControllerWithTitle:nil
-                                                 message:NSLocalizedString(@"You have disabled Photos access", nil)
-                                                 preferredStyle:UIAlertControllerStyleActionSheet];
-            [alertController addAction:[UIAlertAction
-                                        actionWithTitle:NSLocalizedString(@"Open Settings", @"Photos access denied: open the settings app to change privacy settings")
-                                        style:UIAlertActionStyleDefault
-                                        handler:^(UIAlertAction *action) {
-                                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-                                        }]
-             ];
-            [alertController addAction:[UIAlertAction
-                                        actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
-                                        style:UIAlertActionStyleDefault
-                                        handler:NULL]
-             ];
+        if ([AVCaptureDevice respondsToSelector:@selector(requestAccessForMediaType: completionHandler:)]) {
             
-            alertController.popoverPresentationController.sourceView = sender;
-            alertController.popoverPresentationController.sourceRect = [sender bounds];
-            [self presentViewController:alertController animated:YES completion:nil];
-        }];
+            
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                // Will get here on both iOS 7 & 8 even though camera permissions weren't required
+                // until iOS 8. So for iOS 7 permission will always be granted.
+                            
+                
+                if (granted) {
+                    // Permission has been granted. Use dispatch_async for any UI updating
+                    // code because this block may be executed in a thread.
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self presentViewController:imagePicker animated:YES completion:nil];
+                    });
+                } else {
+                    // Permission has been denied.
+                    
+                    
+                    UIAlertController *alertController= [UIAlertController
+                                                         alertControllerWithTitle:nil
+                                                         message:NSLocalizedString(@"You have disabled Photos access", nil)
+                                                         preferredStyle:UIAlertControllerStyleActionSheet];
+                    [alertController addAction:[UIAlertAction
+                                                actionWithTitle:NSLocalizedString(@"Open Settings", @"Photos access denied: open the settings app to change privacy settings")
+                                                style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction *action) {
+                                                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                                                }]
+                     ];
+                    [alertController addAction:[UIAlertAction
+                                                actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                style:UIAlertActionStyleDefault
+                                                handler:NULL]
+                     ];
+                    
+                    alertController.popoverPresentationController.sourceView = sender;
+                    alertController.popoverPresentationController.sourceRect = [sender bounds];
+                    [self presentViewController:alertController animated:YES completion:nil];
+
+                }
+            }];
+        } else {
+            // We are on iOS <= 6. Just do what we need to do.
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }
+        
+        
+        
+        
+//        
+//        
+//        
+//        [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypePhotoLibrary withSuccessHandler:^{
+//            [self presentViewController:imagePicker animated:YES completion:nil];
+//        } andFailure:^{
+//         
+//            
+//            UIAlertController *alertController= [UIAlertController
+//                                                 alertControllerWithTitle:nil
+//                                                 message:NSLocalizedString(@"You have disabled Photos access", nil)
+//                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+//            [alertController addAction:[UIAlertAction
+//                                        actionWithTitle:NSLocalizedString(@"Open Settings", @"Photos access denied: open the settings app to change privacy settings")
+//                                        style:UIAlertActionStyleDefault
+//                                        handler:^(UIAlertAction *action) {
+//                                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+//                                        }]
+//             ];
+//            [alertController addAction:[UIAlertAction
+//                                        actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+//                                        style:UIAlertActionStyleDefault
+//                                        handler:NULL]
+//             ];
+//            
+//            alertController.popoverPresentationController.sourceView = sender;
+//            alertController.popoverPresentationController.sourceRect = [sender bounds];
+//            [self presentViewController:alertController animated:YES completion:nil];
+//        }];
     }]];
-    
+
     
         
     
