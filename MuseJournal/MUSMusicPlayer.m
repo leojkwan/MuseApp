@@ -42,7 +42,7 @@
 }
 
 
--(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block {
+-(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist {
     
     self.playlistCollection = [[NSMutableArray alloc] init];
     
@@ -76,16 +76,14 @@
                 [self.playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
             } else{
                 [self.playlistCollection addObject:[NSNull null]];
-                
             }
                }
         // at this point I have an array full of the media items that I want, which is playlist collection
         
         MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
         
-        block(currentPlaylistCollection);
+        return currentPlaylistCollection;
     }
-    //else
     return nil;
 }
 

@@ -225,12 +225,12 @@
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry != nil) {
-        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
-            MPMediaItemCollection *playlistCollectionForThisEntry = response;
+//        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+            MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
             // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
             [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
             [self.musicPlayer.myPlayer play];
-        }];
+//        }];
     }
 }
 

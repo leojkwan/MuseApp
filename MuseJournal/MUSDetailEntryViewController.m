@@ -224,16 +224,16 @@ typedef enum{
     if (self.entryType == ExistingEntry ) {
         
 //         condition for null objects
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+
+        MPMediaItemCollection *collection = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
             // array of mp media items
 
-            MPMediaItemCollection *playlistCollectionForThisEntry = response;
-            // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
+
+//            // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
             int i = 0;
+//
             
-            
-            for (MPMediaItem *MPSong in playlistCollectionForThisEntry.items) {
+            for (MPMediaItem *MPSong in collection.items) {
                 Song *songForThisIndex = self.formattedPlaylistForThisEntry[i];
                 if (MPSong == [NSNull null]) {
                     UIAlertController *alertController = [UIAlertController
@@ -259,30 +259,22 @@ typedef enum{
                                                handler:^(UIAlertAction *action)
                                                {
                                                    NSLog(@"OK action");
-                                                
-                                                     [self.destinationEntry removeSongsObject:self.formattedPlaylistForThisEntry[i]];
-                                                   [self.store save];
-                                               }];
-                    
+                                                                                                  }];
                     [alertController addAction:okAction];
                     // present alert if there are null songs
                     [self presentViewController:alertController animated:YES completion:nil];
+
                     // delete null song from core data
-                  
+                    [self.destinationEntry removeSongsObject:self.formattedPlaylistForThisEntry[i]];
+                    [self.store save];
                 } //  end of if statment
                 i++; // next song
             } // end of for loop
-
-            [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] withCompletionBlock:^(MPMediaItemCollection *response) {
-                [self.musicPlayer.myPlayer setQueueWithItemCollection:response];
+//
+//            
+        MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
+                [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
                 [self.musicPlayer.myPlayer play];
-
-            }];
-
-        }]; // end of ns operation queue
-        
-        
-         }];
     }
 
     // RANDOM SONG
@@ -467,7 +459,7 @@ typedef enum{
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         [self.musicPlayer checkIfSongIsInLocalLibrary:currentSong withCompletionBlock:^(BOOL local) {
             if (local) {
-                for (Song *song in self.formattedPlaylistForThisEntry) {
+                for (Song *song in  [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]) {
                     NSString *currentTrack = [self.musicPlayer.myPlayer nowPlayingItem].title;
                     if ([currentTrack isEqualToString: song.songName]) {
                         self.musicPlayerStatus = AlreadyPinned;
@@ -513,10 +505,10 @@ typedef enum{
         [self.destinationEntry addSongsObject:pinnedSong];
         
         // reset the collection array
-        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
-            MPMediaItemCollection *playlistCollectionForThisEntry = response;
+//        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+        MPMediaItemCollection *playlistCollectionForThisEntry =  [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
             [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-        }];
+//        }];
         // Save to Core Data
         [self.store save];
     }
