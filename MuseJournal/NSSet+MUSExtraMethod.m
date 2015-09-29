@@ -12,11 +12,9 @@
 @implementation NSSet (MUSExtraMethod)
 
 +(NSMutableArray *)convertPlaylistArrayFromSet:(NSSet *)set {
-    
         NSArray *playlistArrayForThisEntry = [[set allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinnedAt" ascending:YES]]];
     
     return [playlistArrayForThisEntry mutableCopy];
-    
 }
 
 

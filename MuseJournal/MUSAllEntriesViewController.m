@@ -263,11 +263,6 @@
 
     // Present action sheet.
     
-//    
-//    NSIndexPath *selectedIndexPath = [self.entriesTableView indexPathForSelectedRow];
-//    UITableViewCell *cell = [self.entriesTableView cellForRowAtIndexPath:selectedIndexPath];
-
-    
     actionSheet.popoverPresentationController.sourceView = cell;
     actionSheet.popoverPresentationController.sourceRect = [cell bounds];
     [self presentViewController:actionSheet animated:YES completion:^{

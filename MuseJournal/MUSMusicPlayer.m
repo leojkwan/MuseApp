@@ -50,19 +50,35 @@
         
         for (Song *song in playlist) {
             
-            MPMediaPropertyPredicate *persistentIDPredicate =
-            [MPMediaPropertyPredicate predicateWithValue:song.persistentID
-                                             forProperty:MPMediaItemPropertyPersistentID];
-
+            //            MPMediaPropertyPredicate *persistentIDPredicate =
+            //            [MPMediaPropertyPredicate predicateWithValue:song.persistentID
+            //                                             forProperty:MPMediaItemPropertyPersistentID];
+            //
+            MPMediaPropertyPredicate *songArtistPredicate =
+            [MPMediaPropertyPredicate predicateWithValue:song.artistName
+                                             forProperty:MPMediaItemPropertyArtist];
+            
+            MPMediaPropertyPredicate *trackNamePredicate =
+            [MPMediaPropertyPredicate predicateWithValue:song.songName
+                                             forProperty:MPMediaItemPropertyTitle];
+            
             MPMediaQuery *songAndArtistQuery = [ [MPMediaQuery alloc] init];
-            [songAndArtistQuery addFilterPredicate:persistentIDPredicate];
+            [songAndArtistQuery addFilterPredicate:songArtistPredicate];
+            [songAndArtistQuery addFilterPredicate:trackNamePredicate];
             
             // Store the queried MPMediaItems in an NSArray
             NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];
             
             // add MPMediaItems into MPMediaCollection
-            [self.playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
-        }
+            
+            if (resultingMediaItemFromQuery.count != 0) {
+                
+                [self.playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
+            } else{
+                [self.playlistCollection addObject:[NSNull null]];
+                
+            }
+               }
         // at this point I have an array full of the media items that I want, which is playlist collection
         
         MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
@@ -74,6 +90,13 @@
 }
 
 
+
+
+
+
+
+
+
 -(void)returnRandomSongInLibraryWithCompletionBlock:(void (^)(MPMediaItemCollection *))block {
     MPMediaQuery *allSongsQuery = [ [MPMediaQuery alloc] init];
     NSArray *resultingMediaItemFromQuery = [allSongsQuery items];
@@ -83,13 +106,13 @@
     block(currentPlaylistCollection);
 }
 
--(void)checkIfSongIsInLocalLibrary:(MPMediaEntityPersistentID)persistentID withCompletionBlock:(void (^) (BOOL)) completionBlock {
+-(void)checkIfSongIsInLocalLibrary:(Song *)song withCompletionBlock:(void (^) (BOOL)) completionBlock {
     
     MPMediaQuery *everything = [[MPMediaQuery alloc] init];
     NSArray *allSongs = [everything items];
-
-    for (MPMediaItem *song in allSongs) {
-        if (song.persistentID == persistentID) {
+    
+    for (MPMediaItem *localSong in allSongs) {
+        if ([song.artistName isEqualToString:localSong.artist] && [song.songName isEqualToString:localSong.title]) {
             completionBlock(YES);
             return;
         }
