@@ -1,1 +1,0 @@
-APPARALLAXHEADER_OTHER_LDFLAGS = -framework "QuartzCore"

@@ -1,1 +1,0 @@
-../../../FCVerticalMenu/Pod/Classes/FCVerticalMenuItemCollectionViewCell.h
