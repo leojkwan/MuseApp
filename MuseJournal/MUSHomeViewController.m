@@ -144,6 +144,9 @@
     self.greetingLabel.text = [self.greetManager usergreeting];
 }
 
+- (IBAction)settingButtonTapped:(id)sender {
+    
+}
 
 
 

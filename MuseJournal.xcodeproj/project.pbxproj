@@ -63,6 +63,8 @@
 		94B3140D1BBAF88200ECB1AD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313F31BBAF88200ECB1AD /* ViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */; settings = {ASSET_TAGS = (); }; };
 		94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B314101BBAF97A00ECB1AD /* MUSActionView.xib */; settings = {ASSET_TAGS = (); }; };
+		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +192,10 @@
 		94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSActionView.h; sourceTree = SOURCE_ROOT; };
 		94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSActionView.m; sourceTree = SOURCE_ROOT; };
 		94B314101BBAF97A00ECB1AD /* MUSActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MUSActionView.xib; sourceTree = SOURCE_ROOT; };
+		94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSettingsTableViewController.h; sourceTree = "<group>"; };
+		94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSettingsTableViewController.m; sourceTree = "<group>"; };
+		94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTellAFriend.h; sourceTree = "<group>"; };
+		94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTellAFriend.m; sourceTree = "<group>"; };
 		FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -244,6 +250,8 @@
 		941EFBF41BB9FB9C00D70257 /* MuseJournal */ = {
 			isa = PBXGroup;
 			children = (
+				94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */,
+				94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */,
 				946EB8781BBA039E0067CDC2 /* Views */,
 				94775DFC1BB9FF42004ABF0A /* View Controllers */,
 				94775DE31BB9FF25004ABF0A /* Models */,
@@ -406,6 +414,8 @@
 		94775DFC1BB9FF42004ABF0A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */,
+				94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -626,6 +636,7 @@
 				94B313FF1BBAF88200ECB1AD /* MUSPlaylistViewController.m in Sources */,
 				94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */,
 				94B313A51BBAF85100ECB1AD /* MUSSongTableViewCell.m in Sources */,
+				94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */,
 				94B3137B1BBAF84900ECB1AD /* TestViewController.m in Sources */,
 				94B313C21BBAF86A00ECB1AD /* Entry+ExtraMethods.m in Sources */,
 				94B3137D1BBAF84900ECB1AD /* UIColor+MUSColors.m in Sources */,
@@ -635,6 +646,7 @@
 				94B313A01BBAF85100ECB1AD /* MUSImagelessEntryCell.m in Sources */,
 				94B3137C1BBAF84900ECB1AD /* UIButton+ExtraMethods.m in Sources */,
 				941EFBF71BB9FB9C00D70257 /* main.m in Sources */,
+				94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */,
 				94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */,
 				94B314061BBAF88200ECB1AD /* Song+CoreDataProperties.m in Sources */,
 				94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */,
