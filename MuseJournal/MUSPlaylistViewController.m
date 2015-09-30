@@ -32,7 +32,6 @@
 
 
 - (void)viewDidLoad {
-    NSLog(@"DVC loaded");
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
@@ -118,7 +117,7 @@
     if (self.playlistForThisEntry.count == 0) {
         [self.playbackButtonStatus setEnabled:NO];
     } else{
-        [self.playbackButtonStatus setEnabled:NO];
+        [self.playbackButtonStatus setEnabled:YES];
 
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
@@ -165,6 +164,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Number of rows is the number of time zones in the region for the specified section.
     return self.playlistForThisEntry.count;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+        return 80;
 }
 
 
@@ -224,9 +228,8 @@
         
         // Save to Core Data
         [self.store save];
-        
-        
         [self.playlistTableView reloadData];
+        [self updateButtonStatus];
     }
 }
 
