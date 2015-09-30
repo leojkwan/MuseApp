@@ -9,9 +9,13 @@
 
 #import "RKSwipeBetweenViewControllers.h"
 #import "UIButton+ExtraMethods.h"
+#import "UIImageView+ExtraMethods.h"
+
+
+
 //%%% customizeable button attributes
 CGFloat X_BUFFER = 0.0; //%%% the number of pixels on either side of the segment
-CGFloat Y_BUFFER = 5.0; //%%% number of pixels on top of the segment
+CGFloat Y_BUFFER = 8.0; //%%% number of pixels on top of the segment
 CGFloat HEIGHT = 40.0; //%%% height of the segment
 
 //%%% customizeable selector bar attributes (the black bar under the buttons)
@@ -96,17 +100,17 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     leftButton.tag = 0;
     rightButton.tag = 1;
     
-    UIImageView *homeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 30, 30)];
+    UIImageView *homeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 25, 25)];
     homeImageView.image = [UIImage imageNamed:@"home"];
     [leftButton addSubview:homeImageView];
     
-    UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightButton.frame.size.width/2, 0, 30, 30)];
+    UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightButton.frame.size.width/2, 0, 25, 25)];
 
-    timelineImageView.image = [UIImage imageNamed:@"playlist"];
-
-    timelineImageView.image = [timelineImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [timelineImageView setTintColor:[UIColor whiteColor]];
-
+    timelineImageView.image = [UIImage imageNamed:@"note"];
+    
+    [homeImageView setImageToColorTint:[UIColor whiteColor]];
+    [timelineImageView setImageToColorTint:[UIColor whiteColor]];
+    
     
     UITapGestureRecognizer *iconTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSegmentButtonAction:)];
     [timelineImageView addGestureRecognizer:iconTap];

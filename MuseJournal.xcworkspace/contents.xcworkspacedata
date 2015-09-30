@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:MuseJournal/UIImageView+ExtraMethods.h">
+   </FileRef>
+   <FileRef
+      location = "group:MuseJournal/UIImageView+ExtraMethods.m">
+   </FileRef>
+   <FileRef
       location = "group:/Users/leokwan/Development/Projects/MuseApp/Muse.xcodeproj">
    </FileRef>
    <FileRef
