@@ -23,11 +23,12 @@
 @interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate, ActionViewDelegate, SKStoreProductViewControllerDelegate, SKPaymentTransactionObserver>
 
 
+@property (nonatomic,assign) TimeOfDay time;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *greetingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (nonatomic,assign) TimeOfDay time;
-
 @property (strong, nonatomic) MUSColorSheet* colorStore;
 @property (strong, nonatomic) MUSTimeFetcher* timeManager;
 @property (strong, nonatomic) MUSGreetingManager* greetManager;
@@ -234,7 +235,7 @@
     self.timeManager = [[MUSTimeFetcher alloc] init];
     self.timeManager.delegate = self;
     self.time = self.timeManager.timeOfDay;
-    self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
+    self.dateLabel.text = [NSString stringWithFormat:@"It's %@.", [[NSDate date] returnDayMonthDateFromDate]    ];
     [self presentGreeting];
 }
 
