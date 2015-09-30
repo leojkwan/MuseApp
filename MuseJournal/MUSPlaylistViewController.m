@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
+@property (strong, nonatomic) IBOutlet UIView *contentView;
 
 
 @end
@@ -47,6 +48,8 @@
         self.artworkImagesForThisEntry = artworkImages;
     }];
     
+    UITapGestureRecognizer *viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
+//    [self.contentView addGestureRecognizer:viewTap];
 }
 
 

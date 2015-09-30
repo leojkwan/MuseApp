@@ -57,9 +57,9 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     [self.pageScrollView setBounces:NO];
     [self.pageScrollView setBouncesZoom:NO];
     self.
-    self.navigationBar.barTintColor = [UIColor darkGrayColor]; // adjust status bar color
+    self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
-    self.navigationBar.backgroundColor = [UIColor darkGrayColor];
+//    self.navigationBar.backgroundColor = [UIColor darkGrayColor];
     
     viewControllerArray = [[NSMutableArray alloc]init];
     self.currentPageIndex = 0;
@@ -108,8 +108,8 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 
     timelineImageView.image = [UIImage imageNamed:@"note"];
     
-    [homeImageView setImageToColorTint:[UIColor whiteColor]];
-    [timelineImageView setImageToColorTint:[UIColor whiteColor]];
+    [homeImageView setImageToColorTint:[UIColor colorWithHue:0 saturation:0 brightness:0.2 alpha:1]];
+    [timelineImageView setImageToColorTint:[UIColor colorWithHue:0 saturation:0 brightness:0.2 alpha:1]];
     
     
     UITapGestureRecognizer *iconTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSegmentButtonAction:)];

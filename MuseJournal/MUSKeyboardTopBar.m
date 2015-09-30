@@ -128,32 +128,42 @@
 #pragma mark - Create Buttons
 
 -(UIBarButtonItem *)makeTitleButton {
-    UIButton* makeTitleButton = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 35, 25)];
-    [makeTitleButton addTarget:self action:@selector(titleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [makeTitleButton setBackgroundImage:[UIImage imageNamed:@"title"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem *makeTitleBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:makeTitleButton];
-    return makeTitleBarButtonItem;
+    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 25)];
+    titleView.image = [UIImage imageNamed:@"title"];
+    [titleView setImageToColorTint:BUTTON_COLOR];
+    titleView.contentMode = UIViewContentModeScaleAspectFit;
+    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleButtonPressed:)];
+    [titleView addGestureRecognizer:titleTap];
+    UIBarButtonItem *titleBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:titleView];
+    return titleBarButtonItem;
 }
 
 
 -(UIBarButtonItem *)cameraButton {
+    
+//    UIButton* cameraButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
+//    [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
+//    
+//    UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:cameraButton];
+//    return cameraBarButtonItem;
+//    
+    
+    UIImageView *coolCameraImageView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
 
-    UIImageView *cameraImageView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
-    cameraImageView.image = [UIImage imageNamed:@"addImage"];
-    [cameraImageView setImageToColorTint:BUTTON_COLOR];
-    cameraImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    UITapGestureRecognizer *cameraTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonPressed:)];
-    [cameraImageView addGestureRecognizer:cameraTap];
-    
-    UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: cameraImageView];
-    return cameraBarButtonItem;
+    coolCameraImageView.image = [UIImage imageNamed:@"addImage"];
+    [coolCameraImageView setImageToColorTint:BUTTON_COLOR];
+    coolCameraImageView.contentMode = UIViewContentModeScaleAspectFit;
+    UITapGestureRecognizer *cameraTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraButtonPressed)];
+    [coolCameraImageView addGestureRecognizer:cameraTap];
+    UIBarButtonItem *coolCameraBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:coolCameraImageView];
+    self.cameraBarButtonItem = coolCameraBarButtonItem;
+    return coolCameraBarButtonItem;
 }
 
 -(UIBarButtonItem *)backButton {
 
-    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     backImageView.image = [UIImage imageNamed:@"back"];
     [backImageView setImageToColorTint:BUTTON_COLOR];
     backImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -168,23 +178,29 @@
 
 
 -(UIBarButtonItem *)playlistButton {
-    UIButton* seePlaylistButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-    [seePlaylistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"playlist"] forState:UIControlStateNormal];
+    UIImageView *playlistView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+    playlistView.image = [UIImage imageNamed:@"playlist"];
+    [playlistView setImageToColorTint:BUTTON_COLOR];
+    playlistView.contentMode = UIViewContentModeScaleAspectFit;
     
-    // set up camera bar button
-    UIBarButtonItem *seePlaylistBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:seePlaylistButton];
-    return seePlaylistBarButtonItem;
+    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seePlaylistButtonPressed:)];
+    [playlistView addGestureRecognizer:pinTap];
+    
+    UIBarButtonItem *playlistBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playlistView];
+    return playlistBarButtonItem;
 }
 
 -(UIBarButtonItem *)pinSongButton {
+    UIImageView *pinSongView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+    pinSongView.image = [UIImage imageNamed:@"pinSong"];
+    [pinSongView setImageToColorTint:BUTTON_COLOR];
+    pinSongView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UIButton* addSongButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-    [addSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [addSongButton setBackgroundImage:[UIImage imageNamed:@"addToPlaylist"] forState:UIControlStateNormal];
+    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pinSongButtonPressed:)];
+    [pinSongView addGestureRecognizer:pinTap];
     
-    UIBarButtonItem *addSongBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:addSongButton];
-    return addSongBarButtonItem;
+    UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongView];
+    return pinSongButtonItem;
 }
 
 
@@ -203,7 +219,6 @@
     
     // set up done bar button
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
-    
     return doneBarButtonItem;
 }
 
@@ -240,8 +255,8 @@
 }
 
 #pragma mark - Button Pressed methods
--(void)cameraButtonPressed:(id)sender{
+-(void)cameraButtonPressed{
     NSLog(@"cameraButtonPressed");
-    [self.delegate didSelectCameraButton:sender];
+    [self.delegate didSelectCameraButton];
 }
 @end

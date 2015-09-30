@@ -136,8 +136,8 @@ typedef enum{
 
 
 #pragma mark  - Keyboard delegate methods
--(void)didSelectCameraButton:(id)sender {
-    [self selectPhoto:sender];
+-(void)didSelectCameraButton {
+    [self selectPhoto];
 }
 -(void)didSelectDoneButton:(id)sender {
     [self saveButtonTapped:sender];
@@ -364,7 +364,7 @@ typedef enum{
 #pragma mark - button pressed methods
 
 
--(void)selectPhoto:(id)sender {
+-(void)selectPhoto{
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
@@ -404,8 +404,8 @@ typedef enum{
                                         style:UIAlertActionStyleDefault
                                         handler:NULL]
              ];
-            alertController.popoverPresentationController.sourceView = sender;
-            alertController.popoverPresentationController.sourceRect = [sender bounds];
+//            alertController.popoverPresentationController.sourceView = sender;
+//            alertController.popoverPresentationController.sourceRect = [sender bounds];
             [self presentViewController:alertController animated:YES completion:nil];
         }];
         
@@ -437,15 +437,15 @@ typedef enum{
                                         style:UIAlertActionStyleDefault
                                         handler:NULL]
              ];
-            alertController.popoverPresentationController.sourceView = sender;
-            alertController.popoverPresentationController.sourceRect = [sender bounds];
+            alertController.popoverPresentationController.barButtonItem = self.MUSToolBar.cameraBarButtonItem;
+//            alertController.popoverPresentationController.sourceRect = [sender bounds];
             [self presentViewController:alertController animated:YES completion:nil];
         }];
     }]];
     
     // present action sheet
-    actionSheet.popoverPresentationController.sourceView = sender;
-    actionSheet.popoverPresentationController.sourceRect = [sender bounds];
+    actionSheet.popoverPresentationController.barButtonItem = self.MUSToolBar.cameraBarButtonItem;
+//    actionSheet.popoverPresentationController.sourceRect = [sender bounds];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
