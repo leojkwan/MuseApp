@@ -27,36 +27,6 @@
                                             withAnimation:UIStatusBarAnimationNone];
     
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [_window makeKeyAndVisible];
-    
-    // Added Introduction View Controller
-    NSArray *coverImageNames = @[@"img_index_01txt", @"img_index_02txt", @"img_index_03txt"];
-    NSArray *backgroundImageNames = @[@"img_index_01bg", @"img_index_02bg", @"img_index_03bg"];
-    self.introductionView = [[ZWIntroductionViewController alloc] initWithCoverImageNames:coverImageNames backgroundImageNames:backgroundImageNames];
-    
-    // Example 2
-    //    UIButton *enterButton = [UIButton new];
-    //    [enterButton setBackgroundImage:[UIImage imageNamed:@"bg_bar"] forState:UIControlStateNormal];
-    //    self.introductionView = [[ZWIntroductionViewController alloc] initWithCoverImageNames:coverImageNames backgroundImageNames:backgroundImageNames button:enterButton];
-    
-    [self.window addSubview:self.introductionView.view];
-    
-    __weak AppDelegate *weakSelf = self;
-    self.introductionView.didSelectedEnter = ^() {
-        [weakSelf.introductionView.view removeFromSuperview];
-        weakSelf.introductionView = nil;
-        
-        // enter main view , write your code ...
-        ViewController *mainVC = [[ViewController alloc] init];
-        weakSelf.window.rootViewController = mainVC;
-        
-
-    
-    
-    
-    
     // system font color
     NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:systemFontColor forState:UIControlStateNormal];
