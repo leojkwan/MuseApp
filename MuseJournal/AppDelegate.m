@@ -23,9 +23,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES
-//                                            withAnimation:UIStatusBarAnimationNone];
-//
+    [[UIApplication sharedApplication] setStatusBarHidden:YES
+                                            withAnimation:UIStatusBarAnimationNone];
+    
     
     // system font color
     NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -43,9 +43,11 @@
     
         MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
         MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
+    
         [navigationController.viewControllerArray addObjectsFromArray:@[home, entries]];
         self.window.rootViewController = navigationController;
         [self.window makeKeyAndVisible];
+    
 
     // username First Name
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
