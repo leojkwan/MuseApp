@@ -114,10 +114,17 @@
 #pragma mark - music notifications and handling
 
 - (void)updateButtonStatus {
+    
+    if (self.playlistForThisEntry.count == 0) {
+        [self.playbackButtonStatus setEnabled:NO];
+    } else{
+        [self.playbackButtonStatus setEnabled:NO];
+
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
     } else {
         [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
+    }
     }
 }
 
