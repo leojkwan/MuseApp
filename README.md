@@ -9,6 +9,8 @@ Muse is an iOS journaling app with music pinning capabilities. While writing an 
 When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-at-flatiron/) into an iOS summer program in NYC, I connected Muse to the Parse SDK as my primary storage for entries, and photos.
 
 
+##Screenshots
+
 
 
 ##Frameworks Used
