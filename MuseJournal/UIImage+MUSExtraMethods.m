@@ -20,12 +20,12 @@
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return image;
 }
 
--(void)makeImageTemplate{
-    [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-}
+
+
+
+
 
 @end

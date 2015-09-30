@@ -52,6 +52,7 @@
 //
 -(void)viewDidLoad {
     [super viewDidLoad];
+
     self.scrollView.delegate = self;
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
