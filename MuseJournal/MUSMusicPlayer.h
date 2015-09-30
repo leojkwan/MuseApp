@@ -19,9 +19,9 @@
 
 
 -(instancetype)init;
--(void *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist withCompletionBlock:(void (^)(MPMediaItemCollection *))block;
+-(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist;
 -(void)loadPlaylistArtworkForThisEntryWithCompletionBlock:(void (^)(NSMutableArray *))block;
--(void)checkIfSongIsInLocalLibrary:(MPMediaEntityPersistentID)persistentID withCompletionBlock:(void (^) (BOOL)) completionBlock;
+-(void)checkIfSongIsInLocalLibrary:(Song *)song withCompletionBlock:(void (^) (BOOL)) completionBlock;
 -(void)returnRandomSongInLibraryWithCompletionBlock:(void (^)(MPMediaItemCollection *))block;
 
 @end

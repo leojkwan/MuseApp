@@ -36,7 +36,7 @@ typedef enum{
     AlreadyPinned
 }PlayerStatus;
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate>
 
 @property (nonatomic,assign) PlayerStatus musicPlayerStatus;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -55,6 +55,7 @@ typedef enum{
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.store = [MUSDataStore sharedDataStore];
     
     //Convert entry NSSet into appropriate MutableArray
@@ -80,7 +81,7 @@ typedef enum{
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"####Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
     } else{
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     }
     [self checkSizeOfContentForTextView:self.textView];
     
@@ -193,21 +194,98 @@ typedef enum{
 }
 
 
+- (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.MUSToolBar setHidden:NO];
+    
+    NSLog(@"dismiss media picker");
+}
+
+
+
+
+
+- (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
+    // this collection will have one mpmedia item and we need to put it in
+    MPMediaItem *selectedItem = mediaItemCollection.items[0];
+    Song *pickedSong = [Song initWithTitle:selectedItem.title artist:selectedItem.artist genre:selectedItem.genre album:selectedItem.albumTitle inManagedObjectContext:self.store.managedObjectContext];
+    [self.destinationEntry addSongsObject:pickedSong];
+    [self.store save];
+    //    [self.MUSToolBar setHidden:NO];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    [self playPlaylistForThisEntry];
+}
+
+
+
 -(void)playPlaylistForThisEntry {
+    
     if (self.entryType == ExistingEntry ) {
-        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
-            MPMediaItemCollection *playlistCollectionForThisEntry = response;
-            // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
-            [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-            [self.musicPlayer.myPlayer play];
-        }];
-    } else if (self.entryType == RandomSong) {
+        
+//         condition for null objects
+
+        MPMediaItemCollection *collection = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
+            // array of mp media items
+
+
+//            // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
+            int i = 0;
+//
+            
+            for (MPMediaItem *MPSong in collection.items) {
+                Song *songForThisIndex = self.formattedPlaylistForThisEntry[i];
+                if (MPSong == [NSNull null]) {
+                    UIAlertController *alertController = [UIAlertController
+                                                          alertControllerWithTitle:@"Oops!"
+                                                          message: [NSString stringWithFormat: @"We can't find '%@' by %@ in your library!", songForThisIndex.songName, songForThisIndex.artistName]
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+//              
+//                    
+//                    UIAlertAction *findSongAction = [UIAlertAction
+//                                                     actionWithTitle:NSLocalizedString(@"Find Another Song", @"Find Song")
+//                                                     style:UIAlertActionStyleDefault
+//                                                     handler:^(UIAlertAction *action)
+//                                                     {
+//                                                         MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
+//                                                         picker.delegate = self;
+//                                                         picker.allowsPickingMultipleItems= NO;
+//                                                         [self.navigationController pushViewController:picker animated:YES];
+//                                                     }];
+                    
+                    UIAlertAction *okAction = [UIAlertAction
+                                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                               style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction *action)
+                                               {
+                                                   NSLog(@"OK action");
+                                                                                                  }];
+                    [alertController addAction:okAction];
+                    // present alert if there are null songs
+                    [self presentViewController:alertController animated:YES completion:nil];
+
+                    // delete null song from core data
+                    [self.destinationEntry removeSongsObject:self.formattedPlaylistForThisEntry[i]];
+                    [self.store save];
+                } //  end of if statment
+                i++; // next song
+            } // end of for loop
+//
+//            
+        MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
+                [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
+                [self.musicPlayer.myPlayer play];
+    }
+
+    // RANDOM SONG
+    else if (self.entryType == RandomSong) {
         [self.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
             [self.musicPlayer.myPlayer setQueueWithItemCollection:randomSong];
             [self.musicPlayer.myPlayer play];
         }];
     }
 }
+
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
@@ -294,7 +372,7 @@ typedef enum{
     imagePicker.allowsEditing = YES;
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-
+    
     
     // CANCEL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -305,9 +383,9 @@ typedef enum{
     
     // CAMERA ROLL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypePhotoLibrary withSuccessHandler:^{
-                        [self presentViewController:imagePicker animated:YES completion:nil];
+            [self presentViewController:imagePicker animated:YES completion:nil];
             NSLog(@"success!");
         } andFailure:^{
             UIAlertController *alertController= [UIAlertController
@@ -332,11 +410,11 @@ typedef enum{
         }];
         
     }]];
-
+    
     
     // TAKE PHOTO
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-      
+        
         // ask for permission
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypeCamera withSuccessHandler:^{
@@ -376,15 +454,12 @@ typedef enum{
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }
 
--(void)getSongPlayingStatus {
+-(void)getSongPlayingStatusForSong:(Song *)currentSong {
+    
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        
-        MPMediaEntityPersistentID songPersistentNumber = [self.musicPlayer.myPlayer nowPlayingItem].persistentID;
-        
-        [self.musicPlayer checkIfSongIsInLocalLibrary:songPersistentNumber withCompletionBlock:^(BOOL local) {
+        [self.musicPlayer checkIfSongIsInLocalLibrary:currentSong withCompletionBlock:^(BOOL local) {
             if (local) {
-                
-                for (Song *song in self.formattedPlaylistForThisEntry) {
+                for (Song *song in  [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]) {
                     NSString *currentTrack = [self.musicPlayer.myPlayer nowPlayingItem].title;
                     if ([currentTrack isEqualToString: song.songName]) {
                         self.musicPlayerStatus = AlreadyPinned;
@@ -403,20 +478,24 @@ typedef enum{
 
 
 -(void)pinSongButtonPressed:id {
-    [self getSongPlayingStatus];
+    
+    // Create managed object on CoreData
+    MPMediaItem *currentSong = [self.musicPlayer.myPlayer nowPlayingItem];
+    Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
+    
+    [self getSongPlayingStatusForSong:pinnedSong];
     
     if (self.musicPlayerStatus == Playing) {
         if(self.destinationEntry == nil){
             [self createNewEntry];
             self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
         }
-        // Create managed object on CoreData
-        MPMediaItem *currentSong = [self.musicPlayer.myPlayer nowPlayingItem];
-        Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
         
         // convert long long to nsnumber
         NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+        NSLog(@"%@" , songPersistentNumber) ;
         pinnedSong.persistentID = songPersistentNumber;
+        
         pinnedSong.pinnedAt = [NSDate date];
         pinnedSong.entry = self.destinationEntry;
         
@@ -426,10 +505,10 @@ typedef enum{
         [self.destinationEntry addSongsObject:pinnedSong];
         
         // reset the collection array
-        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
-            MPMediaItemCollection *playlistCollectionForThisEntry = response;
+//        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+        MPMediaItemCollection *playlistCollectionForThisEntry =  [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
             [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-        }];
+//        }];
         // Save to Core Data
         [self.store save];
     }
@@ -482,7 +561,8 @@ typedef enum{
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
-        dvc.playlistForThisEntry = self.formattedPlaylistForThisEntry;
+        dvc.playlistForThisEntry =[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
+        ;
         dvc.musicPlayer = self.musicPlayer;
         
         

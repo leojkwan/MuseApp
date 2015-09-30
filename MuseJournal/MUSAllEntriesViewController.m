@@ -262,9 +262,12 @@
     }]];
 
     // Present action sheet.
-//    actionSheet.popoverPresentationController.sourceView = self.view;
-//    actionSheet.popoverPresentationController.sourceRect = [self.view bounds];
-    [self presentViewController:actionSheet animated:YES completion:nil];
+    
+    actionSheet.popoverPresentationController.sourceView = cell;
+    actionSheet.popoverPresentationController.sourceRect = [cell bounds];
+    [self presentViewController:actionSheet animated:YES completion:^{
+    }];
+    
 }
 
 
