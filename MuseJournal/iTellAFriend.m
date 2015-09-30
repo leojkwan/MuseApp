@@ -351,7 +351,17 @@ static NSString *const iTellAFriendGiftiOSiTunesURLFormat = @"https://buy.itunes
         NSError *error = nil;
         NSURLResponse *response = nil;
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:iTunesServiceURL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:REQUEST_TIMEOUT];
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        
+        [[session dataTaskWithRequest:request
+                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                        
+                        // do stuff
+                        
+        
+//        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
         if (data)
         {
             
@@ -426,7 +436,7 @@ static NSString *const iTellAFriendGiftiOSiTunesURLFormat = @"https://buy.itunes
                                 [defaults setObject:sellerName forKey:iTellAFriendAppSellerNameKey];
                             }
                         }
-                    });
+        });
                     
                     [defaults setObject:applicationKey forKey:iTellAFriendAppKey];
                     ITELLLog(@"Loaded apple id information %@", self.applicationKey);
@@ -436,6 +446,9 @@ static NSString *const iTellAFriendGiftiOSiTunesURLFormat = @"https://buy.itunes
                 ITELLLog(@"Unable to find apple id %@", self.applicationKey);
             }
         }
+                        
+                    }] resume];
+
     }
 }
 

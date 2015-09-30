@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
+    [self prefersStatusBarHidden];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -53,6 +53,7 @@
         if ([[iTellAFriend sharedInstance] canTellAFriend]) {
             UINavigationController* tellAFriendController = [[iTellAFriend sharedInstance] tellAFriendController];
             [self presentViewController:tellAFriendController animated:YES completion:nil];
+
         }
     } else if (indexPath.row == 7) {
         [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
