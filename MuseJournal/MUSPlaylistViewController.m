@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIImageView *blurView;
+@property (weak, nonatomic) IBOutlet UIView *playerView;
 
 
 @end
@@ -45,6 +46,9 @@
     [self loadUILabels];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
+    
+    
+    self.playerView.layer.cornerRadius = 5;
     
     
     [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
