@@ -55,6 +55,7 @@
 		94B3140C1BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313F11BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */; settings = {ASSET_TAGS = (); }; };
 		94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B314101BBAF97A00ECB1AD /* MUSActionView.xib */; settings = {ASSET_TAGS = (); }; };
+		94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */; };
@@ -170,6 +171,8 @@
 		94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSActionView.h; path = MuseJournal/MUSActionView.h; sourceTree = SOURCE_ROOT; };
 		94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSActionView.m; path = MuseJournal/MUSActionView.m; sourceTree = SOURCE_ROOT; };
 		94B314101BBAF97A00ECB1AD /* MUSActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSActionView.xib; path = MuseJournal/MUSActionView.xib; sourceTree = SOURCE_ROOT; };
+		94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ExtraMethods.h"; path = "MuseJournal/UIImage+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ExtraMethods.m"; path = "MuseJournal/UIImage+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
 		94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSettingsTableViewController.h; sourceTree = "<group>"; };
 		94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSettingsTableViewController.m; sourceTree = "<group>"; };
 		94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTellAFriend.h; sourceTree = "<group>"; };
@@ -387,6 +390,8 @@
 				94B313ED1BBAF88200ECB1AD /* UIFont+MUSFonts.m */,
 				94B313F01BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.h */,
 				94B313F11BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m */,
+				94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */,
+				94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */,
 				94B313E61BBAF88200ECB1AD /* Song+MUSExtraMethods.h */,
 				94B313E71BBAF88200ECB1AD /* Song+MUSExtraMethods.m */,
 				94B313DA1BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.h */,
@@ -645,6 +650,7 @@
 				94B3140C1BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m in Sources */,
 				94B314081BBAF88200ECB1AD /* UIButton+ExtraMethods.m in Sources */,
 				941F25151BBC388F008C8120 /* MUSGreetingManager.m in Sources */,
+				94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */,
 				94B314011BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.m in Sources */,
 				94B314051BBAF88200ECB1AD /* Song.m in Sources */,
 				941F25471BBC4A71008C8120 /* MUSSongTableViewCell.m in Sources */,

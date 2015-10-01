@@ -12,6 +12,8 @@
 #import "MUSSongTableViewCell.h"
 #import <Masonry.h>
 #import "MUSIconAnimation.h"
+#import "UIImage+ExtraMethods.h"
+
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -25,6 +27,7 @@
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIImageView *blurView;
 
 
 @end
@@ -50,7 +53,7 @@
     
     UITapGestureRecognizer *viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
 //    [self.contentView addGestureRecognizer:viewTap];
-}
+ }
 
 
 
