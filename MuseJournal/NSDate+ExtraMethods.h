@@ -11,7 +11,7 @@
 @interface NSDate (ExtraMethods)
 
 -(NSString *)returnMonthAndYear;
-
+-(NSString *)returnMonthDateAndYear;
 -(NSString *)returnDayMonthDateFromDate;
 
 

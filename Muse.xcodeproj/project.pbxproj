@@ -327,7 +327,6 @@
 				94CD1C841BBA008E00934769 /* Delegate Helpers */,
 				94CD1C731BBA007700934769 /* Categories */,
 				946EB84A1BBA00E90067CDC2 /* Custom Cells */,
-				94CD1C5D1BBA005D00934769 /* Datastore/ DataModel */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -365,14 +364,6 @@
 				941F25481BBC4A8D008C8120 /* MuseApp.xcdatamodeld */,
 			);
 			name = "Managed Objects";
-			sourceTree = "<group>";
-		};
-		94CD1C5D1BBA005D00934769 /* Datastore/ DataModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Datastore/ DataModel";
-			path = ../../MuseApp/MuseApp;
 			sourceTree = "<group>";
 		};
 		94CD1C731BBA007700934769 /* Categories */ = {

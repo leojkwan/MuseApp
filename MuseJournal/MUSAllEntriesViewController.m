@@ -57,6 +57,7 @@
     [self.entrySearchBar setShowsScopeBar:YES];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
+    
 
 }
 
@@ -65,15 +66,16 @@
     
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     
-    // was hoping redefining the sort descriptor would fix the problem.... fix it.
-    NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-    entryFetch.sortDescriptors = @[sortDescriptor];
-
-    [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
-    [self.resultsController performFetch:nil];
+//    // was hoping redefining the sort descriptor would fix the problem.... fix it.
+//    NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+//    entryFetch.sortDescriptors = @[sortDescriptor];
+//
+//    [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
+//    [self.resultsController performFetch:nil];
     
     [self.entriesTableView reloadData];
+    
 
 }
 
@@ -119,7 +121,6 @@
 
 
 -(void)performInitialFetchRequest {
-
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
@@ -132,7 +133,7 @@
 
     // Create and initialize the fetch results controller.
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"createdAt" cacheName:nil];
 
     // set fetch results delegate
     self.resultsController.delegate = self;
@@ -171,6 +172,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  
+    
     if ([[self.resultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
         return [sectionInfo numberOfObjects];
@@ -188,15 +191,20 @@
     ;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 30;
+//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+return 30;
 }
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    id<NSFetchedResultsSectionInfo> theSection = [self.resultsController sections][section];
-    return [theSection name];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
+    return [[[sectionInfo objects] objectAtIndex:0] dateInString];
 }
 
 
@@ -204,10 +212,10 @@
 
     UILabel *sectionLabel = [[UILabel alloc] init];
     sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
-    sectionLabel.backgroundColor = [UIColor darkGrayColor];
+    sectionLabel.backgroundColor = [UIColor whiteColor];
     sectionLabel.textAlignment = NSTextAlignmentCenter;
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
-    sectionLabel.textColor = [UIColor colorWithRed:0.93 green:0.87 blue:0.1 alpha:1];
+    sectionLabel.textColor = [UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1];
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
@@ -229,6 +237,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"section %ld, row %ld" , (long)indexPath.section + 1, (long)indexPath.row +1 );
 
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
 

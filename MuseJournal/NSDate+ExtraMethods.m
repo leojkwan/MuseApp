@@ -17,6 +17,13 @@
     return monthAndYearOfSection;
 }
 
+-(NSString *)returnMonthDateAndYear{
+    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
+    [monthAndYearFormatter setDateFormat:@"MMMM dd YYYY"];
+    NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:self];
+    return monthAndYearOfSection;
+}
+
 -(NSString *)returnDayMonthDateFromDate{
     NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
     [monthAndYearFormatter setDateFormat:@"EEEE, MMMM dd"];

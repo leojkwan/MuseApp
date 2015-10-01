@@ -322,18 +322,31 @@ typedef enum{
         newEntry.content = self.textView.text;
     }
     newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
+    
+    
     NSDate *currentDate = [NSDate date];
     
-        NSDate *today = [[NSDate alloc] init];
-         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-         [offsetComponents setYear:0];
-         [offsetComponents setMonth:0];
-         NSDate *nextYear = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+
+    NSDate *today = [[NSDate alloc] init];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setYear:5];
+    [offsetComponents setMonth:0];
+    [offsetComponents setDay:2];
+    NSDate *nextYear = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
     
-    newEntry.createdAt = nextYear;
+    
+    
+    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
+    [monthAndYearFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:nextYear];
+    NSDate *myDate = [monthAndYearFormatter dateFromString: monthAndYearOfSection];
+
+    newEntry.createdAt = myDate;
     newEntry.tag = @"";
-    newEntry.dateInString = [nextYear returnMonthAndYear];
+    //    [newEntry setMonthAndYearStringForDate:nextYear];
+    newEntry.dateInString = [myDate returnMonthDateAndYear];
+    NSLog(@"%@", newEntry.dateInString);
     return newEntry;
 }
 
