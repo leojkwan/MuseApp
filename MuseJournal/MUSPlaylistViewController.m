@@ -27,8 +27,9 @@
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UIImageView *blurView;
 @property (weak, nonatomic) IBOutlet UIView *playerView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView;
+
 
 
 @end
@@ -55,8 +56,8 @@
         self.artworkImagesForThisEntry = artworkImages;
     }];
     
-    UITapGestureRecognizer *viewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
-//    [self.contentView addGestureRecognizer:viewTap];
+    UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
+    [self.blurView addGestureRecognizer:dismissTap];
  }
 
 
@@ -111,7 +112,6 @@
         [songTitleArray addObject:songID];
     }
     
-    NSLog(@"%@", self.playlistForThisEntry);
     NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
     
     if (![songTitleArray containsObject:songPersistentNumber]) {
@@ -138,7 +138,6 @@
 }
 
 -(void)updatePlaybackButton:(id)sender {
-    NSLog(@"SONG STOPPED OR STARTED!");
     [self updateButtonStatus];
     [self.playlistTableView reloadData];
 }
@@ -203,8 +202,6 @@
     }
     
     NSUInteger indexPathForAnimation = [self.musicPlayer.myPlayer indexOfNowPlayingItem];
-    NSLog(@"%@", self.currentSongLabel.text);
-        NSLog(@"%@", cell.songTitleLabel.text);
     if (indexPath.row == indexPathForAnimation && [self.currentSongLabel.text isEqualToString:cell.songTitleLabel.text]) {
         [cell.animatingIcon startAnimating];
     }

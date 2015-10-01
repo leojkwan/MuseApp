@@ -323,9 +323,17 @@ typedef enum{
     }
     newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
     NSDate *currentDate = [NSDate date];
-    newEntry.createdAt = currentDate;
+    
+        NSDate *today = [[NSDate alloc] init];
+         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+         [offsetComponents setYear:0];
+         [offsetComponents setMonth:0];
+         NSDate *nextYear = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+    
+    newEntry.createdAt = nextYear;
     newEntry.tag = @"";
-    newEntry.dateInString = [currentDate returnMonthAndYear];
+    newEntry.dateInString = [nextYear returnMonthAndYear];
     return newEntry;
 }
 

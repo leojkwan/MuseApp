@@ -65,9 +65,10 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
-
+    
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     [self.entriesTableView reloadData];
+
 }
 
 
@@ -137,8 +138,6 @@
 -(void)setUpInfiniteScrollWithFetchRequest {
 
     self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
-
-
     if (self.currentFetchCount < self.totalNumberOfEntries) {
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
