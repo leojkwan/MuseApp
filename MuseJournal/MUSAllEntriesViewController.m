@@ -49,9 +49,6 @@
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     self.toolbar.delegate = self;
-
-
-
     [self performInitialFetchRequest];
 
     // set searchbar delegate
@@ -60,14 +57,26 @@
     [self.entrySearchBar setShowsScopeBar:YES];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
+    
 
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
-
+    
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    
+//    // was hoping redefining the sort descriptor would fix the problem.... fix it.
+//    NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+//    entryFetch.sortDescriptors = @[sortDescriptor];
+//
+//    [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
+//    [self.resultsController performFetch:nil];
+    
     [self.entriesTableView reloadData];
+    
+
 }
 
 
@@ -112,7 +121,6 @@
 
 
 -(void)performInitialFetchRequest {
-
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
@@ -125,7 +133,7 @@
 
     // Create and initialize the fetch results controller.
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"createdAt" cacheName:nil];
 
     // set fetch results delegate
     self.resultsController.delegate = self;
@@ -137,8 +145,6 @@
 -(void)setUpInfiniteScrollWithFetchRequest {
 
     self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
-
-
     if (self.currentFetchCount < self.totalNumberOfEntries) {
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
@@ -166,6 +172,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  
+    
     if ([[self.resultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
         return [sectionInfo numberOfObjects];
@@ -177,20 +185,26 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
      Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 125;
+        return 100;
     }
-    return 325;
+    return 300
+    ;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 30;
+//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+return 30;
 }
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    id<NSFetchedResultsSectionInfo> theSection = [self.resultsController sections][section];
-    return [theSection name];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
+    return [[[sectionInfo objects] objectAtIndex:0] dateInString];
 }
 
 
@@ -198,10 +212,10 @@
 
     UILabel *sectionLabel = [[UILabel alloc] init];
     sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
-    sectionLabel.backgroundColor = [UIColor darkGrayColor];
+    sectionLabel.backgroundColor = [UIColor whiteColor];
     sectionLabel.textAlignment = NSTextAlignmentCenter;
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
-    sectionLabel.textColor = [UIColor colorWithRed:0.93 green:0.87 blue:0.1 alpha:1];
+    sectionLabel.textColor = [UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1];
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
@@ -223,6 +237,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"section %ld, row %ld" , (long)indexPath.section + 1, (long)indexPath.row +1 );
 
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
 
@@ -245,30 +260,6 @@
     }
 }
 
--(void)presentDeleteSheet:(MCSwipeTableViewCell *)cell indexPath:(NSIndexPath*)indexPath {
-
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
-
-    // Delete
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Delete Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [self.store.managedObjectContext deleteObject:managedObject];
-        [self.store.managedObjectContext save:nil];
-    }]];
-
-    // Cancel
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [cell swipeToOriginWithCompletion:nil];
-    }]];
-
-    // Present action sheet.
-    
-    actionSheet.popoverPresentationController.sourceView = cell;
-    actionSheet.popoverPresentationController.sourceRect = [cell bounds];
-    [self presentViewController:actionSheet animated:YES completion:^{
-    }];
-    
-}
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -345,6 +336,30 @@
 }
 
 
+-(void)presentDeleteSheet:(MCSwipeTableViewCell *)cell indexPath:(NSIndexPath*)indexPath {
+    
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
+    
+    // Delete
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Delete Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self.store.managedObjectContext deleteObject:managedObject];
+        [self.store.managedObjectContext save:nil];
+    }]];
+    
+    // Cancel
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [cell swipeToOriginWithCompletion:nil];
+    }]];
+    
+    // Present action sheet.
+    
+    actionSheet.popoverPresentationController.sourceView = cell;
+    actionSheet.popoverPresentationController.sourceRect = [cell bounds];
+    [self presentViewController:actionSheet animated:YES completion:^{
+    }];
+    
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

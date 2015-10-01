@@ -9,7 +9,7 @@
 #import "MUSEntryToolbar.h"
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
-#import "UIImage+MUSExtraMethods.h"
+#import "UIImageView+ExtraMethods.h"
 
 @interface MUSEntryToolbar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;

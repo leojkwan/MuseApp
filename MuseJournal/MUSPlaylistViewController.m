@@ -12,6 +12,8 @@
 #import "MUSSongTableViewCell.h"
 #import <Masonry.h>
 #import "MUSIconAnimation.h"
+#import "UIImage+ExtraMethods.h"
+
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -24,6 +26,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
 @property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
+@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *playerView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView;
+
 
 
 @end
@@ -32,7 +38,6 @@
 
 
 - (void)viewDidLoad {
-    NSLog(@"DVC loaded");
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
@@ -44,11 +49,16 @@
     self.playlistTableView.dataSource = self;
     
     
+    self.playerView.layer.cornerRadius = 5;
+    
+    
     [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
         self.artworkImagesForThisEntry = artworkImages;
     }];
     
-}
+    UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
+    [self.blurView addGestureRecognizer:dismissTap];
+ }
 
 
 
@@ -102,7 +112,6 @@
         [songTitleArray addObject:songID];
     }
     
-    NSLog(@"%@", self.playlistForThisEntry);
     NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
     
     if (![songTitleArray containsObject:songPersistentNumber]) {
@@ -114,15 +123,21 @@
 #pragma mark - music notifications and handling
 
 - (void)updateButtonStatus {
+    
+    if (self.playlistForThisEntry.count == 0) {
+        [self.playbackButtonStatus setEnabled:NO];
+    } else{
+        [self.playbackButtonStatus setEnabled:YES];
+
     if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
         [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
     } else {
         [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
     }
+    }
 }
 
 -(void)updatePlaybackButton:(id)sender {
-    NSLog(@"SONG STOPPED OR STARTED!");
     [self updateButtonStatus];
     [self.playlistTableView reloadData];
 }
@@ -161,6 +176,11 @@
 }
 
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+        return 80;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
@@ -182,8 +202,6 @@
     }
     
     NSUInteger indexPathForAnimation = [self.musicPlayer.myPlayer indexOfNowPlayingItem];
-    NSLog(@"%@", self.currentSongLabel.text);
-        NSLog(@"%@", cell.songTitleLabel.text);
     if (indexPath.row == indexPathForAnimation && [self.currentSongLabel.text isEqualToString:cell.songTitleLabel.text]) {
         [cell.animatingIcon startAnimating];
     }
@@ -217,9 +235,8 @@
         
         // Save to Core Data
         [self.store save];
-        
-        
         [self.playlistTableView reloadData];
+        [self updateButtonStatus];
     }
 }
 

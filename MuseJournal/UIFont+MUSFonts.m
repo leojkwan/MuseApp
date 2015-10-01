@@ -35,15 +35,16 @@
     
     // h1
     UIColor *h1Color = [UIColor darkGrayColor];
-    UIFont *h1Font = [UIFont fontWithName:@"AvenirNext-Bold" size:24.0];
+    UIFont *h1Font = [UIFont fontWithName:@"GillSans-SemiBold" size:24.0];
     NSDictionary *h1Attributes = @{
                                   NSFontAttributeName : h1Font,
                                   NSForegroundColorAttributeName : h1Color
                                   };
     [attributes setObject:h1Attributes forKey:@(H1)];
-    
+       
+
     // h2
-    UIFont *h2Font = [UIFont fontWithName:@"AvenirNext-Bold" size:18.0];
+    UIFont *h2Font = [UIFont fontWithName:@"GillSans-SemiBold" size:18.0];
     [attributes setObject:@{NSFontAttributeName : h2Font} forKey:@(H2)];
     
     // h3

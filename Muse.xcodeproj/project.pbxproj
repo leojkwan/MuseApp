@@ -1,0 +1,910 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B3FF408248BF03C59117B8A /* libPods-MuseJournal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */; };
+		941EFBF71BB9FB9C00D70257 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFBF61BB9FB9C00D70257 /* main.m */; };
+		941EFC021BB9FB9C00D70257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC011BB9FB9C00D70257 /* Assets.xcassets */; };
+		941EFC051BB9FB9C00D70257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */; };
+		941EFC101BB9FB9D00D70257 /* MuseJournalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFC0F1BB9FB9D00D70257 /* MuseJournalTests.m */; };
+		941EFC1B1BB9FB9D00D70257 /* MuseJournalUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFC1A1BB9FB9D00D70257 /* MuseJournalUITests.m */; };
+		941F250F1BBC388F008C8120 /* MUSColorSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24F21BBC388F008C8120 /* MUSColorSheet.m */; settings = {ASSET_TAGS = (); }; };
+		941F25101BBC388F008C8120 /* MUSDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24F41BBC388F008C8120 /* MUSDataStore.m */; settings = {ASSET_TAGS = (); }; };
+		941F25151BBC388F008C8120 /* MUSGreetingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24FD1BBC388F008C8120 /* MUSGreetingManager.m */; settings = {ASSET_TAGS = (); }; };
+		941F25161BBC388F008C8120 /* MUSIconAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24FF1BBC388F008C8120 /* MUSIconAnimation.m */; settings = {ASSET_TAGS = (); }; };
+		941F25291BBC49FF008C8120 /* MUSEntryToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25271BBC49FF008C8120 /* MUSEntryToolbar.m */; settings = {ASSET_TAGS = (); }; };
+		941F252A1BBC49FF008C8120 /* MUSEntryToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941F25281BBC49FF008C8120 /* MUSEntryToolbar.xib */; settings = {ASSET_TAGS = (); }; };
+		941F252E1BBC4A0E008C8120 /* MUSKeyboardTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F252C1BBC4A0E008C8120 /* MUSKeyboardTopBar.m */; settings = {ASSET_TAGS = (); }; };
+		941F252F1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941F252D1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib */; settings = {ASSET_TAGS = (); }; };
+		941F25321BBC4A24008C8120 /* MUSNotificationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25311BBC4A24008C8120 /* MUSNotificationDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		941F25351BBC4A34008C8120 /* MUSNotificationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25341BBC4A34008C8120 /* MUSNotificationDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		941F25381BBC4A3A008C8120 /* MUSSearchBarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25371BBC4A3A008C8120 /* MUSSearchBarDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		941F253B1BBC4A47008C8120 /* MUSTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F253A1BBC4A47008C8120 /* MUSTextViewDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		941F253E1BBC4A50008C8120 /* UIColor+MUSColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F253D1BBC4A50008C8120 /* UIColor+MUSColors.m */; settings = {ASSET_TAGS = (); }; };
+		941F25411BBC4A63008C8120 /* MUSEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25401BBC4A63008C8120 /* MUSEntryTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		941F25441BBC4A69008C8120 /* MUSImagelessEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25431BBC4A69008C8120 /* MUSImagelessEntryCell.m */; settings = {ASSET_TAGS = (); }; };
+		941F25471BBC4A71008C8120 /* MUSSongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25461BBC4A71008C8120 /* MUSSongTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		941F254A1BBC4A8D008C8120 /* MuseApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 941F25481BBC4A8D008C8120 /* MuseApp.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
+		941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F254C1BBC4B12008C8120 /* UIImageView+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94B313B91BBAF86200ECB1AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313B81BBAF86200ECB1AD /* AppDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		94B313C01BBAF86A00ECB1AD /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313BB1BBAF86A00ECB1AD /* Entry.m */; settings = {ASSET_TAGS = (); }; };
+		94B313C11BBAF86A00ECB1AD /* Entry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313BD1BBAF86A00ECB1AD /* Entry+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		94B313C21BBAF86A00ECB1AD /* Entry+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313BF1BBAF86A00ECB1AD /* Entry+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94B313F41BBAF88200ECB1AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B313C31BBAF88200ECB1AD /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
+		94B313F71BBAF88200ECB1AD /* MUSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313C81BBAF88200ECB1AD /* MUSAlertView.m */; settings = {ASSET_TAGS = (); }; };
+		94B313F81BBAF88200ECB1AD /* MUSAllEntriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313D01BBAF88200ECB1AD /* MUSDetailEntryViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94B313FD1BBAF88200ECB1AD /* MUSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313D31BBAF88200ECB1AD /* MUSHomeViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94B313FE1BBAF88200ECB1AD /* MUSMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313D51BBAF88200ECB1AD /* MUSMusicPlayer.m */; settings = {ASSET_TAGS = (); }; };
+		94B313FF1BBAF88200ECB1AD /* MUSPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313D71BBAF88200ECB1AD /* MUSPlaylistViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313D91BBAF88200ECB1AD /* MUSTimeFetcher.m */; settings = {ASSET_TAGS = (); }; };
+		94B314011BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313DB1BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94B314021BBAF88200ECB1AD /* NSDate+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313DD1BBAF88200ECB1AD /* NSDate+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313DF1BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m */; settings = {ASSET_TAGS = (); }; };
+		94B314041BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */; settings = {ASSET_TAGS = (); }; };
+		94B314051BBAF88200ECB1AD /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E31BBAF88200ECB1AD /* Song.m */; settings = {ASSET_TAGS = (); }; };
+		94B314061BBAF88200ECB1AD /* Song+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E51BBAF88200ECB1AD /* Song+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		94B314071BBAF88200ECB1AD /* Song+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E71BBAF88200ECB1AD /* Song+MUSExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94B314081BBAF88200ECB1AD /* UIButton+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E91BBAF88200ECB1AD /* UIButton+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313ED1BBAF88200ECB1AD /* UIFont+MUSFonts.m */; settings = {ASSET_TAGS = (); }; };
+		94B3140C1BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313F11BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */; settings = {ASSET_TAGS = (); }; };
+		94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B314101BBAF97A00ECB1AD /* MUSActionView.xib */; settings = {ASSET_TAGS = (); }; };
+		94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */; settings = {ASSET_TAGS = (); }; };
+		94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		941EFC0C1BB9FB9D00D70257 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 941EFBEA1BB9FB9C00D70257 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 941EFBF11BB9FB9C00D70257;
+			remoteInfo = MuseJournal;
+		};
+		941EFC171BB9FB9D00D70257 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 941EFBEA1BB9FB9C00D70257 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 941EFBF11BB9FB9C00D70257;
+			remoteInfo = MuseJournal;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.debug.xcconfig"; sourceTree = "<group>"; };
+		55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseJournal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		941EFBF21BB9FB9C00D70257 /* MuseJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		941EFBF61BB9FB9C00D70257 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		941EFC011BB9FB9C00D70257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		941EFC041BB9FB9C00D70257 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		941EFC061BB9FB9C00D70257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		941EFC0B1BB9FB9D00D70257 /* MuseJournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseJournalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		941EFC0F1BB9FB9D00D70257 /* MuseJournalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuseJournalTests.m; sourceTree = "<group>"; };
+		941EFC111BB9FB9D00D70257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		941EFC161BB9FB9D00D70257 /* MuseJournalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseJournalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		941EFC1A1BB9FB9D00D70257 /* MuseJournalUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuseJournalUITests.m; sourceTree = "<group>"; };
+		941EFC1C1BB9FB9D00D70257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		941F24F11BBC388F008C8120 /* MUSColorSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSColorSheet.h; sourceTree = "<group>"; };
+		941F24F21BBC388F008C8120 /* MUSColorSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSColorSheet.m; sourceTree = "<group>"; };
+		941F24F31BBC388F008C8120 /* MUSDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSDataStore.h; sourceTree = "<group>"; };
+		941F24F41BBC388F008C8120 /* MUSDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSDataStore.m; sourceTree = "<group>"; };
+		941F24F91BBC388F008C8120 /* MUSEntryToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSEntryToolbar.h; path = MuseJournal/MUSEntryToolbar.h; sourceTree = "<group>"; };
+		941F24FC1BBC388F008C8120 /* MUSGreetingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSGreetingManager.h; sourceTree = "<group>"; };
+		941F24FD1BBC388F008C8120 /* MUSGreetingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSGreetingManager.m; sourceTree = "<group>"; };
+		941F24FE1BBC388F008C8120 /* MUSIconAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSIconAnimation.h; sourceTree = "<group>"; };
+		941F24FF1BBC388F008C8120 /* MUSIconAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSIconAnimation.m; sourceTree = "<group>"; };
+		941F25271BBC49FF008C8120 /* MUSEntryToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSEntryToolbar.m; path = MuseJournal/MUSEntryToolbar.m; sourceTree = SOURCE_ROOT; };
+		941F25281BBC49FF008C8120 /* MUSEntryToolbar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSEntryToolbar.xib; path = MuseJournal/MUSEntryToolbar.xib; sourceTree = SOURCE_ROOT; };
+		941F252B1BBC4A0E008C8120 /* MUSKeyboardTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSKeyboardTopBar.h; path = MuseJournal/MUSKeyboardTopBar.h; sourceTree = SOURCE_ROOT; };
+		941F252C1BBC4A0E008C8120 /* MUSKeyboardTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSKeyboardTopBar.m; path = MuseJournal/MUSKeyboardTopBar.m; sourceTree = SOURCE_ROOT; };
+		941F252D1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSKeyboardTopBar.xib; path = MuseJournal/MUSKeyboardTopBar.xib; sourceTree = SOURCE_ROOT; };
+		941F25301BBC4A24008C8120 /* MUSNotificationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSNotificationDelegate.h; path = MuseJournal/MUSNotificationDelegate.h; sourceTree = SOURCE_ROOT; };
+		941F25311BBC4A24008C8120 /* MUSNotificationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSNotificationDelegate.m; path = MuseJournal/MUSNotificationDelegate.m; sourceTree = SOURCE_ROOT; };
+		941F25331BBC4A34008C8120 /* MUSNotificationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSNotificationDelegate.h; path = MuseJournal/MUSNotificationDelegate.h; sourceTree = SOURCE_ROOT; };
+		941F25341BBC4A34008C8120 /* MUSNotificationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSNotificationDelegate.m; path = MuseJournal/MUSNotificationDelegate.m; sourceTree = SOURCE_ROOT; };
+		941F25361BBC4A3A008C8120 /* MUSSearchBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSSearchBarDelegate.h; path = MuseJournal/MUSSearchBarDelegate.h; sourceTree = SOURCE_ROOT; };
+		941F25371BBC4A3A008C8120 /* MUSSearchBarDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSSearchBarDelegate.m; path = MuseJournal/MUSSearchBarDelegate.m; sourceTree = SOURCE_ROOT; };
+		941F25391BBC4A47008C8120 /* MUSTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSTextViewDelegate.h; path = MuseJournal/MUSTextViewDelegate.h; sourceTree = SOURCE_ROOT; };
+		941F253A1BBC4A47008C8120 /* MUSTextViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSTextViewDelegate.m; path = MuseJournal/MUSTextViewDelegate.m; sourceTree = SOURCE_ROOT; };
+		941F253C1BBC4A50008C8120 /* UIColor+MUSColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+MUSColors.h"; path = "MuseJournal/UIColor+MUSColors.h"; sourceTree = SOURCE_ROOT; };
+		941F253D1BBC4A50008C8120 /* UIColor+MUSColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+MUSColors.m"; path = "MuseJournal/UIColor+MUSColors.m"; sourceTree = SOURCE_ROOT; };
+		941F253F1BBC4A63008C8120 /* MUSEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSEntryTableViewCell.h; path = MuseJournal/MUSEntryTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		941F25401BBC4A63008C8120 /* MUSEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSEntryTableViewCell.m; path = MuseJournal/MUSEntryTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		941F25421BBC4A69008C8120 /* MUSImagelessEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSImagelessEntryCell.h; path = MuseJournal/MUSImagelessEntryCell.h; sourceTree = SOURCE_ROOT; };
+		941F25431BBC4A69008C8120 /* MUSImagelessEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSImagelessEntryCell.m; path = MuseJournal/MUSImagelessEntryCell.m; sourceTree = SOURCE_ROOT; };
+		941F25451BBC4A71008C8120 /* MUSSongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSSongTableViewCell.h; path = MuseJournal/MUSSongTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		941F25461BBC4A71008C8120 /* MUSSongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSSongTableViewCell.m; path = MuseJournal/MUSSongTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		941F25491BBC4A8D008C8120 /* MuseApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MuseApp.xcdatamodel; sourceTree = "<group>"; };
+		941F254B1BBC4B12008C8120 /* UIImageView+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+ExtraMethods.h"; path = "MuseJournal/UIImageView+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		941F254C1BBC4B12008C8120 /* UIImageView+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+ExtraMethods.m"; path = "MuseJournal/UIImageView+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94B313B71BBAF86200ECB1AD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MuseJournal/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		94B313B81BBAF86200ECB1AD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MuseJournal/AppDelegate.m; sourceTree = SOURCE_ROOT; };
+		94B313BA1BBAF86A00ECB1AD /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entry.h; path = MuseJournal/Entry.h; sourceTree = SOURCE_ROOT; };
+		94B313BB1BBAF86A00ECB1AD /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Entry.m; path = MuseJournal/Entry.m; sourceTree = SOURCE_ROOT; };
+		94B313BC1BBAF86A00ECB1AD /* Entry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Entry+CoreDataProperties.h"; path = "MuseJournal/Entry+CoreDataProperties.h"; sourceTree = SOURCE_ROOT; };
+		94B313BD1BBAF86A00ECB1AD /* Entry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Entry+CoreDataProperties.m"; path = "MuseJournal/Entry+CoreDataProperties.m"; sourceTree = SOURCE_ROOT; };
+		94B313BE1BBAF86A00ECB1AD /* Entry+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Entry+ExtraMethods.h"; path = "MuseJournal/Entry+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94B313BF1BBAF86A00ECB1AD /* Entry+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Entry+ExtraMethods.m"; path = "MuseJournal/Entry+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94B313C31BBAF88200ECB1AD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = MuseJournal/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		94B313C71BBAF88200ECB1AD /* MUSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSAlertView.h; path = MuseJournal/MUSAlertView.h; sourceTree = SOURCE_ROOT; };
+		94B313C81BBAF88200ECB1AD /* MUSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSAlertView.m; path = MuseJournal/MUSAlertView.m; sourceTree = SOURCE_ROOT; };
+		94B313C91BBAF88200ECB1AD /* MUSAllEntriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSAllEntriesViewController.h; path = MuseJournal/MUSAllEntriesViewController.h; sourceTree = SOURCE_ROOT; };
+		94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSAllEntriesViewController.m; path = MuseJournal/MUSAllEntriesViewController.m; sourceTree = SOURCE_ROOT; };
+		94B313CF1BBAF88200ECB1AD /* MUSDetailEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSDetailEntryViewController.h; path = MuseJournal/MUSDetailEntryViewController.h; sourceTree = SOURCE_ROOT; };
+		94B313D01BBAF88200ECB1AD /* MUSDetailEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSDetailEntryViewController.m; path = MuseJournal/MUSDetailEntryViewController.m; sourceTree = SOURCE_ROOT; };
+		94B313D21BBAF88200ECB1AD /* MUSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSHomeViewController.h; path = MuseJournal/MUSHomeViewController.h; sourceTree = SOURCE_ROOT; };
+		94B313D31BBAF88200ECB1AD /* MUSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSHomeViewController.m; path = MuseJournal/MUSHomeViewController.m; sourceTree = SOURCE_ROOT; };
+		94B313D41BBAF88200ECB1AD /* MUSMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSMusicPlayer.h; path = MuseJournal/MUSMusicPlayer.h; sourceTree = SOURCE_ROOT; };
+		94B313D51BBAF88200ECB1AD /* MUSMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSMusicPlayer.m; path = MuseJournal/MUSMusicPlayer.m; sourceTree = SOURCE_ROOT; };
+		94B313D61BBAF88200ECB1AD /* MUSPlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSPlaylistViewController.h; path = MuseJournal/MUSPlaylistViewController.h; sourceTree = SOURCE_ROOT; };
+		94B313D71BBAF88200ECB1AD /* MUSPlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSPlaylistViewController.m; path = MuseJournal/MUSPlaylistViewController.m; sourceTree = SOURCE_ROOT; };
+		94B313D81BBAF88200ECB1AD /* MUSTimeFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSTimeFetcher.h; path = MuseJournal/MUSTimeFetcher.h; sourceTree = SOURCE_ROOT; };
+		94B313D91BBAF88200ECB1AD /* MUSTimeFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSTimeFetcher.m; path = MuseJournal/MUSTimeFetcher.m; sourceTree = SOURCE_ROOT; };
+		94B313DA1BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+MUSExtraMethods.h"; path = "MuseJournal/NSAttributedString+MUSExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94B313DB1BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+MUSExtraMethods.m"; path = "MuseJournal/NSAttributedString+MUSExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94B313DC1BBAF88200ECB1AD /* NSDate+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+ExtraMethods.h"; path = "MuseJournal/NSDate+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94B313DD1BBAF88200ECB1AD /* NSDate+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+ExtraMethods.m"; path = "MuseJournal/NSDate+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94B313DE1BBAF88200ECB1AD /* NSSet+MUSExtraMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSSet+MUSExtraMethod.h"; path = "MuseJournal/NSSet+MUSExtraMethod.h"; sourceTree = SOURCE_ROOT; };
+		94B313DF1BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSet+MUSExtraMethod.m"; path = "MuseJournal/NSSet+MUSExtraMethod.m"; sourceTree = SOURCE_ROOT; };
+		94B313E01BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RKSwipeBetweenViewControllers.h; path = MuseJournal/RKSwipeBetweenViewControllers.h; sourceTree = SOURCE_ROOT; };
+		94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RKSwipeBetweenViewControllers.m; path = MuseJournal/RKSwipeBetweenViewControllers.m; sourceTree = SOURCE_ROOT; };
+		94B313E21BBAF88200ECB1AD /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Song.h; path = MuseJournal/Song.h; sourceTree = SOURCE_ROOT; };
+		94B313E31BBAF88200ECB1AD /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Song.m; path = MuseJournal/Song.m; sourceTree = SOURCE_ROOT; };
+		94B313E41BBAF88200ECB1AD /* Song+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Song+CoreDataProperties.h"; path = "MuseJournal/Song+CoreDataProperties.h"; sourceTree = SOURCE_ROOT; };
+		94B313E51BBAF88200ECB1AD /* Song+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Song+CoreDataProperties.m"; path = "MuseJournal/Song+CoreDataProperties.m"; sourceTree = SOURCE_ROOT; };
+		94B313E61BBAF88200ECB1AD /* Song+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Song+MUSExtraMethods.h"; path = "MuseJournal/Song+MUSExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94B313E71BBAF88200ECB1AD /* Song+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Song+MUSExtraMethods.m"; path = "MuseJournal/Song+MUSExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94B313E81BBAF88200ECB1AD /* UIButton+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+ExtraMethods.h"; path = "MuseJournal/UIButton+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94B313E91BBAF88200ECB1AD /* UIButton+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+ExtraMethods.m"; path = "MuseJournal/UIButton+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94B313EC1BBAF88200ECB1AD /* UIFont+MUSFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+MUSFonts.h"; path = "MuseJournal/UIFont+MUSFonts.h"; sourceTree = SOURCE_ROOT; };
+		94B313ED1BBAF88200ECB1AD /* UIFont+MUSFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+MUSFonts.m"; path = "MuseJournal/UIFont+MUSFonts.m"; sourceTree = SOURCE_ROOT; };
+		94B313F01BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImagePickerController+ExtraMethods.h"; path = "MuseJournal/UIImagePickerController+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94B313F11BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+ExtraMethods.m"; path = "MuseJournal/UIImagePickerController+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSActionView.h; path = MuseJournal/MUSActionView.h; sourceTree = SOURCE_ROOT; };
+		94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSActionView.m; path = MuseJournal/MUSActionView.m; sourceTree = SOURCE_ROOT; };
+		94B314101BBAF97A00ECB1AD /* MUSActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSActionView.xib; path = MuseJournal/MUSActionView.xib; sourceTree = SOURCE_ROOT; };
+		94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ExtraMethods.h"; path = "MuseJournal/UIImage+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ExtraMethods.m"; path = "MuseJournal/UIImage+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSettingsTableViewController.h; sourceTree = "<group>"; };
+		94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSettingsTableViewController.m; sourceTree = "<group>"; };
+		94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTellAFriend.h; sourceTree = "<group>"; };
+		94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTellAFriend.m; sourceTree = "<group>"; };
+		94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		941EFBEF1BB9FB9C00D70257 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B3FF408248BF03C59117B8A /* libPods-MuseJournal.a in Frameworks */,
+				94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		941EFC081BB9FB9D00D70257 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		941EFC131BB9FB9D00D70257 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		941EFBE91BB9FB9C00D70257 = {
+			isa = PBXGroup;
+			children = (
+				941EFBF41BB9FB9C00D70257 /* MuseJournal */,
+				941EFC0E1BB9FB9D00D70257 /* MuseJournalTests */,
+				941EFC191BB9FB9D00D70257 /* MuseJournalUITests */,
+				941EFBF31BB9FB9C00D70257 /* Products */,
+				BFAC2983AAEFF89ECBA5DF1F /* Pods */,
+				B397B2E03385FDD827D6EF76 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		941EFBF31BB9FB9C00D70257 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				941EFBF21BB9FB9C00D70257 /* MuseJournal.app */,
+				941EFC0B1BB9FB9D00D70257 /* MuseJournalTests.xctest */,
+				941EFC161BB9FB9D00D70257 /* MuseJournalUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		941EFBF41BB9FB9C00D70257 /* MuseJournal */ = {
+			isa = PBXGroup;
+			children = (
+				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
+				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
+				94B313B81BBAF86200ECB1AD /* AppDelegate.m */,
+				946EB8781BBA039E0067CDC2 /* Views */,
+				94775DFC1BB9FF42004ABF0A /* View Controllers */,
+				94775DE31BB9FF25004ABF0A /* Models */,
+				941EFC011BB9FB9C00D70257 /* Assets.xcassets */,
+				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
+				941EFC061BB9FB9C00D70257 /* Info.plist */,
+				941EFBF51BB9FB9C00D70257 /* Supporting Files */,
+			);
+			path = MuseJournal;
+			sourceTree = "<group>";
+		};
+		941EFBF51BB9FB9C00D70257 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				941EFBF61BB9FB9C00D70257 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		941EFC0E1BB9FB9D00D70257 /* MuseJournalTests */ = {
+			isa = PBXGroup;
+			children = (
+				941EFC0F1BB9FB9D00D70257 /* MuseJournalTests.m */,
+				941EFC111BB9FB9D00D70257 /* Info.plist */,
+			);
+			path = MuseJournalTests;
+			sourceTree = "<group>";
+		};
+		941EFC191BB9FB9D00D70257 /* MuseJournalUITests */ = {
+			isa = PBXGroup;
+			children = (
+				941EFC1A1BB9FB9D00D70257 /* MuseJournalUITests.m */,
+				941EFC1C1BB9FB9D00D70257 /* Info.plist */,
+			);
+			path = MuseJournalUITests;
+			sourceTree = "<group>";
+		};
+		946EB84A1BBA00E90067CDC2 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				941F25451BBC4A71008C8120 /* MUSSongTableViewCell.h */,
+				941F25461BBC4A71008C8120 /* MUSSongTableViewCell.m */,
+				941F253F1BBC4A63008C8120 /* MUSEntryTableViewCell.h */,
+				941F25401BBC4A63008C8120 /* MUSEntryTableViewCell.m */,
+				941F25421BBC4A69008C8120 /* MUSImagelessEntryCell.h */,
+				941F25431BBC4A69008C8120 /* MUSImagelessEntryCell.m */,
+			);
+			name = "Custom Cells";
+			path = ../../MuseApp/MuseApp;
+			sourceTree = "<group>";
+		};
+		946EB8781BBA039E0067CDC2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				941F25271BBC49FF008C8120 /* MUSEntryToolbar.m */,
+				941F25281BBC49FF008C8120 /* MUSEntryToolbar.xib */,
+				941F24F91BBC388F008C8120 /* MUSEntryToolbar.h */,
+				941F252B1BBC4A0E008C8120 /* MUSKeyboardTopBar.h */,
+				941F252C1BBC4A0E008C8120 /* MUSKeyboardTopBar.m */,
+				941F252D1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib */,
+				94B313C71BBAF88200ECB1AD /* MUSAlertView.h */,
+				94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */,
+				94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */,
+				94B314101BBAF97A00ECB1AD /* MUSActionView.xib */,
+				94B313C81BBAF88200ECB1AD /* MUSAlertView.m */,
+			);
+			name = Views;
+			path = ../../MuseApp/MuseApp;
+			sourceTree = "<group>";
+		};
+		94775DE31BB9FF25004ABF0A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */,
+				94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */,
+				94B313D41BBAF88200ECB1AD /* MUSMusicPlayer.h */,
+				94B313D51BBAF88200ECB1AD /* MUSMusicPlayer.m */,
+				94B313D81BBAF88200ECB1AD /* MUSTimeFetcher.h */,
+				94B313D91BBAF88200ECB1AD /* MUSTimeFetcher.m */,
+				941F24F31BBC388F008C8120 /* MUSDataStore.h */,
+				941F24F41BBC388F008C8120 /* MUSDataStore.m */,
+				941F24F11BBC388F008C8120 /* MUSColorSheet.h */,
+				941F24F21BBC388F008C8120 /* MUSColorSheet.m */,
+				941F24FC1BBC388F008C8120 /* MUSGreetingManager.h */,
+				941F24FD1BBC388F008C8120 /* MUSGreetingManager.m */,
+				941F24FE1BBC388F008C8120 /* MUSIconAnimation.h */,
+				941F24FF1BBC388F008C8120 /* MUSIconAnimation.m */,
+				94BDA3121BBB91AD0071948D /* Managed Objects */,
+				94CD1C841BBA008E00934769 /* Delegate Helpers */,
+				94CD1C731BBA007700934769 /* Categories */,
+				946EB84A1BBA00E90067CDC2 /* Custom Cells */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		94775DFC1BB9FF42004ABF0A /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94B313D21BBAF88200ECB1AD /* MUSHomeViewController.h */,
+				94B313D31BBAF88200ECB1AD /* MUSHomeViewController.m */,
+				94B313E01BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.h */,
+				94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */,
+				94B313C91BBAF88200ECB1AD /* MUSAllEntriesViewController.h */,
+				94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */,
+				94B313CF1BBAF88200ECB1AD /* MUSDetailEntryViewController.h */,
+				94B313D01BBAF88200ECB1AD /* MUSDetailEntryViewController.m */,
+				94B313D61BBAF88200ECB1AD /* MUSPlaylistViewController.h */,
+				94B313D71BBAF88200ECB1AD /* MUSPlaylistViewController.m */,
+				94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */,
+				94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		94BDA3121BBB91AD0071948D /* Managed Objects */ = {
+			isa = PBXGroup;
+			children = (
+				94B313E21BBAF88200ECB1AD /* Song.h */,
+				94B313E31BBAF88200ECB1AD /* Song.m */,
+				94B313BA1BBAF86A00ECB1AD /* Entry.h */,
+				94B313BB1BBAF86A00ECB1AD /* Entry.m */,
+				94B313E41BBAF88200ECB1AD /* Song+CoreDataProperties.h */,
+				94B313E51BBAF88200ECB1AD /* Song+CoreDataProperties.m */,
+				94B313BC1BBAF86A00ECB1AD /* Entry+CoreDataProperties.h */,
+				94B313BD1BBAF86A00ECB1AD /* Entry+CoreDataProperties.m */,
+				941F25481BBC4A8D008C8120 /* MuseApp.xcdatamodeld */,
+			);
+			name = "Managed Objects";
+			sourceTree = "<group>";
+		};
+		94CD1C731BBA007700934769 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				941F254B1BBC4B12008C8120 /* UIImageView+ExtraMethods.h */,
+				941F254C1BBC4B12008C8120 /* UIImageView+ExtraMethods.m */,
+				941F253C1BBC4A50008C8120 /* UIColor+MUSColors.h */,
+				941F253D1BBC4A50008C8120 /* UIColor+MUSColors.m */,
+				94B313BE1BBAF86A00ECB1AD /* Entry+ExtraMethods.h */,
+				94B313BF1BBAF86A00ECB1AD /* Entry+ExtraMethods.m */,
+				94B313E81BBAF88200ECB1AD /* UIButton+ExtraMethods.h */,
+				94B313E91BBAF88200ECB1AD /* UIButton+ExtraMethods.m */,
+				94B313EC1BBAF88200ECB1AD /* UIFont+MUSFonts.h */,
+				94B313ED1BBAF88200ECB1AD /* UIFont+MUSFonts.m */,
+				94B313F01BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.h */,
+				94B313F11BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m */,
+				94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */,
+				94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */,
+				94B313E61BBAF88200ECB1AD /* Song+MUSExtraMethods.h */,
+				94B313E71BBAF88200ECB1AD /* Song+MUSExtraMethods.m */,
+				94B313DA1BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.h */,
+				94B313DB1BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.m */,
+				94B313DC1BBAF88200ECB1AD /* NSDate+ExtraMethods.h */,
+				94B313DD1BBAF88200ECB1AD /* NSDate+ExtraMethods.m */,
+				94B313DE1BBAF88200ECB1AD /* NSSet+MUSExtraMethod.h */,
+				94B313DF1BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m */,
+			);
+			name = Categories;
+			path = ../../MuseApp/MuseApp;
+			sourceTree = "<group>";
+		};
+		94CD1C841BBA008E00934769 /* Delegate Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				941F25301BBC4A24008C8120 /* MUSNotificationDelegate.h */,
+				941F25311BBC4A24008C8120 /* MUSNotificationDelegate.m */,
+				941F25331BBC4A34008C8120 /* MUSNotificationDelegate.h */,
+				941F25341BBC4A34008C8120 /* MUSNotificationDelegate.m */,
+				941F25361BBC4A3A008C8120 /* MUSSearchBarDelegate.h */,
+				941F25371BBC4A3A008C8120 /* MUSSearchBarDelegate.m */,
+				941F25391BBC4A47008C8120 /* MUSTextViewDelegate.h */,
+				941F253A1BBC4A47008C8120 /* MUSTextViewDelegate.m */,
+			);
+			name = "Delegate Helpers";
+			path = ../../MuseApp/MuseApp;
+			sourceTree = "<group>";
+		};
+		B397B2E03385FDD827D6EF76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */,
+				55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BFAC2983AAEFF89ECBA5DF1F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */,
+				FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		941EFBF11BB9FB9C00D70257 /* MuseJournal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 941EFC1F1BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournal" */;
+			buildPhases = (
+				028FC19025515B763B0FA68F /* Check Pods Manifest.lock */,
+				941EFBEE1BB9FB9C00D70257 /* Sources */,
+				941EFBEF1BB9FB9C00D70257 /* Frameworks */,
+				941EFBF01BB9FB9C00D70257 /* Resources */,
+				3F65C1798A48A6919D4D4CCE /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MuseJournal;
+			productName = MuseJournal;
+			productReference = 941EFBF21BB9FB9C00D70257 /* MuseJournal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		941EFC0A1BB9FB9D00D70257 /* MuseJournalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 941EFC221BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournalTests" */;
+			buildPhases = (
+				941EFC071BB9FB9D00D70257 /* Sources */,
+				941EFC081BB9FB9D00D70257 /* Frameworks */,
+				941EFC091BB9FB9D00D70257 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				941EFC0D1BB9FB9D00D70257 /* PBXTargetDependency */,
+			);
+			name = MuseJournalTests;
+			productName = MuseJournalTests;
+			productReference = 941EFC0B1BB9FB9D00D70257 /* MuseJournalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		941EFC151BB9FB9D00D70257 /* MuseJournalUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 941EFC251BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournalUITests" */;
+			buildPhases = (
+				941EFC121BB9FB9D00D70257 /* Sources */,
+				941EFC131BB9FB9D00D70257 /* Frameworks */,
+				941EFC141BB9FB9D00D70257 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				941EFC181BB9FB9D00D70257 /* PBXTargetDependency */,
+			);
+			name = MuseJournalUITests;
+			productName = MuseJournalUITests;
+			productReference = 941EFC161BB9FB9D00D70257 /* MuseJournalUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		941EFBEA1BB9FB9C00D70257 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Leo Kwan";
+				TargetAttributes = {
+					941EFBF11BB9FB9C00D70257 = {
+						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = DWCYJ9H353;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
+					};
+					941EFC0A1BB9FB9D00D70257 = {
+						CreatedOnToolsVersion = 7.0.1;
+						TestTargetID = 941EFBF11BB9FB9C00D70257;
+					};
+					941EFC151BB9FB9D00D70257 = {
+						CreatedOnToolsVersion = 7.0.1;
+						TestTargetID = 941EFBF11BB9FB9C00D70257;
+					};
+				};
+			};
+			buildConfigurationList = 941EFBED1BB9FB9C00D70257 /* Build configuration list for PBXProject "Muse" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 941EFBE91BB9FB9C00D70257;
+			productRefGroup = 941EFBF31BB9FB9C00D70257 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				941EFBF11BB9FB9C00D70257 /* MuseJournal */,
+				941EFC0A1BB9FB9D00D70257 /* MuseJournalTests */,
+				941EFC151BB9FB9D00D70257 /* MuseJournalUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		941EFBF01BB9FB9C00D70257 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				941F252F1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib in Resources */,
+				94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */,
+				941EFC051BB9FB9C00D70257 /* LaunchScreen.storyboard in Resources */,
+				941F252A1BBC49FF008C8120 /* MUSEntryToolbar.xib in Resources */,
+				94B313F41BBAF88200ECB1AD /* Main.storyboard in Resources */,
+				941EFC021BB9FB9C00D70257 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		941EFC091BB9FB9D00D70257 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		941EFC141BB9FB9D00D70257 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		028FC19025515B763B0FA68F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3F65C1798A48A6919D4D4CCE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		941EFBEE1BB9FB9C00D70257 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94B313F81BBAF88200ECB1AD /* MUSAllEntriesViewController.m in Sources */,
+				94B313FF1BBAF88200ECB1AD /* MUSPlaylistViewController.m in Sources */,
+				94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */,
+				94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */,
+				941F250F1BBC388F008C8120 /* MUSColorSheet.m in Sources */,
+				941F25161BBC388F008C8120 /* MUSIconAnimation.m in Sources */,
+				941F25351BBC4A34008C8120 /* MUSNotificationDelegate.m in Sources */,
+				94B313C21BBAF86A00ECB1AD /* Entry+ExtraMethods.m in Sources */,
+				941EFBF71BB9FB9C00D70257 /* main.m in Sources */,
+				94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */,
+				94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */,
+				94B314061BBAF88200ECB1AD /* Song+CoreDataProperties.m in Sources */,
+				94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */,
+				94B313C01BBAF86A00ECB1AD /* Entry.m in Sources */,
+				94B313F71BBAF88200ECB1AD /* MUSAlertView.m in Sources */,
+				94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */,
+				941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */,
+				94B314071BBAF88200ECB1AD /* Song+MUSExtraMethods.m in Sources */,
+				94B314041BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m in Sources */,
+				94B314021BBAF88200ECB1AD /* NSDate+ExtraMethods.m in Sources */,
+				941F25321BBC4A24008C8120 /* MUSNotificationDelegate.m in Sources */,
+				941F25441BBC4A69008C8120 /* MUSImagelessEntryCell.m in Sources */,
+				941F25101BBC388F008C8120 /* MUSDataStore.m in Sources */,
+				941F253E1BBC4A50008C8120 /* UIColor+MUSColors.m in Sources */,
+				941F25291BBC49FF008C8120 /* MUSEntryToolbar.m in Sources */,
+				941F252E1BBC4A0E008C8120 /* MUSKeyboardTopBar.m in Sources */,
+				94B313C11BBAF86A00ECB1AD /* Entry+CoreDataProperties.m in Sources */,
+				941F253B1BBC4A47008C8120 /* MUSTextViewDelegate.m in Sources */,
+				94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */,
+				94B313FD1BBAF88200ECB1AD /* MUSHomeViewController.m in Sources */,
+				94B313B91BBAF86200ECB1AD /* AppDelegate.m in Sources */,
+				941F25381BBC4A3A008C8120 /* MUSSearchBarDelegate.m in Sources */,
+				941F25411BBC4A63008C8120 /* MUSEntryTableViewCell.m in Sources */,
+				941F254A1BBC4A8D008C8120 /* MuseApp.xcdatamodeld in Sources */,
+				94B3140C1BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m in Sources */,
+				94B314081BBAF88200ECB1AD /* UIButton+ExtraMethods.m in Sources */,
+				941F25151BBC388F008C8120 /* MUSGreetingManager.m in Sources */,
+				94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */,
+				94B314011BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.m in Sources */,
+				94B314051BBAF88200ECB1AD /* Song.m in Sources */,
+				941F25471BBC4A71008C8120 /* MUSSongTableViewCell.m in Sources */,
+				94B313FE1BBAF88200ECB1AD /* MUSMusicPlayer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		941EFC071BB9FB9D00D70257 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				941EFC101BB9FB9D00D70257 /* MuseJournalTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		941EFC121BB9FB9D00D70257 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				941EFC1B1BB9FB9D00D70257 /* MuseJournalUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		941EFC0D1BB9FB9D00D70257 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 941EFBF11BB9FB9C00D70257 /* MuseJournal */;
+			targetProxy = 941EFC0C1BB9FB9D00D70257 /* PBXContainerItemProxy */;
+		};
+		941EFC181BB9FB9D00D70257 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 941EFBF11BB9FB9C00D70257 /* MuseJournal */;
+			targetProxy = 941EFC171BB9FB9D00D70257 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				941EFC041BB9FB9C00D70257 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		941EFC1D1BB9FB9D00D70257 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		941EFC1E1BB9FB9D00D70257 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		941EFC201BB9FB9D00D70257 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = MuseJournal/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leojkwan.MuseJournal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		941EFC211BB9FB9D00D70257 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = MuseJournal/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leojkwan.MuseJournal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		941EFC231BB9FB9D00D70257 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MuseJournalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leojkwan.MuseJournalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MuseJournal.app/MuseJournal";
+			};
+			name = Debug;
+		};
+		941EFC241BB9FB9D00D70257 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MuseJournalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leojkwan.MuseJournalTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MuseJournal.app/MuseJournal";
+			};
+			name = Release;
+		};
+		941EFC261BB9FB9D00D70257 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MuseJournalUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leojkwan.MuseJournalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MuseJournal;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		941EFC271BB9FB9D00D70257 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MuseJournalUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leojkwan.MuseJournalUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MuseJournal;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		941EFBED1BB9FB9C00D70257 /* Build configuration list for PBXProject "Muse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				941EFC1D1BB9FB9D00D70257 /* Debug */,
+				941EFC1E1BB9FB9D00D70257 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		941EFC1F1BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				941EFC201BB9FB9D00D70257 /* Debug */,
+				941EFC211BB9FB9D00D70257 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		941EFC221BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				941EFC231BB9FB9D00D70257 /* Debug */,
+				941EFC241BB9FB9D00D70257 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		941EFC251BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournalUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				941EFC261BB9FB9D00D70257 /* Debug */,
+				941EFC271BB9FB9D00D70257 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		941F25481BBC4A8D008C8120 /* MuseApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				941F25491BBC4A8D008C8120 /* MuseApp.xcdatamodel */,
+			);
+			currentVersion = 941F25491BBC4A8D008C8120 /* MuseApp.xcdatamodel */;
+			path = MuseApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 941EFBEA1BB9FB9C00D70257 /* Project object */;
+}

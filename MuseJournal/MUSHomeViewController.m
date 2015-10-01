@@ -52,6 +52,7 @@
 //
 -(void)viewDidLoad {
     [super viewDidLoad];
+
     self.scrollView.delegate = self;
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
@@ -179,10 +180,8 @@
     self.actionView.delegate = self;
     MUSActionView *actionView2 = [[MUSActionView alloc] init];
     MUSActionView *actionView3 = [[MUSActionView alloc] init];
-    MUSActionView *actionView4 = [[MUSActionView alloc] init];
-    MUSActionView *actionView5 = [[MUSActionView alloc] init];
 
-    self.cardsArray = @[self.actionView,actionView2, actionView3, actionView4, actionView5];
+    self.cardsArray = @[self.actionView,actionView2, actionView3];
     [self.scrollContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.scrollView.mas_height).multipliedBy(self.cardsArray.count);
     }];

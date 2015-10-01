@@ -10,7 +10,7 @@
 
 @protocol MUSKeyboardInputDelegate <NSObject>
 
--(void)didSelectCameraButton:(id)sender;
+-(void)didSelectCameraButton;
 -(void)didSelectDoneButton:(id)sender;
 -(void)didSelectPlaylistButton:(id)sender;
 -(void)didSelectAddSongButton:(id)sender;
@@ -22,6 +22,7 @@
 @interface MUSKeyboardTopBar : UIView
 
 @property (nonatomic, assign) id<MUSKeyboardInputDelegate> delegate;
+@property (strong, nonatomic) UIBarButtonItem *cameraBarButtonItem;
 -(instancetype)initWithToolbar;
 -(instancetype)initWithKeyboard;
 

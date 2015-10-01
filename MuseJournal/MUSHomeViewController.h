@@ -11,9 +11,9 @@
 
 @interface MUSHomeViewController : UIViewController
 
-
-- (IBAction)purchase;
-- (IBAction)restore;
-- (IBAction)tapsRemoveAds;
+//
+//- (IBAction)purchase;
+//- (IBAction)restore;
+//- (IBAction)tapsRemoveAds;
 
 @end

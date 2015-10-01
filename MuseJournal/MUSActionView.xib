@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMJ-SB-2Qr" userLabel="add">
-                    <rect key="frame" x="482" y="144" width="88" height="88"/>
+                    <rect key="frame" x="487" y="149" width="78" height="78"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="ba1-Zi-0Wu"/>
@@ -37,15 +37,15 @@
                         <action selector="addButtonTapped:" destination="-1" eventType="touchUpInside" id="ir3-pU-wnF"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
-                    <rect key="frame" x="480" y="223" width="92" height="27.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
+                    <rect key="frame" x="480" y="242" width="92" height="27.5"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Surprise Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
-                    <rect key="frame" x="122.5" y="242" width="106.5" height="27.5"/>
+                    <rect key="frame" x="122" y="242" width="106.5" height="27.5"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,8 +67,7 @@
                         <constraint firstAttribute="width" secondItem="zhS-6c-F0Q" secondAttribute="height" multiplier="1:1" id="Uj9-9T-C8f"/>
                         <constraint firstAttribute="width" constant="50" id="mKT-Tt-Y7T"/>
                     </constraints>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" image="addToPlaylist"/>
+                    <state key="normal" image="random"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="Uj9-9T-C8f"/>
@@ -88,6 +87,7 @@
                 <constraint firstItem="RQU-Vl-6t9" firstAttribute="top" secondItem="dMJ-SB-2Qr" secondAttribute="bottom" constant="10" id="EDr-3K-sb4"/>
                 <constraint firstItem="zhS-6c-F0Q" firstAttribute="centerX" secondItem="XRb-pt-iRf" secondAttribute="centerX" multiplier="1/2" id="OMk-Wf-hEi"/>
                 <constraint firstItem="U3O-oH-r3C" firstAttribute="centerY" secondItem="XRb-pt-iRf" secondAttribute="centerY" id="ThI-Xo-K0V"/>
+                <constraint firstItem="RQU-Vl-6t9" firstAttribute="centerY" secondItem="XJe-xa-ObB" secondAttribute="centerY" id="UuZ-Fn-nXx"/>
                 <constraint firstItem="RQU-Vl-6t9" firstAttribute="centerX" secondItem="dMJ-SB-2Qr" secondAttribute="centerX" id="XTK-oz-f19"/>
                 <constraint firstItem="zhS-6c-F0Q" firstAttribute="width" secondItem="zhS-6c-F0Q" secondAttribute="height" multiplier="1:1" id="bIQ-eo-QSe"/>
                 <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerY" secondItem="U3O-oH-r3C" secondAttribute="centerY" id="dbR-tG-sod"/>
@@ -95,7 +95,7 @@
                 <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerY" secondItem="zhS-6c-F0Q" secondAttribute="centerY" id="fPl-fe-FG3"/>
                 <constraint firstItem="XJe-xa-ObB" firstAttribute="centerX" secondItem="zhS-6c-F0Q" secondAttribute="centerX" id="fVR-5O-UL9"/>
                 <constraint firstItem="dMJ-SB-2Qr" firstAttribute="centerX" secondItem="XRb-pt-iRf" secondAttribute="centerX" multiplier="1.5" id="ooq-hh-9e8"/>
-                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="width" secondItem="XRb-pt-iRf" secondAttribute="width" multiplier="1/8" id="pmd-lH-M1p"/>
+                <constraint firstItem="dMJ-SB-2Qr" firstAttribute="width" secondItem="XRb-pt-iRf" secondAttribute="width" multiplier="1/9" id="pmd-lH-M1p"/>
                 <constraint firstItem="dMJ-SB-2Qr" firstAttribute="width" secondItem="dMJ-SB-2Qr" secondAttribute="height" multiplier="1:1" id="rXX-04-5bc"/>
                 <constraint firstItem="zhS-6c-F0Q" firstAttribute="width" secondItem="XRb-pt-iRf" secondAttribute="width" multiplier="1/8" id="vmI-zK-h0A"/>
             </constraints>
@@ -103,13 +103,14 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="fPl-fe-FG3"/>
+                    <exclude reference="EDr-3K-sb4"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="410" y="355.5"/>
         </view>
     </objects>
     <resources>
-        <image name="addToPlaylist" width="105" height="105"/>
         <image name="pencil" width="50" height="50"/>
+        <image name="random" width="45" height="45"/>
     </resources>
 </document>

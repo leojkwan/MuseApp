@@ -7,9 +7,12 @@
 #import "MUSKeyboardTopBar.h"
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
-#import "UIImage+MUSExtraMethods.h"
+#import "UIImageView+ExtraMethods.h"
+
 
 #define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
+#define BUTTON_COLOR [UIColor darkGrayColor]
+
 
 
 @interface MUSKeyboardTopBar ()
@@ -77,34 +80,33 @@
     // add content view to xib
     [self addSubview:self.contentView];
     
-
+    
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
     }];
-  }
+}
 
 
 -(void)setUpToolBarButtons {
-self.toolbarButtonItems = [[NSMutableArray alloc] init];
-
-// set up bar buttons items in this order left to right
+    self.toolbarButtonItems = [[NSMutableArray alloc] init];
     
-[self.toolbarButtonItems addObject:[self backButton]];
-[self.toolbarButtonItems addObject:[self flexSpaceButton]];
-[self.toolbarButtonItems addObject:[self cameraButton]];
+    // set up bar buttons items in this order left to right
+    
+    [self.toolbarButtonItems addObject:[self backButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-[self.toolbarButtonItems addObject:[self pinSongButton]];
+    [self.toolbarButtonItems addObject:[self cameraButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-[self.toolbarButtonItems addObject:[self playlistButton]];
-
-
-// after all buttons have been set... set array to toolbar
-[self.keyboardToolBar setItems:self.toolbarButtonItems animated:YES];
+    [self.toolbarButtonItems addObject:[self pinSongButton]];
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
+    [self.toolbarButtonItems addObject:[self playlistButton]];
+    
+    
+    // after all buttons have been set... set array to toolbar
+    [self.keyboardToolBar setItems:self.toolbarButtonItems animated:YES];
 }
 
 -(void)setUpKeyboardButtons {
     self.keyboardButtonItems = [[NSMutableArray alloc] init];
-    
     // set up bar buttons items in this order left to right
     [self.keyboardButtonItems addObject:[self makeTitleButton]];
     [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
@@ -119,60 +121,86 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
     
     // after all buttons have been set... set array to toolbar
     [self.keyboardToolBar setItems:self.keyboardButtonItems animated:YES];
-
+    
 }
 
 
 #pragma mark - Create Buttons
 
 -(UIBarButtonItem *)makeTitleButton {
-    UIButton* makeTitleButton = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 35, 25)];
-    [makeTitleButton addTarget:self action:@selector(titleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [makeTitleButton setBackgroundImage:[UIImage imageNamed:@"title"] forState:UIControlStateNormal];
-    
-    UIBarButtonItem *makeTitleBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:makeTitleButton];
-    return makeTitleBarButtonItem;
+    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 25)];
+    titleView.image = [UIImage imageNamed:@"title"];
+    [titleView setImageToColorTint:BUTTON_COLOR];
+    titleView.contentMode = UIViewContentModeScaleAspectFit;
+    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleButtonPressed:)];
+    [titleView addGestureRecognizer:titleTap];
+    UIBarButtonItem *titleBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:titleView];
+    return titleBarButtonItem;
 }
 
 
 -(UIBarButtonItem *)cameraButton {
-    UIButton* cameraButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-    [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
     
-    UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:cameraButton];
-    return cameraBarButtonItem;
+//    UIButton* cameraButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
+//    [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
+//    
+//    UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:cameraButton];
+//    return cameraBarButtonItem;
+//    
+    
+    UIImageView *coolCameraImageView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+
+    coolCameraImageView.image = [UIImage imageNamed:@"addImage"];
+    [coolCameraImageView setImageToColorTint:BUTTON_COLOR];
+    coolCameraImageView.contentMode = UIViewContentModeScaleAspectFit;
+    UITapGestureRecognizer *cameraTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraButtonPressed)];
+    [coolCameraImageView addGestureRecognizer:cameraTap];
+    UIBarButtonItem *coolCameraBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:coolCameraImageView];
+    self.cameraBarButtonItem = coolCameraBarButtonItem;
+    return coolCameraBarButtonItem;
 }
 
 -(UIBarButtonItem *)backButton {
-    UIButton* backButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-    [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    backImageView.image = [UIImage imageNamed:@"back"];
+    [backImageView setImageToColorTint:BUTTON_COLOR];
+    backImageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:backButton];
+    UITapGestureRecognizer *backTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonPressed:)];
+    [backImageView addGestureRecognizer:backTap];
+    
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backImageView];
     return backBarButtonItem;
 }
 
 
 
 -(UIBarButtonItem *)playlistButton {
-    UIButton* seePlaylistButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-    [seePlaylistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [seePlaylistButton setBackgroundImage:[UIImage imageNamed:@"playlist"] forState:UIControlStateNormal];
+    UIImageView *playlistView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+    playlistView.image = [UIImage imageNamed:@"playlist"];
+    [playlistView setImageToColorTint:BUTTON_COLOR];
+    playlistView.contentMode = UIViewContentModeScaleAspectFit;
     
-    // set up camera bar button
-    UIBarButtonItem *seePlaylistBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:seePlaylistButton];
-    return seePlaylistBarButtonItem;
+    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seePlaylistButtonPressed:)];
+    [playlistView addGestureRecognizer:pinTap];
+    
+    UIBarButtonItem *playlistBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playlistView];
+    return playlistBarButtonItem;
 }
 
 -(UIBarButtonItem *)pinSongButton {
-
-    UIButton* addSongButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-     [addSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [addSongButton setBackgroundImage:[UIImage imageNamed:@"addToPlaylist"] forState:UIControlStateNormal];
+    UIImageView *pinSongView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+    pinSongView.image = [UIImage imageNamed:@"pinSong"];
+    [pinSongView setImageToColorTint:BUTTON_COLOR];
+    pinSongView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UIBarButtonItem *addSongBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:addSongButton];
-    return addSongBarButtonItem;
+    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pinSongButtonPressed:)];
+    [pinSongView addGestureRecognizer:pinTap];
+    
+    UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongView];
+    return pinSongButtonItem;
 }
 
 
@@ -188,10 +216,9 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 }
 
 -(UIBarButtonItem *)doneButton {
-
+    
     // set up done bar button
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
-
     return doneBarButtonItem;
 }
 
@@ -228,8 +255,8 @@ self.toolbarButtonItems = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Button Pressed methods
--(void)cameraButtonPressed:(id)sender{
+-(void)cameraButtonPressed{
     NSLog(@"cameraButtonPressed");
-    [self.delegate didSelectCameraButton:sender];
+    [self.delegate didSelectCameraButton];
 }
 @end
