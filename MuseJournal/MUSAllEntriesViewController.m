@@ -49,9 +49,6 @@
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     self.toolbar.delegate = self;
-
-
-
     [self performInitialFetchRequest];
 
     // set searchbar delegate
@@ -67,6 +64,15 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    
+    // was hoping redefining the sort descriptor would fix the problem.... fix it.
+    NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+    entryFetch.sortDescriptors = @[sortDescriptor];
+
+    [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
+    [self.resultsController performFetch:nil];
+    
     [self.entriesTableView reloadData];
 
 }
@@ -245,30 +251,6 @@
     }
 }
 
--(void)presentDeleteSheet:(MCSwipeTableViewCell *)cell indexPath:(NSIndexPath*)indexPath {
-
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
-
-    // Delete
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Delete Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [self.store.managedObjectContext deleteObject:managedObject];
-        [self.store.managedObjectContext save:nil];
-    }]];
-
-    // Cancel
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [cell swipeToOriginWithCompletion:nil];
-    }]];
-
-    // Present action sheet.
-    
-    actionSheet.popoverPresentationController.sourceView = cell;
-    actionSheet.popoverPresentationController.sourceRect = [cell bounds];
-    [self presentViewController:actionSheet animated:YES completion:^{
-    }];
-    
-}
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -345,6 +327,30 @@
 }
 
 
+-(void)presentDeleteSheet:(MCSwipeTableViewCell *)cell indexPath:(NSIndexPath*)indexPath {
+    
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    NSManagedObject *managedObject = [self.resultsController objectAtIndexPath:indexPath];
+    
+    // Delete
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Delete Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self.store.managedObjectContext deleteObject:managedObject];
+        [self.store.managedObjectContext save:nil];
+    }]];
+    
+    // Cancel
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [cell swipeToOriginWithCompletion:nil];
+    }]];
+    
+    // Present action sheet.
+    
+    actionSheet.popoverPresentationController.sourceView = cell;
+    actionSheet.popoverPresentationController.sourceRect = [cell bounds];
+    [self presentViewController:actionSheet animated:YES completion:^{
+    }];
+    
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
