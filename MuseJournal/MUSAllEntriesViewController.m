@@ -174,10 +174,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 100;
+        return 85;
+        ;
     }
-    return 300
-    ;
+    return 275  ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -197,10 +197,10 @@
     
     UILabel *sectionLabel = [[UILabel alloc] init];
     // account for left offset
-    sectionLabel.frame = CGRectMake(10, 0, self.view.frame.size.width - 10, 25);
+    sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 25);
     sectionLabel.backgroundColor = [UIColor whiteColor];
-    sectionLabel.textAlignment = NSTextAlignmentLeft;
-    [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
+    sectionLabel.textAlignment = NSTextAlignmentCenter;
+    [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:13.0]];
     sectionLabel.textColor = [UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1];
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
