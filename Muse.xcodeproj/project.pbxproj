@@ -31,9 +31,11 @@
 		941F25471BBC4A71008C8120 /* MUSSongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F25461BBC4A71008C8120 /* MUSSongTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		941F254A1BBC4A8D008C8120 /* MuseApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 941F25481BBC4A8D008C8120 /* MuseApp.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F254C1BBC4B12008C8120 /* UIImageView+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94AD69EE1BBDABA5009C5553 /* Song+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69E71BBDABA5009C5553 /* Song+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		94AD69EF1BBDABA5009C5553 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69E91BBDABA5009C5553 /* Song.m */; settings = {ASSET_TAGS = (); }; };
+		94AD69F01BBDABA5009C5553 /* Entry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69EB1BBDABA5009C5553 /* Entry+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		94AD69F11BBDABA5009C5553 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69ED1BBDABA5009C5553 /* Entry.m */; settings = {ASSET_TAGS = (); }; };
 		94B313B91BBAF86200ECB1AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313B81BBAF86200ECB1AD /* AppDelegate.m */; settings = {ASSET_TAGS = (); }; };
-		94B313C01BBAF86A00ECB1AD /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313BB1BBAF86A00ECB1AD /* Entry.m */; settings = {ASSET_TAGS = (); }; };
-		94B313C11BBAF86A00ECB1AD /* Entry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313BD1BBAF86A00ECB1AD /* Entry+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		94B313C21BBAF86A00ECB1AD /* Entry+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313BF1BBAF86A00ECB1AD /* Entry+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94B313F41BBAF88200ECB1AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B313C31BBAF88200ECB1AD /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
 		94B313F71BBAF88200ECB1AD /* MUSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313C81BBAF88200ECB1AD /* MUSAlertView.m */; settings = {ASSET_TAGS = (); }; };
@@ -47,8 +49,6 @@
 		94B314021BBAF88200ECB1AD /* NSDate+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313DD1BBAF88200ECB1AD /* NSDate+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313DF1BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m */; settings = {ASSET_TAGS = (); }; };
 		94B314041BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */; settings = {ASSET_TAGS = (); }; };
-		94B314051BBAF88200ECB1AD /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E31BBAF88200ECB1AD /* Song.m */; settings = {ASSET_TAGS = (); }; };
-		94B314061BBAF88200ECB1AD /* Song+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E51BBAF88200ECB1AD /* Song+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		94B314071BBAF88200ECB1AD /* Song+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E71BBAF88200ECB1AD /* Song+MUSExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94B314081BBAF88200ECB1AD /* UIButton+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313E91BBAF88200ECB1AD /* UIButton+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313ED1BBAF88200ECB1AD /* UIFont+MUSFonts.m */; settings = {ASSET_TAGS = (); }; };
@@ -125,12 +125,16 @@
 		941F25491BBC4A8D008C8120 /* MuseApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MuseApp.xcdatamodel; sourceTree = "<group>"; };
 		941F254B1BBC4B12008C8120 /* UIImageView+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+ExtraMethods.h"; path = "MuseJournal/UIImageView+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
 		941F254C1BBC4B12008C8120 /* UIImageView+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+ExtraMethods.m"; path = "MuseJournal/UIImageView+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94AD69E61BBDABA5009C5553 /* Song+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Song+CoreDataProperties.h"; sourceTree = "<group>"; };
+		94AD69E71BBDABA5009C5553 /* Song+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Song+CoreDataProperties.m"; sourceTree = "<group>"; };
+		94AD69E81BBDABA5009C5553 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
+		94AD69E91BBDABA5009C5553 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
+		94AD69EA1BBDABA5009C5553 /* Entry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Entry+CoreDataProperties.h"; sourceTree = "<group>"; };
+		94AD69EB1BBDABA5009C5553 /* Entry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Entry+CoreDataProperties.m"; sourceTree = "<group>"; };
+		94AD69EC1BBDABA5009C5553 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
+		94AD69ED1BBDABA5009C5553 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 		94B313B71BBAF86200ECB1AD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MuseJournal/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		94B313B81BBAF86200ECB1AD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MuseJournal/AppDelegate.m; sourceTree = SOURCE_ROOT; };
-		94B313BA1BBAF86A00ECB1AD /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entry.h; path = MuseJournal/Entry.h; sourceTree = SOURCE_ROOT; };
-		94B313BB1BBAF86A00ECB1AD /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Entry.m; path = MuseJournal/Entry.m; sourceTree = SOURCE_ROOT; };
-		94B313BC1BBAF86A00ECB1AD /* Entry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Entry+CoreDataProperties.h"; path = "MuseJournal/Entry+CoreDataProperties.h"; sourceTree = SOURCE_ROOT; };
-		94B313BD1BBAF86A00ECB1AD /* Entry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Entry+CoreDataProperties.m"; path = "MuseJournal/Entry+CoreDataProperties.m"; sourceTree = SOURCE_ROOT; };
 		94B313BE1BBAF86A00ECB1AD /* Entry+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Entry+ExtraMethods.h"; path = "MuseJournal/Entry+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
 		94B313BF1BBAF86A00ECB1AD /* Entry+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Entry+ExtraMethods.m"; path = "MuseJournal/Entry+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
 		94B313C31BBAF88200ECB1AD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = MuseJournal/Main.storyboard; sourceTree = SOURCE_ROOT; };
@@ -156,10 +160,6 @@
 		94B313DF1BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSSet+MUSExtraMethod.m"; path = "MuseJournal/NSSet+MUSExtraMethod.m"; sourceTree = SOURCE_ROOT; };
 		94B313E01BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RKSwipeBetweenViewControllers.h; path = MuseJournal/RKSwipeBetweenViewControllers.h; sourceTree = SOURCE_ROOT; };
 		94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RKSwipeBetweenViewControllers.m; path = MuseJournal/RKSwipeBetweenViewControllers.m; sourceTree = SOURCE_ROOT; };
-		94B313E21BBAF88200ECB1AD /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Song.h; path = MuseJournal/Song.h; sourceTree = SOURCE_ROOT; };
-		94B313E31BBAF88200ECB1AD /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Song.m; path = MuseJournal/Song.m; sourceTree = SOURCE_ROOT; };
-		94B313E41BBAF88200ECB1AD /* Song+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Song+CoreDataProperties.h"; path = "MuseJournal/Song+CoreDataProperties.h"; sourceTree = SOURCE_ROOT; };
-		94B313E51BBAF88200ECB1AD /* Song+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Song+CoreDataProperties.m"; path = "MuseJournal/Song+CoreDataProperties.m"; sourceTree = SOURCE_ROOT; };
 		94B313E61BBAF88200ECB1AD /* Song+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Song+MUSExtraMethods.h"; path = "MuseJournal/Song+MUSExtraMethods.h"; sourceTree = SOURCE_ROOT; };
 		94B313E71BBAF88200ECB1AD /* Song+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Song+MUSExtraMethods.m"; path = "MuseJournal/Song+MUSExtraMethods.m"; sourceTree = SOURCE_ROOT; };
 		94B313E81BBAF88200ECB1AD /* UIButton+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+ExtraMethods.h"; path = "MuseJournal/UIButton+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
@@ -353,14 +353,14 @@
 		94BDA3121BBB91AD0071948D /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				94B313E21BBAF88200ECB1AD /* Song.h */,
-				94B313E31BBAF88200ECB1AD /* Song.m */,
-				94B313BA1BBAF86A00ECB1AD /* Entry.h */,
-				94B313BB1BBAF86A00ECB1AD /* Entry.m */,
-				94B313E41BBAF88200ECB1AD /* Song+CoreDataProperties.h */,
-				94B313E51BBAF88200ECB1AD /* Song+CoreDataProperties.m */,
-				94B313BC1BBAF86A00ECB1AD /* Entry+CoreDataProperties.h */,
-				94B313BD1BBAF86A00ECB1AD /* Entry+CoreDataProperties.m */,
+				94AD69E61BBDABA5009C5553 /* Song+CoreDataProperties.h */,
+				94AD69E71BBDABA5009C5553 /* Song+CoreDataProperties.m */,
+				94AD69E81BBDABA5009C5553 /* Song.h */,
+				94AD69E91BBDABA5009C5553 /* Song.m */,
+				94AD69EA1BBDABA5009C5553 /* Entry+CoreDataProperties.h */,
+				94AD69EB1BBDABA5009C5553 /* Entry+CoreDataProperties.m */,
+				94AD69EC1BBDABA5009C5553 /* Entry.h */,
+				94AD69ED1BBDABA5009C5553 /* Entry.m */,
 				941F25481BBC4A8D008C8120 /* MuseApp.xcdatamodeld */,
 			);
 			name = "Managed Objects";
@@ -604,6 +604,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94AD69EF1BBDABA5009C5553 /* Song.m in Sources */,
 				94B313F81BBAF88200ECB1AD /* MUSAllEntriesViewController.m in Sources */,
 				94B313FF1BBAF88200ECB1AD /* MUSPlaylistViewController.m in Sources */,
 				94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */,
@@ -615,25 +616,25 @@
 				941EFBF71BB9FB9C00D70257 /* main.m in Sources */,
 				94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */,
 				94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */,
-				94B314061BBAF88200ECB1AD /* Song+CoreDataProperties.m in Sources */,
 				94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */,
-				94B313C01BBAF86A00ECB1AD /* Entry.m in Sources */,
 				94B313F71BBAF88200ECB1AD /* MUSAlertView.m in Sources */,
 				94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */,
 				941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */,
+				94AD69EE1BBDABA5009C5553 /* Song+CoreDataProperties.m in Sources */,
 				94B314071BBAF88200ECB1AD /* Song+MUSExtraMethods.m in Sources */,
 				94B314041BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m in Sources */,
 				94B314021BBAF88200ECB1AD /* NSDate+ExtraMethods.m in Sources */,
 				941F25321BBC4A24008C8120 /* MUSNotificationDelegate.m in Sources */,
 				941F25441BBC4A69008C8120 /* MUSImagelessEntryCell.m in Sources */,
 				941F25101BBC388F008C8120 /* MUSDataStore.m in Sources */,
+				94AD69F01BBDABA5009C5553 /* Entry+CoreDataProperties.m in Sources */,
 				941F253E1BBC4A50008C8120 /* UIColor+MUSColors.m in Sources */,
 				941F25291BBC49FF008C8120 /* MUSEntryToolbar.m in Sources */,
 				941F252E1BBC4A0E008C8120 /* MUSKeyboardTopBar.m in Sources */,
-				94B313C11BBAF86A00ECB1AD /* Entry+CoreDataProperties.m in Sources */,
 				941F253B1BBC4A47008C8120 /* MUSTextViewDelegate.m in Sources */,
 				94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */,
 				94B313FD1BBAF88200ECB1AD /* MUSHomeViewController.m in Sources */,
+				94AD69F11BBDABA5009C5553 /* Entry.m in Sources */,
 				94B313B91BBAF86200ECB1AD /* AppDelegate.m in Sources */,
 				941F25381BBC4A3A008C8120 /* MUSSearchBarDelegate.m in Sources */,
 				941F25411BBC4A63008C8120 /* MUSEntryTableViewCell.m in Sources */,
@@ -643,7 +644,6 @@
 				941F25151BBC388F008C8120 /* MUSGreetingManager.m in Sources */,
 				94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */,
 				94B314011BBAF88200ECB1AD /* NSAttributedString+MUSExtraMethods.m in Sources */,
-				94B314051BBAF88200ECB1AD /* Song.m in Sources */,
 				941F25471BBC4A71008C8120 /* MUSSongTableViewCell.m in Sources */,
 				94B313FE1BBAF88200ECB1AD /* MUSMusicPlayer.m in Sources */,
 			);

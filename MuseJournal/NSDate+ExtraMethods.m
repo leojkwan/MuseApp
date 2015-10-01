@@ -7,6 +7,7 @@
 //
 
 #import "NSDate+ExtraMethods.h"
+#import "MUSTimeFetcher.h"
 
 @implementation NSDate (ExtraMethods)
 
@@ -17,11 +18,20 @@
     return monthAndYearOfSection;
 }
 
--(NSString *)returnMonthDateAndYear{
+-(NSString *)monthDateAndYearString{
     NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
     [monthAndYearFormatter setDateFormat:@"MMMM dd YYYY"];
     NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:self];
     return monthAndYearOfSection;
+}
+
+
+-(NSDate *)monthDateYearDate{
+    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
+    [monthAndYearFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:self];
+    NSDate *shorterDate = [monthAndYearFormatter dateFromString: monthAndYearOfSection];
+    return shorterDate;
 }
 
 -(NSString *)returnDayMonthDateFromDate{
@@ -30,5 +40,45 @@
     NSString *dayMonthDate = [monthAndYearFormatter stringFromDate:self];
     return dayMonthDate;
 }
+
+
+-(NSString *)returnEntryDateStringForDate:(NSDate *)date{
+    
+    MUSTimeFetcher *timeFetcher = [[MUSTimeFetcher alloc] init];
+    TimeOfDay timeOfEntry = [timeFetcher getTimeOfDayForDate:date];
+    
+    NSString *_timeOfDay;
+    
+    switch (timeOfEntry) {
+        case Morning:
+            _timeOfDay = @"Morning";
+            break;
+        case Afternoon:
+            _timeOfDay = @"Afternoon";
+            break;
+        case Evening:
+            _timeOfDay = @"Evening";
+            break;
+        case LateNight:
+            _timeOfDay = @"Late Night";
+            break;
+        default:
+            break;
+    }
+    
+    NSDateFormatter *dayOfWeekFormatter = [[NSDateFormatter alloc] init];
+    [dayOfWeekFormatter setDateFormat:@"EEEE"];
+    NSString *dayOfWeek = [dayOfWeekFormatter stringFromDate:date];
+
+    NSDateFormatter *clockFormatter = [[NSDateFormatter alloc] init];
+    [clockFormatter setTimeStyle: NSDateFormatterShortStyle];
+    NSString *clockTime = [clockFormatter stringFromDate: date];
+    
+    NSString *entryDateStringForDate = [NSString stringWithFormat:@"%@ %@, %@", dayOfWeek, _timeOfDay, clockTime];
+    return entryDateStringForDate;
+}
+
+
+
 
 @end

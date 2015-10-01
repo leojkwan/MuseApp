@@ -50,8 +50,8 @@
                                     </mask>
                                 </variation>
                             </pageControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
-                                <rect key="frame" x="15" y="111" width="540" height="28.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
+                                <rect key="frame" x="15" y="111" width="540" height="26.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -807,15 +807,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEZ-iN-a3x" userLabel="blurView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                                <rect key="frame" x="22.5" y="122.5" width="555" height="555"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Vdi-tV-Okf">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="555" height="555"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <animations/>
                                 </view>
                                 <animations/>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playlistGaussian" translatesAutoresizingMaskIntoConstraints="NO" id="rKu-nD-MQp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                                <animations/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oa9-os-zGq" userLabel="playerView">
                                 <rect key="frame" x="20" y="120" width="560" height="560"/>
                                 <subviews>
@@ -1190,8 +1194,11 @@
                         <animations/>
                         <constraints>
                             <constraint firstItem="oa9-os-zGq" firstAttribute="height" secondItem="gbg-yd-B8e" secondAttribute="height" multiplier="7/10" id="3Ch-QK-l9p"/>
+                            <constraint firstItem="rKu-nD-MQp" firstAttribute="top" secondItem="a6N-vX-rXf" secondAttribute="bottom" id="4kE-v7-O9j"/>
                             <constraint firstItem="HEZ-iN-a3x" firstAttribute="centerY" secondItem="gbg-yd-B8e" secondAttribute="centerY" id="5li-Vb-4z1"/>
+                            <constraint firstItem="v9T-cq-Y6K" firstAttribute="top" secondItem="rKu-nD-MQp" secondAttribute="bottom" id="8qK-eP-gfN"/>
                             <constraint firstItem="HEZ-iN-a3x" firstAttribute="width" secondItem="gbg-yd-B8e" secondAttribute="width" id="Axw-FH-Np6"/>
+                            <constraint firstItem="HEZ-iN-a3x" firstAttribute="width" secondItem="oa9-os-zGq" secondAttribute="width" constant="-5" id="ChI-Bp-CEi"/>
                             <constraint firstItem="v9T-cq-Y6K" firstAttribute="top" secondItem="HEZ-iN-a3x" secondAttribute="bottom" id="Iyj-3x-IWH"/>
                             <constraint firstAttribute="trailing" secondItem="oa9-os-zGq" secondAttribute="trailing" constant="20" id="Jfk-T5-UG4"/>
                             <constraint firstItem="oa9-os-zGq" firstAttribute="top" secondItem="a6N-vX-rXf" secondAttribute="bottom" constant="30" id="KPV-mX-G1d"/>
@@ -1199,6 +1206,8 @@
                             <constraint firstItem="HEZ-iN-a3x" firstAttribute="height" secondItem="gbg-yd-B8e" secondAttribute="height" id="PCA-fj-phk"/>
                             <constraint firstItem="oa9-os-zGq" firstAttribute="leading" secondItem="gbg-yd-B8e" secondAttribute="leading" constant="20" id="Wq7-Z1-szO"/>
                             <constraint firstItem="HEZ-iN-a3x" firstAttribute="height" secondItem="gbg-yd-B8e" secondAttribute="height" id="XOJ-hG-Wyq"/>
+                            <constraint firstAttribute="trailing" secondItem="rKu-nD-MQp" secondAttribute="trailing" id="ZEO-uA-OHT"/>
+                            <constraint firstItem="HEZ-iN-a3x" firstAttribute="height" secondItem="oa9-os-zGq" secondAttribute="height" constant="-5" id="cAQ-g1-bUf"/>
                             <constraint firstItem="oa9-os-zGq" firstAttribute="centerX" secondItem="gbg-yd-B8e" secondAttribute="centerX" id="d2Z-FF-Vba"/>
                             <constraint firstAttribute="trailing" secondItem="HEZ-iN-a3x" secondAttribute="trailing" id="eDM-ca-11j"/>
                             <constraint firstItem="HEZ-iN-a3x" firstAttribute="width" secondItem="oa9-os-zGq" secondAttribute="width" id="evb-wg-uUs"/>
@@ -1207,14 +1216,17 @@
                             <constraint firstItem="oa9-os-zGq" firstAttribute="centerY" secondItem="gbg-yd-B8e" secondAttribute="centerY" id="i7P-WA-VEq"/>
                             <constraint firstItem="HEZ-iN-a3x" firstAttribute="leading" secondItem="gbg-yd-B8e" secondAttribute="leading" id="uLI-XY-Tt4"/>
                             <constraint firstItem="v9T-cq-Y6K" firstAttribute="top" secondItem="oa9-os-zGq" secondAttribute="bottom" constant="30" id="wAF-6h-lVR"/>
+                            <constraint firstItem="rKu-nD-MQp" firstAttribute="leading" secondItem="gbg-yd-B8e" secondAttribute="leading" id="wsS-GP-qy9"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Axw-FH-Np6"/>
                                 <exclude reference="Nrl-mF-Pb7"/>
+                                <exclude reference="PCA-fj-phk"/>
                                 <exclude reference="XOJ-hG-Wyq"/>
                                 <exclude reference="eDM-ca-11j"/>
                                 <exclude reference="evb-wg-uUs"/>
+                                <exclude reference="fFr-vV-3ag"/>
                                 <exclude reference="uLI-XY-Tt4"/>
                                 <exclude reference="KPV-mX-G1d"/>
                                 <exclude reference="Iyj-3x-IWH"/>
@@ -1227,7 +1239,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
-                        <outlet property="blurView" destination="HEZ-iN-a3x" id="XLv-5O-8gg"/>
+                        <outlet property="blurView" destination="Vdi-tV-Okf" id="y3g-OL-0GP"/>
+                        <outlet property="blurView2" destination="HEZ-iN-a3x" id="yHD-eU-BRs"/>
                         <outlet property="contentView" destination="gbg-yd-B8e" id="vdh-MM-zZq"/>
                         <outlet property="currentArtistLabel" destination="Ngc-di-OsW" id="L2q-en-yzb"/>
                         <outlet property="currentSongLabel" destination="Gp9-Z7-6K0" id="UfM-BV-a6q"/>
@@ -1235,6 +1248,7 @@
                         <outlet property="maskImageView" destination="SOg-sG-VkZ" id="dd4-WN-E84"/>
                         <outlet property="playbackButtonStatus" destination="7Kz-Wo-9gc" id="GEQ-K2-pXW"/>
                         <outlet property="playerView" destination="oa9-os-zGq" id="cwd-zu-032"/>
+                        <outlet property="playlistGaussian" destination="rKu-nD-MQp" id="Vtg-bJ-gS6"/>
                         <outlet property="playlistTableView" destination="yIJ-9g-Cxv" id="qTj-ED-Kxq"/>
                     </connections>
                 </viewController>
@@ -1306,6 +1320,7 @@
         <image name="blackMask" width="951" height="635"/>
         <image name="forwardSong" width="45" height="45"/>
         <image name="playSong" width="45" height="45"/>
+        <image name="playlistGaussian" width="398" height="543"/>
         <image name="quitButton" width="14" height="14"/>
         <image name="settings" width="42" height="42"/>
         <image name="wallpaper3" width="1920" height="1280"/>

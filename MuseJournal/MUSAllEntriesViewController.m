@@ -20,7 +20,7 @@
 #import "MUSSearchBarDelegate.h"
 #import "MUSEntryToolbar.h"
 #import "MUSHomeViewController.h"
-
+#import "MUSTimeFetcher.h"
 
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, MUSEntryToolbarDelegate, UIScrollViewDelegate>
@@ -50,7 +50,7 @@
     self.entriesTableView.dataSource = self;
     self.toolbar.delegate = self;
     [self performInitialFetchRequest];
-
+    
     // set searchbar delegate
     self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
     self.entrySearchBar.delegate = self.searchBarHelperObject;
@@ -58,31 +58,20 @@
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
     
-
+    
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
     
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    
-//    // was hoping redefining the sort descriptor would fix the problem.... fix it.
-//    NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
-//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-//    entryFetch.sortDescriptors = @[sortDescriptor];
-//
-//    [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
-//    [self.resultsController performFetch:nil];
-    
     [self.entriesTableView reloadData];
-    
-
 }
 
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
+    
     // Set up iphone hitting bottom of table view
     CGPoint offset = self.entriesTableView.contentOffset;
     CGRect bounds = self.entriesTableView.bounds;
@@ -91,7 +80,7 @@
     float y = offset.y + bounds.size.height - inset.bottom;
     float h = size.height;
     float reload_distance = 10;
-
+    
     if(y > h + reload_distance) {
         [self setUpSpinner];
     }
@@ -125,25 +114,25 @@
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
     entryFetch.sortDescriptors = @[sortDescriptor];
-
-
+    
+    
     // set fetch count
     self.currentFetchCount = 5;
     [entryFetch setFetchLimit:self.currentFetchCount];
-
+    
     // Create and initialize the fetch results controller.
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
                                                                  managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"createdAt" cacheName:nil];
-
+    
     // set fetch results delegate
     self.resultsController.delegate = self;
     [self.resultsController performFetch:nil];
-
+    
 }
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
-
+    
     self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
         // delete cache every time
@@ -152,7 +141,7 @@
         self.currentFetchCount += 5;
         [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
         [self.resultsController performFetch:nil];
-
+        
         [self.entriesTableView reloadData];
     } else {
         self.entriesTableView.tableFooterView = nil;
@@ -172,7 +161,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  
+    
     
     if ([[self.resultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
@@ -183,7 +172,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
+    Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
         return 100;
     }
@@ -191,13 +180,9 @@
     ;
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 30;
-//}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-return 30;
+    return 25;
 }
 
 
@@ -209,10 +194,10 @@ return 30;
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-
+    
     UILabel *sectionLabel = [[UILabel alloc] init];
     // account for left offset
-    sectionLabel.frame = CGRectMake(10, 0, self.view.frame.size.width - 10, 30);
+    sectionLabel.frame = CGRectMake(10, 0, self.view.frame.size.width - 10, 25);
     sectionLabel.backgroundColor = [UIColor whiteColor];
     sectionLabel.textAlignment = NSTextAlignmentLeft;
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
@@ -220,7 +205,7 @@ return 30;
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
-
+    
     return headerView;
 }
 
@@ -238,20 +223,20 @@ return 30;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"section %ld, row %ld" , (long)indexPath.section + 1, (long)indexPath.row +1 );
-
+    
+    
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-
+    
     if (entryForThisRow.coverImage == nil) {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
-                [self presentDeleteSheet:cell indexPath:indexPath];
-            }];
+            [self presentDeleteSheet:cell indexPath:indexPath];
+        }];
         return cell;
     } else {
-         MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
+        MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
         [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
@@ -279,25 +264,25 @@ return 30;
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
-
+    
     UITableView *tableView = self.entriesTableView;
-
+    
     switch(type) {
-
+            
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
             break;
-
+            
         case NSFetchedResultsChangeDelete:
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                              withRowAnimation:UITableViewRowAnimationFade];
             break;
-
+            
         case NSFetchedResultsChangeUpdate:
             NSLog(@"A table item was updated");
             break;
-
+            
         case NSFetchedResultsChangeMove:
             [tableView deleteRowsAtIndexPaths:[NSArray
                                                arrayWithObject:indexPath]
@@ -313,18 +298,18 @@ return 30;
   didChangeSection:(id )sectionInfo
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type {
-
+    
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.entriesTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
-
+            
         case NSFetchedResultsChangeDelete:
             [self.entriesTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
-
+            
         default:
             break;
     }
@@ -365,10 +350,10 @@ return 30;
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+    
     //clear search bar on segue
     [self.searchBarHelperObject searchBarCancelButtonClicked:self.entrySearchBar];
-
+    
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
@@ -376,10 +361,10 @@ return 30;
         dvc.destinationEntry = entryForThisRow;
         if (entryForThisRow != nil)
             dvc.entryType = ExistingEntry;
-         else
-             dvc.entryType = NewEntry;
+        else
+            dvc.entryType = NewEntry;
     }
-
+    
 }
 
 

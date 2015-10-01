@@ -2,7 +2,7 @@
 //  Entry+CoreDataProperties.h
 //  
 //
-//  Created by Leo Kwan on 9/28/15.
+//  Created by Leo Kwan on 10/1/15.
 //
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *dateInString;
 @property (nullable, nonatomic, retain) NSString *tag;
 @property (nullable, nonatomic, retain) NSString *titleOfEntry;
+@property (nullable, nonatomic, retain) NSDate *epochTime;
 @property (nullable, nonatomic, retain) NSSet<Song *> *songs;
 
 @end

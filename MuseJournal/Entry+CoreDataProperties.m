@@ -2,7 +2,7 @@
 //  Entry+CoreDataProperties.m
 //  
 //
-//  Created by Leo Kwan on 9/28/15.
+//  Created by Leo Kwan on 10/1/15.
 //
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -19,6 +19,7 @@
 @dynamic dateInString;
 @dynamic tag;
 @dynamic titleOfEntry;
+@dynamic epochTime;
 @dynamic songs;
 
 @end

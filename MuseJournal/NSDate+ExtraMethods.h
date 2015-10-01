@@ -11,8 +11,11 @@
 @interface NSDate (ExtraMethods)
 
 -(NSString *)returnMonthAndYear;
--(NSString *)returnMonthDateAndYear;
+-(NSString *)monthDateAndYearString;
 -(NSString *)returnDayMonthDateFromDate;
+-(NSDate *)monthDateYearDate;
+
+-(NSString *)returnEntryDateStringForDate:(NSDate *)date;
 
 
 @end

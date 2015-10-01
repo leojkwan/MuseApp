@@ -25,6 +25,8 @@ typedef enum {
 @property (nonatomic, assign) TimeOfDay timeOfDay;
 @property (strong, nonatomic) NSString *currentTime;
 
-//-(NSArray*) getIconsForTimeOfDay
+
+-(TimeOfDay)getTimeOfDayForDate:(NSDate *)date;
+
 
 @end

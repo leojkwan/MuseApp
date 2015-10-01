@@ -28,7 +28,9 @@
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *playerView;
-@property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView2;
+@property (weak, nonatomic) IBOutlet UIView *blurView;
+@property (weak, nonatomic) IBOutlet UIImageView *playlistGaussian;
 
 
 
@@ -50,14 +52,14 @@
     
     
     self.playerView.layer.cornerRadius = 5;
-    
+
     
     [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
         self.artworkImagesForThisEntry = artworkImages;
     }];
     
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
-    [self.blurView addGestureRecognizer:dismissTap];
+    [self.playlistGaussian addGestureRecognizer:dismissTap];
  }
 
 

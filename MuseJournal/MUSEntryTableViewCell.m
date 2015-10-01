@@ -12,7 +12,7 @@
 #import "MUSAlertView.h"
 #import "NSDate+ExtraMethods.h"
 #import "NSAttributedString+MUSExtraMethods.h"
-
+#import "MUSTimeFetcher.h"
 
 @implementation MUSEntryTableViewCell
 
@@ -59,7 +59,7 @@
     // set views
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
-    cell.datePinnedLabel.text = [entryForThisRow.createdAt returnDayMonthDateFromDate];
+    cell.datePinnedLabel.text = [entryForThisRow.createdAt returnEntryDateStringForDate:entryForThisRow.epochTime];
     
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
     

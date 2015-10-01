@@ -18,7 +18,7 @@
     self = [super init];
     
     if (self) {
-        _timeOfDay = [self getTimeOfDay];
+        _timeOfDay = [self getTimeOfDayForDate:[NSDate date]];
         
         [NSTimer scheduledTimerWithTimeInterval:0.2
                                          target:self
@@ -37,8 +37,8 @@
 }
 
 
--(TimeOfDay)getTimeOfDay {
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:[NSDate date]];
+-(TimeOfDay)getTimeOfDayForDate:(NSDate *)date {
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:date];
     NSInteger hour = [components hour];
     if(hour > 3 && hour < 12)
         return Morning;

@@ -313,40 +313,35 @@ typedef enum{
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     
     self.destinationEntry = newEntry;
-    if (self.textView.text == nil) {
+    if (self.textView.text == nil)
         newEntry.content = @"";
-    } else if (self.textView.textColor == [UIColor lightGrayColor]){
+    else if (self.textView.textColor == [UIColor lightGrayColor])
         newEntry.content = @""; // wipe attributed placeholder text because text it not nil despite new entry
-    }
-    else {
+    else
         newEntry.content = self.textView.text;
-    }
+    
+    
     newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
     
     
     NSDate *currentDate = [NSDate date];
     
+        // check future
+//    NSDate *today = [[NSDate alloc] init];
+//    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+//    [offsetComponents setYear:1];
+//    [offsetComponents setMonth:0];
+//    [offsetComponents setDay:0];
+//    NSDate *nextYear = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
 
-    NSDate *today = [[NSDate alloc] init];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    [offsetComponents setYear:5];
-    [offsetComponents setMonth:0];
-    [offsetComponents setDay:2];
-    NSDate *nextYear = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
     
-    
-    
-    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
-    [monthAndYearFormatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *monthAndYearOfSection = [monthAndYearFormatter stringFromDate:nextYear];
-    NSDate *myDate = [monthAndYearFormatter dateFromString: monthAndYearOfSection];
-
-    newEntry.createdAt = myDate;
+    // month day and year
+    newEntry.createdAt = [currentDate monthDateYearDate];
+    // month day and year and seconds
+    newEntry.epochTime = currentDate;
     newEntry.tag = @"";
-    //    [newEntry setMonthAndYearStringForDate:nextYear];
-    newEntry.dateInString = [myDate returnMonthDateAndYear];
-    NSLog(@"%@", newEntry.dateInString);
+    newEntry.dateInString = [currentDate monthDateAndYearString];
     return newEntry;
 }
 

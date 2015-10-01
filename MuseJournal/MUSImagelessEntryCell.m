@@ -12,6 +12,7 @@
 #import "NSDate+ExtraMethods.h"
 #import "Song.h"
 #import "NSAttributedString+MUSExtraMethods.h"
+#import "MUSTimeFetcher.h"
 
 @interface MUSImagelessEntryCell ()
 
@@ -63,7 +64,9 @@
 
     cell.entryTitleLabel.attributedText =  [NSAttributedString returnMarkDownStringFromString:entryForThisRow.titleOfEntry];
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
-    cell.datePinnedLabel.text = [entryForThisRow.createdAt returnDayMonthDateFromDate];
+    
+
+    cell.datePinnedLabel.text = [entryForThisRow.createdAt returnEntryDateStringForDate:entryForThisRow.epochTime];
     
     // playlist text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
