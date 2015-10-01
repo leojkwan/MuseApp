@@ -211,9 +211,10 @@ return 30;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
     UILabel *sectionLabel = [[UILabel alloc] init];
-    sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
+    // account for left offset
+    sectionLabel.frame = CGRectMake(10, 0, self.view.frame.size.width - 10, 30);
     sectionLabel.backgroundColor = [UIColor whiteColor];
-    sectionLabel.textAlignment = NSTextAlignmentCenter;
+    sectionLabel.textAlignment = NSTextAlignmentLeft;
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16.0]];
     sectionLabel.textColor = [UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1];
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
