@@ -11,6 +11,24 @@ When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-
 
 ##Screenshots
 
+<div align="left">
+<tr>
+    <td>
+        <img src="https://leokwanblog.files.wordpress.com/2015/10/home-screens3x.jpg" width="275" />
+    </td>
+    <td>
+        <img src="https://leokwanblog.files.wordpress.com/2015/10/home-screens-copy3x.jpg" width="275" />
+    </td>
+        <td>
+        <img src="https://leokwanblog.files.wordpress.com/2015/10/home-screens-copy-23x.jpg" width="275" />
+    </td>
+        <td>
+        <img src="https://leokwanblog.files.wordpress.com/2015/10/home-screens-copy-33x.jpg" width="275" />
+    </td>
+</tr>
+</div>
+<div align="left">
+
 
 
 ##Features
