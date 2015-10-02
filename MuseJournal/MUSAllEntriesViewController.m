@@ -21,7 +21,7 @@
 #import "MUSEntryToolbar.h"
 #import "MUSHomeViewController.h"
 #import "MUSTimeFetcher.h"
-
+#import "UIFont+MUSFonts.h"
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, MUSEntryToolbarDelegate, UIScrollViewDelegate>
 
@@ -50,7 +50,6 @@
     self.entriesTableView.dataSource = self;
     self.toolbar.delegate = self;
     [self performInitialFetchRequest];
-    
     // set searchbar delegate
     self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
     self.entrySearchBar.delegate = self.searchBarHelperObject;

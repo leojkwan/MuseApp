@@ -11,7 +11,10 @@
 @interface UIFont (MUSFonts)
 
 +(NSMutableDictionary *)returnFontsForAttributedString;
-+(UIFont *)returnFontsForDefaultString;
++(UIFont *)returnParagraphFont;
++(UIFont *)returnEntryTitleFont;
++(UIFont *)returnSystemsFont;
++(UIFont *)returnHeaderTitleFont;
 
 
 @end

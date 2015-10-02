@@ -13,7 +13,7 @@
 #import <Masonry.h>
 #import "MUSIconAnimation.h"
 #import "UIImage+ExtraMethods.h"
-
+#import "UIFont+MUSFonts.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -244,12 +244,10 @@
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry != nil) {
-//        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
             MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
             // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
             [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
             [self.musicPlayer.myPlayer play];
-//        }];
     }
 }
 

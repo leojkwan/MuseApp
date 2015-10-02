@@ -161,7 +161,7 @@ typedef enum{
         self.textView.textColor = [UIColor blackColor];
     }
     self.textView.text = self.destinationEntry.content;
-    self.textView.font = [UIFont returnFontsForDefaultString];
+    self.textView.font = [UIFont returnParagraphFont];
     self.textView.textColor = [UIColor darkGrayColor];
 }
 
@@ -285,7 +285,7 @@ typedef enum{
 
 -(void)viewWillAppear:(BOOL)animated {
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
-    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:50];
+    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:30];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.MUSToolBar setHidden:NO];
 }
@@ -326,14 +326,14 @@ typedef enum{
     
     NSDate *currentDate = [NSDate date];
     
-        // check future
+//        // check future
 //    NSDate *today = [[NSDate alloc] init];
 //    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 //    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-//    [offsetComponents setYear:1];
-//    [offsetComponents setMonth:0];
-//    [offsetComponents setDay:0];
-//    NSDate *nextYear = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+//    [offsetComponents setYear:0];
+//    [offsetComponents setMonth:-3];
+//    [offsetComponents setDay:-16];
+//    NSDate *timeWarp = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
 
     
     // month day and year

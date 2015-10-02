@@ -56,6 +56,13 @@
 		94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */; settings = {ASSET_TAGS = (); }; };
 		94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B314101BBAF97A00ECB1AD /* MUSActionView.xib */; settings = {ASSET_TAGS = (); }; };
 		94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94EB3EDB1BBDDA790060AF28 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */; };
+		94EB3EDC1BBDDA790060AF28 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3ED81BBDDA5C0060AF28 /* Raleway-Medium.ttf */; };
+		94EB3EDD1BBDDA790060AF28 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3ED91BBDDA5C0060AF28 /* Raleway-Regular.ttf */; };
+		94EB3EDE1BBDDA790060AF28 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EDA1BBDDA5C0060AF28 /* Raleway-SemiBold.ttf */; };
+		94EB3EE11BBDE22D0060AF28 /* QuattrocentoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */; };
+		94EB3EE21BBDE22D0060AF28 /* QuattrocentoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */; };
+		94EB3EE41BBDE4020060AF28 /* ADAM.CG PRO.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */; };
 		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */; };
@@ -173,6 +180,13 @@
 		94B314101BBAF97A00ECB1AD /* MUSActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSActionView.xib; path = MuseJournal/MUSActionView.xib; sourceTree = SOURCE_ROOT; };
 		94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ExtraMethods.h"; path = "MuseJournal/UIImage+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
 		94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ExtraMethods.m"; path = "MuseJournal/UIImage+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
+		94EB3ED81BBDDA5C0060AF28 /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
+		94EB3ED91BBDDA5C0060AF28 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		94EB3EDA1BBDDA5C0060AF28 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
+		94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Italic.ttf"; sourceTree = "<group>"; };
+		94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Regular.ttf"; sourceTree = "<group>"; };
+		94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ADAM.CG PRO.otf"; sourceTree = "<group>"; };
 		94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSettingsTableViewController.h; sourceTree = "<group>"; };
 		94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSettingsTableViewController.m; sourceTree = "<group>"; };
 		94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTellAFriend.h; sourceTree = "<group>"; };
@@ -233,6 +247,7 @@
 		941EFBF41BB9FB9C00D70257 /* MuseJournal */ = {
 			isa = PBXGroup;
 			children = (
+				94EB3ED61BBDDA110060AF28 /* Resources */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
 				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
 				94B313B81BBAF86200ECB1AD /* AppDelegate.m */,
@@ -412,6 +427,20 @@
 			path = ../../MuseApp/MuseApp;
 			sourceTree = "<group>";
 		};
+		94EB3ED61BBDDA110060AF28 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */,
+				94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */,
+				94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */,
+				94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */,
+				94EB3ED81BBDDA5C0060AF28 /* Raleway-Medium.ttf */,
+				94EB3ED91BBDDA5C0060AF28 /* Raleway-Regular.ttf */,
+				94EB3EDA1BBDDA5C0060AF28 /* Raleway-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		B397B2E03385FDD827D6EF76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,6 +570,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94EB3EE41BBDE4020060AF28 /* ADAM.CG PRO.otf in Resources */,
+				94EB3EE11BBDE22D0060AF28 /* QuattrocentoSans-Italic.ttf in Resources */,
+				94EB3EE21BBDE22D0060AF28 /* QuattrocentoSans-Regular.ttf in Resources */,
+				94EB3EDB1BBDDA790060AF28 /* Raleway-Light.ttf in Resources */,
+				94EB3EDC1BBDDA790060AF28 /* Raleway-Medium.ttf in Resources */,
+				94EB3EDD1BBDDA790060AF28 /* Raleway-Regular.ttf in Resources */,
+				94EB3EDE1BBDDA790060AF28 /* Raleway-SemiBold.ttf in Resources */,
 				941F252F1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib in Resources */,
 				94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */,
 				941EFC051BB9FB9C00D70257 /* LaunchScreen.storyboard in Resources */,
