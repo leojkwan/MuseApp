@@ -21,7 +21,7 @@ When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-
     </td>
 </tr>
 </div>
-<div align="center">
+
 <div align="center">
 <tr>
         <td>
@@ -32,7 +32,7 @@ When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-
     </td>
 </tr>
 </div>
-<div align="center">
+
 
 
 
