@@ -20,6 +20,18 @@ When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-
 	•	Created random song picker feature to kick start a journal entry with music.
 	•	Markdown syntax in journal entries to handle attributed text and styling.
 
+
 ##Frameworks Used
-+ Leveraged MPMediaQuery with NSPredicates to identify the currently playing song.
-+ Integrated MPMusicPlayerController to play pinned songs from Apple Music and local library.
+	•	MediaPlayer
+	•	Core Data
+	•	Photos
+
+##Pods
+	1.	APParallaxHeader
+	2.	Masonry
+	3.	IHKeyboardAvoiding
+	4.	MCSwipeTableViewCell
+	5.	SCLAlertView-Objective-C
+	6.	CWStatusBarNotification
+	7.	AttributedMarkdown
+
