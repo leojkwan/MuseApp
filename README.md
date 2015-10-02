@@ -24,7 +24,7 @@ When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-
 ##Frameworks Used
 	•	MediaPlayer
 	•	Core Data
-	•	Photos
+	•	PHPhoto
 
 ##Pods
 	1.	APParallaxHeader
