@@ -32,6 +32,8 @@
     // system font color
     NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:systemFontColor forState:UIControlStateNormal];
+    
+    
     // code for segmeented view controller
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
