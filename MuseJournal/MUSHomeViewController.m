@@ -35,11 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *scrollContentView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) NSArray *cardsArray;
 @property (nonatomic, assign) CGFloat lastContentOffset;
-
-// xibs
-@property (strong, nonatomic) MUSActionView* actionView;
 
 
 @end
@@ -52,13 +48,12 @@
 //
 -(void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.scrollView.delegate = self;
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
     [self setUpScrollContent];
-    [self setUpPagingControl];
-  }
+}
 //
 //
 ////
@@ -66,19 +61,19 @@
 //
 //- (IBAction)tapsRemoveAds{
 //    NSLog(@"User requests to remove ads");
-//    
+//
 //    if([SKPaymentQueue canMakePayments]){
 //        NSLog(@"User can make payments");
-//        
+//
 //        //If you have more than one in-app purchase, and would like
 //        //to have the user purchase a different product, simply define
 //        //another function and replace kRemoveAdsProductIdentifier with
 //        //the identifier for the other product
-//        
+//
 //        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
 //        productsRequest.delegate = self;
 //        [productsRequest start];
-//        
+//
 //    }
 //    else{
 //        NSLog(@"User cannot make payments due to parental controls");
@@ -102,7 +97,7 @@
 //
 //- (IBAction)purchase:(SKProduct *)product{
 //    SKPayment *payment = [SKPayment paymentWithProduct:product];
-//    
+//
 //    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 //    [[SKPaymentQueue defaultQueue] addPayment:payment];
 //}
@@ -119,7 +114,7 @@
 //        if(transaction.transactionState == SKPaymentTransactionStateRestored){
 //            //called when the user successfully restores a purchase
 //            NSLog(@"Transaction state -> Restored");
-//            
+//
 //            [self doRemoveAds];
 //            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 //            break;
@@ -175,30 +170,40 @@
 //
 
 -(void) setUpScrollContent {
+    MUSActionView* actionView = [[MUSActionView alloc] init];
+    actionView.delegate = self;
     
-    self.actionView = [[MUSActionView alloc] init];
-    self.actionView.delegate = self;
     MUSActionView *actionView2 = [[MUSActionView alloc] init];
     MUSActionView *actionView3 = [[MUSActionView alloc] init];
-
-    self.cardsArray = @[self.actionView,actionView2, actionView3];
+    
+    NSArray *cardsArray= @[actionView,actionView2, actionView3];
+    
+    
+    // set up contraints for scroll content view
     [self.scrollContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(self.scrollView.mas_height).multipliedBy(self.cardsArray.count);
+        make.height.equalTo(self.scrollView.mas_height).multipliedBy(cardsArray.count);
     }];
     
-    [self.scrollContentView addSubview:self.cardsArray[0]];
-    [self.cardsArray[0] mas_makeConstraints:^(MASConstraintMaker *make) {
+    // set up contraints for main action card
+    [self.scrollContentView addSubview:actionView];
+    [actionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.and.height.equalTo(self.scrollView);
         make.left.and.top.and.right.equalTo(self.scrollContentView);
     }];
     
-    [self.scrollContentView addSubview:self.cardsArray[1]];
-    [self.cardsArray[1] mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.and.height.equalTo(self.scrollView);
-        make.left.and.right.equalTo(self.scrollContentView);
-        make.top.equalTo(self.actionView.mas_bottom);
-    }];
 
+    for (int i = 1; i < cardsArray.count; i++) {
+        [self.scrollContentView addSubview:cardsArray[i]];
+        [cardsArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.and.height.equalTo(self.scrollView);
+            make.left.and.right.equalTo(self.scrollContentView);
+            UIView *lastCard = cardsArray[i-1];
+            // append current card top to last card bottom
+            make.top.equalTo(lastCard.mas_bottom);
+        }];
+    }
+    
+    [self setUpPagingControl:cardsArray.count];
 }
 
 -(void)viewWillAppear:(BOOL)animated   {
@@ -212,9 +217,9 @@
 
 
 -(void)didSelectAddButton:(id)sender {
-//    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/album/roar/id690928033?i=690928331&app=music"];
-//    [[UIApplication sharedApplication] openURL:url];
-
+    //    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/album/roar/id690928033?i=690928331&app=music"];
+    //    [[UIApplication sharedApplication] openURL:url];
+    
     NSLog(@" add");
     // do any setup you need for myNewVC
     MUSDetailEntryViewController *addEntryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEntryVC"];
@@ -238,8 +243,8 @@
     [self presentGreeting];
 }
 
--(void)setUpPagingControl {
-    self.pageControl.numberOfPages = self.cardsArray.count;
+-(void)setUpPagingControl:(NSInteger)pages {
+    self.pageControl.numberOfPages = pages;
     self.pageControl.currentPage = 0;
     self.pageControl.transform = CGAffineTransformMakeRotation(M_PI_2);
 }
@@ -258,7 +263,7 @@
 }
 
 -(void)presentGreeting {
-     NSString *userFirstName = [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"];
+    NSString *userFirstName = [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"];
     self.greetManager = [[MUSGreetingManager alloc] initWithTimeOfDay:self.time firstName:userFirstName];
     self.greetingLabel.text = [self.greetManager usergreeting];
 }
