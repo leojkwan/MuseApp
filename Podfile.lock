@@ -1,4 +1,25 @@
 PODS:
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - APParallaxHeader (0.1.6)
   - AttributedMarkdown (0.9.2)
   - CWStatusBarNotification (2.3.3)
@@ -8,6 +29,7 @@ PODS:
   - SCLAlertView-Objective-C (0.7.7)
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.0)
   - APParallaxHeader
   - AttributedMarkdown (from `https://github.com/dreamwieber/AttributedMarkdown.git`)
   - CWStatusBarNotification (~> 2.3.3)
@@ -26,6 +48,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/dreamwieber/AttributedMarkdown.git
 
 SPEC CHECKSUMS:
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   APParallaxHeader: 854bc48a2487ca12c702f8a236fec0d89cdac5c3
   AttributedMarkdown: ac5060667280be8cc8ee33a46c73e4ec6b17ca1a
   CWStatusBarNotification: 2349142e97c9f16fb8247ed3c00308cd355d334b
