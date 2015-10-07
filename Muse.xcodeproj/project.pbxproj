@@ -33,6 +33,7 @@
 		941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F254C1BBC4B12008C8120 /* UIImageView+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		9421B9F41BC47CC300F33EAB /* MUSITunesClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9421B9F31BC47CC300F33EAB /* MUSITunesClient.m */; settings = {ASSET_TAGS = (); }; };
 		9421B9F71BC47D0F00F33EAB /* MUSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9421B9F61BC47D0F00F33EAB /* MUSConstants.m */; settings = {ASSET_TAGS = (); }; };
+		9421B9FA1BC4AD7200F33EAB /* MUSNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9421B9F91BC4AD7200F33EAB /* MUSNotificationManager.m */; settings = {ASSET_TAGS = (); }; };
 		94AD69EE1BBDABA5009C5553 /* Song+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69E71BBDABA5009C5553 /* Song+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		94AD69EF1BBDABA5009C5553 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69E91BBDABA5009C5553 /* Song.m */; settings = {ASSET_TAGS = (); }; };
 		94AD69F01BBDABA5009C5553 /* Entry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69EB1BBDABA5009C5553 /* Entry+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
@@ -137,6 +138,8 @@
 		9421B9F31BC47CC300F33EAB /* MUSITunesClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSITunesClient.m; sourceTree = "<group>"; };
 		9421B9F51BC47D0F00F33EAB /* MUSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSConstants.h; sourceTree = "<group>"; };
 		9421B9F61BC47D0F00F33EAB /* MUSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSConstants.m; sourceTree = "<group>"; };
+		9421B9F81BC4AD7200F33EAB /* MUSNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSNotificationManager.h; sourceTree = "<group>"; };
+		9421B9F91BC4AD7200F33EAB /* MUSNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSNotificationManager.m; sourceTree = "<group>"; };
 		94AD69E61BBDABA5009C5553 /* Song+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Song+CoreDataProperties.h"; sourceTree = "<group>"; };
 		94AD69E71BBDABA5009C5553 /* Song+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Song+CoreDataProperties.m"; sourceTree = "<group>"; };
 		94AD69E81BBDABA5009C5553 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 		94775DE31BB9FF25004ABF0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9421B9F81BC4AD7200F33EAB /* MUSNotificationManager.h */,
+				9421B9F91BC4AD7200F33EAB /* MUSNotificationManager.m */,
 				94B313D41BBAF88200ECB1AD /* MUSMusicPlayer.h */,
 				94B313D51BBAF88200ECB1AD /* MUSMusicPlayer.m */,
 				94B313D81BBAF88200ECB1AD /* MUSTimeFetcher.h */,
@@ -663,6 +668,7 @@
 				94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */,
 				941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */,
 				94AD69EE1BBDABA5009C5553 /* Song+CoreDataProperties.m in Sources */,
+				9421B9FA1BC4AD7200F33EAB /* MUSNotificationManager.m in Sources */,
 				94B314071BBAF88200ECB1AD /* Song+MUSExtraMethods.m in Sources */,
 				94B314041BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m in Sources */,
 				94B314021BBAF88200ECB1AD /* NSDate+ExtraMethods.m in Sources */,

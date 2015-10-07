@@ -16,6 +16,7 @@
 #import "UIFont+MUSFonts.h"
 #import "MUSITunesClient.h"
 #import "MUSConstants.h"
+#import "MUSNotificationManager.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -231,8 +232,7 @@
                 /// if no artist URL, pass back a 'No URL string'
                 if ([artistURL isEqualToString:@"No Artist URL"]) {
                     
-                    NSLog(@"no artist url");
-                    
+                 [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
                 } else {
                     NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
                     NSLog(@"%@", artistURLWithAffiliateLink);

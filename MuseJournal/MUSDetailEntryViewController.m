@@ -15,7 +15,7 @@
 #import "Entry.h"
 #import <Masonry/Masonry.h>
 #import "Song.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+//#import <AssetsLibrary/AssetsLibrary.h>
 #import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
@@ -28,7 +28,8 @@
 #import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
 #import "NSAttributedString+MUSExtraMethods.h"
-#import <Photos/Photos.h>
+//#import <Photos/Photos.h>
+#import "MUSNotificationManager.h"
 
 
 
@@ -412,8 +413,6 @@ typedef enum{
                                         style:UIAlertActionStyleDefault
                                         handler:NULL]
              ];
-            //            alertController.popoverPresentationController.sourceView = sender;
-            //            alertController.popoverPresentationController.sourceRect = [sender bounds];
             [self presentViewController:alertController animated:YES completion:nil];
         }];
         
@@ -426,6 +425,8 @@ typedef enum{
         // ask for permission
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypeCamera withSuccessHandler:^{
+            
+            // add a check if there is a camera...
             [self presentViewController:imagePicker animated:YES completion:nil];
         } andFailure:^{
             UIAlertController *alertController= [UIAlertController
@@ -444,15 +445,15 @@ typedef enum{
                                         style:UIAlertActionStyleDefault
                                         handler:NULL]
              ];
+            
             alertController.popoverPresentationController.barButtonItem = self.MUSToolBar.cameraBarButtonItem;
-            //            alertController.popoverPresentationController.sourceRect = [sender bounds];
+            
             [self presentViewController:alertController animated:YES completion:nil];
         }];
     }]];
     
     // present action sheet
     actionSheet.popoverPresentationController.barButtonItem = self.MUSToolBar.cameraBarButtonItem;
-    //    actionSheet.popoverPresentationController.sourceRect = [sender bounds];
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
@@ -507,11 +508,10 @@ typedef enum{
         
         [self displayPinnedSongNotification];
         [self.formattedPlaylistForThisEntry addObject:pinnedSong];
+       
         // Add song to Core Data
         [self.destinationEntry addSongsObject:pinnedSong];
-        
-        // reset the collection array
-        //        [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry withCompletionBlock:^(MPMediaItemCollection *response) {
+
         MPMediaItemCollection *playlistCollectionForThisEntry =  [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
         //        }];
@@ -534,27 +534,21 @@ typedef enum{
     
     
     if (self.musicPlayerStatus == NotPlaying){
-        _message = @"No Song Playing.";
-        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor grayColor];
+        [MUSNotificationManager displayNotificationWithMessage:@"No Song Playing" backgroundColor:[UIColor grayColor] textColor:[UIColor whiteColor]];
         
     } else if(self.musicPlayerStatus == Invalid) {
         _message = @"Not a valid song in your iTunes library!";
+        [MUSNotificationManager displayNotificationWithMessage:@"Not a valid song in your iTunes library!" backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
         pinSuccessNotification.notificationLabelBackgroundColor = [UIColor redColor];
         
     } else if(self.musicPlayerStatus == Playing) {
-        _message = [NSString stringWithFormat:@"Successfully Pinned '%@", currentSong.title];
-        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0];
+        NSString *message = [NSString stringWithFormat:@"Successfully Pinned '%@", currentSong.title];
+            [MUSNotificationManager displayNotificationWithMessage:message backgroundColor:[UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0] textColor:[UIColor whiteColor]];
         
     } else if(self.musicPlayerStatus == AlreadyPinned) {
-        _message = [NSString stringWithFormat:@"%@ is already pinned!", currentSong.title];
-        pinSuccessNotification.notificationLabelBackgroundColor = [UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1];
+        NSString *message  = [NSString stringWithFormat:@"%@ is already pinned!", currentSong.title];
+        [MUSNotificationManager displayNotificationWithMessage:message backgroundColor:[UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1]textColor:[UIColor whiteColor]];
     }
-    
-    pinSuccessNotification.notificationLabelTextColor = [UIColor whiteColor];
-    pinSuccessNotification.notificationLabel.textAlignment = NSTextAlignmentCenter;
-    pinSuccessNotification.notificationLabelHeight = 30;
-    pinSuccessNotification.notificationLabelFont = [UIFont fontWithName:@"AvenirNext-Medium" size:15];
-    [pinSuccessNotification displayNotificationWithMessage:_message forDuration:0.7];
 }
 
 
