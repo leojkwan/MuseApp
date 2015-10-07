@@ -89,12 +89,9 @@ typedef enum{
     [self checkSizeOfContentForTextView:self.textView];
 }
 
--(BOOL)shouldAutorotate {
-    return NO;
-}
-
 
 -(void)setUpMusicPlayer {
+    
     // set up music player
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
     [self playPlaylistForThisEntry];

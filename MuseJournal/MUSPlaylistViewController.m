@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *currentSongView;
 @property (weak, nonatomic) IBOutlet UIImageView *maskImageView;
 @property (nonatomic, strong) MUSDataStore *store;
+@property (strong, nonatomic) MPMediaItem *currentlyPlayingItem;
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
 @property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
@@ -34,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView2;
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *playlistGaussian;
+@property (weak, nonatomic) IBOutlet UIButton *appleMusicButton;
 
 
 
@@ -52,20 +54,38 @@
     [self loadUILabels];
     self.playlistTableView.delegate = self;
     self.playlistTableView.dataSource = self;
-    
-    
+    [self setUpMusicPlayerUI];
+    [self setUpAppleMusicButton];
+    [self addTapGesturesForImageViews];
+  }
+
+
+-(void)addTapGesturesForImageViews{
+    UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
+    [self.playlistGaussian addGestureRecognizer:dismissTap];
+
+    UITapGestureRecognizer *albumArtTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(appleMusicButtonTapped:)];
+    [self.maskImageView addGestureRecognizer:albumArtTap];
+}
+
+-(void)setUpMusicPlayerUI {
     self.playerView.layer.cornerRadius = 5;
-    
-    
     [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
         self.artworkImagesForThisEntry = artworkImages;
     }];
-    
-    UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
-    [self.playlistGaussian addGestureRecognizer:dismissTap];
+  }
+
+
+-(void)setUpAppleMusicButton {
+    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying)
+        [self.appleMusicButton setHidden:YES];
+    else
+        [self.appleMusicButton setHidden:NO];
 }
 
-
+- (IBAction)appleMusicButtonTapped:(id)sender {
+    [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist];
+}
 
 #pragma mark - music player actions
 - (IBAction)nextButtonPressed:(id)sender {
@@ -158,19 +178,19 @@
 -(void)listenForSongChanges {
     self.currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
     [self.currentMusicPlayingNotifications addObserver: self
-                                              selector: @selector(updateNowPlayingItem:)
+                                              selector: @selector(loadUILabels)
                                                   name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                                 object: self.musicPlayer.myPlayer];
 }
 
-- (void)updateNowPlayingItem:(id) sender {
-    [self performSelector:@selector(loadUILabels) withObject:self afterDelay:0.0];
-}
+
 
 -(void)loadUILabels {
-    self.currentSongLabel.text = [self.musicPlayer.myPlayer nowPlayingItem].title;
-    self.currentArtistLabel.text = [self.musicPlayer.myPlayer nowPlayingItem].artist;
-    self.currentSongView.image = [[self.musicPlayer.myPlayer nowPlayingItem].artwork imageWithSize:CGSizeMake(500, 500)];
+    self.currentlyPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
+    self.currentSongLabel.text = self.currentlyPlayingItem.title;
+    self.currentArtistLabel.text = self.currentlyPlayingItem.artist;
+    self.currentSongView.image = [self.currentlyPlayingItem.artwork imageWithSize:CGSizeMake(500, 500)];
+    [self setUpAppleMusicButton];
     [self.playlistTableView reloadData];
 }
 
@@ -216,23 +236,17 @@
     return cell;
 }
 
-
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)makeURLRequestForAlbum:(NSString *)albumTitle artist:(NSString *)artist {
     
-    Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
-    NSLog(@"%@", songForThisRow.songName);
-    
-    
-    [MUSITunesClient getAlbumLinkWithAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName completionBlock:^(NSString *albumURL) {
+    [MUSITunesClient getAlbumLinkWithAlbum:albumTitle artist:artist completionBlock:^(NSString *albumURL) {
         
         if ([albumURL isEqualToString:@"No Album URL"]) {
-            [MUSITunesClient getArtistWithName:songForThisRow.artistName completionBlock:^(NSString *artistURL) {
+            [MUSITunesClient getArtistWithName:artist completionBlock:^(NSString *artistURL) {
                 
                 /// if no artist URL, pass back a 'No URL string'
                 if ([artistURL isEqualToString:@"No Artist URL"]) {
-                    
-                 [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
+        
+                    [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
                 } else {
                     NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
                     NSLog(@"%@", artistURLWithAffiliateLink);
@@ -240,16 +254,47 @@
                     [[UIApplication sharedApplication] openURL:url];
                 }
             }]; // end of second call
-            
-            
         } else { // IF THERE IS AN ALBUM LINK
             NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
             NSLog(@"%@", albumURLWithAffiliateLink);
             NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
             [[UIApplication sharedApplication] openURL:url];
         }
-        
     }];
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
+//
+    [self makeURLRequestForAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName];
+//    [MUSITunesClient getAlbumLinkWithAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName completionBlock:^(NSString *albumURL) {
+//        
+//        if ([albumURL isEqualToString:@"No Album URL"]) {
+//            [MUSITunesClient getArtistWithName:songForThisRow.artistName completionBlock:^(NSString *artistURL) {
+//                
+//                /// if no artist URL, pass back a 'No URL string'
+//                if ([artistURL isEqualToString:@"No Artist URL"]) {
+//                    
+//                    [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
+//                } else {
+//                    NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
+//                    NSLog(@"%@", artistURLWithAffiliateLink);
+//                    NSURL *url = [NSURL URLWithString:artistURLWithAffiliateLink];
+//                    [[UIApplication sharedApplication] openURL:url];
+//                }
+//            }]; // end of second call
+//            
+//        } else { // IF THERE IS AN ALBUM LINK
+//            NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
+//            NSLog(@"%@", albumURLWithAffiliateLink);
+//            NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
+//            [[UIApplication sharedApplication] openURL:url];
+//        }
+//    }];
+    
+    
 }
 
 
@@ -266,7 +311,6 @@
         
         // Update artwork array
         [self.artworkImagesForThisEntry removeObjectAtIndex:indexPath.row];
-        
         
         // then delete from core data model
         NSArray *songsForThisEntry = [[self.destinationEntry.songs allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinnedAt" ascending:YES]]];

@@ -86,12 +86,6 @@
 
 
 
-
-
-
-
-
-
 -(void)returnRandomSongInLibraryWithCompletionBlock:(void (^)(MPMediaItemCollection *))block {
     MPMediaQuery *allSongsQuery = [ [MPMediaQuery alloc] init];
     NSArray *resultingMediaItemFromQuery = [allSongsQuery items];
