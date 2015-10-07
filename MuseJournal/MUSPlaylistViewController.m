@@ -57,13 +57,13 @@
     [self setUpMusicPlayerUI];
     [self setUpAppleMusicButton];
     [self addTapGesturesForImageViews];
-  }
+}
 
 
 -(void)addTapGesturesForImageViews{
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
     [self.playlistGaussian addGestureRecognizer:dismissTap];
-
+    
     UITapGestureRecognizer *albumArtTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(appleMusicButtonTapped:)];
     [self.maskImageView addGestureRecognizer:albumArtTap];
 }
@@ -73,7 +73,7 @@
     [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
         self.artworkImagesForThisEntry = artworkImages;
     }];
-  }
+}
 
 
 -(void)setUpAppleMusicButton {
@@ -84,7 +84,10 @@
 }
 
 - (IBAction)appleMusicButtonTapped:(id)sender {
-    [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist];
+    NSLog(@"tapping");
+    if (self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStateStopped) {
+        [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist];
+    }
 }
 
 #pragma mark - music player actions
@@ -188,7 +191,7 @@
 -(void)loadUILabels {
     self.currentlyPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
     self.currentSongLabel.text = self.currentlyPlayingItem.title;
-    self.currentArtistLabel.text = self.currentlyPlayingItem.artist;
+    self.currentArtistLabel.text = [NSString stringWithFormat:@"BY %@" ,self.currentlyPlayingItem.artist];
     self.currentSongView.image = [self.currentlyPlayingItem.artwork imageWithSize:CGSizeMake(500, 500)];
     [self setUpAppleMusicButton];
     [self.playlistTableView reloadData];
@@ -241,14 +244,16 @@
     [MUSITunesClient getAlbumLinkWithAlbum:albumTitle artist:artist completionBlock:^(NSString *albumURL) {
         
         if ([albumURL isEqualToString:@"No Album URL"]) {
+            
+            // No album that's okay, lets find the artist...
+            
             [MUSITunesClient getArtistWithName:artist completionBlock:^(NSString *artistURL) {
                 
                 /// if no artist URL, pass back a 'No URL string'
                 if ([artistURL isEqualToString:@"No Artist URL"]) {
-        
                     [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
                 } else {
-                    NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
+                    NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", artistURL, iTunesAffiliateID];
                     NSLog(@"%@", artistURLWithAffiliateLink);
                     NSURL *url = [NSURL URLWithString:artistURLWithAffiliateLink];
                     [[UIApplication sharedApplication] openURL:url];
@@ -267,34 +272,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
-//
+    //
     [self makeURLRequestForAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName];
-//    [MUSITunesClient getAlbumLinkWithAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName completionBlock:^(NSString *albumURL) {
-//        
-//        if ([albumURL isEqualToString:@"No Album URL"]) {
-//            [MUSITunesClient getArtistWithName:songForThisRow.artistName completionBlock:^(NSString *artistURL) {
-//                
-//                /// if no artist URL, pass back a 'No URL string'
-//                if ([artistURL isEqualToString:@"No Artist URL"]) {
-//                    
-//                    [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
-//                } else {
-//                    NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
-//                    NSLog(@"%@", artistURLWithAffiliateLink);
-//                    NSURL *url = [NSURL URLWithString:artistURLWithAffiliateLink];
-//                    [[UIApplication sharedApplication] openURL:url];
-//                }
-//            }]; // end of second call
-//            
-//        } else { // IF THERE IS AN ALBUM LINK
-//            NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
-//            NSLog(@"%@", albumURLWithAffiliateLink);
-//            NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
-//            [[UIApplication sharedApplication] openURL:url];
-//        }
-//    }];
-    
-    
 }
 
 

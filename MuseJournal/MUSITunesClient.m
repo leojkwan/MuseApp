@@ -22,12 +22,6 @@ NSString *const ITUNES_SEARCH_URL = @"https://itunes.apple.com/search";
                                    @"limit": @1,
                                    @"media": @"music"};
     
-
-    
-    
-    //    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/album/roar/id690928033?i=690928331&app=music?at=1001l7we"];
-    //    [[UIApplication sharedApplication] openURL:url];
-    
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -62,15 +56,16 @@ NSString *const ITUNES_SEARCH_URL = @"https://itunes.apple.com/search";
         
         [manager GET:ITUNES_SEARCH_URL parameters:iTunesParams success:^(NSURLSessionDataTask *task, id responseObject) {
             
+            NSLog(@"%@",responseObject);
+            
             NSLog(@"%@", responseObject[@"resultCount"]); // this is the album collection URL
             
-            
             NSLog(@"%@", artistName); // this is the album collection URL
-            
+    
             if ([(NSNumber *)responseObject[@"resultCount"] isEqual: @0]) {
                 completionBlock(@"No Artist URL");
             } else {
-                completionBlock(responseObject[@"results"][0][@"artistViewUrl"]);
+                completionBlock(responseObject[@"results"][0][@"artistLinkUrl"]);
             }
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"Fail: %@",error.localizedDescription);

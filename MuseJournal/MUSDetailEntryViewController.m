@@ -261,8 +261,7 @@ typedef enum{
             
             i++; // next song
         } // end of for loop
-        //
-        //
+        
         MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
         [self.musicPlayer.myPlayer play];
