@@ -114,7 +114,8 @@
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-    entryFetch.sortDescriptors = @[sortDescriptor];
+     NSSortDescriptor *epochTimeSort = [NSSortDescriptor sortDescriptorWithKey:@"epochTime" ascending:NO];
+    entryFetch.sortDescriptors = @[sortDescriptor, epochTimeSort];
     
     
     // set fetch count
