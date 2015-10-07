@@ -1,6 +1,6 @@
 //
 //  MUSITunesClient.m
-//  
+//
 //
 //  Created by Leo Kwan on 10/6/15.
 //
@@ -8,22 +8,77 @@
 
 #import "MUSITunesClient.h"
 #import <AFNetworking/AFNetworking.h>
+#import "MUSConstants.h"
+
+NSString *const ITUNES_SEARCH_URL = @"https://itunes.apple.com/search";
+
 
 @implementation MUSITunesClient
 
-+(void)getAlbumLinkWithCompletion:(void (^)(NSArray *))completionBlock
-{
-    NSString *githubURL = [NSString stringWithFormat:@"%@/repositories?client_id=%@&client_secret=%@",GITHUB_API_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET];
++(void)getAlbumLinkWithAlbum:(NSString *)album artist:(NSString *)artist completionBlock:(void (^)(NSString *))completionBlock {
+    NSDictionary *iTunesParams = @{
+                                   @"term": [NSString stringWithFormat:@"%@ %@",album, artist], // search query
+                                   @"entity": @"album", // what I want returned
+                                   @"limit": @1,
+                                   @"media": @"music"};
+    
+
+    
+    
+    //    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/album/roar/id690928033?i=690928331&app=music?at=1001l7we"];
+    //    [[UIApplication sharedApplication] openURL:url];
     
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    [manager GET:githubURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        completionBlock(responseObject);
+    [manager GET:ITUNES_SEARCH_URL parameters:iTunesParams success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSLog(@"%@", responseObject[@"resultCount"]); // this is the album collection URL
+        
+        
+        if ([(NSNumber *)responseObject[@"resultCount"] isEqual: @0]) {
+            // make another request, this time for artist Name
+            completionBlock(@"No Album URL");
+        } else {
+            completionBlock(responseObject[@"results"][0][@"collectionViewUrl"]);
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Fail: %@",error.localizedDescription);
     }];
 }
+
+
++(void)getArtistWithName:(NSString *)artistName completionBlock:(void (^)(NSString *))completionBlock
+{
+    NSDictionary *iTunesParams = @{
+                                   @"term": [NSString stringWithFormat:@"%@", artistName], // search query
+                                   @"entity": @"allArtist", // what I want returned
+                                   @"limit": @1,
+                                   @"media": @"music"};
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        
+        [manager GET:ITUNES_SEARCH_URL parameters:iTunesParams success:^(NSURLSessionDataTask *task, id responseObject) {
+            
+            NSLog(@"%@", responseObject[@"resultCount"]); // this is the album collection URL
+            
+            
+            NSLog(@"%@", artistName); // this is the album collection URL
+            
+            if ([(NSNumber *)responseObject[@"resultCount"] isEqual: @0]) {
+                completionBlock(@"No Artist URL");
+            } else {
+                completionBlock(responseObject[@"results"][0][@"artistViewUrl"]);
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"Fail: %@",error.localizedDescription);
+        }];
+    }];
+    
+}
+
 
 
 @end

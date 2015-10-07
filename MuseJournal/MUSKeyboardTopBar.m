@@ -141,14 +141,6 @@
 
 -(UIBarButtonItem *)cameraButton {
     
-//    UIButton* cameraButton = [[UIButton alloc] initWithFrame:BUTTON_FRAME];
-//    [cameraButton addTarget:self action:@selector(cameraButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    [cameraButton setBackgroundImage:[UIImage imageNamed:@"addImage"] forState:UIControlStateNormal];
-//    
-//    UIBarButtonItem *cameraBarButtonItem = [[UIBarButtonItem alloc]  initWithCustomView:cameraButton];
-//    return cameraBarButtonItem;
-//    
-    
     UIImageView *coolCameraImageView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
 
     coolCameraImageView.image = [UIImage imageNamed:@"addImage"];

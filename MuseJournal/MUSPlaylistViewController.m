@@ -14,6 +14,8 @@
 #import "MUSIconAnimation.h"
 #import "UIImage+ExtraMethods.h"
 #import "UIFont+MUSFonts.h"
+#import "MUSITunesClient.h"
+#import "MUSConstants.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -52,7 +54,7 @@
     
     
     self.playerView.layer.cornerRadius = 5;
-
+    
     
     [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
         self.artworkImagesForThisEntry = artworkImages;
@@ -60,7 +62,7 @@
     
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
     [self.playlistGaussian addGestureRecognizer:dismissTap];
- }
+}
 
 
 
@@ -83,7 +85,7 @@
         [self.musicPlayer.myPlayer play];
     }
     
-
+    
     // if external music is playing...
     // get all songs in one array so I can check whether the now playing song is part of the list, if not, load a fresh playlist
     if (![self currentlyPlayingSongIsInPlaylist]) {
@@ -130,12 +132,12 @@
         [self.playbackButtonStatus setEnabled:NO];
     } else{
         [self.playbackButtonStatus setEnabled:YES];
-
-    if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
-    } else {
-        [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
-    }
+        
+        if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+            [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
+        } else {
+            [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -179,7 +181,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-        return 80;
+    return 80;
 }
 
 
@@ -187,7 +189,8 @@
     
     MUSSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"songReuseCell" forIndexPath:indexPath];
     
-    // Set Up artist and song title labels
+    // SET UP LABELS
+    
     Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
     NSString *artistStringAtThisRow = songForThisRow.artistName;
     NSString *songStringAtThisRow = songForThisRow.songName;
@@ -196,13 +199,15 @@
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
     cell.songNumberLabel.text = [NSString stringWithFormat: @"%ld.", (long)indexPath.row + 1];
     
-    // set up image
+    // SET UP IMAGE
+    
     if (self.artworkImagesForThisEntry[indexPath.row]) {
         cell.songArtworkImageView.image = self.artworkImagesForThisEntry[indexPath.row];
     } else {
         cell.songArtworkImageView.image = nil;
     }
     
+    // CHECK FOR SONG PLAYING AND ANIMATE ICON
     NSUInteger indexPathForAnimation = [self.musicPlayer.myPlayer indexOfNowPlayingItem];
     if (indexPath.row == indexPathForAnimation && [self.currentSongLabel.text isEqualToString:cell.songTitleLabel.text]) {
         [cell.animatingIcon startAnimating];
@@ -210,6 +215,42 @@
     return cell;
 }
 
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
+    NSLog(@"%@", songForThisRow.songName);
+    
+    
+    [MUSITunesClient getAlbumLinkWithAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName completionBlock:^(NSString *albumURL) {
+        
+        if ([albumURL isEqualToString:@"No Album URL"]) {
+            [MUSITunesClient getArtistWithName:songForThisRow.artistName completionBlock:^(NSString *artistURL) {
+                
+                /// if no artist URL, pass back a 'No URL string'
+                if ([artistURL isEqualToString:@"No Artist URL"]) {
+                    
+                    NSLog(@"no artist url");
+                    
+                } else {
+                    NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
+                    NSLog(@"%@", artistURLWithAffiliateLink);
+                    NSURL *url = [NSURL URLWithString:artistURLWithAffiliateLink];
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+            }]; // end of second call
+            
+            
+        } else { // IF THERE IS AN ALBUM LINK
+            NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
+            NSLog(@"%@", albumURLWithAffiliateLink);
+            NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
+            [[UIApplication sharedApplication] openURL:url];
+        }
+        
+    }];
+}
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -244,10 +285,10 @@
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry != nil) {
-            MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
-            // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
-            [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-            [self.musicPlayer.myPlayer play];
+        MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
+        // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
+        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+        [self.musicPlayer.myPlayer play];
     }
 }
 

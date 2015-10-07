@@ -66,7 +66,6 @@
 		94EB3EE21BBDE22D0060AF28 /* QuattrocentoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */; };
 		94EB3EE41BBDE4020060AF28 /* ADAM.CG PRO.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */; };
 		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -195,8 +194,6 @@
 		94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ADAM.CG PRO.otf"; sourceTree = "<group>"; };
 		94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSettingsTableViewController.h; sourceTree = "<group>"; };
 		94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSettingsTableViewController.m; sourceTree = "<group>"; };
-		94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTellAFriend.h; sourceTree = "<group>"; };
-		94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTellAFriend.m; sourceTree = "<group>"; };
 		94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -334,8 +331,6 @@
 		94775DE31BB9FF25004ABF0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				94F7E8EC1BBB539800298CB2 /* iTellAFriend.h */,
-				94F7E8ED1BBB539800298CB2 /* iTellAFriend.m */,
 				94B313D41BBAF88200ECB1AD /* MUSMusicPlayer.h */,
 				94B313D51BBAF88200ECB1AD /* MUSMusicPlayer.m */,
 				94B313D81BBAF88200ECB1AD /* MUSTimeFetcher.h */,
@@ -656,7 +651,6 @@
 				9421B9F71BC47D0F00F33EAB /* MUSConstants.m in Sources */,
 				94B313FF1BBAF88200ECB1AD /* MUSPlaylistViewController.m in Sources */,
 				94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */,
-				94F7E8EE1BBB539800298CB2 /* iTellAFriend.m in Sources */,
 				941F250F1BBC388F008C8120 /* MUSColorSheet.m in Sources */,
 				941F25161BBC388F008C8120 /* MUSIconAnimation.m in Sources */,
 				941F25351BBC4A34008C8120 /* MUSNotificationDelegate.m in Sources */,

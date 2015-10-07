@@ -260,6 +260,7 @@ typedef enum{
                 [self.destinationEntry removeSongsObject:self.formattedPlaylistForThisEntry[i]];
                 [self.store save];
             } //  end of if statment
+            
             i++; // next song
         } // end of for loop
         //

@@ -10,4 +10,7 @@
 
 @interface MUSITunesClient : NSObject
 
++(void)getAlbumLinkWithAlbum:(NSString *)album artist:(NSString *)artist completionBlock:(void (^)(NSString *))completionBlock;
++(void)getArtistWithName:(NSString *)artistName completionBlock:(void (^)(NSString *))completionBlock;
+
 @end

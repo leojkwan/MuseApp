@@ -50,10 +50,6 @@
         
         for (Song *song in playlist) {
             
-            //            MPMediaPropertyPredicate *persistentIDPredicate =
-            //            [MPMediaPropertyPredicate predicateWithValue:song.persistentID
-            //                                             forProperty:MPMediaItemPropertyPersistentID];
-            //
             MPMediaPropertyPredicate *songArtistPredicate =
             [MPMediaPropertyPredicate predicateWithValue:song.artistName
                                              forProperty:MPMediaItemPropertyArtist];
@@ -68,11 +64,12 @@
             
             // Store the queried MPMediaItems in an NSArray
             NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];
-            
+            NSLog(@"%@" ,resultingMediaItemFromQuery);
             // add MPMediaItems into MPMediaCollection
-            
-            if (resultingMediaItemFromQuery.count != 0) {
-                
+            if (resultingMediaItemFromQuery.count > 1) { // there is a duplicate, just take the first one
+                [self.playlistCollection addObject:resultingMediaItemFromQuery[0]];
+            }
+            else if (resultingMediaItemFromQuery.count == 1) {
                 [self.playlistCollection addObjectsFromArray:resultingMediaItemFromQuery];
             } else{
                 [self.playlistCollection addObject:[NSNull null]];

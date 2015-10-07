@@ -27,13 +27,9 @@
                                             withAnimation:UIStatusBarAnimationNone];
     
     
-    
-    
     // system font color
     NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:systemFontColor forState:UIControlStateNormal];
-    
-    
     // code for segmeented view controller
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
@@ -51,7 +47,6 @@
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
-
     // username First Name
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
@@ -68,7 +63,7 @@
     
     return YES;
 }
-
+    
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
