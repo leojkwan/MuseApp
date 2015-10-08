@@ -30,11 +30,13 @@
     // system font color
     NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:systemFontColor forState:UIControlStateNormal];
-    // code for segmeented view controller
-    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
-    // set this color to match segment view
-    self.window.backgroundColor = [UIColor whiteColor];
+//    // code for segmeented view controller
+//    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+//    
+//    // set this color to match segment view
+//    self.window.backgroundColor = [UIColor whiteColor];
+    
     
     UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
@@ -44,8 +46,11 @@
     MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
     MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
     [navigationController.viewControllerArray addObjectsFromArray:@[home, entries]];
-    self.window.rootViewController = navigationController;
-    [self.window makeKeyAndVisible];
+    
+//    self.window.rootViewController = navigationController;
+//    [self.window makeKeyAndVisible];
+//    
+//    
     
     // username First Name
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];

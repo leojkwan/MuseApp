@@ -10,7 +10,8 @@
 #import "RKSwipeBetweenViewControllers.h"
 #import "UIButton+ExtraMethods.h"
 #import "UIImageView+ExtraMethods.h"
-
+#import "MUSHomeViewController.h"
+#import "MUSAllEntriesViewController.h"
 
 
 //%%% customizeable button attributes
@@ -62,6 +63,17 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 //    self.navigationBar.backgroundColor = [UIColor darkGrayColor];
     
     viewControllerArray = [[NSMutableArray alloc]init];
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
+    MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
+    [viewControllerArray addObjectsFromArray:@[home, entries]];
+
+    
+    
+    
     self.currentPageIndex = 0;
     self.isPageScrollingFlag = NO;
     self.hasAppearedFlag = NO;
