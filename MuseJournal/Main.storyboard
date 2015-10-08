@@ -798,7 +798,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="39.5"/>
                                                 <animations/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.97254901959999995" green="0.8081797356" blue="0.27303010729999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -829,10 +829,17 @@
                             <constraint firstItem="TGV-He-lkb" firstAttribute="top" secondItem="B83-cu-4xm" secondAttribute="top" id="FEg-gp-ub9"/>
                             <constraint firstItem="68a-QO-p1t" firstAttribute="width" secondItem="B83-cu-4xm" secondAttribute="width" id="MX2-VB-Des"/>
                             <constraint firstAttribute="trailing" secondItem="TGV-He-lkb" secondAttribute="trailing" id="cEs-gJ-rPS"/>
+                            <constraint firstItem="TGV-He-lkb" firstAttribute="height" secondItem="B83-cu-4xm" secondAttribute="height" id="pQg-c9-SgO"/>
                             <constraint firstAttribute="bottomMargin" secondItem="TGV-He-lkb" secondAttribute="bottom" id="swd-V6-xFx"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="pQg-c9-SgO"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="containerView" destination="B83-cu-4xm" id="m3b-nk-x62"/>
                         <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>

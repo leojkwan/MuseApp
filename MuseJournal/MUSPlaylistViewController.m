@@ -229,7 +229,9 @@
 -(void)loadUILabels {
     self.currentlyPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
     self.currentSongLabel.text = self.currentlyPlayingItem.title;
+    if (self.currentlyPlayingItem.artist != nil) {
     self.currentArtistLabel.text = [NSString stringWithFormat:@"BY %@" ,self.currentlyPlayingItem.artist];
+    }
     self.currentSongView.image = [self.currentlyPlayingItem.artwork imageWithSize:CGSizeMake(500, 500)];
     [self setUpAppleMusicButton];
     [self.playlistTableView reloadData];

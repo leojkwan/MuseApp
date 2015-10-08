@@ -38,12 +38,13 @@ typedef enum{
     AlreadyPinned
 }PlayerStatus;
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, ArtworkLoaderProtocol>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate>
 
 @property (nonatomic,assign) PlayerStatus musicPlayerStatus;
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
 
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -62,7 +63,7 @@ typedef enum{
     [super viewDidLoad];
     
     self.store = [MUSDataStore sharedDataStore];
-    self.dvc.delegate = self;
+
     
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
@@ -79,12 +80,15 @@ typedef enum{
     
 }
 
--(void)artWorkDidFinishLoading {
-    NSLog(@"Hi");
+-(void)showKeyboard {
+    [self.textView becomeFirstResponder];
 }
 
-
 -(void)setUpTextView {
+    
+    UITapGestureRecognizer *textViewResponder = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
+    [self.containerView addGestureRecognizer:textViewResponder];
+    
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
     if (self.destinationEntry == nil) {
@@ -174,23 +178,36 @@ typedef enum{
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
+-(void)textViewDidChange:(UITextView *)textView
+{
+    NSLog(@"Dilip : %@",textView.text);
+    [self checkSizeOfContentForTextView:self.textView];
 
+}
 
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-    if ([textView.text length] < 700) {
-        [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@700);
-        }];
-    } else {
-        [textView sizeToFit];
-        [textView layoutIfNeeded];
-        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            
+    [textView sizeToFit];
+    [textView layoutIfNeeded];
+
+//    if ([textView.text length] < 700) {
+//        [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.height.equalTo(@700);
+//        }];
+//    } else {
+              [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
             // add bottom space between between text view and scrolling content view
-            make.height.equalTo(self.textView.mas_height).with.offset(200);
+                  make.height.equalTo(self.textView.mas_height);
+            
         }];
-    }
+        
+        [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView.mas_bottom);
+        }];
+        
+
+//    }
+
 }
 
 
@@ -366,7 +383,7 @@ typedef enum{
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-    [self.textView becomeFirstResponder];
+    [self showKeyboard];
     
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
