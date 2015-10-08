@@ -7,7 +7,7 @@
 //
 
 #import "MUSSettingsTableViewController.h"
-#import "iTellAFriend.h"
+
 
 @interface MUSSettingsTableViewController ()
 
@@ -45,24 +45,24 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == 0) {
-
-    } else if (indexPath.row == 6) {
-        if ([[iTellAFriend sharedInstance] canTellAFriend]) {
-            UINavigationController* tellAFriendController = [[iTellAFriend sharedInstance] tellAFriendController];
-            [self presentViewController:tellAFriendController animated:YES completion:nil];
-
-        }
-    } else if (indexPath.row == 7) {
-        [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
-        }
-}
-
--(BOOL)prefersStatusBarHidden {
-    return NO;
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (indexPath.row == 0) {
+//
+//    } else if (indexPath.row == 6) {
+//        if ([[iTellAFriend sharedInstance] canTellAFriend]) {
+////            UINavigationController* tellAFriendController = [[iTellAFriend sharedInstance] tellAFriendController];
+////            [self presentViewController:tellAFriendController animated:YES completion:nil];
+//
+//        }
+//    } else if (indexPath.row == 7) {
+////        [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
+//        }
+//}
+//
+//-(BOOL)prefersStatusBarHidden {
+//    return NO;
+//}
 
 
 /*

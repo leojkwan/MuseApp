@@ -1,18 +1,42 @@
 PODS:
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - APParallaxHeader (0.1.6)
   - AttributedMarkdown (0.9.2)
   - CWStatusBarNotification (2.3.3)
   - IHKeyboardAvoiding (2.4)
   - Masonry (0.6.3)
+  - MBProgressHUD (0.9.1)
   - MCSwipeTableViewCell (2.1.4)
   - SCLAlertView-Objective-C (0.7.7)
 
 DEPENDENCIES:
+  - AFNetworking (~> 2.0)
   - APParallaxHeader
   - AttributedMarkdown (from `https://github.com/dreamwieber/AttributedMarkdown.git`)
   - CWStatusBarNotification (~> 2.3.3)
   - IHKeyboardAvoiding
   - Masonry
+  - MBProgressHUD (~> 0.9.1)
   - MCSwipeTableViewCell (~> 2.1.4)
   - SCLAlertView-Objective-C
 
@@ -26,11 +50,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/dreamwieber/AttributedMarkdown.git
 
 SPEC CHECKSUMS:
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   APParallaxHeader: 854bc48a2487ca12c702f8a236fec0d89cdac5c3
   AttributedMarkdown: ac5060667280be8cc8ee33a46c73e4ec6b17ca1a
   CWStatusBarNotification: 2349142e97c9f16fb8247ed3c00308cd355d334b
   IHKeyboardAvoiding: f470ea004ae9befb3b10ff4db20d37af10f43e59
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
   SCLAlertView-Objective-C: 062808b4664add2d38d44b7867267985a02267ad
 

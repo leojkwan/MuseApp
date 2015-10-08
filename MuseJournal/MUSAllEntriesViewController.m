@@ -44,29 +44,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // set shared datastore and table view delegate
     self.store = [MUSDataStore sharedDataStore];
+    
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     self.toolbar.delegate = self;
     [self performInitialFetchRequest];
-    // set searchbar delegate
-    self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
-    self.entrySearchBar.delegate = self.searchBarHelperObject;
-    [self.entrySearchBar setShowsScopeBar:YES];
+    [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
-    
-    
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     [self.entriesTableView reloadData];
 }
 
+-(void)setUpSearchBar {
+    // set searchbar delegate
+    self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
+    self.entrySearchBar.delegate = self.searchBarHelperObject;
+    [self.entrySearchBar setShowsScopeBar:YES];
+}
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -112,11 +114,12 @@
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-    entryFetch.sortDescriptors = @[sortDescriptor];
+     NSSortDescriptor *epochTimeSort = [NSSortDescriptor sortDescriptorWithKey:@"epochTime" ascending:NO];
+    entryFetch.sortDescriptors = @[sortDescriptor, epochTimeSort];
     
     
     // set fetch count
-    self.currentFetchCount = 5;
+    self.currentFetchCount = 10;
     [entryFetch setFetchLimit:self.currentFetchCount];
     
     // Create and initialize the fetch results controller.
@@ -137,7 +140,7 @@
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
         // just make sure to call finishInfiniteScroll in the end
-        self.currentFetchCount += 5;
+        self.currentFetchCount += 10;
         [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
         [self.resultsController performFetch:nil];
         
@@ -160,8 +163,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    
     if ([[self.resultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
         return [sectionInfo numberOfObjects];
@@ -174,13 +175,11 @@
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
         return 85;
-        ;
     }
-    return 275  ;
+    return 275;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 25;
 }
 
@@ -204,7 +203,6 @@
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
-    
     return headerView;
 }
 
@@ -331,22 +329,19 @@
         [self.store.managedObjectContext deleteObject:managedObject];
         [self.store.managedObjectContext save:nil];
     }]];
-    
     // Cancel
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [cell swipeToOriginWithCompletion:nil];
     }]];
     
     // Present action sheet.
-    
     actionSheet.popoverPresentationController.sourceView = cell;
     actionSheet.popoverPresentationController.sourceRect = [cell bounds];
     [self presentViewController:actionSheet animated:YES completion:^{
-    }];
-    
+    }];    
 }
-#pragma mark - Navigation
 
+#pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     

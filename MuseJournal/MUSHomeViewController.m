@@ -17,11 +17,13 @@
 #import "MUSActionView.h"
 #import "MUSGreetingManager.h"
 #import <StoreKit/StoreKit.h>
+#import "MUSITunesClient.h"
+#import "MUSConstants.h"
 
 @import QuartzCore;
 
-@interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate, ActionViewDelegate, SKStoreProductViewControllerDelegate, SKPaymentTransactionObserver>
-
+@interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate, ActionViewDelegate, SKStoreProductViewControllerDelegate>
+// SKPaymentTransactionObserver add this to protocol when you implement iAD
 
 @property (nonatomic,assign) TimeOfDay time;
 
@@ -48,17 +50,15 @@
 //
 -(void)viewDidLoad {
     [super viewDidLoad];
+
     
     self.scrollView.delegate = self;
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
     [self setUpScrollContent];
 }
-//
-//
-////
-//
-//
+
+
 //- (IBAction)tapsRemoveAds{
 //    NSLog(@"User requests to remove ads");
 //
@@ -191,7 +191,7 @@
         make.left.and.top.and.right.equalTo(self.scrollContentView);
     }];
     
-
+    // i at 0 is the action view
     for (int i = 1; i < cardsArray.count; i++) {
         [self.scrollContentView addSubview:cardsArray[i]];
         [cardsArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -208,7 +208,7 @@
 
 -(void)viewWillAppear:(BOOL)animated   {
     [super viewWillAppear:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 -(BOOL)prefersStatusBarHidden{
@@ -217,8 +217,6 @@
 
 
 -(void)didSelectAddButton:(id)sender {
-    //    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/us/album/roar/id690928033?i=690928331&app=music"];
-    //    [[UIApplication sharedApplication] openURL:url];
     
     NSLog(@" add");
     // do any setup you need for myNewVC
