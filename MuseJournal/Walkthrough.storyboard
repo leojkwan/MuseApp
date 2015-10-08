@@ -21,9 +21,13 @@
                                 <rect key="frame" x="20" y="0.0" width="560" height="550"/>
                                 <animations/>
                                 <connections>
-                                    <segue destination="lFg-Tb-Xxp" kind="embed" id="C78-Lo-qmE"/>
+                                    <segue destination="hwz-ep-TeB" kind="embed" id="boS-la-Y7c"/>
                                 </connections>
                             </containerView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="jf5-sx-mhk">
+                                <rect key="frame" x="260" y="555" width="39" height="37"/>
+                                <animations/>
+                            </pageControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,25 +38,21 @@
                             <constraint firstItem="kK2-U7-HiC" firstAttribute="leading" secondItem="Bla-CY-Opt" secondAttribute="leadingMargin" id="lxV-pJ-7dz"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pageControl" destination="jf5-sx-mhk" id="dZM-JE-JNM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Br7-4I-dLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3" y="116"/>
         </scene>
-        <!--Walkthrough Page View Controller-->
-        <scene sceneID="fS6-o0-2vg">
+        <!--Page View Controller-->
+        <scene sceneID="nfS-8j-ANJ">
             <objects>
-                <viewController id="lFg-Tb-Xxp" customClass="WalkthroughPageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fYM-rc-Z5B">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="550"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R6L-A0-jIo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hwz-ep-TeB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bbn-Fn-Mha" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="188" y="791"/>
+            <point key="canvasLocation" x="387" y="889"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="kIe-0s-K8s">
@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="-204" y="1618"/>
         </scene>
-        <!--Last View Controller-->
+        <!--View Controller-->
         <scene sceneID="9Ba-zx-kxO">
             <objects>
-                <viewController storyboardIdentifier="Intro2" id="yPI-YK-1aB" customClass="LastViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Intro2" id="yPI-YK-1aB" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Miz-Ok-Jyr"/>
                         <viewControllerLayoutGuide type="bottom" id="IcH-MB-bkF"/>
@@ -93,7 +93,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="7AE-dh-abL" kind="presentation" id="pZY-ea-xkX"/>
+                                    <segue destination="7AE-dh-abL" kind="presentation" id="Sui-Wz-Hck"/>
                                 </connections>
                             </button>
                         </subviews>

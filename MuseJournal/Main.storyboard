@@ -225,7 +225,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cv7-5r-Xs1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2576" y="591"/>
+            <point key="canvasLocation" x="2490" y="591"/>
         </scene>
         <!--Settings-->
         <scene sceneID="G8A-fb-CDw">
@@ -775,7 +775,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1063" y="1386"/>
+            <point key="canvasLocation" x="1101" y="1405"/>
         </scene>
         <!--Detail Entry View Controller-->
         <scene sceneID="sch-Iy-1Au">
@@ -841,7 +841,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZPA-Py-Sjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1782" y="1386"/>
+            <point key="canvasLocation" x="1764" y="1405"/>
         </scene>
         <!--Playlist View Controller-->
         <scene sceneID="byn-GK-WCn">
@@ -1330,7 +1330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ci-1Y-Ic6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2512" y="1465"/>
+            <point key="canvasLocation" x="2532" y="1405"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aCi-gx-sov">
@@ -1349,7 +1349,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ps1-h7-fOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="407" y="1386"/>
+            <point key="canvasLocation" x="411" y="1405"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="8Ww-y3-vtf">
@@ -1402,7 +1402,7 @@
         <!--Swipe Between View Controllers-->
         <scene sceneID="ZGT-UQ-IHa">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M5W-el-9hW" customClass="RKSwipeBetweenViewControllers" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="M5W-el-9hW" customClass="RKSwipeBetweenViewControllers" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wDB-QA-P9D">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

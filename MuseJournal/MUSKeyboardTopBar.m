@@ -192,6 +192,7 @@
     [pinSongView addGestureRecognizer:pinTap];
     
     UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongView];
+    
     return pinSongButtonItem;
 }
 

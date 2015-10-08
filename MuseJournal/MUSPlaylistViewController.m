@@ -17,6 +17,9 @@
 #import "MUSITunesClient.h"
 #import "MUSConstants.h"
 #import "MUSNotificationManager.h"
+#import <MBProgressHUD.h>
+
+
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -46,6 +49,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"start");
+    [MBProgressHUD showHUDAddedTo:self.view
+                         animated:YES];
+    
     self.store = [MUSDataStore sharedDataStore];
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
     [self listenForSongChanges];
@@ -57,6 +64,7 @@
     [self setUpMusicPlayerUI];
     [self setUpAppleMusicButton];
     [self addTapGesturesForImageViews];
+    
 }
 
 
@@ -70,9 +78,30 @@
 
 -(void)setUpMusicPlayerUI {
     self.playerView.layer.cornerRadius = 5;
-    [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
-        self.artworkImagesForThisEntry = artworkImages;
-    }];
+    
+    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
+        
+        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+            
+            
+            self.artworkImagesForThisEntry = artworkImages;
+            
+            NSLog(@"finish");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        }];
+        
+    });
+    
+    
+    //    [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+    //        self.artworkImagesForThisEntry = artworkImages;
+    //    }];
 }
 
 
@@ -84,7 +113,8 @@
 }
 
 - (IBAction)appleMusicButtonTapped:(id)sender {
-    NSLog(@"tapping");
+    [MBProgressHUD showHUDAddedTo:self.view
+                         animated:YES];
     if (self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStateStopped) {
         [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist];
     }
@@ -130,6 +160,14 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self prefersStatusBarHidden];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
 }
 
 -(BOOL)currentlyPlayingSongIsInPlaylist {
@@ -248,29 +286,37 @@
             // No album that's okay, lets find the artist...
             
             [MUSITunesClient getArtistWithName:artist completionBlock:^(NSString *artistURL) {
-                
                 /// if no artist URL, pass back a 'No URL string'
                 if ([artistURL isEqualToString:@"No Artist URL"]) {
+                    
                     [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
+                    
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    
                 } else {
+                    
                     NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", artistURL, iTunesAffiliateID];
                     NSLog(@"%@", artistURLWithAffiliateLink);
                     NSURL *url = [NSURL URLWithString:artistURLWithAffiliateLink];
                     [[UIApplication sharedApplication] openURL:url];
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
                 }
             }]; // end of second call
+            
         } else { // IF THERE IS AN ALBUM LINK
             NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
+            
             NSLog(@"%@", albumURLWithAffiliateLink);
             NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
             [[UIApplication sharedApplication] openURL:url];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     }];
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
     //
     [self makeURLRequestForAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName];

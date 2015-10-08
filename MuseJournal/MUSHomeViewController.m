@@ -50,14 +50,7 @@
 //
 -(void)viewDidLoad {
     [super viewDidLoad];
-//
-//    [MUSITunesClient getAlbumLinkWithAlbum:@"Fabolous" artist:@"Breathe" completionBlock:^(NSString *albumURL) {
-//        NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
-//        NSLog(@"%@", albumURLWithAffiliateLink);
-//        
-//        NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
-//        [[UIApplication sharedApplication] openURL:url];
-//    }];
+
     
     self.scrollView.delegate = self;
     [self setUpCurrentTime];
@@ -215,7 +208,7 @@
 
 -(void)viewWillAppear:(BOOL)animated   {
     [super viewWillAppear:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 -(BOOL)prefersStatusBarHidden{

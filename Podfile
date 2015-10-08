@@ -9,8 +9,8 @@ pod 'MCSwipeTableViewCell', '~> 2.1.4'
 pod 'SCLAlertView-Objective-C'
 pod 'CWStatusBarNotification', '~> 2.3.3'
 pod 'AttributedMarkdown', :git => 'https://github.com/dreamwieber/AttributedMarkdown.git'
-pod "AFNetworking", "~> 2.0"
-
+pod 'AFNetworking', '~> 2.0'
+pod 'MBProgressHUD', '~> 0.9.1'
 
 end
 
