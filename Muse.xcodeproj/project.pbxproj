@@ -261,15 +261,11 @@
 		941EFBF41BB9FB9C00D70257 /* MuseJournal */ = {
 			isa = PBXGroup;
 			children = (
-				9421B9F21BC47CC300F33EAB /* MUSITunesClient.h */,
-				9421B9F31BC47CC300F33EAB /* MUSITunesClient.m */,
-				9421B9F51BC47D0F00F33EAB /* MUSConstants.h */,
-				945E53541BC70AB900157085 /* MUSConstants.m */,
-				94EB3ED61BBDDA110060AF28 /* Resources */,
+				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
+				94EB3ED61BBDDA110060AF28 /* Resources */,
 				94336B4C1BC60CB200D86420 /* MUSPageViewController.h */,
 				94336B4D1BC60CB200D86420 /* MUSPageViewController.m */,
-				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94336B3F1BC5E2DC00D86420 /* IntroViewController.h */,
 				94336B401BC5E2DC00D86420 /* IntroViewController.m */,
 				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
@@ -347,6 +343,10 @@
 		94775DE31BB9FF25004ABF0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9421B9F51BC47D0F00F33EAB /* MUSConstants.h */,
+				945E53541BC70AB900157085 /* MUSConstants.m */,
+				9421B9F21BC47CC300F33EAB /* MUSITunesClient.h */,
+				9421B9F31BC47CC300F33EAB /* MUSITunesClient.m */,
 				9421B9F81BC4AD7200F33EAB /* MUSNotificationManager.h */,
 				9421B9F91BC4AD7200F33EAB /* MUSNotificationManager.m */,
 				94B313D41BBAF88200ECB1AD /* MUSMusicPlayer.h */,
