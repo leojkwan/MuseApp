@@ -110,7 +110,7 @@
 }
 
 +(UIFont *)returnParagraphFont {
-    return [UIFont fontWithName:@"GillSans-Light" size:20.0];
+    return [UIFont fontWithName:@"GillSans-Light" size:18.0];
 }
 
 

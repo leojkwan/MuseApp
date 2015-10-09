@@ -26,6 +26,7 @@
     self.pageVC = self.childViewControllers[0];
     self.pageVC.dataSource = self;
     self.pageVC.delegate = self;
+    [self.navigationController setNavigationBarHidden:YES];
     
     
     UIViewController *p1 = [self.storyboard

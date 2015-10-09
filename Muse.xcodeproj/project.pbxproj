@@ -33,6 +33,7 @@
 		941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F254C1BBC4B12008C8120 /* UIImageView+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		9421B9F41BC47CC300F33EAB /* MUSITunesClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9421B9F31BC47CC300F33EAB /* MUSITunesClient.m */; settings = {ASSET_TAGS = (); }; };
 		9421B9FA1BC4AD7200F33EAB /* MUSNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9421B9F91BC4AD7200F33EAB /* MUSNotificationManager.m */; settings = {ASSET_TAGS = (); }; };
+		942F25501BC7450C0004D806 /* LastWalkthroughViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F254F1BC7450C0004D806 /* LastWalkthroughViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94336B3E1BC5E25A00D86420 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */; settings = {ASSET_TAGS = (); }; };
 		94336B411BC5E2DC00D86420 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94336B401BC5E2DC00D86420 /* IntroViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94336B4E1BC60CB200D86420 /* MUSPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94336B4D1BC60CB200D86420 /* MUSPageViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -142,6 +143,8 @@
 		9421B9F51BC47D0F00F33EAB /* MUSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSConstants.h; sourceTree = "<group>"; };
 		9421B9F81BC4AD7200F33EAB /* MUSNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSNotificationManager.h; sourceTree = "<group>"; };
 		9421B9F91BC4AD7200F33EAB /* MUSNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSNotificationManager.m; sourceTree = "<group>"; };
+		942F254E1BC7450C0004D806 /* LastWalkthroughViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LastWalkthroughViewController.h; sourceTree = "<group>"; };
+		942F254F1BC7450C0004D806 /* LastWalkthroughViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LastWalkthroughViewController.m; sourceTree = "<group>"; };
 		94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Walkthrough.storyboard; sourceTree = "<group>"; };
 		94336B3F1BC5E2DC00D86420 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		94336B401BC5E2DC00D86420 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
@@ -264,8 +267,6 @@
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
-				94336B4C1BC60CB200D86420 /* MUSPageViewController.h */,
-				94336B4D1BC60CB200D86420 /* MUSPageViewController.m */,
 				94336B3F1BC5E2DC00D86420 /* IntroViewController.h */,
 				94336B401BC5E2DC00D86420 /* IntroViewController.m */,
 				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
@@ -372,6 +373,10 @@
 		94775DFC1BB9FF42004ABF0A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				94336B4C1BC60CB200D86420 /* MUSPageViewController.h */,
+				94336B4D1BC60CB200D86420 /* MUSPageViewController.m */,
+				942F254E1BC7450C0004D806 /* LastWalkthroughViewController.h */,
+				942F254F1BC7450C0004D806 /* LastWalkthroughViewController.m */,
 				94B313D21BBAF88200ECB1AD /* MUSHomeViewController.h */,
 				94B313D31BBAF88200ECB1AD /* MUSHomeViewController.m */,
 				94B313E01BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.h */,
@@ -703,6 +708,7 @@
 				941F25381BBC4A3A008C8120 /* MUSSearchBarDelegate.m in Sources */,
 				941F25411BBC4A63008C8120 /* MUSEntryTableViewCell.m in Sources */,
 				941F254A1BBC4A8D008C8120 /* MuseApp.xcdatamodeld in Sources */,
+				942F25501BC7450C0004D806 /* LastWalkthroughViewController.m in Sources */,
 				94B3140C1BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m in Sources */,
 				94B314081BBAF88200ECB1AD /* UIButton+ExtraMethods.m in Sources */,
 				941F25151BBC388F008C8120 /* MUSGreetingManager.m in Sources */,

@@ -38,11 +38,12 @@ typedef enum{
     AlreadyPinned
 }PlayerStatus;
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate>
 
 @property (nonatomic,assign) PlayerStatus musicPlayerStatus;
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
+@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -54,6 +55,7 @@ typedef enum{
 @property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
+@property (weak, nonatomic) IBOutlet UITextView *entryTitleTextView;
 
 @end
 
@@ -61,13 +63,10 @@ typedef enum{
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.store = [MUSDataStore sharedDataStore];
-
     
-    //Convert entry NSSet into appropriate MutableArray
-    self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
+    [self setUpTagLabel];
     [self setUpMusicPlayer];
     [self setUpParallaxForExistingEntries];
     [self setUpTextView];
@@ -77,6 +76,48 @@ typedef enum{
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
+    self.entryTitleTextView.delegate = self;
+    
+    NSMutableParagraphStyle* titleStyle = [[NSMutableParagraphStyle alloc]init];
+    titleStyle.lineSpacing = 10;
+    
+    self.entryTitleTextView.delegate = self;
+
+    if (self.entryTitleTextView.text.length == 0) {
+        self.entryTitleTextView.text = @"Title";
+        self.entryTitleTextView.textColor = [UIColor lightGrayColor];
+    }
+    
+    if (self.textView.text.length == 0) {
+        self.textView.text = @"Begin writing here...";
+        self.textView.textColor = [UIColor lightGrayColor];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    
+    if (textView == self.entryTitleTextView) {
+        
+        if(range.length + range.location > textView.text.length)
+        {
+            return NO;
+        }
+        
+        NSUInteger newLength = [textView.text length] + [string length] - range.length;
+        return newLength <= 50;
+    }
+    return NO;
+}
+
+
+
+-(void)setUpTagLabel {
+    NSString *text = @"Privacy Policy";
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc ]initWithString:text];
+    [attrString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:(NSUnderlineStyleThick)] range:NSMakeRange(0, [attrString length])];
+    [attrString addAttribute:NSUnderlineColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, [attrString length])];
+    self.tagLabel.attributedText=attrString;
     
 }
 
@@ -85,23 +126,28 @@ typedef enum{
 }
 
 -(void)setUpTextView {
-    
     UITapGestureRecognizer *textViewResponder = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
     [self.containerView addGestureRecognizer:textViewResponder];
     
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
-    if (self.destinationEntry == nil) {
+
+    
+    if (self.destinationEntry.content == nil) {
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"####Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
     } else{
+        // this is an existing entry
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+        self.entryTitleTextView.text = self.destinationEntry.titleOfEntry;
     }
     [self checkSizeOfContentForTextView:self.textView];
 }
 
 
 -(void)setUpMusicPlayer {
+    //Convert entry NSSet into appropriate MutableArray
+    self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
     // set up music player
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
@@ -120,6 +166,7 @@ typedef enum{
     self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
+    self.entryTitleTextView.inputAccessoryView = self.keyboardTopBar;
     self.keyboardTopBar.delegate = self;
     
 }
@@ -161,17 +208,32 @@ typedef enum{
     [self.MUSToolBar setHidden:YES];
 }
 -(void)didSelectTitleButton:(id)sender {
+    if ([self.textView isFirstResponder]){ // append pount to content view
     [self.textView insertText:@"#"];
+    } else { // notify user this button does't work for title view
+        [MUSNotificationManager displayNotificationWithMessage:@"markdown only for entry content." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
+    }
 }
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-    if (self.textView.textColor == [UIColor lightGrayColor]) {
-        self.textView.textColor = [UIColor blackColor];
+
+    // FOR CONTENT
+    if (textView == self.textView) {
+        self.textView.text = self.destinationEntry.content;
+        if (self.textView.textColor == [UIColor lightGrayColor]) {
+            self.textView.textColor = [UIColor blackColor];
+        }
     }
-    self.textView.text = self.destinationEntry.content;
+    // FOR TITLE
+    if (textView == self.entryTitleTextView) {
+        self.entryTitleTextView.text = self.destinationEntry.titleOfEntry;
+        if (self.entryTitleTextView.textColor == [UIColor lightGrayColor]) {
+            self.entryTitleTextView.textColor = [UIColor blackColor];
+        }
+        
+    }
     self.textView.font = [UIFont returnParagraphFont];
-    self.textView.textColor = [UIColor darkGrayColor];
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
@@ -182,32 +244,43 @@ typedef enum{
 {
     NSLog(@"Dilip : %@",textView.text);
     [self checkSizeOfContentForTextView:self.textView];
+    
+}
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    // condition to limit title text view
+    if (textView == self.entryTitleTextView) {
+        if([text length] == 0) {
+            if([textView.text length] != 0)
+                return YES;
+            else
+                return NO;
+        }    else if([[textView text] length] > 100 ) {
+            return NO;
+        }}
+    // for entry text view
+    return YES;
 }
 
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     [textView sizeToFit];
     [textView layoutIfNeeded];
-
-//    if ([textView.text length] < 700) {
-//        [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.height.equalTo(@700);
-//        }];
-//    } else {
-              [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
-            // add bottom space between between text view and scrolling content view
-                  make.height.equalTo(self.textView.mas_height);
-            
-        }];
-        
-        [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.contentView.mas_bottom);
-        }];
-        
-
-//    }
-
+    
+    //              [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+    //            // add bottom space between between text view and scrolling content view
+    //                  make.height.equalTo(self.textView.mas_height);
+    //
+    //        }];
+    
+    [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView.mas_bottom);
+    }];
+    
+    
+    
 }
 
 
@@ -235,7 +308,7 @@ typedef enum{
 
 -(void)playPlaylistForThisEntry {
     
-    if (self.entryType == ExistingEntry ) {
+    if (self.entryType == ExistingEntry && self.destinationEntry.songs != nil ) {
         
         //         condition for null objects
         
@@ -320,14 +393,17 @@ typedef enum{
     } else {
         // FOR OLD ENTRIES
         self.destinationEntry.content = self.textView.text;
-        self.destinationEntry.titleOfEntry = [Entry getTitleOfContentFromText:self.destinationEntry.content];
+//        self.destinationEntry.titleOfEntry = [Entry getTitleOfContentFromText:self.destinationEntry.content];
+        self.destinationEntry.titleOfEntry = self.entryTitleTextView.text;
     }
     
     // save to core data
     [self.store save];
     
     // dismiss keyboard
-    [self.textView endEditing:YES];
+    [self.view endEditing:YES];
+
+//    [self.textView endEditing:YES];
 }
 
 
@@ -343,20 +419,20 @@ typedef enum{
         newEntry.content = self.textView.text;
     
     
-    newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
-    
-    
+//    newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
+    newEntry.titleOfEntry = self.entryTitleTextView.text;
+
     NSDate *currentDate = [NSDate date];
     
-//        // check future
-//    NSDate *today = [[NSDate alloc] init];
-//    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-//    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-//    [offsetComponents setYear:0];
-//    [offsetComponents setMonth:-3];
-//    [offsetComponents setDay:-16];
-//    NSDate *timeWarp = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
-
+    //        // check future
+    //    NSDate *today = [[NSDate alloc] init];
+    //    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    //    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    //    [offsetComponents setYear:0];
+    //    [offsetComponents setMonth:-3];
+    //    [offsetComponents setDay:-16];
+    //    NSDate *timeWarp = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+    
     
     // month day and year
     newEntry.createdAt = [currentDate monthDateYearDate];
@@ -537,10 +613,10 @@ typedef enum{
         
         [self displayPinnedSongNotification];
         [self.formattedPlaylistForThisEntry addObject:pinnedSong];
-       
+        
         // Add song to Core Data
         [self.destinationEntry addSongsObject:pinnedSong];
-
+        
         MPMediaItemCollection *playlistCollectionForThisEntry =  [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
         //        }];
@@ -572,7 +648,7 @@ typedef enum{
         
     } else if(self.musicPlayerStatus == Playing) {
         NSString *message = [NSString stringWithFormat:@"Successfully Pinned '%@", currentSong.title];
-            [MUSNotificationManager displayNotificationWithMessage:message backgroundColor:[UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0] textColor:[UIColor whiteColor]];
+        [MUSNotificationManager displayNotificationWithMessage:message backgroundColor:[UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0] textColor:[UIColor whiteColor]];
         
     } else if(self.musicPlayerStatus == AlreadyPinned) {
         NSString *message  = [NSString stringWithFormat:@"%@ is already pinned!", currentSong.title];

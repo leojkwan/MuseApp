@@ -8,7 +8,7 @@
         <!--Intro View Controller-->
         <scene sceneID="Cdx-lk-z6y">
             <objects>
-                <viewController id="CUn-S0-GP9" customClass="IntroViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="walkthrough" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="CUn-S0-GP9" customClass="IntroViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0KV-HY-FeW"/>
                         <viewControllerLayoutGuide type="bottom" id="fDn-3b-sU8"/>
@@ -25,7 +25,7 @@
                                 </connections>
                             </containerView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="jf5-sx-mhk">
-                                <rect key="frame" x="280.5" y="513" width="39" height="37"/>
+                                <rect key="frame" x="280.5" y="548" width="39" height="37"/>
                                 <animations/>
                             </pageControl>
                         </subviews>
@@ -36,7 +36,7 @@
                             <constraint firstItem="kK2-U7-HiC" firstAttribute="top" secondItem="Bla-CY-Opt" secondAttribute="topMargin" id="cvw-1t-Lvr"/>
                             <constraint firstAttribute="trailing" secondItem="kK2-U7-HiC" secondAttribute="trailing" id="gyf-vE-AUc"/>
                             <constraint firstItem="jf5-sx-mhk" firstAttribute="centerX" secondItem="Bla-CY-Opt" secondAttribute="centerX" id="j3f-Q2-BsB"/>
-                            <constraint firstItem="fDn-3b-sU8" firstAttribute="top" secondItem="jf5-sx-mhk" secondAttribute="bottom" constant="50" id="kwG-ph-7in"/>
+                            <constraint firstItem="fDn-3b-sU8" firstAttribute="top" secondItem="jf5-sx-mhk" secondAttribute="bottom" constant="15" id="kwG-ph-7in"/>
                             <constraint firstItem="kK2-U7-HiC" firstAttribute="leading" secondItem="Bla-CY-Opt" secondAttribute="leading" id="lxV-pJ-7dz"/>
                         </constraints>
                     </view>
@@ -75,10 +75,10 @@
             </objects>
             <point key="canvasLocation" x="-204" y="1618"/>
         </scene>
-        <!--View Controller-->
+        <!--Last Walkthrough View Controller-->
         <scene sceneID="9Ba-zx-kxO">
             <objects>
-                <viewController storyboardIdentifier="Intro2" id="yPI-YK-1aB" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Intro2" id="yPI-YK-1aB" customClass="LastWalkthroughViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Miz-Ok-Jyr"/>
                         <viewControllerLayoutGuide type="bottom" id="IcH-MB-bkF"/>
@@ -95,7 +95,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="7AE-dh-abL" kind="presentation" id="Sui-Wz-Hck"/>
+                                    <action selector="doneButtonPressed:" destination="yPI-YK-1aB" eventType="touchUpInside" id="kvf-VK-djD"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -110,14 +110,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEs-YO-NdK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="452" y="1611"/>
-        </scene>
-        <!--Main-->
-        <scene sceneID="5w6-fg-mju">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Main" storyboardName="Main" id="7AE-dh-abL" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Su-Bj-ogs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="590.5" y="2042"/>
         </scene>
     </scenes>
 </document>
