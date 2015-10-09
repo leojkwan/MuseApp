@@ -57,6 +57,7 @@ typedef enum{
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 @property (weak, nonatomic) IBOutlet UITextView *entryTitleTextView;
 @property (weak, nonatomic) IBOutlet UILabel *titleCharacterLimitLabel;
+@property (strong, nonatomic) UITapGestureRecognizer *entryTextViewTap;
 
 @end
 
@@ -79,10 +80,6 @@ typedef enum{
     }];
     self.entryTitleTextView.delegate = self;
     
-    NSMutableParagraphStyle* titleStyle = [[NSMutableParagraphStyle alloc]init];
-    titleStyle.lineSpacing = 10;
-    
-
     if (self.entryTitleTextView.text.length == 0) {
         self.entryTitleTextView.text = @"Title";
         self.entryTitleTextView.textColor = [UIColor lightGrayColor];
@@ -92,25 +89,10 @@ typedef enum{
         self.textView.text = @"Begin writing here...";
         self.textView.textColor = [UIColor lightGrayColor];
     }
-}
-
-- (BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    // Prevent crashing undo bug – see note below.
+    [self.textView setScrollEnabled:NO];
+    self.textView.userInteractionEnabled = NO;
     
-    if (textView == self.entryTitleTextView) {
-        
-        if(range.length + range.location > textView.text.length)
-        {
-            return NO;
-        }
-        
-        NSUInteger newLength = [textView.text length] + [string length] - range.length;
-        return newLength <= 50;
-    }
-    return NO;
 }
-
-
 
 -(void)setUpTagLabel {
     NSString *text = @"Privacy Policy";
@@ -118,7 +100,6 @@ typedef enum{
     [attrString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:(NSUnderlineStyleThick)] range:NSMakeRange(0, [attrString length])];
     [attrString addAttribute:NSUnderlineColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, [attrString length])];
     self.tagLabel.attributedText=attrString;
-    
 }
 
 -(void)showKeyboard {
@@ -127,21 +108,21 @@ typedef enum{
 
 -(void)setUpTextView {
     
+    
     // set up initial number count
-    NSLog(@"THis is the entry title text view lengh! %ld", [self.entryTitleTextView.text length]);
     self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:100 - (int)self.entryTitleTextView.text.length]];
     self.titleCharacterLimitLabel.text =@"boobs";
-
-
-    UITapGestureRecognizer *textViewResponder = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
-    [self.containerView addGestureRecognizer:textViewResponder];
+    
+    
+    self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
+    [self.containerView addGestureRecognizer:self.entryTextViewTap];
     
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
-
+    
     
     if (self.destinationEntry.content == nil) {
-        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"####Begin writing here..."];
+        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
     } else{
         // this is an existing entry
@@ -195,8 +176,6 @@ typedef enum{
 }
 
 
-
-
 #pragma mark  - Keyboard delegate methods
 -(void)didSelectCameraButton {
     [self selectPhoto];
@@ -216,7 +195,7 @@ typedef enum{
 }
 -(void)didSelectTitleButton:(id)sender {
     if ([self.textView isFirstResponder]){ // append pount to content view
-    [self.textView insertText:@"#"];
+        [self.textView insertText:@"#"];
     } else { // notify user this button does't work for title view
         [MUSNotificationManager displayNotificationWithMessage:@"markdown only for entry content." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
     }
@@ -224,27 +203,53 @@ typedef enum{
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    self.textView.font = [UIFont returnParagraphFont];
 
     // FOR CONTENT
     if (textView == self.textView) {
-        self.textView.text = self.destinationEntry.content;
+        
+        // FOR NEW ENTRY
         if (self.textView.textColor == [UIColor lightGrayColor]) {
             self.textView.textColor = [UIColor blackColor];
-        }
-    }
-    // FOR TITLE
-    if (textView == self.entryTitleTextView) {
-        self.entryTitleTextView.text = self.destinationEntry.titleOfEntry;
-        if (self.entryTitleTextView.textColor == [UIColor lightGrayColor]) {
-            self.entryTitleTextView.textColor = [UIColor blackColor];
+            self.textView.text = @"";
+            return;
         }
         
+        // FOR NEW ENTRY CONTENT
+        [self.entryTitleTextView setUserInteractionEnabled:NO];
+        [self.textView setUserInteractionEnabled:YES];
+
+        self.textView.text = self.destinationEntry.content;
     }
-    self.textView.font = [UIFont returnParagraphFont];
+    
+    // FOR TITLE
+    if (textView == self.entryTitleTextView) {
+        
+        self.entryTitleTextView.text = self.destinationEntry.titleOfEntry;
+        self.entryTextViewTap.enabled = NO;
+        [self.textView setUserInteractionEnabled:NO];
+        
+        // IF ITS A NEW ENTRY TITLE
+        if (self.entryTitleTextView.textColor == [UIColor lightGrayColor]) {
+            self.entryTitleTextView.textColor = [UIColor blackColor];
+            self.entryTitleTextView.text = @"";
+            return;
+        }
+    }
+//    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+    NSLog(@" DID BEGIN EDITING %@", self.destinationEntry.content);
+
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+//    [self saveEntry];
+
+    if (textView == self.textView) {
+
+        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+        NSLog(@"did finish editing %@", self.destinationEntry.content);
+    }
 }
 
 -(void)textViewDidChange:(UITextView *)textView
@@ -253,14 +258,15 @@ typedef enum{
     self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:100 - (int)self.entryTitleTextView.text.length]];
 }
 
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     // FOR TITLE VIEW
     if (textView == self.entryTitleTextView) {
         
+        // TRANSITION FROM TITLE TO CONTENT THROUGH RETURN BUTTON
         if([text isEqualToString:@"\n"]) {
             [self.entryTitleTextView resignFirstResponder];
-            [self.textView becomeFirstResponder];
             return NO;
         }
         
@@ -282,17 +288,9 @@ typedef enum{
     [textView sizeToFit];
     [textView layoutIfNeeded];
     
-    //              [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
-    //            // add bottom space between between text view and scrolling content view
-    //                  make.height.equalTo(self.textView.mas_height);
-    //
-    //        }];
-    
     [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
-    
-    
     
 }
 
@@ -301,9 +299,6 @@ typedef enum{
     [self.navigationController popViewControllerAnimated:YES];
     [self.MUSToolBar setHidden:NO];
 }
-
-
-
 
 
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
@@ -386,9 +381,9 @@ typedef enum{
 }
 
 
--(BOOL)prefersStatusBarHidden{
-    return YES;
-}
+//-(BOOL)prefersStatusBarHidden{
+//    return YES;
+//}
 
 -(void)viewWillAppear:(BOOL)animated {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -399,24 +394,29 @@ typedef enum{
 }
 
 - (void)saveButtonTapped:(id)sender {
+    self.entryTextViewTap.enabled = YES;
+    [self.entryTitleTextView setUserInteractionEnabled:YES];
+    [self.textView setUserInteractionEnabled:YES];
+    [self saveEntry];
+}
+
+-(void)saveEntry {
+    
     if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
         
     } else {
-        // FOR OLD ENTRIES
+        // FOR EXISTING ENTRIES
+        NSLog(@"IN SAVE ENTRY METHOD %@", self.destinationEntry.content);
         self.destinationEntry.content = self.textView.text;
-//        self.destinationEntry.titleOfEntry = [Entry getTitleOfContentFromText:self.destinationEntry.content];
         self.destinationEntry.titleOfEntry = self.entryTitleTextView.text;
     }
-    
     // save to core data
     [self.store save];
     
     // dismiss keyboard
     [self.view endEditing:YES];
-
-//    [self.textView endEditing:YES];
 }
 
 
@@ -432,9 +432,9 @@ typedef enum{
         newEntry.content = self.textView.text;
     
     
-//    newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
+    //    newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
     newEntry.titleOfEntry = self.entryTitleTextView.text;
-
+    
     NSDate *currentDate = [NSDate date];
     
     //        // check future
@@ -455,16 +455,6 @@ typedef enum{
     newEntry.dateInString = [currentDate monthDateAndYearString];
     return newEntry;
 }
-
-
--(void)viewDidDisappear:(BOOL)animated {
-    
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    
-}
-
 
 #pragma mark- photo selection methods
 
@@ -632,7 +622,7 @@ typedef enum{
         
         MPMediaItemCollection *playlistCollectionForThisEntry =  [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-        //        }];
+
         // Save to Core Data
         [self.store save];
     }
