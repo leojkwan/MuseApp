@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="M5W-el-9hW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="M5W-el-9hW">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -13,6 +13,7 @@
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
+            <string>ADAM.CGPRO</string>
         </mutableArray>
         <mutableArray key="Raleway-Medium.ttf">
             <string>Raleway-Medium</string>
@@ -21,13 +22,17 @@
         <mutableArray key="Raleway-Regular.ttf">
             <string>Raleway</string>
             <string>Raleway</string>
+            <string>Raleway</string>
+        </mutableArray>
+        <mutableArray key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
         </mutableArray>
     </customFonts>
     <scenes>
         <!--Home View Controller-->
         <scene sceneID="bwy-Kg-gKn">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" id="Reu-be-NJQ" customClass="MUSHomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="Reu-be-NJQ" customClass="MUSHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kJ4-kJ-0hA"/>
                         <viewControllerLayoutGuide type="bottom" id="uE5-7z-dT4"/>
@@ -793,12 +798,73 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="39.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="189.5"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="39.5"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aK9-BB-r1I" userLabel="Entry Header">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                                <subviews>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" keyboardDismissMode="onDrag" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fbn-YX-ifk">
+                                                        <rect key="frame" x="10" y="38" width="580" height="91.5"/>
+                                                        <animations/>
+                                                        <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="24"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                                                    </textView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaI-db-eqe">
+                                                        <rect key="frame" x="546" y="15" width="38" height="13"/>
+                                                        <animations/>
+                                                        <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKc-0j-Brl" userLabel="break">
+                                                        <rect key="frame" x="120" y="144" width="360" height="1"/>
+                                                        <animations/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="FRz-8c-l5W"/>
+                                                            <constraint firstAttribute="width" constant="30" id="zE8-NL-Ft6"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="zE8-NL-Ft6"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K2O-NB-qjC">
+                                                        <rect key="frame" x="557" y="127" width="32.5" height="14.5"/>
+                                                        <animations/>
+                                                        <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="12"/>
+                                                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
                                                 <animations/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="TKc-0j-Brl" firstAttribute="centerX" secondItem="aK9-BB-r1I" secondAttribute="centerX" id="1Wd-WU-EZn"/>
+                                                    <constraint firstItem="K2O-NB-qjC" firstAttribute="trailing" secondItem="fbn-YX-ifk" secondAttribute="trailing" id="4V8-Pi-JVL"/>
+                                                    <constraint firstItem="TKc-0j-Brl" firstAttribute="width" secondItem="aK9-BB-r1I" secondAttribute="width" multiplier="6/10" id="59e-B2-k31"/>
+                                                    <constraint firstItem="fbn-YX-ifk" firstAttribute="top" secondItem="TaI-db-eqe" secondAttribute="bottom" constant="10" id="H7y-Wh-ctc"/>
+                                                    <constraint firstItem="TaI-db-eqe" firstAttribute="top" secondItem="aK9-BB-r1I" secondAttribute="top" constant="15" id="OA5-2k-s1W"/>
+                                                    <constraint firstItem="TKc-0j-Brl" firstAttribute="top" secondItem="K2O-NB-qjC" secondAttribute="bottom" constant="2" id="Pnp-1A-yTe"/>
+                                                    <constraint firstAttribute="trailing" secondItem="fbn-YX-ifk" secondAttribute="trailing" constant="10" id="WOu-zV-agI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TaI-db-eqe" secondAttribute="trailing" constant="15" id="ZIC-DN-cdN"/>
+                                                    <constraint firstAttribute="bottom" secondItem="TKc-0j-Brl" secondAttribute="bottom" constant="5" id="cJh-vt-57Y"/>
+                                                    <constraint firstAttribute="height" constant="150" id="dda-hg-BJL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="fbn-YX-ifk" secondAttribute="bottom" constant="10" id="egX-au-WDG"/>
+                                                    <constraint firstItem="TaI-db-eqe" firstAttribute="centerY" secondItem="aK9-BB-r1I" secondAttribute="centerY" id="flY-hx-dMI"/>
+                                                    <constraint firstItem="fbn-YX-ifk" firstAttribute="leading" secondItem="aK9-BB-r1I" secondAttribute="leading" constant="10" id="pmq-3w-kCy"/>
+                                                    <constraint firstItem="K2O-NB-qjC" firstAttribute="top" secondItem="fbn-YX-ifk" secondAttribute="bottom" constant="-2" id="sPh-8w-rVD"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="egX-au-WDG"/>
+                                                        <exclude reference="flY-hx-dMI"/>
+                                                    </mask>
+                                                </variation>
+                                            </view>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
+                                                <rect key="frame" x="0.0" y="150" width="600" height="39.5"/>
+                                                <animations/>
                                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -806,11 +872,20 @@
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="aK9-BB-r1I" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="1MM-Rj-NaV"/>
+                                            <constraint firstAttribute="trailing" secondItem="aK9-BB-r1I" secondAttribute="trailing" id="3Zi-Nr-eO6"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="T5c-zl-b6B"/>
+                                            <constraint firstItem="aK9-BB-r1I" firstAttribute="bottom" secondItem="68a-QO-p1t" secondAttribute="top" id="W4q-zL-IG7"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="WH2-oa-xPk"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="bottom" secondItem="ZUS-FP-YG9" secondAttribute="bottom" id="dqj-01-IuI"/>
+                                            <constraint firstItem="aK9-BB-r1I" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="nTa-nS-fzA"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="trailing" secondItem="ZUS-FP-YG9" secondAttribute="trailing" id="yyf-pF-m8A"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="WH2-oa-xPk"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <animations/>
@@ -828,14 +903,25 @@
                             <constraint firstItem="TGV-He-lkb" firstAttribute="leading" secondItem="B83-cu-4xm" secondAttribute="leading" id="Bbb-ED-MI9"/>
                             <constraint firstItem="TGV-He-lkb" firstAttribute="top" secondItem="B83-cu-4xm" secondAttribute="top" id="FEg-gp-ub9"/>
                             <constraint firstItem="68a-QO-p1t" firstAttribute="width" secondItem="B83-cu-4xm" secondAttribute="width" id="MX2-VB-Des"/>
+                            <constraint firstItem="aK9-BB-r1I" firstAttribute="width" secondItem="B83-cu-4xm" secondAttribute="width" id="Vbs-tT-SVM"/>
                             <constraint firstAttribute="trailing" secondItem="TGV-He-lkb" secondAttribute="trailing" id="cEs-gJ-rPS"/>
+                            <constraint firstItem="TGV-He-lkb" firstAttribute="height" secondItem="B83-cu-4xm" secondAttribute="height" id="pQg-c9-SgO"/>
                             <constraint firstAttribute="bottomMargin" secondItem="TGV-He-lkb" secondAttribute="bottom" id="swd-V6-xFx"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="pQg-c9-SgO"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="containerView" destination="B83-cu-4xm" id="m3b-nk-x62"/>
                         <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
+                        <outlet property="entryTitleTextView" destination="fbn-YX-ifk" id="iIF-4a-09z"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
+                        <outlet property="tagLabel" destination="TaI-db-eqe" id="bK3-aF-ClM"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
+                        <outlet property="titleCharacterLimitLabel" destination="K2O-NB-qjC" id="b1c-MP-SGo"/>
                         <segue destination="EiH-fH-8rA" kind="presentation" identifier="playlistSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="eaT-SP-hex"/>
                     </connections>
                 </viewController>
@@ -1091,14 +1177,14 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.84999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Gp9-Z7-6K0">
-                                        <rect key="frame" x="40" y="296" width="490" height="23.5"/>
+                                        <rect key="frame" x="40" y="309" width="490" height="23.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssf-YQ-TiS" userLabel="break">
-                                        <rect key="frame" x="45" y="290" width="30" height="1"/>
+                                        <rect key="frame" x="45" y="303" width="30" height="1"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1107,7 +1193,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now Playing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpt-WC-mgN">
-                                        <rect key="frame" x="40" y="269" width="91" height="13"/>
+                                        <rect key="frame" x="40" y="282" width="91" height="13"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
                                         <color key="textColor" red="0.97875236742424243" green="0.22734938900580462" blue="0.42629474974525172" alpha="1" colorSpace="calibratedRGB"/>
@@ -1132,8 +1218,8 @@
                                             <action selector="appleMusicButtonTapped:" destination="EiH-fH-8rA" eventType="touchUpInside" id="it7-Mk-CPf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1gz-nq-fTr">
-                                        <rect key="frame" x="40" y="327" width="480" height="13"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1gz-nq-fTr">
+                                        <rect key="frame" x="40" y="340" width="480" height="0.0"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
                                         <color key="textColor" red="0.97254901959999995" green="0.70980392160000005" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1354,7 +1440,7 @@
         <!--Page View Controller-->
         <scene sceneID="8Ww-y3-vtf">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="JWO-Hs-zPL" customClass="MUSPageViewController" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="JWO-Hs-zPL" customClass="MUSPageViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="KwM-H9-ns7"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bj5-WU-ETn" userLabel="First Responder" sceneMemberID="firstResponder"/>

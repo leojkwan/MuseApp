@@ -26,6 +26,7 @@
     self.pageVC = self.childViewControllers[0];
     self.pageVC.dataSource = self;
     self.pageVC.delegate = self;
+    [self.navigationController setNavigationBarHidden:YES];
     
     
     UIViewController *p1 = [self.storyboard
@@ -39,7 +40,8 @@
     self.pageControl.numberOfPages = self.walkthroughVCs.count;
     self.pageIndex = 0;
     self.pageControl.currentPage = 0;
-    
+    [self.view bringSubviewToFront:self.pageControl];
+
     [self.pageVC setViewControllers:@[p1]
                           direction:UIPageViewControllerNavigationDirectionForward
                            animated:NO completion:nil];

@@ -18,6 +18,7 @@
 #import "MUSConstants.h"
 #import "MUSNotificationManager.h"
 #import <MBProgressHUD.h>
+#import <AFNetworkReachabilityManager.h>
 
 
 
@@ -72,6 +73,7 @@
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
     [self.playlistGaussian addGestureRecognizer:dismissTap];
     
+    // give album tap gesture as if apple music button were tapped
     UITapGestureRecognizer *albumArtTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(appleMusicButtonTapped:)];
     [self.maskImageView addGestureRecognizer:albumArtTap];
 }
@@ -97,27 +99,52 @@
         }];
         
     });
-    
-    
-    //    [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
-    //        self.artworkImagesForThisEntry = artworkImages;
-    //    }];
-}
+    }
 
 
 -(void)setUpAppleMusicButton {
-    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying)
+    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStatePlaying)
         [self.appleMusicButton setHidden:YES];
     else
         [self.appleMusicButton setHidden:NO];
 }
 
 - (IBAction)appleMusicButtonTapped:(id)sender {
-    [MBProgressHUD showHUDAddedTo:self.view
-                         animated:YES];
-    if (self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStateStopped) {
-        [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist];
+    
+    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStatePlaying) {
+        return;
     }
+
+    // check internet
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        //        NSLog(@"Reachability changed: %@", AFStringFromNetworkReachabilityStatus(status));
+        
+        
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                // -- Reachable -- //
+                NSLog(@"Reachable");
+                
+                [MBProgressHUD showHUDAddedTo:self.view
+                                     animated:YES];
+                if (self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStateStopped) {
+                    [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist];
+                }
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+            default:
+                // -- Not reachable -- //
+                NSLog(@"Not Reachable");
+                [MUSNotificationManager displayNotificationWithMessage:@"No Internet connection! Can't connect to Apple Music." backgroundColor:[UIColor lightGrayColor] textColor:[UIColor darkGrayColor]];
+                break;
+        }
+        
+    }];
+
 }
 
 #pragma mark - music player actions
@@ -229,7 +256,9 @@
 -(void)loadUILabels {
     self.currentlyPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
     self.currentSongLabel.text = self.currentlyPlayingItem.title;
+    if (self.currentlyPlayingItem.artist != nil) {
     self.currentArtistLabel.text = [NSString stringWithFormat:@"BY %@" ,self.currentlyPlayingItem.artist];
+    }
     self.currentSongView.image = [self.currentlyPlayingItem.artwork imageWithSize:CGSizeMake(500, 500)];
     [self setUpAppleMusicButton];
     [self.playlistTableView reloadData];
@@ -353,7 +382,7 @@
 }
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
-    if (self.destinationEntry != nil) {
+    if (self.destinationEntry.songs != nil) {
         MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
         // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
         [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
