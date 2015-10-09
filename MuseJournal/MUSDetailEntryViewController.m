@@ -56,6 +56,7 @@ typedef enum{
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 @property (weak, nonatomic) IBOutlet UITextView *entryTitleTextView;
+@property (weak, nonatomic) IBOutlet UILabel *titleCharacterLimitLabel;
 
 @end
 
@@ -81,7 +82,6 @@ typedef enum{
     NSMutableParagraphStyle* titleStyle = [[NSMutableParagraphStyle alloc]init];
     titleStyle.lineSpacing = 10;
     
-    self.entryTitleTextView.delegate = self;
 
     if (self.entryTitleTextView.text.length == 0) {
         self.entryTitleTextView.text = @"Title";
@@ -126,6 +126,13 @@ typedef enum{
 }
 
 -(void)setUpTextView {
+    
+    // set up initial number count
+    NSLog(@"THis is the entry title text view lengh! %ld", [self.entryTitleTextView.text length]);
+    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:100 - (int)self.entryTitleTextView.text.length]];
+    self.titleCharacterLimitLabel.text =@"boobs";
+
+
     UITapGestureRecognizer *textViewResponder = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
     [self.containerView addGestureRecognizer:textViewResponder];
     
@@ -242,25 +249,31 @@ typedef enum{
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"Dilip : %@",textView.text);
     [self checkSizeOfContentForTextView:self.textView];
-    
+    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:100 - (int)self.entryTitleTextView.text.length]];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    
-    // condition to limit title text view
+    // FOR TITLE VIEW
     if (textView == self.entryTitleTextView) {
+        
+        if([text isEqualToString:@"\n"]) {
+            [self.entryTitleTextView resignFirstResponder];
+            [self.textView becomeFirstResponder];
+            return NO;
+        }
+        
+        // TITLE CHARACTER LIMIT
         if([text length] == 0) {
             if([textView.text length] != 0)
                 return YES;
             else
                 return NO;
-        }    else if([[textView text] length] > 100 ) {
+        }    else if([[textView text] length] > 99 ) {
             return NO;
         }}
-    // for entry text view
+    // FOR ENTRY TEXT VIEW
     return YES;
 }
 

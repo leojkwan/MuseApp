@@ -24,6 +24,9 @@
             <string>Raleway</string>
             <string>Raleway</string>
         </mutableArray>
+        <mutableArray key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
+        </mutableArray>
     </customFonts>
     <scenes>
         <!--Home View Controller-->
@@ -800,16 +803,16 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aK9-BB-r1I" userLabel="Entry Header">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                                                 <subviews>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbn-YX-ifk">
-                                                        <rect key="frame" x="10" y="42" width="580" height="98"/>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" keyboardDismissMode="onDrag" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fbn-YX-ifk">
+                                                        <rect key="frame" x="10" y="38" width="580" height="91.5"/>
                                                         <animations/>
-                                                        <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="20"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                        <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="24"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     </textView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaI-db-eqe">
-                                                        <rect key="frame" x="535" y="15" width="49.5" height="17"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaI-db-eqe">
+                                                        <rect key="frame" x="546" y="15" width="38" height="13"/>
                                                         <animations/>
-                                                        <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -827,13 +830,22 @@
                                                             </mask>
                                                         </variation>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K2O-NB-qjC">
+                                                        <rect key="frame" x="557" y="127" width="32.5" height="14.5"/>
+                                                        <animations/>
+                                                        <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="12"/>
+                                                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="centerX" secondItem="aK9-BB-r1I" secondAttribute="centerX" id="1Wd-WU-EZn"/>
+                                                    <constraint firstItem="K2O-NB-qjC" firstAttribute="trailing" secondItem="fbn-YX-ifk" secondAttribute="trailing" id="4V8-Pi-JVL"/>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="width" secondItem="aK9-BB-r1I" secondAttribute="width" multiplier="6/10" id="59e-B2-k31"/>
                                                     <constraint firstItem="fbn-YX-ifk" firstAttribute="top" secondItem="TaI-db-eqe" secondAttribute="bottom" constant="10" id="H7y-Wh-ctc"/>
                                                     <constraint firstItem="TaI-db-eqe" firstAttribute="top" secondItem="aK9-BB-r1I" secondAttribute="top" constant="15" id="OA5-2k-s1W"/>
+                                                    <constraint firstItem="TKc-0j-Brl" firstAttribute="top" secondItem="K2O-NB-qjC" secondAttribute="bottom" constant="2" id="Pnp-1A-yTe"/>
                                                     <constraint firstAttribute="trailing" secondItem="fbn-YX-ifk" secondAttribute="trailing" constant="10" id="WOu-zV-agI"/>
                                                     <constraint firstAttribute="trailing" secondItem="TaI-db-eqe" secondAttribute="trailing" constant="15" id="ZIC-DN-cdN"/>
                                                     <constraint firstAttribute="bottom" secondItem="TKc-0j-Brl" secondAttribute="bottom" constant="5" id="cJh-vt-57Y"/>
@@ -841,9 +853,11 @@
                                                     <constraint firstAttribute="bottom" secondItem="fbn-YX-ifk" secondAttribute="bottom" constant="10" id="egX-au-WDG"/>
                                                     <constraint firstItem="TaI-db-eqe" firstAttribute="centerY" secondItem="aK9-BB-r1I" secondAttribute="centerY" id="flY-hx-dMI"/>
                                                     <constraint firstItem="fbn-YX-ifk" firstAttribute="leading" secondItem="aK9-BB-r1I" secondAttribute="leading" constant="10" id="pmq-3w-kCy"/>
+                                                    <constraint firstItem="K2O-NB-qjC" firstAttribute="top" secondItem="fbn-YX-ifk" secondAttribute="bottom" constant="-2" id="sPh-8w-rVD"/>
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
+                                                        <exclude reference="egX-au-WDG"/>
                                                         <exclude reference="flY-hx-dMI"/>
                                                     </mask>
                                                 </variation>
@@ -907,6 +921,7 @@
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
                         <outlet property="tagLabel" destination="TaI-db-eqe" id="bK3-aF-ClM"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
+                        <outlet property="titleCharacterLimitLabel" destination="K2O-NB-qjC" id="b1c-MP-SGo"/>
                         <segue destination="EiH-fH-8rA" kind="presentation" identifier="playlistSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="eaT-SP-hex"/>
                     </connections>
                 </viewController>
