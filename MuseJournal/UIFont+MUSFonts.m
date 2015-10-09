@@ -35,7 +35,7 @@
     
     // h1
     UIColor *h1Color = [UIColor darkGrayColor];
-    UIFont *h1Font = [UIFont fontWithName:@"ADAM.CGPRO" size:27.0];
+    UIFont *h1Font = [UIFont fontWithName:@"Futura" size:27.0];
     NSMutableParagraphStyle* h1Style = [[NSMutableParagraphStyle alloc]init];
     h1Style.alignment = NSTextAlignmentJustified;
     
@@ -49,15 +49,24 @@
     
     
     // h2
-    UIFont *h2Font = [UIFont fontWithName:@"ADAM.CGPRO" size:25.0];
-    [attributes setObject:@{NSFontAttributeName : h2Font} forKey:@(H2)];
+    UIFont *h2Font = [UIFont fontWithName:@"Futura" size:24.0];
+    NSMutableParagraphStyle* h2Style = [[NSMutableParagraphStyle alloc]init];
+    h2Style.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *h2Attributes = @{
+                                   NSFontAttributeName : h2Font,
+                                   NSForegroundColorAttributeName : h1Color,
+                                   NSParagraphStyleAttributeName:h1Style
+                                   };
+
+    [attributes setObject:h2Attributes forKey:@(H2)];
     
     // h3
-    UIFont *h3Font = [UIFont fontWithName:@"GillSans-SemiBold" size:23.0];
+    UIFont *h3Font = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:23.0];
     [attributes setObject:@{NSFontAttributeName : h3Font} forKey:@(H3)];
     
     // h4
-    UIFont *h4Font = [UIFont fontWithName:@"GillSans-SemiBold" size:23.0];
+    UIFont *h4Font = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:23.0];
     [attributes setObject:@{NSFontAttributeName : h4Font} forKey:@(H4)];
     
     // em

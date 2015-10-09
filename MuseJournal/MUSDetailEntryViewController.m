@@ -67,35 +67,20 @@ typedef enum{
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     self.entryTitleTextField.delegate = self;
-
+    
     
     [self setUpTagLabel];
     [self setUpMusicPlayer];
     [self setUpParallaxForExistingEntries];
     [self setUpTextView];
     [self setUpToolbarAndKeyboard];
-    
+    [self setUpTitleTextField];
     // set bottom contraints
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
     
-    
-}
-
--(void)setUpTextPlaceholders {
-    if (self.entryTitleTextField.text.length == 0) {
-        self.entryTitleTextField.text = @"Title";
-        self.entryTitleTextField.textColor = [UIColor lightGrayColor];
-    }
-    
-    if (self.textView.text.length == 0) {
-        self.textView.text = @"Begin writing here...";
-        self.textView.textColor = [UIColor lightGrayColor];
-    }
-    [self.textView setScrollEnabled:NO];
-    self.textView.userInteractionEnabled = NO;
-    
+    NSLog(@"%lu" , self.destinationEntry.titleOfEntry.length);
 }
 
 -(void)setUpTagLabel {
@@ -110,13 +95,22 @@ typedef enum{
     [self.textView becomeFirstResponder];
 }
 
+-(void)setUpTitleTextField {
+    
+    if (self.destinationEntry.titleOfEntry == nil || [self.destinationEntry.titleOfEntry isEqualToString:@""]) {
+        self.entryTitleTextField.textColor = [UIColor lightGrayColor];
+        self.entryTitleTextField.text = @"Title";
+    } else {
+        self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
+    }
+    [self.titleCharacterLimitLabel setHidden:YES];
+    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:40 - (int)self.destinationEntry.titleOfEntry.length]];
+    
+}
+
 -(void)setUpTextView {
     
-    
     // set up initial number count
-    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:40 - (int)self.entryTitleTextField.text.length]];
-    
-    
     self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
     [self.containerView addGestureRecognizer:self.entryTextViewTap];
     
@@ -124,13 +118,12 @@ typedef enum{
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
     
     
-    if (self.destinationEntry.content == nil) {
+    if (self.destinationEntry.content == nil || [self.destinationEntry.content isEqualToString:@""]) {
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
     } else{
         // this is an existing entry
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
-        self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
     }
     [self checkSizeOfContentForTextView:self.textView];
 }
@@ -207,6 +200,8 @@ typedef enum{
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
     
+    [self.titleCharacterLimitLabel setHidden:NO];
+
     // IF ITS A NEW ENTRY TITLE
     if (self.entryTitleTextField.textColor == [UIColor lightGrayColor]) {
         self.entryTitleTextField.textColor = [UIColor blackColor];
@@ -219,39 +214,17 @@ typedef enum{
     [self.textView setUserInteractionEnabled:NO];
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.titleCharacterLimitLabel setHidden:YES];
+
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     [self.textView setUserInteractionEnabled:YES];
     self.entryTextViewTap.enabled = YES;
     [self saveTitle];
     return YES;
-}
-
-
--(void)textViewDidBeginEditing:(UITextView *)textView {
-    
-    self.textView.font = [UIFont returnParagraphFont];
-    
-        // FOR NEW ENTRY
-        if (self.textView.textColor == [UIColor lightGrayColor]) {
-            self.textView.textColor = [UIColor blackColor];
-            self.textView.text = @"";
-        } else {
-        self.textView.text = self.destinationEntry.content;
-        }
-}
-
--(void)textViewDidEndEditing:(UITextView *)textView {
-    //    [self saveEntry];
-        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
-}
-
-- (IBAction)textFieldDidChange:(id)sender {
-    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:40 - (int)self.entryTitleTextField.text.length]];
-}
-
--(void)textViewDidChange:(UITextView *)textView {
-    [self checkSizeOfContentForTextView:self.textView];
 }
 
 
@@ -264,6 +237,36 @@ typedef enum{
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
     return newLength <= 40 || returnKey; // text limit for title
 }
+
+
+
+-(void)textViewDidBeginEditing:(UITextView *)textView {
+    
+    self.textView.font = [UIFont returnParagraphFont];
+    [self.entryTitleTextField setUserInteractionEnabled:NO];
+
+    // FOR NEW ENTRY
+    if (self.textView.textColor == [UIColor lightGrayColor]) {
+        self.textView.textColor = [UIColor blackColor];
+        self.textView.text = @"";
+    } else {
+        self.textView.text = self.destinationEntry.content;
+    }
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    // display attributed text when finished editing
+        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+}
+
+- (IBAction)textFieldDidChange:(id)sender {
+    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:40 - (int)self.entryTitleTextField.text.length]];
+}
+
+-(void)textViewDidChange:(UITextView *)textView {
+    [self checkSizeOfContentForTextView:self.textView];
+}
+
 
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
@@ -377,12 +380,13 @@ typedef enum{
 
 - (void)saveButtonTapped:(id)sender {
     self.entryTextViewTap.enabled = YES;
-    //    [self.entryTitleTextView setUserInteractionEnabled:YES];
-    //    [self.textView setUserInteractionEnabled:YES];
+        [self.entryTitleTextField setUserInteractionEnabled:YES];
+        [self.textView setUserInteractionEnabled:YES];
     [self saveEntry];
 }
 
 -(void)saveEntry {
+    
     
     if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
@@ -390,9 +394,15 @@ typedef enum{
         
     } else {
         // FOR EXISTING ENTRIES
+        if ([self.textView.text isEqualToString:@"Begin writing here..." ]) {
+            self.destinationEntry.content = @"";
+        } else if ([self.entryTitleTextField.text isEqualToString:@"Title" ]){
+        self.destinationEntry.titleOfEntry = @"";
+        } else {
         NSLog(@"IN SAVE ENTRY METHOD %@", self.destinationEntry.content);
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
+        }
     }
     // save to core data
     [self.store save];
@@ -421,10 +431,12 @@ typedef enum{
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     
     self.destinationEntry = newEntry;
-    if (self.textView.text == nil)
+    if (self.textView.text == nil || [self.textView.text isEqualToString:@"Begin writing here..."])
         newEntry.content = @"";
     else if (self.textView.textColor == [UIColor lightGrayColor])
         newEntry.content = @""; // wipe attributed placeholder text because text it not nil despite new entry
+    else if (self.entryTitleTextField.textColor == [UIColor lightGrayColor])
+        newEntry.titleOfEntry = @""; // wipe attributed placeholder text
     else
         newEntry.content = self.textView.text;
     
