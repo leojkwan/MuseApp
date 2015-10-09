@@ -177,6 +177,8 @@ typedef enum{
     [self selectPhoto];
 }
 -(void)didSelectDoneButton:(id)sender {
+    [self.entryTitleTextField setUserInteractionEnabled:YES];
+    [self.textView setUserInteractionEnabled:YES];
     [self saveButtonTapped:sender];
 }
 -(void)didSelectAddSongButton:(id)sender {
@@ -211,7 +213,6 @@ typedef enum{
     
     self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
     self.entryTextViewTap.enabled = NO;
-    [self.textView setUserInteractionEnabled:NO];
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
@@ -267,8 +268,6 @@ typedef enum{
     [self checkSizeOfContentForTextView:self.textView];
 }
 
-
-
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     [textView sizeToFit];
     [textView layoutIfNeeded];
@@ -278,7 +277,6 @@ typedef enum{
     }];
     
 }
-
 
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
     [self.navigationController popViewControllerAnimated:YES];
@@ -380,8 +378,8 @@ typedef enum{
 
 - (void)saveButtonTapped:(id)sender {
     self.entryTextViewTap.enabled = YES;
-        [self.entryTitleTextField setUserInteractionEnabled:YES];
-        [self.textView setUserInteractionEnabled:YES];
+//        [self.entryTitleTextField setUserInteractionEnabled:YES];
+//        [self.textView setUserInteractionEnabled:YES];
     [self saveEntry];
 }
 
@@ -393,15 +391,17 @@ typedef enum{
         newEntry.coverImage = nil;
         
     } else {
+        
         // FOR EXISTING ENTRIES
+        NSLog(@"IN SAVE ENTRY METHOD %@", self.destinationEntry.content);
+        self.destinationEntry.content = self.textView.text;
+        self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
+
+
         if ([self.textView.text isEqualToString:@"Begin writing here..." ]) {
             self.destinationEntry.content = @"";
         } else if ([self.entryTitleTextField.text isEqualToString:@"Title" ]){
         self.destinationEntry.titleOfEntry = @"";
-        } else {
-        NSLog(@"IN SAVE ENTRY METHOD %@", self.destinationEntry.content);
-        self.destinationEntry.content = self.textView.text;
-        self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
         }
     }
     // save to core data
