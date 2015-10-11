@@ -5,10 +5,13 @@
 
 
 #import "UIFont+MUSFonts.h"
+#import "NSAttributedString+MUSExtraMethods.h"
 #import "NSDate+ExtraMethods.h"
-#import "UIButton+ExtraMethods.h"
+//#import "UIButton+ExtraMethods.h"
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
+#import <UIScrollView+APParallaxHeader.h>
+
 #import "MUSDetailEntryViewController.h"
 #import "MUSAllEntriesViewController.h"
 #import "MUSDataStore.h"
@@ -19,16 +22,16 @@
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
 #import "UIImagePickerController+ExtraMethods.h"
-#import <UIScrollView+APParallaxHeader.h>
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
 #import <IHKeyboardAvoiding.h>
 #import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
-#import "NSAttributedString+MUSExtraMethods.h"
 #import <MBProgressHUD.h>
 #import "MUSNotificationManager.h"
+
+#define TEXT_LIMIT ((int) 35)
 
 
 typedef enum{
@@ -84,11 +87,8 @@ typedef enum{
 }
 
 -(void)setUpTagLabel {
-    NSString *text = @"Set Mood";
-    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc ]initWithString:text];
-    [attrString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:(NSUnderlineStyleThick)] range:NSMakeRange(0, [attrString length])];
-    [attrString addAttribute:NSUnderlineColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, [attrString length])];
-    self.tagLabel.attributedText=attrString;
+    self.tagLabel.attributedText = [NSAttributedString returnAttrTagWithTitle:@"Set Mood" color:[UIColor grayColor] undelineColor:[UIColor lightGrayColor]];
+
 }
 
 -(void)showKeyboard {
@@ -104,7 +104,7 @@ typedef enum{
         self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
     }
     [self.titleCharacterLimitLabel setHidden:YES];
-    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:40 - (int)self.destinationEntry.titleOfEntry.length]];
+    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.destinationEntry.titleOfEntry.length]];
     
 }
 
@@ -236,7 +236,7 @@ typedef enum{
     NSUInteger rangeLength = range.length;
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-    return newLength <= 40 || returnKey; // text limit for title
+    return newLength <= TEXT_LIMIT || returnKey; // text limit for title
 }
 
 
@@ -261,7 +261,7 @@ typedef enum{
 }
 
 - (IBAction)textFieldDidChange:(id)sender {
-    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:40 - (int)self.entryTitleTextField.text.length]];
+    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.entryTitleTextField.text.length]];
 }
 
 -(void)textViewDidChange:(UITextView *)textView {
@@ -433,8 +433,8 @@ typedef enum{
     self.destinationEntry = newEntry;
     if (self.textView.text == nil || [self.textView.text isEqualToString:@"Begin writing here..."])
         newEntry.content = @"";
-    else if (self.textView.textColor == [UIColor lightGrayColor])
-        newEntry.content = @""; // wipe attributed placeholder text because text it not nil despite new entry
+//    else if (self.textView.textColor == [UIColor lightGrayColor])
+//        newEntry.content = @""; // wipe attributed placeholder text because text it not nil despite new entry
     else if (self.entryTitleTextField.textColor == [UIColor lightGrayColor])
         newEntry.titleOfEntry = @""; // wipe attributed placeholder text
     else
