@@ -8,9 +8,9 @@
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
 #import "UIImageView+ExtraMethods.h"
+#import "UIImage+ExtraMethods.h"
 
-
-#define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
+#define BUTTON_FRAME CGRectMake (0, 0, 50, 50)
 #define BUTTON_COLOR [UIColor darkGrayColor]
 
 
@@ -170,15 +170,37 @@
 
 
 -(UIBarButtonItem *)playlistButton {
+
+
+    
     UIImageView *playlistView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
     playlistView.image = [UIImage imageNamed:@"playlist"];
-    [playlistView setImageToColorTint:BUTTON_COLOR];
+    [playlistView setImageToColorTint:[UIColor blackColor]];
+    
+    
+    UIImageView *playlistView2 = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+    playlistView2.image = [UIImage imageNamed:@"playlist"];
+//    [playlistView2 setImageToColorTint:[UIColor yellowColor]];
+
+    
     playlistView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seePlaylistButtonPressed:)];
-    [playlistView addGestureRecognizer:pinTap];
+    UIButton *playlistButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [playlistButton setImage:[UIImage imageNamed:@"musicPlayer" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [playlistButton setImage:playlistView2.image forState:UIControlStateSelected];
+
     
-    UIBarButtonItem *playlistBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playlistView];
+    
+//    [playlistButton addSubview:playlistView];
+    [playlistButton setFrame:BUTTON_FRAME];
+
+    [playlistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//
+//    
+//    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seePlaylistButtonPressed:)];
+//    [playlistView addGestureRecognizer:pinTap];
+    
+    UIBarButtonItem *playlistBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playlistButton];
     return playlistBarButtonItem;
 }
 
