@@ -72,15 +72,14 @@ typedef enum{
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
-    self.entryTitleTextField.delegate = self;
     
     
     [self setUpTagLabel];
     [self setUpMusicPlayer];
     [self setUpParallaxForExistingEntries];
+    [self setUpTitleTextField];
     [self setUpTextView];
     [self setUpToolbarAndKeyboard];
-    [self setUpTitleTextField];
 
 
 
@@ -102,7 +101,7 @@ typedef enum{
 }
 
 -(void)setUpTitleTextField {
-    
+    self.entryTitleTextField.delegate = self;
     // add tap to container view to first repond text view
     self.titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
     [self.titleView addGestureRecognizer:self.titleTap];
@@ -192,12 +191,21 @@ typedef enum{
 -(void)didSelectCameraButton {
     [self selectPhoto];
 }
+
+-(void)enableTextViewInteraction:(BOOL)on {
+    self.entryTextViewTap.enabled = on;
+    [self.textView setUserInteractionEnabled:on];
+}
+
+-(void)enableTextFieldInteraction:(BOOL)on {
+    self.titleTap.enabled = on;
+    [self.entryTitleTextField setUserInteractionEnabled:on];
+}
+
 -(void)didSelectDoneButton:(id)sender {
-    self.entryTextViewTap.enabled = YES;
-    self.titleTap.enabled = YES;
-    [self.entryTitleTextField setUserInteractionEnabled:YES];
-    [self.textView setUserInteractionEnabled:YES];
-    [self.view sendSubviewToBack: self.scrollView.parallaxView.imageView];
+    
+    [self enableTextViewInteraction:YES];
+    [self enableTextFieldInteraction:YES];
 
     [self saveButtonTapped:sender];
 }
@@ -243,19 +251,36 @@ typedef enum{
     [textField resignFirstResponder];
     [self.textView setUserInteractionEnabled:YES];
     self.entryTextViewTap.enabled = YES;
+
+    
+    if ([self.textView respondsToSelector:@selector(becomeFirstResponder)]) {
+        [self.textView becomeFirstResponder];
+    return NO;
+    }
+    
     [self saveTitle];
     return YES;
 }
 
+//
+//
+//
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+//        if([text isEqualToString:@"\n"]) {
+//            [self.entryTitleTextField resignFirstResponder];
+//            [self.textView becomeFirstResponder];
+//        }
+//            return NO;
+//}
 
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
+
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
     BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-    return newLength <= TEXT_LIMIT || returnKey; // text limit for title
+    return newLength <= TEXT_LIMIT || returnKey;
 }
 
 
@@ -386,16 +411,25 @@ typedef enum{
 
 -(void)viewWillAppear:(BOOL)animated {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
-    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:30];
+    [IHKeyboardAvoiding setAvoidingView:self.view];
+    
+    [IHKeyboardAvoiding setPadding:20];
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.MUSToolBar setHidden:NO];
 }
 
 - (void)saveButtonTapped:(id)sender {
     
-    [self.view bringSubviewToFront:self.contentView];
-    [self saveEntry];
+
+    if (self.entryTitleTextField.isFirstResponder) {
+        // SAVE JUST THE TITLE ON DONE BUTTON PRESS... THIS PRESERVES THE ATTRIBUTED TEXT ON SAVE.... BLOW AWAY ALL MARKDOWN OTHERWISE
+        [self saveTitle];
+    } else {
+        NSLog(@"CLOSING TEXT VIEW!!");
+        [self saveEntry];
+    }
+    [self.view bringSubviewToFront:self.containerView];
 }
 
 -(void)saveEntry {
@@ -417,6 +451,7 @@ typedef enum{
          else if ([self.entryTitleTextField.text isEqualToString:@"Title" ])
         self.destinationEntry.titleOfEntry = @"";
     
+    // SAVE TO CORE DATA
     [self.store save];
     
     // dismiss keyboard

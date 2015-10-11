@@ -25,7 +25,10 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES
                                             withAnimation:UIStatusBarAnimationNone];
+
     
+    // WHEN KEYBOARD AVOID HAPPENS.. MAKE SURE BLACK DOES NOT SHOW
+    self.window.backgroundColor = [UIColor whiteColor];
     
     // system font color
     NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -40,12 +43,12 @@
     MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
     MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
     [navigationController.viewControllerArray addObjectsFromArray:@[home, entries]];
-
+    
     
     // username First Name
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
-
+    
     // if name has never been set...
     if ([[NSUserDefaults standardUserDefaults]
          stringForKey:@"userFirstName"] == nil) {
@@ -58,13 +61,9 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
-
-    
-
     return YES;
 }
-    
+
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
