@@ -262,17 +262,6 @@ typedef enum{
     return YES;
 }
 
-//
-//
-//
-//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//        if([text isEqualToString:@"\n"]) {
-//            [self.entryTitleTextField resignFirstResponder];
-//            [self.textView becomeFirstResponder];
-//        }
-//            return NO;
-//}
-
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 
     NSUInteger oldLength = [textField.text length];
@@ -411,9 +400,9 @@ typedef enum{
 
 -(void)viewWillAppear:(BOOL)animated {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [IHKeyboardAvoiding setAvoidingView:self.view];
+//    [IHKeyboardAvoiding setAvoidingView:self.view];
     
-    [IHKeyboardAvoiding setPadding:20];
+//    [IHKeyboardAvoiding setPadding:20];
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.MUSToolBar setHidden:NO];

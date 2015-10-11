@@ -195,10 +195,7 @@
     [playlistButton setFrame:BUTTON_FRAME];
 
     [playlistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//
-//    
-//    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(seePlaylistButtonPressed:)];
-//    [playlistView addGestureRecognizer:pinTap];
+    
     
     UIBarButtonItem *playlistBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playlistButton];
     return playlistBarButtonItem;
