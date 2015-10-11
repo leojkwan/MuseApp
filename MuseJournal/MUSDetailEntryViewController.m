@@ -79,6 +79,8 @@ typedef enum{
     [self setUpToolbarAndKeyboard];
     [self setUpTitleTextField];
     // set bottom contraints
+    
+    
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
@@ -177,6 +179,7 @@ typedef enum{
     [self selectPhoto];
 }
 -(void)didSelectDoneButton:(id)sender {
+    self.entryTextViewTap.enabled = YES;
     [self.entryTitleTextField setUserInteractionEnabled:YES];
     [self.textView setUserInteractionEnabled:YES];
     [self saveButtonTapped:sender];
@@ -217,7 +220,6 @@ typedef enum{
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     [self.titleCharacterLimitLabel setHidden:YES];
-
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -255,12 +257,9 @@ typedef enum{
     }
 }
 
--(void)textViewDidEndEditing:(UITextView *)textView {
-    // display attributed text when finished editing
-        self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
-}
-
 - (IBAction)textFieldDidChange:(id)sender {
+    
+    //DISPLAY CHANGES OR CHARACTER LIMIT
     self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.entryTitleTextField.text.length]];
 }
 
@@ -269,8 +268,8 @@ typedef enum{
 }
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-    [textView sizeToFit];
-    [textView layoutIfNeeded];
+//    [textView sizeToFit];
+//    [textView layoutIfNeeded];
     
     [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom);
@@ -377,38 +376,36 @@ typedef enum{
 }
 
 - (void)saveButtonTapped:(id)sender {
-    self.entryTextViewTap.enabled = YES;
-//        [self.entryTitleTextField setUserInteractionEnabled:YES];
-//        [self.textView setUserInteractionEnabled:YES];
     [self saveEntry];
 }
 
 -(void)saveEntry {
     
-    
+    // NEW ENTRIES MUST BE CREATED
     if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
-        
-    } else {
-        
+    }
+    
         // FOR EXISTING ENTRIES
         NSLog(@"IN SAVE ENTRY METHOD %@", self.destinationEntry.content);
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
 
 
-        if ([self.textView.text isEqualToString:@"Begin writing here..." ]) {
+        if ([self.textView.text isEqualToString:@"Begin writing here..." ])
             self.destinationEntry.content = @"";
-        } else if ([self.entryTitleTextField.text isEqualToString:@"Title" ]){
+        
+         else if ([self.entryTitleTextField.text isEqualToString:@"Title" ])
         self.destinationEntry.titleOfEntry = @"";
-        }
-    }
-    // save to core data
+    
     [self.store save];
     
     // dismiss keyboard
     [self.view endEditing:YES];
+    
+    // display content as attributed string
+    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
 -(void)saveTitle {
@@ -431,7 +428,7 @@ typedef enum{
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     
     self.destinationEntry = newEntry;
-    if (self.textView.text == nil || [self.textView.text isEqualToString:@"Begin writing here..."])
+    if ([self.textView.text isEqualToString:@"Begin writing here..."])
         newEntry.content = @"";
 //    else if (self.textView.textColor == [UIColor lightGrayColor])
 //        newEntry.content = @""; // wipe attributed placeholder text because text it not nil despite new entry
