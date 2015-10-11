@@ -798,8 +798,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="TGV-He-lkb">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="189.5"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="187.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aK9-BB-r1I" userLabel="Entry Header">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
@@ -924,6 +924,7 @@
                         <outlet property="tagLabel" destination="TaI-db-eqe" id="bK3-aF-ClM"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
                         <outlet property="titleCharacterLimitLabel" destination="K2O-NB-qjC" id="b1c-MP-SGo"/>
+                        <outlet property="titleView" destination="aK9-BB-r1I" id="cDe-DN-xVV"/>
                         <segue destination="EiH-fH-8rA" kind="presentation" identifier="playlistSegue" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="eaT-SP-hex"/>
                     </connections>
                 </viewController>

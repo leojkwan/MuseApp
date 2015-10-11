@@ -60,7 +60,10 @@ typedef enum{
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 @property (weak, nonatomic) IBOutlet UITextField *entryTitleTextField;
 @property (weak, nonatomic) IBOutlet UILabel *titleCharacterLimitLabel;
+@property (weak, nonatomic) IBOutlet UIView *titleView;
+
 @property (strong, nonatomic) UITapGestureRecognizer *entryTextViewTap;
+@property (strong, nonatomic) UITapGestureRecognizer *titleTap;
 
 @end
 
@@ -78,26 +81,32 @@ typedef enum{
     [self setUpTextView];
     [self setUpToolbarAndKeyboard];
     [self setUpTitleTextField];
-    // set bottom contraints
-    
-    
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.textView.mas_bottom);
-    }];
-    
-    NSLog(@"%lu" , self.destinationEntry.titleOfEntry.length);
+
+
+
 }
+
 
 -(void)setUpTagLabel {
     self.tagLabel.attributedText = [NSAttributedString returnAttrTagWithTitle:@"Set Mood" color:[UIColor grayColor] undelineColor:[UIColor lightGrayColor]];
-
 }
 
--(void)showKeyboard {
+-(void)showKeyboard:(UITapGestureRecognizer*)tap {
+    if (tap == self.entryTextViewTap) {
     [self.textView becomeFirstResponder];
+    }
+    else {
+    [self.entryTitleTextField becomeFirstResponder];
+        NSLog(@"This is title field tap" );
+    }
 }
 
 -(void)setUpTitleTextField {
+    
+    // add tap to container view to first repond text view
+    self.titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
+    [self.titleView addGestureRecognizer:self.titleTap];
+
     
     if (self.destinationEntry.titleOfEntry == nil || [self.destinationEntry.titleOfEntry isEqualToString:@""]) {
         self.entryTitleTextField.textColor = [UIColor lightGrayColor];
@@ -112,14 +121,16 @@ typedef enum{
 
 -(void)setUpTextView {
     
-    // set up initial number count
-    self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
-    [self.containerView addGestureRecognizer:self.entryTextViewTap];
-    
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 40, 15);     // padding for text view
     
+    // add tap to container view to first repond text view
+    self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
+    [self.containerView addGestureRecognizer:self.entryTextViewTap];
     
+
+    
+    // set up placeholder text for nil entries or entries with no text
     if (self.destinationEntry.content == nil || [self.destinationEntry.content isEqualToString:@""]) {
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
@@ -127,6 +138,8 @@ typedef enum{
         // this is an existing entry
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     }
+    
+    // adjust size of text view
     [self checkSizeOfContentForTextView:self.textView];
 }
 
@@ -152,6 +165,7 @@ typedef enum{
     self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
+    self.entryTitleTextField.inputAccessoryView = self.keyboardTopBar;
     //    self.entryTitleLabel.inputAccessoryView = self.keyboardTopBar;
     self.keyboardTopBar.delegate = self;
     
@@ -165,10 +179,10 @@ typedef enum{
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
         self.coverImageView.image = entryCoverImage;
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
-        
         // there are the magic two lines here
         [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, 350)];
         [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2, 175)];
+    
     }
     
 }
@@ -180,8 +194,11 @@ typedef enum{
 }
 -(void)didSelectDoneButton:(id)sender {
     self.entryTextViewTap.enabled = YES;
+    self.titleTap.enabled = YES;
     [self.entryTitleTextField setUserInteractionEnabled:YES];
     [self.textView setUserInteractionEnabled:YES];
+    [self.view sendSubviewToBack: self.scrollView.parallaxView.imageView];
+
     [self saveButtonTapped:sender];
 }
 -(void)didSelectAddSongButton:(id)sender {
@@ -247,7 +264,9 @@ typedef enum{
     
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
+    self.entryTextViewTap.enabled = NO;
 
+    
     // FOR NEW ENTRY
     if (self.textView.textColor == [UIColor lightGrayColor]) {
         self.textView.textColor = [UIColor blackColor];
@@ -268,14 +287,17 @@ typedef enum{
 }
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-//    [textView sizeToFit];
-//    [textView layoutIfNeeded];
-    
-    [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_bottom);
+
+    [textView sizeToFit];
+    [textView layoutIfNeeded];
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        // add bottom space between between text view and scrolling content view
+        make.height.equalTo(self.textView.mas_height).with.offset(200);
     }];
-    
 }
+
+#pragma mark - music controls
 
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
     [self.navigationController popViewControllerAnimated:YES];
@@ -362,11 +384,6 @@ typedef enum{
     }
 }
 
-
-//-(BOOL)prefersStatusBarHidden{
-//    return YES;
-//}
-
 -(void)viewWillAppear:(BOOL)animated {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     [IHKeyboardAvoiding setAvoidingView:(UIView *)self.scrollView];
@@ -376,6 +393,8 @@ typedef enum{
 }
 
 - (void)saveButtonTapped:(id)sender {
+    
+    [self.view bringSubviewToFront:self.contentView];
     [self saveEntry];
 }
 
@@ -388,7 +407,6 @@ typedef enum{
     }
     
         // FOR EXISTING ENTRIES
-        NSLog(@"IN SAVE ENTRY METHOD %@", self.destinationEntry.content);
         self.destinationEntry.content = self.textView.text;
         self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
 
@@ -468,7 +486,7 @@ typedef enum{
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-    [self showKeyboard];
+//    [self showKeyboard];
     
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
