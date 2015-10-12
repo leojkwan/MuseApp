@@ -11,6 +11,8 @@
 #import <markdown_peg.h>
 #import "UIFont+MUSFonts.h"
 
+
+
 @implementation NSAttributedString (MUSExtraMethods)
 
 +(NSAttributedString *)returnMarkDownStringFromString:(NSString *)string {
@@ -32,7 +34,6 @@
 +(NSAttributedString *)returnAutoPlayButtonText:(BOOL)on {
     
     
-    
     NSMutableAttributedString *autoplayString = [[NSMutableAttributedString alloc ]initWithString:@"autoplay: "];
     UIFont *autoplayFont=  [UIFont fontWithName:@"ADAM.CGPRO" size:12.0];
     [autoplayString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, [autoplayString length])];
@@ -50,12 +51,11 @@
         
     }
     
-    
-    UIFont *switchStringFont=  [UIFont fontWithName:@"Raleway-SemiBold" size:15.0];
+    UIFont *switchStringFont=  [UIFont fontWithName:@"Raleway-SemiBold" size:20.0];
     [_switchString addAttribute:NSFontAttributeName value:switchStringFont range:NSMakeRange(0, [_switchString length])];
     
     NSMutableAttributedString *appendedAutoPlayString = [[NSMutableAttributedString alloc] init];
-    [appendedAutoPlayString appendAttributedString:autoplayString];
+//    [appendedAutoPlayString appendAttributedString:autoplayString];
     [appendedAutoPlayString appendAttributedString:_switchString];
     
     return appendedAutoPlayString;

@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="ADAM.CG PRO.otf">
+            <string>ADAM.CGPRO</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MUSEntryToolbar">
             <connections>
                 <outlet property="addEntryButton" destination="l0S-6s-PMW" id="u5I-SI-g4R"/>
                 <outlet property="autoPlayButton" destination="oal-lU-vLu" id="Dk4-ic-h0q"/>
+                <outlet property="autoPlayLabel" destination="REd-gd-LRi" id="IeQ-F7-g7K"/>
                 <outlet property="contentView" destination="Lti-Kn-pTT" id="pe1-Wt-T8D"/>
             </connections>
         </placeholder>
@@ -21,7 +27,7 @@
                     <rect key="frame" x="0.0" y="10" width="680" height="65.5"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0S-6s-PMW">
-                            <rect key="frame" x="310" y="5.5" width="60" height="60"/>
+                            <rect key="frame" x="310" y="5" width="60" height="60"/>
                             <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="NWo-44-BCA"/>
@@ -29,8 +35,15 @@
                             </constraints>
                             <state key="normal" title="Button" image="addButton"/>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUTOPLAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REd-gd-LRi">
+                            <rect key="frame" x="594" y="44" width="66" height="13"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oal-lU-vLu">
-                            <rect key="frame" x="619" y="21" width="46" height="30"/>
+                            <rect key="frame" x="594" y="14" width="66" height="30"/>
                             <animations/>
                             <state key="normal" title="Button"/>
                         </button>
@@ -38,15 +51,26 @@
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="REd-gd-LRi" firstAttribute="top" secondItem="oal-lU-vLu" secondAttribute="bottom" id="3bf-Fo-YJy"/>
                         <constraint firstAttribute="trailing" secondItem="oal-lU-vLu" secondAttribute="trailing" constant="15" id="56l-We-vjn"/>
+                        <constraint firstItem="oal-lU-vLu" firstAttribute="width" secondItem="REd-gd-LRi" secondAttribute="width" id="CMn-je-W48"/>
+                        <constraint firstItem="oal-lU-vLu" firstAttribute="leading" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="15" id="HFP-bb-fz0"/>
+                        <constraint firstAttribute="bottom" secondItem="REd-gd-LRi" secondAttribute="bottom" constant="8" id="IN2-0g-VJu"/>
+                        <constraint firstAttribute="trailing" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="20" id="SDL-s2-wrE"/>
                         <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" id="eJJ-9U-XSs"/>
+                        <constraint firstItem="oal-lU-vLu" firstAttribute="centerX" secondItem="REd-gd-LRi" secondAttribute="centerX" id="fg2-eR-eXB"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerX" secondItem="bDW-dL-c2d" secondAttribute="centerX" id="iLv-Nq-sps"/>
                         <constraint firstItem="oal-lU-vLu" firstAttribute="centerY" secondItem="l0S-6s-PMW" secondAttribute="centerY" id="jB5-be-8ln"/>
                         <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" constant="2" id="szr-Pk-BEC"/>
+                        <constraint firstItem="REd-gd-LRi" firstAttribute="centerY" secondItem="oal-lU-vLu" secondAttribute="centerY" id="vBm-jQ-UOI"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="szr-Pk-BEC"/>
+                            <exclude reference="vBm-jQ-UOI"/>
+                            <exclude reference="56l-We-vjn"/>
+                            <exclude reference="HFP-bb-fz0"/>
+                            <exclude reference="jB5-be-8ln"/>
                         </mask>
                     </variation>
                 </view>

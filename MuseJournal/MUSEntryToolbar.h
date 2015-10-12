@@ -13,6 +13,10 @@
 -(void)didSelectAutoPlayButton:(id)sender;
 @end
 
+typedef enum {
+    autoplayOFF,
+    autoplayON
+} AutoPlay;
 
 @interface MUSEntryToolbar : UIView
 
