@@ -29,7 +29,37 @@
     return attrTag;
 }
 
-
-
++(NSAttributedString *)returnAutoPlayButtonText:(BOOL)on {
+    
+    
+    
+    NSMutableAttributedString *autoplayString = [[NSMutableAttributedString alloc ]initWithString:@"autoplay: "];
+    UIFont *autoplayFont=  [UIFont fontWithName:@"ADAM.CGPRO" size:12.0];
+    [autoplayString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, [autoplayString length])];
+    [autoplayString addAttribute:NSFontAttributeName value:autoplayFont range:NSMakeRange(0, [autoplayString length])];
+    
+    
+    NSMutableAttributedString *_switchString;
+    
+    if (on) {
+        _switchString = [[NSMutableAttributedString alloc ]initWithString:@"ON"];
+        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0, [_switchString length])];
+    }    else {
+        _switchString = [[NSMutableAttributedString alloc ]initWithString:@"OFF"];
+        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, [_switchString length])];
+        
+    }
+    
+    
+    UIFont *switchStringFont=  [UIFont fontWithName:@"Raleway-SemiBold" size:15.0];
+    [_switchString addAttribute:NSFontAttributeName value:switchStringFont range:NSMakeRange(0, [_switchString length])];
+    
+    NSMutableAttributedString *appendedAutoPlayString = [[NSMutableAttributedString alloc] init];
+    [appendedAutoPlayString appendAttributedString:autoplayString];
+    [appendedAutoPlayString appendAttributedString:_switchString];
+    
+    return appendedAutoPlayString;
+    
+}
 
 @end

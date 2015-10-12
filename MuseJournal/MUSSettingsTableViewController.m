@@ -7,6 +7,7 @@
 //
 
 #import "MUSSettingsTableViewController.h"
+#import "UIFont+MUSFonts.h"
 
 
 @interface MUSSettingsTableViewController ()
@@ -19,6 +20,15 @@
     [super viewDidLoad];
 
     [self prefersStatusBarHidden];
+    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
+    
+    [self styleNavBarCustomLabelAttributes];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 75, 0);
+
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -26,10 +36,22 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void)styleNavBarCustomLabelAttributes {
+    
+    // Change System Font UI Label
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.98 green:0.85 blue:0.24 alpha:1]];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
+      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
+      NSFontAttributeName, nil]];
+
 }
+
 
 #pragma mark - Table view data source
 - (IBAction)doneButtonPressed:(id)sender {
@@ -45,8 +67,15 @@
 }
 
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:0.98 green:0.92 blue:0.55 alpha:1];
+    [cell setSelectedBackgroundView:bgColorView];
+    
+//
 //    if (indexPath.row == 0) {
 //
 //    } else if (indexPath.row == 6) {
@@ -58,11 +87,7 @@
 //    } else if (indexPath.row == 7) {
 ////        [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
 //        }
-//}
-//
-//-(BOOL)prefersStatusBarHidden {
-//    return NO;
-//}
+}
 
 
 /*

@@ -11,9 +11,7 @@
 #import "UIImage+ExtraMethods.h"
 
 #define BUTTON_FRAME CGRectMake (0, 0, 50, 50)
-#define BUTTON_COLOR [UIColor darkGrayColor]
-
-
+#define BUTTON_COLOR [UIColor colorWithRed:0.78 green:0.62 blue:0.75 alpha:1]
 
 @interface MUSKeyboardTopBar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -128,72 +126,53 @@
 #pragma mark - Create Buttons
 
 -(UIBarButtonItem *)makeTitleButton {
-    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 25)];
-    titleView.image = [UIImage imageNamed:@"title"];
-    [titleView setImageToColorTint:BUTTON_COLOR];
-    titleView.contentMode = UIViewContentModeScaleAspectFit;
-    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleButtonPressed:)];
-    [titleView addGestureRecognizer:titleTap];
-    UIBarButtonItem *titleBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:titleView];
+  
+    UIButton *markDownTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [markDownTitleButton setImage:[UIImage imageNamed:@"title" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [markDownTitleButton setFrame:CGRectMake(0, 0, 35, 35)];
+    [markDownTitleButton addTarget:self action:@selector(titleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *titleBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:markDownTitleButton];
     return titleBarButtonItem;
 }
 
 
 -(UIBarButtonItem *)cameraButton {
     
-    UIImageView *coolCameraImageView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
+    
+    
+    UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cameraButton setImage:[UIImage imageNamed:@"addImage" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [cameraButton setFrame:BUTTON_FRAME];
+    [cameraButton addTarget:self action:@selector(cameraButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *coolCameraBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cameraButton];
 
-    coolCameraImageView.image = [UIImage imageNamed:@"addImage"];
-    [coolCameraImageView setImageToColorTint:BUTTON_COLOR];
-    coolCameraImageView.contentMode = UIViewContentModeScaleAspectFit;
-    UITapGestureRecognizer *cameraTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraButtonPressed)];
-    [coolCameraImageView addGestureRecognizer:cameraTap];
-    UIBarButtonItem *coolCameraBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:coolCameraImageView];
     self.cameraBarButtonItem = coolCameraBarButtonItem;
     return coolCameraBarButtonItem;
 }
 
 -(UIBarButtonItem *)backButton {
 
-    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    backImageView.image = [UIImage imageNamed:@"back"];
-    [backImageView setImageToColorTint:BUTTON_COLOR];
-    backImageView.contentMode = UIViewContentModeScaleAspectFit;
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"back" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+
+    [backButton setFrame:CGRectMake(0, 0, 30, 30)];
     
-    UITapGestureRecognizer *backTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonPressed:)];
-    [backImageView addGestureRecognizer:backTap];
+    [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backImageView];
+    
+    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backButton];
     return backBarButtonItem;
 }
 
 
 
 -(UIBarButtonItem *)playlistButton {
-
-
-    
-    UIImageView *playlistView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
-    playlistView.image = [UIImage imageNamed:@"playlist"];
-    [playlistView setImageToColorTint:[UIColor blackColor]];
-    
-    
-    UIImageView *playlistView2 = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
-    playlistView2.image = [UIImage imageNamed:@"playlist"];
-//    [playlistView2 setImageToColorTint:[UIColor yellowColor]];
-
-    
-    playlistView.contentMode = UIViewContentModeScaleAspectFit;
     
     UIButton *playlistButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [playlistButton setImage:[UIImage imageNamed:@"musicPlayer" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [playlistButton setImage:playlistView2.image forState:UIControlStateSelected];
-
-    
-    
-//    [playlistButton addSubview:playlistView];
     [playlistButton setFrame:BUTTON_FRAME];
-
     [playlistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -202,16 +181,13 @@
 }
 
 -(UIBarButtonItem *)pinSongButton {
-    UIImageView *pinSongView = [[UIImageView alloc] initWithFrame:BUTTON_FRAME];
-    pinSongView.image = [UIImage imageNamed:@"pinSong"];
-    [pinSongView setImageToColorTint:BUTTON_COLOR];
-    pinSongView.contentMode = UIViewContentModeScaleAspectFit;
     
-    UITapGestureRecognizer *pinTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pinSongButtonPressed:)];
-    [pinSongView addGestureRecognizer:pinTap];
+    UIButton *pinSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [pinSongButton setImage:[UIImage imageNamed:@"pinSong" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [pinSongButton setFrame:BUTTON_FRAME];
+    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongView];
-    
+    UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
     return pinSongButtonItem;
 }
 

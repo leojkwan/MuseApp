@@ -49,20 +49,31 @@
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
     
-    // if name has never been set...
-    if ([[NSUserDefaults standardUserDefaults]
-         stringForKey:@"userFirstName"] == nil) {
+    // FIRST TIME USER SETTINGS
+    
+    // USER NAME
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"] == nil) {
         [[NSUserDefaults standardUserDefaults] setObject:userFirstName forKey:@"userFirstName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    if ([[NSUserDefaults standardUserDefaults]
-         stringForKey:@"firstTimeUser"] == nil) {
+    // APP WALKTHROUGH
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeUser"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    // MUSIC AUTOPLAY
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"autoplay"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
     return YES;
 }
+
+
 
 
 -(BOOL)prefersStatusBarHidden{

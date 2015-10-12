@@ -13,5 +13,6 @@
 
 +(NSAttributedString *)returnMarkDownStringFromString:(NSString *)string;
 +(NSAttributedString *)returnAttrTagWithTitle:(NSString *)title color:(UIColor *)color undelineColor:(UIColor *)lineColor;
++(NSAttributedString *)returnAutoPlayButtonText:(BOOL)on;
 
 @end
