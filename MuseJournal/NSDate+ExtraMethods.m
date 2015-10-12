@@ -25,6 +25,13 @@
     return monthAndYearOfSection;
 }
 
+-(NSString *)numericMonthDateAndYearString{
+    NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];
+    [monthAndYearFormatter setDateFormat:@"MM.dd.YYYY"];
+    NSString *numericMonthAndYearOfEntry = [monthAndYearFormatter stringFromDate:self];
+    return numericMonthAndYearOfEntry;
+}
+
 
 -(NSDate *)monthDateYearDate{
     NSDateFormatter *monthAndYearFormatter = [[NSDateFormatter alloc] init];

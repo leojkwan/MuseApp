@@ -118,9 +118,6 @@
     
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
-        //        NSLog(@"Reachability changed: %@", AFStringFromNetworkReachabilityStatus(status));
-        
-        
         switch (status) {
             case AFNetworkReachabilityStatusReachableViaWWAN:
             case AFNetworkReachabilityStatusReachableViaWiFi:
@@ -137,7 +134,7 @@
             default:
                 // -- Not reachable -- //
                 NSLog(@"Not Reachable");
-                [MUSNotificationManager displayNotificationWithMessage:@"No Internet connection! Can't connect to Apple Music." backgroundColor:[UIColor lightGrayColor] textColor:[UIColor darkGrayColor]];
+                [MUSNotificationManager displayNotificationWithMessage:@"No internet connection! Can't connect to Apple Music." backgroundColor:[UIColor whiteColor] textColor:[UIColor darkGrayColor]];
                 break;
         }
         

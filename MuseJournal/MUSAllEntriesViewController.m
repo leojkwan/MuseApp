@@ -20,8 +20,15 @@
 #import "MUSSearchBarDelegate.h"
 #import "MUSEntryToolbar.h"
 #import "MUSHomeViewController.h"
+#import "NSAttributedString+MUSExtraMethods.h"
 #import "MUSTimeFetcher.h"
 #import "UIFont+MUSFonts.h"
+
+typedef enum {
+    autoplayOFF,
+    autoplayON
+} AutoPlay;
+
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, MUSEntryToolbarDelegate, UIScrollViewDelegate>
 
@@ -37,6 +44,7 @@
 @property NSInteger totalNumberOfEntries;
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
 @property (weak, nonatomic) IBOutlet MUSEntryToolbar *toolbar;
+@property (nonatomic, assign) AutoPlay autoplayStatus;
 
 @end
 
@@ -55,6 +63,7 @@
     [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
+    [self setUpAutoPlayButton];
 }
 
 
@@ -114,7 +123,7 @@
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
-     NSSortDescriptor *epochTimeSort = [NSSortDescriptor sortDescriptorWithKey:@"epochTime" ascending:NO];
+    NSSortDescriptor *epochTimeSort = [NSSortDescriptor sortDescriptorWithKey:@"epochTime" ascending:NO];
     entryFetch.sortDescriptors = @[sortDescriptor, epochTimeSort];
     
     
@@ -134,6 +143,7 @@
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
+    [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
     
     self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
@@ -150,8 +160,39 @@
     }
 }
 
+
+#pragma mark - TOOLBAR DELEGATE
 -(void)didSelectAddButton:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
+}
+
+
+-(void)setUpAutoPlayButton {
+    BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
+    [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:autoplayStatus] forState:UIControlStateNormal];
+
+    if (autoplayStatus)
+        self.autoplayStatus = autoplayON;
+    else
+        self.autoplayStatus = autoplayOFF;
+}
+
+-(void)didSelectAutoPlayButton:(id)sender {
+    NSLog(@"tap autoplay");
+    
+    BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
+    
+    if (autoplayStatus) { // if on, toggle off
+        [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.autoplayStatus = autoplayOFF;
+    }   else { // if off, toggle on
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.autoplayStatus = autoplayON;
+        [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
+    }
 }
 
 
@@ -193,6 +234,15 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
+    
+    
+    // REFACTOR THIS !!!!
+    
+    
+    
+    
+    
+    
     UILabel *sectionLabel = [[UILabel alloc] init];
     // account for left offset
     sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 25);
@@ -224,6 +274,9 @@
     
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     
+    
+    // CAN THIS BE REFACTORED ????
+    
     if (entryForThisRow.coverImage == nil) {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
@@ -245,8 +298,7 @@
 
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
 }
 
@@ -338,15 +390,13 @@
     actionSheet.popoverPresentationController.sourceView = cell;
     actionSheet.popoverPresentationController.sourceRect = [cell bounds];
     [self presentViewController:actionSheet animated:YES completion:^{
-    }];    
+    }];
 }
 
 #pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    //clear search bar on segue
-    [self.searchBarHelperObject searchBarCancelButtonClicked:self.entrySearchBar];
     
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
@@ -358,6 +408,9 @@
         else
             dvc.entryType = NewEntry;
     }
+    
+    //clear search bar on segue
+    [self.searchBarHelperObject searchBarCancelButtonClicked:self.entrySearchBar];
     
 }
 

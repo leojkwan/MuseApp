@@ -10,4 +10,8 @@
 
 @interface UIImage (ExtraMethods)
 - (UIImage*) blur:(UIImage*)theImage;
+
++(UIImage *)imageNamed:(NSString *)name withColor:(UIColor *)color;
+
+
 @end

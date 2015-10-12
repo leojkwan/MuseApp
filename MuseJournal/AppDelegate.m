@@ -25,7 +25,10 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES
                                             withAnimation:UIStatusBarAnimationNone];
+
     
+    // WHEN KEYBOARD AVOID HAPPENS.. MAKE SURE BLACK DOES NOT SHOW
+    self.window.backgroundColor = [UIColor whiteColor];
     
     // system font color
     NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -40,31 +43,38 @@
     MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
     MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
     [navigationController.viewControllerArray addObjectsFromArray:@[home, entries]];
-
+    
     
     // username First Name
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
-
-    // if name has never been set...
-    if ([[NSUserDefaults standardUserDefaults]
-         stringForKey:@"userFirstName"] == nil) {
+    
+    // FIRST TIME USER SETTINGS
+    
+    // USER NAME
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"] == nil) {
         [[NSUserDefaults standardUserDefaults] setObject:userFirstName forKey:@"userFirstName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    if ([[NSUserDefaults standardUserDefaults]
-         stringForKey:@"firstTimeUser"] == nil) {
+    // APP WALKTHROUGH
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeUser"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-
+    // MUSIC AUTOPLAY
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"autoplay"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
-
+    
     return YES;
 }
-    
+
+
+
 
 -(BOOL)prefersStatusBarHidden{
     return YES;

@@ -68,7 +68,7 @@
 
         
         [self.controller.fetchRequest setPredicate:compoundPredicate];
-        [self.controller.fetchRequest setFetchLimit:5]; //
+        [self.controller.fetchRequest setFetchLimit:20]; //
         [self.store.managedObjectContext executeFetchRequest:request
                                                        error:nil];
         
