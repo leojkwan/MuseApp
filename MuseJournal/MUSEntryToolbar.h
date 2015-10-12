@@ -10,12 +10,15 @@
 
 @protocol MUSEntryToolbarDelegate <NSObject>
 -(void)didSelectAddButton:(id)sender;
+-(void)didSelectAutoPlayButton:(id)sender;
 @end
 
 
 @interface MUSEntryToolbar : UIView
 
 @property (nonatomic, assign) id<MUSEntryToolbarDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIButton *autoPlayButton;
+
 
 
 @end

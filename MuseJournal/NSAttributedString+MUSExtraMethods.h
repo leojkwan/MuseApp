@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NSAttributedString (MUSExtraMethods)
 
 +(NSAttributedString *)returnMarkDownStringFromString:(NSString *)string;
++(NSAttributedString *)returnAttrTagWithTitle:(NSString *)title color:(UIColor *)color undelineColor:(UIColor *)lineColor;
++(NSAttributedString *)returnAutoPlayButtonText:(BOOL)on;
 
 @end
