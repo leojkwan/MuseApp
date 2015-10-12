@@ -50,7 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"start");
     [MBProgressHUD showHUDAddedTo:self.view
                          animated:YES];
     
@@ -92,12 +91,11 @@
             
             self.artworkImagesForThisEntry = artworkImages;
             
-            NSLog(@"finish");
+            // hide HUD after images load
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         }];
-        
     });
     }
 
