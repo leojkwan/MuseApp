@@ -254,7 +254,7 @@
     self.timeManager = [[MUSTimeFetcher alloc] init];
     self.timeManager.delegate = self;
     self.time = self.timeManager.timeOfDay;
-    self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate];
+    self.dateLabel.text = [[NSDate date] returnDayMonthDateFromDate     ];
     [self presentGreeting];
 }
 

@@ -56,6 +56,7 @@
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
     self.toolbar.delegate = self;
+    [self.entriesTableView bringSubviewToFront:self.toolbar];
     [self performInitialFetchRequest];
     [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
@@ -140,7 +141,7 @@
 
 -(void)setUpInfiniteScrollWithFetchRequest {
     
-    self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
+    self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 25, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
