@@ -134,7 +134,7 @@ typedef enum{
     self.timeOfDayEntryLabel.text = items[1]; // 6:40 pm..
 
 
-    
+    // set character limit text
     [self.titleCharacterLimitLabel setHidden:YES];
     self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.destinationEntry.titleOfEntry.length]];
     
@@ -368,8 +368,8 @@ typedef enum{
         MPMediaItemCollection *collection = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
         // array of mp media items
         
-        
-        //            // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
+    
+        // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
         int i = 0;
         //
         
@@ -413,8 +413,10 @@ typedef enum{
         
         MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
-        BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
-        if (autoplayStatus) {
+//        BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
+        
+        // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
+        if ([MUSAutoPlayManager returnAutoPlayStatus] && self.formattedPlaylistForThisEntry.count > 0) {
             [self.musicPlayer.myPlayer play];
         }
     }

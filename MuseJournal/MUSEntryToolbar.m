@@ -109,13 +109,10 @@
 -(void)addButtonPressed:(id)sender {
     [self.delegate didSelectAddButton:sender];
 }
-//
+
 -(void)setUpAutoPlayButton {
     
     [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:[MUSAutoPlayManager returnAutoPlayStatus]] forState:UIControlStateNormal];
 }
-
-//
-
 
 @end
