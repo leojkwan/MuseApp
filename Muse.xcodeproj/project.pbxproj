@@ -63,6 +63,7 @@
 		94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */; settings = {ASSET_TAGS = (); }; };
 		94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B314101BBAF97A00ECB1AD /* MUSActionView.xib */; settings = {ASSET_TAGS = (); }; };
 		94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
+		94E180641BCDA344008023C5 /* MUSMoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E180631BCDA344008023C5 /* MUSMoodViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94EB3EDB1BBDDA790060AF28 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */; };
 		94EB3EDC1BBDDA790060AF28 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3ED81BBDDA5C0060AF28 /* Raleway-Medium.ttf */; };
 		94EB3EDD1BBDDA790060AF28 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3ED91BBDDA5C0060AF28 /* Raleway-Regular.ttf */; };
@@ -70,6 +71,8 @@
 		94EB3EE11BBDE22D0060AF28 /* QuattrocentoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */; };
 		94EB3EE21BBDE22D0060AF28 /* QuattrocentoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */; };
 		94EB3EE41BBDE4020060AF28 /* ADAM.CG PRO.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */; };
+		94F390941BCD974300094176 /* MUSMoodCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F390931BCD974300094176 /* MUSMoodCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94F390971BCD984E00094176 /* MUSMoodCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F390961BCD984E00094176 /* MUSMoodCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		94F6BE871BCCAF37009AFC2C /* MUSAutoPlayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */; settings = {ASSET_TAGS = (); }; };
 		94F6BE8A1BCCB76B009AFC2C /* MUSSortEntryControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F6BE891BCCB76B009AFC2C /* MUSSortEntryControllerTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -201,6 +204,8 @@
 		94B314101BBAF97A00ECB1AD /* MUSActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSActionView.xib; path = MuseJournal/MUSActionView.xib; sourceTree = SOURCE_ROOT; };
 		94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ExtraMethods.h"; path = "MuseJournal/UIImage+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
 		94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ExtraMethods.m"; path = "MuseJournal/UIImage+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		94E180621BCDA344008023C5 /* MUSMoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSMoodViewController.h; sourceTree = "<group>"; };
+		94E180631BCDA344008023C5 /* MUSMoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSMoodViewController.m; sourceTree = "<group>"; };
 		94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
 		94EB3ED81BBDDA5C0060AF28 /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
 		94EB3ED91BBDDA5C0060AF28 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
@@ -208,6 +213,10 @@
 		94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Italic.ttf"; sourceTree = "<group>"; };
 		94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Regular.ttf"; sourceTree = "<group>"; };
 		94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ADAM.CG PRO.otf"; sourceTree = "<group>"; };
+		94F390921BCD974300094176 /* MUSMoodCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSMoodCollectionViewController.h; sourceTree = "<group>"; };
+		94F390931BCD974300094176 /* MUSMoodCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSMoodCollectionViewController.m; sourceTree = "<group>"; };
+		94F390951BCD984E00094176 /* MUSMoodCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSMoodCollectionViewCell.h; sourceTree = "<group>"; };
+		94F390961BCD984E00094176 /* MUSMoodCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSMoodCollectionViewCell.m; sourceTree = "<group>"; };
 		94F6BE851BCCAF37009AFC2C /* MUSAutoPlayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAutoPlayManager.h; sourceTree = "<group>"; };
 		94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAutoPlayManager.m; sourceTree = "<group>"; };
 		94F6BE881BCCB76B009AFC2C /* MUSSortEntryControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSortEntryControllerTableViewController.h; sourceTree = "<group>"; };
@@ -272,6 +281,12 @@
 			children = (
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
+				94E180621BCDA344008023C5 /* MUSMoodViewController.h */,
+				94E180631BCDA344008023C5 /* MUSMoodViewController.m */,
+				94F390921BCD974300094176 /* MUSMoodCollectionViewController.h */,
+				94F390931BCD974300094176 /* MUSMoodCollectionViewController.m */,
+				94F390951BCD984E00094176 /* MUSMoodCollectionViewCell.h */,
+				94F390961BCD984E00094176 /* MUSMoodCollectionViewCell.m */,
 				94F6BE881BCCB76B009AFC2C /* MUSSortEntryControllerTableViewController.h */,
 				94F6BE891BCCB76B009AFC2C /* MUSSortEntryControllerTableViewController.m */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
@@ -681,11 +696,13 @@
 			files = (
 				94AD69EF1BBDABA5009C5553 /* Song.m in Sources */,
 				9421B9F41BC47CC300F33EAB /* MUSITunesClient.m in Sources */,
+				94F390971BCD984E00094176 /* MUSMoodCollectionViewCell.m in Sources */,
 				94B313F81BBAF88200ECB1AD /* MUSAllEntriesViewController.m in Sources */,
 				94336B411BC5E2DC00D86420 /* IntroViewController.m in Sources */,
 				94B313FF1BBAF88200ECB1AD /* MUSPlaylistViewController.m in Sources */,
 				94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */,
 				941F250F1BBC388F008C8120 /* MUSColorSheet.m in Sources */,
+				94F390941BCD974300094176 /* MUSMoodCollectionViewController.m in Sources */,
 				941F25161BBC388F008C8120 /* MUSIconAnimation.m in Sources */,
 				941F25351BBC4A34008C8120 /* MUSNotificationDelegate.m in Sources */,
 				94B313C21BBAF86A00ECB1AD /* Entry+ExtraMethods.m in Sources */,
@@ -694,6 +711,7 @@
 				94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */,
 				94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */,
 				94F6BE871BCCAF37009AFC2C /* MUSAutoPlayManager.m in Sources */,
+				94E180641BCDA344008023C5 /* MUSMoodViewController.m in Sources */,
 				94B313F71BBAF88200ECB1AD /* MUSAlertView.m in Sources */,
 				94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */,
 				941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */,

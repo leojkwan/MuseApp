@@ -55,7 +55,8 @@ typedef enum{
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
-@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
+@property (weak, nonatomic) IBOutlet UIButton *moodButton;
+
 @property (weak, nonatomic) IBOutlet UILabel* timeOfDayEntryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateOfEntryLabel;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
@@ -99,7 +100,7 @@ typedef enum{
 
 
 -(void)setUpTagLabel {
-    self.tagLabel.attributedText = [NSAttributedString returnAttrTagWithTitle:@"Set Mood" color:[UIColor grayColor] undelineColor:[UIColor lightGrayColor]];
+    [self.moodButton setAttributedTitle:[NSAttributedString returnAttrTagWithTitle:@"Set Mood" color:[UIColor grayColor] undelineColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
 }
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
@@ -445,6 +446,8 @@ typedef enum{
     if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
         [self.musicPlayer.myPlayer pause];
     }
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.MUSToolBar setHidden:YES];
 }
 
 - (void)saveButtonTapped:(id)sender {
