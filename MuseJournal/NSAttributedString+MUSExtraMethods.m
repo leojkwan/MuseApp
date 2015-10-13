@@ -48,7 +48,6 @@
     }    else {
         _switchString = [[NSMutableAttributedString alloc ]initWithString:@"OFF"];
         [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, [_switchString length])];
-        
     }
     
     UIFont *switchStringFont=  [UIFont fontWithName:@"Raleway-SemiBold" size:20.0];

@@ -10,13 +10,8 @@
 
 @protocol MUSEntryToolbarDelegate <NSObject>
 -(void)didSelectAddButton:(id)sender;
--(void)didSelectAutoPlayButton:(id)sender;
 @end
 
-typedef enum {
-    autoplayOFF,
-    autoplayON
-} AutoPlay;
 
 @interface MUSEntryToolbar : UIView
 

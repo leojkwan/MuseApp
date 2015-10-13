@@ -15,6 +15,11 @@ typedef enum{
     ExistingEntry
 }EntryType;
 
+typedef enum {
+    autoplayOFF,
+    autoplayON
+} AutoPlay;
+
 @protocol MUSNotificationDelegate
 -(void)displayNotificationForSongName:(NSString *)title;
 @end

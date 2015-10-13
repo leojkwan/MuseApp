@@ -11,7 +11,8 @@
 #import "UIButton+ExtraMethods.h"
 #import "UIImageView+ExtraMethods.h"
 #import "NSAttributedString+MUSExtraMethods.h"
-
+#import "MUSAutoPlayManager.h"
+#import "MUSDetailEntryViewController.h"
 
 @interface MUSEntryToolbar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -84,16 +85,12 @@
 
 
 -(void)autoPlayButtonPressed:(id)sender {
-    [self.delegate didSelectAutoPlayButton:sender];
     
-    NSLog(@"tap autoplay");
-    
-    BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
-    
-    if (autoplayStatus) { // if on, toggle off
-        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
+    if ([MUSAutoPlayManager returnAutoPlayStatus]) { // if on, toggle off
+             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
+
         self.autoplayStatus = autoplayOFF;
     }   else { // if off, toggle on
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
@@ -112,18 +109,13 @@
 -(void)addButtonPressed:(id)sender {
     [self.delegate didSelectAddButton:sender];
 }
-
+//
 -(void)setUpAutoPlayButton {
-    BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
-    [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:autoplayStatus] forState:UIControlStateNormal];
     
-    if (autoplayStatus)
-        self.autoplayStatus = autoplayON;
-    else
-        self.autoplayStatus = autoplayOFF;
+    [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:[MUSAutoPlayManager returnAutoPlayStatus]] forState:UIControlStateNormal];
 }
 
-
+//
 
 
 @end

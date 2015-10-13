@@ -70,6 +70,7 @@
 		94EB3EE11BBDE22D0060AF28 /* QuattrocentoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */; };
 		94EB3EE21BBDE22D0060AF28 /* QuattrocentoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */; };
 		94EB3EE41BBDE4020060AF28 /* ADAM.CG PRO.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */; };
+		94F6BE871BCCAF37009AFC2C /* MUSAutoPlayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
@@ -206,6 +207,8 @@
 		94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Italic.ttf"; sourceTree = "<group>"; };
 		94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Regular.ttf"; sourceTree = "<group>"; };
 		94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ADAM.CG PRO.otf"; sourceTree = "<group>"; };
+		94F6BE851BCCAF37009AFC2C /* MUSAutoPlayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAutoPlayManager.h; sourceTree = "<group>"; };
+		94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAutoPlayManager.m; sourceTree = "<group>"; };
 		94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSettingsTableViewController.h; sourceTree = "<group>"; };
 		94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSettingsTableViewController.m; sourceTree = "<group>"; };
 		94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -383,6 +386,8 @@
 				94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */,
 				94B313C91BBAF88200ECB1AD /* MUSAllEntriesViewController.h */,
 				94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */,
+				94F6BE851BCCAF37009AFC2C /* MUSAutoPlayManager.h */,
+				94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */,
 				94B313CF1BBAF88200ECB1AD /* MUSDetailEntryViewController.h */,
 				94B313D01BBAF88200ECB1AD /* MUSDetailEntryViewController.m */,
 				94B313D61BBAF88200ECB1AD /* MUSPlaylistViewController.h */,
@@ -683,6 +688,7 @@
 				94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */,
 				94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */,
 				94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */,
+				94F6BE871BCCAF37009AFC2C /* MUSAutoPlayManager.m in Sources */,
 				94B313F71BBAF88200ECB1AD /* MUSAlertView.m in Sources */,
 				94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */,
 				941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */,

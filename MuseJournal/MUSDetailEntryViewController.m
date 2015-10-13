@@ -10,6 +10,7 @@
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
 #import <UIScrollView+APParallaxHeader.h>
+#import "UIImagePickerController+ExtraMethods.h"
 
 #import "MUSDetailEntryViewController.h"
 #import "MUSAllEntriesViewController.h"
@@ -20,7 +21,6 @@
 #import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSMusicPlayer.h"
-#import "UIImagePickerController+ExtraMethods.h"
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
@@ -28,7 +28,9 @@
 #import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
 #import <MBProgressHUD.h>
+#import "MUSAutoPlayManager.h"
 #import "MUSNotificationManager.h"
+
 
 #define TEXT_LIMIT ((int) 35)
 
@@ -42,30 +44,33 @@ typedef enum{
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate>
 
-@property (nonatomic,assign) PlayerStatus musicPlayerStatus;
+
+
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
-@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
+@property (nonatomic, strong) MUSDataStore *store;
+@property (nonatomic, assign) AutoPlay autoplayStatus;
+@property (nonatomic,assign) PlayerStatus musicPlayerStatus;
+@property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
+@property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
+@property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
+@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
 @property (weak, nonatomic) IBOutlet UILabel* timeOfDayEntryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateOfEntryLabel;
-
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) UIImageView *coverImageView;
-@property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
-@property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
-@property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
-@property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 @property (weak, nonatomic) IBOutlet UITextField *entryTitleTextField;
 @property (weak, nonatomic) IBOutlet UILabel *titleCharacterLimitLabel;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 
 @property (strong, nonatomic) UITapGestureRecognizer *entryTextViewTap;
 @property (strong, nonatomic) UITapGestureRecognizer *titleTap;
+
 
 @end
 
@@ -90,6 +95,7 @@ typedef enum{
     
     
 }
+
 
 
 -(void)setUpTagLabel {
@@ -256,6 +262,7 @@ typedef enum{
         return;
     }
     
+    // set title field to entry title
     self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
     self.entryTextViewTap.enabled = NO;
 }
@@ -265,7 +272,6 @@ typedef enum{
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    //    [textField resignFirstResponder];
     [self.textView setUserInteractionEnabled:YES];
     self.entryTextViewTap.enabled = YES;
     
@@ -280,6 +286,10 @@ typedef enum{
 }
 
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    
+    // add to seperate class
+    
     
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
@@ -403,7 +413,10 @@ typedef enum{
         
         MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
-        [self.musicPlayer.myPlayer play];
+        BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
+        if (autoplayStatus) {
+            [self.musicPlayer.myPlayer play];
+        }
     }
     
     // RANDOM SONG
@@ -427,10 +440,9 @@ typedef enum{
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
-    if ([self isMovingFromParentViewController]) {
+    if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
         [self.musicPlayer.myPlayer pause];
     }
-    
 }
 
 - (void)saveButtonTapped:(id)sender {
@@ -675,15 +687,16 @@ typedef enum{
     
     if (self.musicPlayerStatus == Playing) {
         if(self.destinationEntry == nil){
+            // create new entry and init a playlist for it
             [self createNewEntry];
             self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
         }
         
         // convert long long to nsnumber
         NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
-        pinnedSong.persistentID = songPersistentNumber;
         
-        pinnedSong.pinnedAt = [NSDate date];
+        pinnedSong.persistentID = songPersistentNumber;
+        pinnedSong.pinnedAt = [NSDate date]; //current date
         pinnedSong.entry = self.destinationEntry;
         
         [self displayPinnedSongNotification];
@@ -693,6 +706,7 @@ typedef enum{
         [self.destinationEntry addSongsObject:pinnedSong];
         
         MPMediaItemCollection *playlistCollectionForThisEntry =  [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
+        
         [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
         
         // Save to Core Data
@@ -725,7 +739,6 @@ typedef enum{
 
 
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     

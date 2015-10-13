@@ -67,10 +67,10 @@
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="szr-Pk-BEC"/>
-                            <exclude reference="vBm-jQ-UOI"/>
                             <exclude reference="56l-We-vjn"/>
                             <exclude reference="HFP-bb-fz0"/>
                             <exclude reference="jB5-be-8ln"/>
+                            <exclude reference="vBm-jQ-UOI"/>
                         </mask>
                     </variation>
                 </view>
