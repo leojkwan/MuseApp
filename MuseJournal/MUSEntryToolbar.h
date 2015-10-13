@@ -10,7 +10,6 @@
 
 @protocol MUSEntryToolbarDelegate <NSObject>
 -(void)didSelectAddButton:(id)sender;
--(void)didSelectAutoPlayButton:(id)sender;
 @end
 
 

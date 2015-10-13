@@ -10,11 +10,16 @@
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
 #import "UIImageView+ExtraMethods.h"
+#import "NSAttributedString+MUSExtraMethods.h"
+#import "MUSAutoPlayManager.h"
+#import "MUSDetailEntryViewController.h"
 
 @interface MUSEntryToolbar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) NSMutableArray *toolbarButtonItems;
 @property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
+@property (nonatomic, assign) AutoPlay autoplayStatus;
+@property (weak, nonatomic) IBOutlet UILabel *autoPlayLabel;
 
 @end
 
@@ -54,6 +59,12 @@
                                   owner:self
                                 options:nil];
     
+    // Set up autoplay
+    [self setUpAutoPlayButton];
+    
+    // Tap Gesture for Autoplay Label
+    [self setUpTapGestureForAutoPlayLabel];
+    
     // remove hairline
     self.clipsToBounds = YES;
     
@@ -71,15 +82,37 @@
     }];
 }
 
+
+
 -(void)autoPlayButtonPressed:(id)sender {
-    [self.delegate didSelectAutoPlayButton:sender];
+    
+    if ([MUSAutoPlayManager returnAutoPlayStatus]) { // if on, toggle off
+             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
+
+        self.autoplayStatus = autoplayOFF;
+    }   else { // if off, toggle on
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.autoplayStatus = autoplayON;
+        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
+    }
+}
+
+-(void)setUpTapGestureForAutoPlayLabel {
+    UITapGestureRecognizer *autoplay = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(autoPlayButtonPressed:)];
+    [self.autoPlayLabel addGestureRecognizer:autoplay];
+    self.autoPlayLabel.userInteractionEnabled = YES;
 }
 
 -(void)addButtonPressed:(id)sender {
     [self.delegate didSelectAddButton:sender];
 }
 
-
-
+-(void)setUpAutoPlayButton {
+    
+    [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:[MUSAutoPlayManager returnAutoPlayStatus]] forState:UIControlStateNormal];
+}
 
 @end

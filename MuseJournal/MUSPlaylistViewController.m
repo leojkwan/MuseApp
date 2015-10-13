@@ -50,7 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"start");
     [MBProgressHUD showHUDAddedTo:self.view
                          animated:YES];
     
@@ -92,12 +91,11 @@
             
             self.artworkImagesForThisEntry = artworkImages;
             
-            NSLog(@"finish");
+            // hide HUD after images load
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         }];
-        
     });
     }
 
@@ -111,13 +109,13 @@
 
 - (IBAction)appleMusicButtonTapped:(id)sender {
     
+    // IF THERE IS NO IMAGE AND THERE IS NO SONG PLAYING
     if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStatePlaying) {
         return;
     }
-
+    
     // check internet
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         switch (status) {
@@ -125,7 +123,6 @@
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 // -- Reachable -- //
                 NSLog(@"Reachable");
-                
                 [MBProgressHUD showHUDAddedTo:self.view
                                      animated:YES];
                 if (self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStateStopped) {
@@ -135,7 +132,6 @@
             case AFNetworkReachabilityStatusNotReachable:
             default:
                 // -- Not reachable -- //
-                NSLog(@"Not Reachable");
                 [MUSNotificationManager displayNotificationWithMessage:@"No internet connection! Can't connect to Apple Music." backgroundColor:[UIColor whiteColor] textColor:[UIColor darkGrayColor]];
                 break;
         }
@@ -381,6 +377,7 @@
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry.songs != nil) {
         MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
+        
         // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
         [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
         [self.musicPlayer.myPlayer play];

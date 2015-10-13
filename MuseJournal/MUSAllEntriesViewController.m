@@ -24,10 +24,7 @@
 #import "MUSTimeFetcher.h"
 #import "UIFont+MUSFonts.h"
 
-typedef enum {
-    autoplayOFF,
-    autoplayON
-} AutoPlay;
+
 
 
 @interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, MUSEntryToolbarDelegate, UIScrollViewDelegate>
@@ -63,7 +60,6 @@ typedef enum {
     [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
-    [self setUpAutoPlayButton];
 }
 
 
@@ -143,7 +139,6 @@ typedef enum {
 
 
 -(void)setUpInfiniteScrollWithFetchRequest {
-    [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
     
     self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
@@ -165,36 +160,6 @@ typedef enum {
 -(void)didSelectAddButton:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
-
-
--(void)setUpAutoPlayButton {
-    BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
-    [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:autoplayStatus] forState:UIControlStateNormal];
-
-    if (autoplayStatus)
-        self.autoplayStatus = autoplayON;
-    else
-        self.autoplayStatus = autoplayOFF;
-}
-
--(void)didSelectAutoPlayButton:(id)sender {
-    NSLog(@"tap autoplay");
-    
-    BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
-    
-    if (autoplayStatus) { // if on, toggle off
-        [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        self.autoplayStatus = autoplayOFF;
-    }   else { // if off, toggle on
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        self.autoplayStatus = autoplayON;
-        [self.toolbar.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
-    }
-}
-
 
 #pragma mark - UITable View Delegate methods
 
