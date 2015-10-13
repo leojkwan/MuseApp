@@ -31,7 +31,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     // system font color
-    NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:15.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:systemFontColor forState:UIControlStateNormal];
     
 //    

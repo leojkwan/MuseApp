@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="ADAM.CG PRO.otf">
@@ -24,32 +25,37 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDW-dL-c2d">
-                    <rect key="frame" x="0.0" y="10" width="680" height="65.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="680" height="75.5"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0S-6s-PMW">
-                            <rect key="frame" x="310" y="5" width="60" height="60"/>
+                            <rect key="frame" x="310" y="8" width="60" height="60"/>
                             <animations/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="60" id="NWo-44-BCA"/>
+                                <constraint firstAttribute="width" constant="50" id="NWo-44-BCA"/>
                                 <constraint firstAttribute="width" secondItem="l0S-6s-PMW" secondAttribute="height" multiplier="1:1" id="Q5K-Py-rTv"/>
                             </constraints>
                             <state key="normal" title="Button" image="addButton"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="NWo-44-BCA"/>
+                                </mask>
+                            </variation>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="AUTOPLAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REd-gd-LRi">
-                            <rect key="frame" x="594" y="44" width="66" height="13"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="10"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oal-lU-vLu">
-                            <rect key="frame" x="594" y="14" width="66" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oal-lU-vLu">
+                            <rect key="frame" x="609" y="0.0" width="50.5" height="30"/>
                             <animations/>
                             <state key="normal" title="Button"/>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUTOPLAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REd-gd-LRi">
+                            <rect key="frame" x="609" y="30" width="50.5" height="10"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="10"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.26162010732323215" green="0.26162010732323215" blue="0.26162010732323215" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="REd-gd-LRi" firstAttribute="top" secondItem="oal-lU-vLu" secondAttribute="bottom" id="3bf-Fo-YJy"/>
                         <constraint firstAttribute="trailing" secondItem="oal-lU-vLu" secondAttribute="trailing" constant="15" id="56l-We-vjn"/>
@@ -58,29 +64,35 @@
                         <constraint firstAttribute="bottom" secondItem="REd-gd-LRi" secondAttribute="bottom" constant="8" id="IN2-0g-VJu"/>
                         <constraint firstAttribute="trailing" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="20" id="SDL-s2-wrE"/>
                         <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" id="eJJ-9U-XSs"/>
+                        <constraint firstItem="l0S-6s-PMW" firstAttribute="height" secondItem="bDW-dL-c2d" secondAttribute="height" multiplier="8/10" id="ePI-zu-3Mb"/>
                         <constraint firstItem="oal-lU-vLu" firstAttribute="centerX" secondItem="REd-gd-LRi" secondAttribute="centerX" id="fg2-eR-eXB"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerX" secondItem="bDW-dL-c2d" secondAttribute="centerX" id="iLv-Nq-sps"/>
                         <constraint firstItem="oal-lU-vLu" firstAttribute="centerY" secondItem="l0S-6s-PMW" secondAttribute="centerY" id="jB5-be-8ln"/>
+                        <constraint firstItem="oal-lU-vLu" firstAttribute="top" secondItem="bDW-dL-c2d" secondAttribute="top" id="kFo-DH-6Cr"/>
+                        <constraint firstItem="oal-lU-vLu" firstAttribute="top" secondItem="l0S-6s-PMW" secondAttribute="top" id="lmC-kt-zdh"/>
                         <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" constant="2" id="szr-Pk-BEC"/>
                         <constraint firstItem="REd-gd-LRi" firstAttribute="centerY" secondItem="oal-lU-vLu" secondAttribute="centerY" id="vBm-jQ-UOI"/>
+                        <constraint firstItem="l0S-6s-PMW" firstAttribute="centerY" secondItem="bDW-dL-c2d" secondAttribute="centerY" id="vIy-Pc-qu5"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
+                            <exclude reference="eJJ-9U-XSs"/>
                             <exclude reference="szr-Pk-BEC"/>
                             <exclude reference="56l-We-vjn"/>
                             <exclude reference="HFP-bb-fz0"/>
                             <exclude reference="jB5-be-8ln"/>
+                            <exclude reference="lmC-kt-zdh"/>
+                            <exclude reference="IN2-0g-VJu"/>
                             <exclude reference="vBm-jQ-UOI"/>
                         </mask>
                     </variation>
                 </view>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="bDW-dL-c2d" firstAttribute="leading" secondItem="Lti-Kn-pTT" secondAttribute="leading" id="10P-EZ-zR0"/>
                 <constraint firstAttribute="bottom" secondItem="bDW-dL-c2d" secondAttribute="bottom" id="Z3P-er-ljw"/>
-                <constraint firstItem="bDW-dL-c2d" firstAttribute="top" secondItem="Lti-Kn-pTT" secondAttribute="top" constant="10" id="j8H-ew-8Ui"/>
+                <constraint firstItem="bDW-dL-c2d" firstAttribute="top" secondItem="Lti-Kn-pTT" secondAttribute="top" id="j8H-ew-8Ui"/>
                 <constraint firstAttribute="trailing" secondItem="bDW-dL-c2d" secondAttribute="trailing" id="yKR-Y2-rMw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
