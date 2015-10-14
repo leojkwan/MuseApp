@@ -115,8 +115,7 @@
     [self.keyboardButtonItems addObject:[self playlistButton]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self doneButton]];
-    
-    
+
     // after all buttons have been set... set array to toolbar
     [self.keyboardToolBar setItems:self.keyboardButtonItems animated:YES];
     
@@ -161,7 +160,6 @@
     
     [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backButton];
     return backBarButtonItem;
 }
@@ -174,7 +172,6 @@
     [playlistButton setImage:[UIImage imageNamed:@"musicPlayer" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
     [playlistButton setFrame:BUTTON_FRAME];
     [playlistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
     
     UIBarButtonItem *playlistBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playlistButton];
     return playlistBarButtonItem;

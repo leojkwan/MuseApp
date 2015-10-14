@@ -44,10 +44,9 @@
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.98 green:0.85 blue:0.24 alpha:1]];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
 
-    
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
-      [UIFont fontWithName:@"AvenirNext-Medium" size:21],
+      [UIFont fontWithName:@"AvenirNext-Medium" size:18],
       NSFontAttributeName, nil]];
 
 }

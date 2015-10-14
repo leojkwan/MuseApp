@@ -13,6 +13,7 @@
 #import "NSAttributedString+MUSExtraMethods.h"
 #import "MUSAutoPlayManager.h"
 #import "MUSDetailEntryViewController.h"
+#import "UIImage+ExtraMethods.h"
 
 @interface MUSEntryToolbar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -73,9 +74,14 @@
     
     // add button action
     [self.addEntryButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.addEntryButton.imageView.im setImage:[UIImage imageNamed:@"addButton" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+//    UIImage *image = [[UIImage alloc] init];
+//    [image
+//    [self.addEntryButton setim
     
     [self.autoPlayButton addTarget:self action:@selector(autoPlayButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
@@ -87,10 +93,10 @@
 -(void)autoPlayButtonPressed:(id)sender {
     
     if ([MUSAutoPlayManager returnAutoPlayStatus]) { // if on, toggle off
-             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
-
+        
         self.autoplayStatus = autoplayOFF;
     }   else { // if off, toggle on
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];

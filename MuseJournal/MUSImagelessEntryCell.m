@@ -90,8 +90,6 @@
         NSString *moreThanOneArtist = [NSString stringWithFormat:@"%@ and more", firstSongForThisRow.artistName];
         cell.artistsLabel.text = moreThanOneArtist;
     }
-    
-    
 }
 
 

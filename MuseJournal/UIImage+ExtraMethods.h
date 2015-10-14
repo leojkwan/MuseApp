@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImage (ExtraMethods)
-- (UIImage*) blur:(UIImage*)theImage;
 
+- (UIImage*) blur:(UIImage*)theImage;
 +(UIImage *)imageNamed:(NSString *)name withColor:(UIColor *)color;
 
 

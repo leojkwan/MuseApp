@@ -22,9 +22,13 @@
 
 
 +(NSAttributedString *)returnAttrTagWithTitle:(NSString *)title color:(UIColor *)color undelineColor:(UIColor *)lineColor{
+    
+    // return tag attr for text....
+    
     NSMutableAttributedString *attrTag = [[NSMutableAttributedString alloc] initWithString:title];
     [attrTag addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:(NSUnderlineStyleThick)] range:NSMakeRange(0, [attrTag length])];
     [attrTag addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, [attrTag length])];
+ 
     UIFont *tagFont=  [UIFont fontWithName:@"ADAM.CGPRO" size:10.0];
     [attrTag addAttribute:NSFontAttributeName value:tagFont range:NSMakeRange(0, [attrTag length])];
     [attrTag addAttribute:NSUnderlineColorAttributeName value:lineColor range:NSMakeRange(0, [attrTag length])];
@@ -37,10 +41,10 @@
     
     if (on) {
         _switchString = [[NSMutableAttributedString alloc ]initWithString:@"ON"];
-        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor cyanColor] range:NSMakeRange(0, [_switchString length])];
+        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.87 green:0.19 blue:0.4 alpha:1] range:NSMakeRange(0, [_switchString length])];
     }    else {
         _switchString = [[NSMutableAttributedString alloc ]initWithString:@"OFF"];
-        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, [_switchString length])];
+        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, [_switchString length])];
     }
     
     UIFont *switchStringFont=  [UIFont fontWithName:@"Raleway-SemiBold" size:20.0];
