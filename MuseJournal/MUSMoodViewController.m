@@ -8,13 +8,21 @@
 
 #import "MUSMoodViewController.h"
 #import "MUSMoodCollectionViewCell.h"
+#import "UIColor+MUSColors.h"
+#import "UIImage+ExtraMethods.h"
+#import "MUSDataStore.h"
+#import  "MUSTagManager.h"
 
 #define CELL_PADDING  (self.view.frame.size.width * .05f)
 
 
 @interface MUSMoodViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray *moods;
+@property (nonatomic, strong) NSMutableArray *moodString;
+@property (nonatomic, strong) NSMutableArray *moodImages;
+
+@property (weak, nonatomic) IBOutlet UIButton *quitButton;
+@property (nonatomic, strong) MUSDataStore *store;
 
 @end
 
@@ -22,18 +30,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.store = [MUSDataStore sharedDataStore];
+    [self.destinationToolBar setHidden:YES];
     
     self.collectionView.delegate =self;
     self.collectionView.dataSource = self;
     
-    [self.navigationController.navigationBar setHidden:NO];
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self.quitButton setImage:[UIImage imageNamed:@"quitButton" withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     
-    // Register cell classes
-//    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    self.moods = [[NSMutableArray alloc] init];
-    [self.moods addObjectsFromArray:@[@"Happy", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty"]];
+    //    [self.navigationController.navigationBar setHidden:NO];
+    
+    
+    self.moodString = [[NSMutableArray alloc] init];
+    self.moodImages = [[NSMutableArray alloc] init];
+    
+    
+    
+    
+    for (NSArray *mood in [MUSTagManager returnArrayForTagImages]) {
+        [self.moodString addObject:mood[0]];
+        [self.moodImages addObject:mood[1]];
+    }
+    
+//    [self.moods addObjectsFromArray:@[@"Happy", @"Happy", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty"]];
+    
     
     // Do any additional setup after loading the view.
 }
@@ -42,45 +62,46 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)backButtonPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+
+
+-(void)popVC {
+    [self.destinationToolBar setHidden:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)backButtonPressed:(id)sender {
+    [self popVC];
+}
+
+-(void)addTapGestureToContainerView {
+    UITapGestureRecognizer *tapDismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popVC)];
+    [self.view addGestureRecognizer:tapDismiss];
+}
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
-    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
-    datasetCell.backgroundColor = [UIColor blueColor]; // highlight selection
-    NSLog(@"%@", self.moods[indexPath.row]);
-    
+    [self.delegate updateMoodLabelWithText:self.moodString[indexPath.row]];
+    [self popVC];
 }
 
 
 
 #pragma mark <UICollectionViewDataSource>
 
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//    return 1;
-//}
-//
-//
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.moods.count;
+    return self.moodString.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    //    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
+
     
     MUSMoodCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"moodCollectionCell" forIndexPath:indexPath];
-    cell.moodLabel.text = self.moods[indexPath.row];
-//    cell.moodImageView.image = [
-    
+    cell.moodLabel.text = self.moodString[indexPath.row];
+    cell.moodImageView.image = self.moodImages[indexPath.row];
     return cell;
 }
 

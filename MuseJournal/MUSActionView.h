@@ -10,7 +10,6 @@
 
 @protocol ActionViewDelegate <NSObject>
 
-
 -(void)didSelectAddButton:(id)sender;
 -(void)didSelectShuffleButton:(id)sender;
 

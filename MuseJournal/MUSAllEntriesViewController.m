@@ -365,9 +365,11 @@
     
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
+
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
         dvc.destinationEntry = entryForThisRow;
+
         if (entryForThisRow != nil)
             dvc.entryType = ExistingEntry;
         else

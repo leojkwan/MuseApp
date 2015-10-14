@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Entry.h"
+#import "MUSKeyboardTopBar.h"
+
+@protocol UpdateMoodProtocol <NSObject>
+-(void)updateMoodLabelWithText:(NSString *)moodText;
+@end
 
 @interface MUSMoodViewController : UIViewController
+
+@property (strong, nonatomic) Entry *destinationEntry;
+@property (nonatomic, strong) MUSKeyboardTopBar *destinationToolBar;
+@property (nonatomic, assign) id <UpdateMoodProtocol> delegate;
 
 @end

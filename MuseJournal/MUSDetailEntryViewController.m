@@ -29,11 +29,12 @@
 #import <CWStatusBarNotification.h>
 #import <MBProgressHUD.h>
 #import "MUSAutoPlayManager.h"
+#import "MUSMoodViewController.h"
 #import "MUSNotificationManager.h"
+#import  "MUSTagManager.h"
 
 
 #define TEXT_LIMIT ((int) 35)
-
 
 typedef enum{
     Playing,
@@ -42,7 +43,7 @@ typedef enum{
     AlreadyPinned
 }PlayerStatus;
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol>
 
 
 
@@ -93,14 +94,6 @@ typedef enum{
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-    
-    
-}
-
-
-
--(void)setUpTagLabel {
-    [self.moodButton setAttributedTitle:[NSAttributedString returnAttrTagWithTitle:@"Set Mood" color:[UIColor grayColor] undelineColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
 }
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
@@ -133,8 +126,8 @@ typedef enum{
     NSString *date = [self.destinationEntry.createdAt returnEntryDateStringForDate:self.destinationEntry.epochTime];
     NSArray *items = [date componentsSeparatedByString:@","];
     self.timeOfDayEntryLabel.text = items[1]; // 6:40 pm..
-
-
+    
+    
     // set character limit text
     [self.titleCharacterLimitLabel setHidden:YES];
     self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.destinationEntry.titleOfEntry.length]];
@@ -185,11 +178,11 @@ typedef enum{
     
     // Set up textview toolbar input
     self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
-        self.keyboardTopBar.delegate = self;
+    self.keyboardTopBar.delegate = self;
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     self.entryTitleTextField.inputAccessoryView = self.keyboardTopBar;
-
+    
     
 }
 
@@ -208,6 +201,27 @@ typedef enum{
         
     }
     
+}
+
+#pragma delegate method for Mood View Controller
+-(void)updateMoodLabelWithText:(NSString *)moodText {
+
+    // if this is a new entry, create one before saving the tag
+    if(self.destinationEntry == nil){
+        [self createNewEntry];
+    }
+    self.destinationEntry.tag = moodText;
+    [self.store save];
+    [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:moodText] forState:UIControlStateNormal];
+//[NSAttributedString returnAttrTagWithTitle:self.destinationEntry.tag color:[UIColor grayColor] undelineColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+}
+
+-(void)setUpTagLabel {
+    if (self.destinationEntry.tag != nil && ![self.destinationEntry.tag isEqualToString:@""]) {
+        NSLog(@"This is the destination tag: %@", self.destinationEntry.tag);
+    [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:self.destinationEntry.tag] forState:UIControlStateNormal];
+    }    else
+        [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:@"Set Mood"] forState:UIControlStateNormal];
 }
 
 
@@ -332,11 +346,7 @@ typedef enum{
     
     [textView sizeToFit];
     [textView layoutIfNeeded];
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        // add bottom space between between text view and scrolling content view
-        make.height.equalTo(self.textView.mas_height).with.offset(200);
-    }];
+
 }
 
 #pragma mark - music controls
@@ -369,7 +379,7 @@ typedef enum{
         MPMediaItemCollection *collection = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
         // array of mp media items
         
-    
+        
         // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
         int i = 0;
         //
@@ -381,18 +391,7 @@ typedef enum{
                                                       alertControllerWithTitle:@"Oops!"
                                                       message: [NSString stringWithFormat: @"We can't find '%@' by %@ in your library!", songForThisIndex.songName, songForThisIndex.artistName]
                                                       preferredStyle:UIAlertControllerStyleAlert];
-                //
-                //
-                //                    UIAlertAction *findSongAction = [UIAlertAction
-                //                                                     actionWithTitle:NSLocalizedString(@"Find Another Song", @"Find Song")
-                //                                                     style:UIAlertActionStyleDefault
-                //                                                     handler:^(UIAlertAction *action)
-                //                                                     {
-                //                                                         MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
-                //                                                         picker.delegate = self;
-                //                                                         picker.allowsPickingMultipleItems= NO;
-                //                                                         [self.navigationController pushViewController:picker animated:YES];
-                //                                                     }];
+                
                 
                 UIAlertAction *okAction = [UIAlertAction
                                            actionWithTitle:NSLocalizedString(@"OK", @"OK action")
@@ -414,7 +413,7 @@ typedef enum{
         
         MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
-//        BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
+        //        BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
         
         // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
         if ([MUSAutoPlayManager returnAutoPlayStatus] && self.formattedPlaylistForThisEntry.count > 0) {
@@ -432,6 +431,7 @@ typedef enum{
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     [IHKeyboardAvoiding setAvoidingView:self.scrollView];
@@ -446,8 +446,7 @@ typedef enum{
     if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
         [self.musicPlayer.myPlayer pause];
     }
-//    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self.MUSToolBar setHidden:YES];
+    //    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)saveButtonTapped:(id)sender {
@@ -507,18 +506,16 @@ typedef enum{
 
 
 -(Entry *)createNewEntry {
-    Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     
+    Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     self.destinationEntry = newEntry;
     if ([self.textView.text isEqualToString:@"Begin writing here..."])
         newEntry.content = @"";
-    else if (self.entryTitleTextField.textColor == [UIColor lightGrayColor])
+    else if ([self.entryTitleTextField.text isEqualToString:@"Title"])
         newEntry.titleOfEntry = @""; // wipe attributed placeholder text
     else
         newEntry.content = self.textView.text;
-    
-    
-    //    newEntry.titleOfEntry = [Entry getTitleOfContentFromText:newEntry.content];
+    newEntry.tag = @"";
     newEntry.titleOfEntry = self.entryTitleTextField.text;
     
     NSDate *currentDate = [NSDate date];
@@ -747,11 +744,20 @@ typedef enum{
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    
+    
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
-        self.dvc = segue.destinationViewController;
-        self.dvc.destinationEntry = self.destinationEntry;
-        self.dvc.playlistForThisEntry =[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
-        self.dvc.musicPlayer = self.musicPlayer;
+        MUSPlaylistViewController *dvc = segue.destinationViewController;
+        dvc.destinationEntry = self.destinationEntry;
+        dvc.playlistForThisEntry =[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
+        dvc.musicPlayer = self.musicPlayer;
+        
+    } else if ([segue.identifier isEqualToString:@"moodSegue"]) {
+        MUSMoodViewController *dvc = segue.destinationViewController;
+        dvc.delegate = self;
+        dvc.destinationEntry = self.destinationEntry;
+        dvc.destinationToolBar = self.MUSToolBar;
+        //        [self.MUSToolBar setHidden:YES];
     }
 }
 
