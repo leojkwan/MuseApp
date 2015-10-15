@@ -575,9 +575,8 @@ typedef enum{
     imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     imagePicker.allowsEditing = YES;
     
+    
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    
     // CANCEL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [self dismissViewControllerAnimated:YES completion:^{

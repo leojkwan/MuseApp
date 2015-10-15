@@ -12,16 +12,23 @@
 #import "MUSWallpaperCollectionViewCell.h"
 #import "NSAttributedString+MUSExtraMethods.h"
 #import "UIImage+ExtraMethods.h"
+#import "MUSWallpaperManager.h"
 #import <Masonry.h>
 
 #define CELL_PADDING (self.view.frame.size.height * .02f)
-
+// 5 cells times 10 for left and right padding...
 
 @interface MUSWallPaperViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *wallpaperCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *navTitleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property(strong,nonatomic) NSArray *wallpaperArray;
+@property(nonatomic, assign) BOOL initialScrollDone;
+@property (weak, nonatomic) IBOutlet UIImageView *wallpaperPreviewImageView;
+@property (weak, nonatomic) IBOutlet UILabel *wallpaperNameLabel;
+@property(nonatomic, assign)  NSInteger userWallpaperPreference;
+@property(nonatomic, assign)  NSInteger collectionViewCurrentIP;
+
 
 @end
 
@@ -31,37 +38,71 @@
     [super viewDidLoad];
     self.wallpaperCollectionView.delegate = self;
     self.wallpaperCollectionView.dataSource = self;
-    self.wallpaperCollectionView.allowsMultipleSelection = NO;
-    self.wallpaperCollectionView.allowsSelection = YES; //this is set by default
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.wallpaperArray = [MUSWallpaperManager returnArrayForWallPaperImages];
+    [self configureNavBar];
     
-//    self.navTitleLabel.attributedText = [NSAttributedString returnStringWithTitle:@"Select Theme" color:[UIColor whiteColor] undelineColor:[UIColor whiteColor] fontSize:20];
     
-     [self.navigationController.navigationBar setHidden:YES];
+    // SET WALL PAPER LABEL
+    self.userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"];
+    self.wallpaperNameLabel.text =   [MUSWallpaperManager returnArrayForWallPaperImages][self.userWallpaperPreference][0];     // [0] IS STRING
+
+    
+    // SET WALL PAPER
+    self.wallpaperPreviewImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][self.userWallpaperPreference][1];    // [1] IS IMAGE
+
+    
+    
+    [self animateWallpaperMenu];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void) animateWallpaperMenu {
+    // animate wallpaper menu
+    self.contentView.alpha = 0;
+    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.contentView.alpha = 1;
+    }completion:nil];
 }
 
+
+- (void)viewDidLayoutSubviews {
+    // If we haven't done the initial scroll, do it once.
+    [self performSelector:@selector(scrollToUserWallpaperAtIP) withObject:self afterDelay:0.25];
+}
+
+-(void)scrollToUserWallpaperAtIP {
+    if (!self.initialScrollDone) {
+        self.initialScrollDone = YES;
+        
+        NSIndexPath *selectedIP = [NSIndexPath indexPathForItem:self.userWallpaperPreference inSection:0];
+        [self.wallpaperCollectionView scrollToItemAtIndexPath:selectedIP atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+}
+
+-(void)configureNavBar {
+    [self.navigationController.navigationBar setHidden:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return self.wallpaperArray.count;
 }
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     MUSWallpaperCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"wallpaperCollectionCell" forIndexPath:indexPath];
-
-    cell.layer.cornerRadius = 5;
-    cell.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.layer.borderWidth = 2.0f;
-
+    cell.wallpaperImageView.image = self.wallpaperArray[indexPath.row][1];
     
-    cell.selected = YES;
-//    [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    cell.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.layer.cornerRadius = 5;
+    cell.layer.borderWidth = 2.0f;
+    cell.selected = YES; // why
     return cell;
 }
 
@@ -70,20 +111,80 @@
 }
 
 
+- (IBAction)saveButtonPressed:(id)sender {
+    
+    //self.collectionViewCurrentIP
+    
+    UIAlertController *alertController= [UIAlertController
+                                         alertControllerWithTitle:nil
+                                         message:[NSString stringWithFormat: @"Change to '%@'", self.wallpaperNameLabel.text]
+                                         preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction
+                                actionWithTitle:NSLocalizedString(@"Use as Background", @"Use as Background")
+                                style:UIAlertActionStyleDestructive
+                                handler:^(UIAlertAction *action) {
+                                    
+                                    [[NSUserDefaults standardUserDefaults] setInteger:self.collectionViewCurrentIP forKey:@"background"];
+                                    [[NSUserDefaults standardUserDefaults] synchronize];
+                                    
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBackground" object:nil userInfo:[NSDictionary dictionaryWithObject: @(self.collectionViewCurrentIP) forKey:@"wallpaperIndex"]];
+
+                                    [self performSegueWithIdentifier:@"backToHomeView" sender:self];
+                                    
+                                }]
+     ];
+    [alertController addAction:[UIAlertAction
+                                actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                style:UIAlertActionStyleDefault
+                                handler:NULL]
+     ];
+    
+    // for ipads
+    alertController.popoverPresentationController.sourceRect = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    alertController.popoverPresentationController.sourceView= self.contentView;
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+
+
+
 #pragma mark - UICollectionViewLayout
 
 // Set size of collection cell
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // make cell always 1/6 of the screen width
+    // make cell always 1/5 of the screen width
     CGFloat cellSizeBasedOnPadding = self.view.frame.size.width * .2f;
     return CGSizeMake(cellSizeBasedOnPadding, cellSizeBasedOnPadding);
+}
+
+-(void)updateWallpaperLabelWithText:(NSString *)wallpaperName {
+    
+    
+    self.wallpaperNameLabel.alpha = 1;
+    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{ self.wallpaperNameLabel.alpha = 0;}
+                     completion:^(BOOL finished) {
+                         
+                         // change label to update wallpapername
+                         self.wallpaperNameLabel.text = wallpaperName;
+                         
+                         
+                         
+                         
+                         // animate back in
+                         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn
+                                          animations:^{ self.wallpaperNameLabel.alpha = 1;}
+                                          completion:nil];
+                     }];
 }
 
 
 // set vertical seperation of cell
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 20;
+    return 15;
 }
 
 - (UIEdgeInsets)collectionView:
@@ -105,14 +206,22 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    [UIView transitionWithView:self.wallpaperPreviewImageView duration:0.4f  options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.wallpaperPreviewImageView.image = [MUSWallpaperManager returnArrayForWallPaperImages][indexPath.row][1];
+        self.collectionViewCurrentIP = indexPath.row;
+    } completion:NULL];
+    
+    
     // indicate the ONE selected item
     UICollectionViewCell *selectedCell = [collectionView cellForItemAtIndexPath:indexPath];
     selectedCell.layer.borderColor =  [UIColor redColor].CGColor;
-
+    
     // scroll view to center selected index path
     [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
- }
+    // pass the name of wallpaper selected
+    [self updateWallpaperLabelWithText: [MUSWallpaperManager returnArrayForWallPaperImages][indexPath.row][0]];
+}
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cellToDeselect = [collectionView cellForItemAtIndexPath:indexPath];
@@ -120,15 +229,5 @@
 }
 
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

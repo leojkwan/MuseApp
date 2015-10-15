@@ -44,17 +44,17 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
-                    <rect key="frame" x="477" y="242" width="97" height="23.5"/>
+                    <rect key="frame" x="470" y="242" width="111.5" height="27.5"/>
                     <animations/>
-                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="20"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="23"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Surprise Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
-                    <rect key="frame" x="119.5" y="242" width="112" height="23.5"/>
+                    <rect key="frame" x="111.5" y="242" width="128.5" height="27.5"/>
                     <animations/>
-                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="20"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="23"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3O-oH-r3C" userLabel="Vertical Rule">

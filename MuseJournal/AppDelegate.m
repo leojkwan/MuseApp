@@ -69,6 +69,12 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
+    // BACKGROUND IMAGE
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"background"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"background"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     
     return YES;
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B3FF408248BF03C59117B8A /* libPods-MuseJournal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */; };
+		940EE95E1BCF280900270D66 /* MUSWallpaperManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */; settings = {ASSET_TAGS = (); }; };
 		941EFBF71BB9FB9C00D70257 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFBF61BB9FB9C00D70257 /* main.m */; };
 		941EFC021BB9FB9C00D70257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC011BB9FB9C00D70257 /* Assets.xcassets */; };
 		941EFC051BB9FB9C00D70257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */; };
@@ -100,6 +101,8 @@
 /* Begin PBXFileReference section */
 		1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.debug.xcconfig"; sourceTree = "<group>"; };
 		55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseJournal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		940EE95C1BCF280900270D66 /* MUSWallpaperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSWallpaperManager.h; sourceTree = "<group>"; };
+		940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSWallpaperManager.m; sourceTree = "<group>"; };
 		941EFBF21BB9FB9C00D70257 /* MuseJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		941EFBF61BB9FB9C00D70257 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		941EFC011BB9FB9C00D70257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -366,6 +369,8 @@
 		94775DE31BB9FF25004ABF0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				940EE95C1BCF280900270D66 /* MUSWallpaperManager.h */,
+				940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */,
 				9450A3EA1BCE1D8F00335606 /* MUSTagManager.h */,
 				9450A3EB1BCE1D8F00335606 /* MUSTagManager.m */,
 				9421B9F51BC47D0F00F33EAB /* MUSConstants.h */,
@@ -731,6 +736,7 @@
 				941F25321BBC4A24008C8120 /* MUSNotificationDelegate.m in Sources */,
 				941F25441BBC4A69008C8120 /* MUSImagelessEntryCell.m in Sources */,
 				941F25101BBC388F008C8120 /* MUSDataStore.m in Sources */,
+				940EE95E1BCF280900270D66 /* MUSWallpaperManager.m in Sources */,
 				94AD69F01BBDABA5009C5553 /* Entry+CoreDataProperties.m in Sources */,
 				941F253E1BBC4A50008C8120 /* UIColor+MUSColors.m in Sources */,
 				941F25291BBC49FF008C8120 /* MUSEntryToolbar.m in Sources */,

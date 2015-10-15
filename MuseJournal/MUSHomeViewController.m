@@ -21,6 +21,7 @@
 #import "MUSITunesClient.h"
 #import "MUSConstants.h"
 #import "IntroViewController.h"
+#import "MUSWallpaperManager.h"
 
 @import QuartzCore;
 
@@ -40,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, assign) CGFloat lastContentOffset;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 
 @end
@@ -52,16 +54,24 @@
 //
 -(void)viewDidLoad {
     [super viewDidLoad];
-
-
-   
-    
-    
     self.scrollView.delegate = self;
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
     [self setUpScrollContent];
+    [self setUpBackGround];
+    
 }
+
+-(void)setUpBackGround {
+    NSInteger userWallpaperPreference = [[[NSUserDefaults standardUserDefaults] objectForKey:@"background"] integerValue];
+    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][userWallpaperPreference][1];    // [1] IS IMAGE
+}
+
+-(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+
+}
+
+
 
 
 //- (IBAction)tapsRemoveAds{
@@ -214,11 +224,21 @@
 -(void)viewWillAppear:(BOOL)animated   {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    // GET NOTIFICATION FOR UPDATE WALLPAPER IN HOME VIEW
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackground:) name:@"updateBackground" object:nil];
+}
+
+-(void)updateBackground:(NSNotification *)backgroundIndex {
+    NSDictionary *dict = backgroundIndex.userInfo;
+    NSInteger indexOfNewWallpaper = [[dict objectForKey:@"wallpaperIndex"] integerValue];
+    
+    // SET BACKGROUND IMAGE
+    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][indexOfNewWallpaper][1];    // [1] IS IMAGE
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
     
     if ([[NSUserDefaults standardUserDefaults]
          boolForKey:@"firstTimeUser"] == YES) {

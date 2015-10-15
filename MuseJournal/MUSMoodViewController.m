@@ -59,9 +59,9 @@
 
 
 -(void)popVC {
-//    [self.destinationToolBar setHidden:NO];
-    [self.navigationController popViewControllerAnimated:YES];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.destinationToolBar setHidden:NO];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
