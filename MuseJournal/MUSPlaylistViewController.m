@@ -50,9 +50,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MBProgressHUD showHUDAddedTo:self.view
-                         animated:YES];
     
+    
+//    [MBProgressHUD showHUDAddedTo:self.view
+//                         animated:YES];
+//    
     self.store = [MUSDataStore sharedDataStore];
     [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
     [self listenForSongChanges];
@@ -69,6 +71,11 @@
 
 
 -(void)addTapGesturesForImageViews{
+    
+//    UITapGestureRecognizer *dismissHUDTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissHUDTapped)];
+//    [self.playerView addGestureRecognizer:dismissHUDTap];
+//
+//    
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
     [self.playlistGaussian addGestureRecognizer:dismissTap];
     
@@ -77,10 +84,14 @@
     [self.maskImageView addGestureRecognizer:albumArtTap];
 }
 
+//-(void)dismissHUDTapped {
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//}
+
+
 -(void)setUpMusicPlayerUI {
     self.playerView.layer.cornerRadius = 5;
     
-    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -300,7 +311,6 @@
 }
 
 -(void)makeURLRequestForAlbum:(NSString *)albumTitle artist:(NSString *)artist {
-    
     [MUSITunesClient getAlbumLinkWithAlbum:albumTitle artist:artist completionBlock:^(NSString *albumURL) {
         
         if ([albumURL isEqualToString:@"No Album URL"]) {
@@ -327,7 +337,7 @@
             
         } else { // IF THERE IS AN ALBUM LINK
             NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
-            
+
             NSLog(@"%@", albumURLWithAffiliateLink);
             NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
             [[UIApplication sharedApplication] openURL:url];
@@ -338,9 +348,18 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
+        NSLog(@"HI HI");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
+    
     Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
-    //
     [self makeURLRequestForAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName];
 }
 

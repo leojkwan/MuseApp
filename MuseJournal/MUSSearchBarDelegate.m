@@ -23,6 +23,13 @@
     return self;
 }
 
+-(void)setUpSearchBarUI:(UISearchBar *)searchbar {
+    
+        UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
+        NSAttributedString *placeholderSearchText = [[NSAttributedString alloc] initWithString:@"artist, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
+        searchBarTextField.attributedPlaceholder = placeholderSearchText;
+        searchBarTextField.textColor = [UIColor whiteColor];
+}
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
@@ -105,10 +112,8 @@
 
 
 
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [searchBar setShowsCancelButton:YES animated:YES];
-    
 }
 
 

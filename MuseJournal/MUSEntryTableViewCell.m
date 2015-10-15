@@ -31,7 +31,7 @@
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
             cell.separatorInset = UIEdgeInsetsZero;
         }
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         // Setting the background color of the cell.
         cell.contentView.backgroundColor = [UIColor darkGrayColor];
@@ -63,7 +63,6 @@
     
     // set up font
     cell.entryTitleLabel.font = [UIFont returnEntryTitleFont];
-    cell.entryTitleLabel.textColor = [UIColor blackColor];
     
     
     cell.datePinnedLabel.text = [entryForThisRow.createdAt returnEntryDateStringForDate:entryForThisRow.epochTime];

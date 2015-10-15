@@ -11,5 +11,7 @@
 @interface UIColor (MUSColors)
 
 + (UIColor *) MUSgreenColor;
++ (UIColor *) MUSBigStone;
++ (UIColor *) MUSCorn;
 
 @end

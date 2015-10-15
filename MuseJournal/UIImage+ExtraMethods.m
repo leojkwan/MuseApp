@@ -41,7 +41,6 @@
 }
 
 +(UIImage *)imageNamed:(NSString *)name withColor:(UIColor *)color {
-
     // load the image
     UIImage *img = [UIImage imageNamed:name];
     

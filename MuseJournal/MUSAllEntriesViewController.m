@@ -24,6 +24,7 @@
 #import "MUSTimeFetcher.h"
 #import "UIFont+MUSFonts.h"
 #import "MUSTimelineUIManager.h"
+#import "UIImage+ExtraMethods.h"
 
 
 
@@ -62,6 +63,8 @@
     [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
+    
+
 }
 
 
@@ -75,6 +78,10 @@
     self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
     self.entrySearchBar.delegate = self.searchBarHelperObject;
     [self.entrySearchBar setShowsScopeBar:YES];
+    
+    [self.searchBarHelperObject setUpSearchBarUI:self.entrySearchBar];
+
+
 }
 
 
@@ -144,8 +151,10 @@
     
     self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 25, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
+        
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
+
         // just make sure to call finishInfiniteScroll in the end
         self.currentFetchCount += 10;
         [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
@@ -201,7 +210,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1] backgroundColor: [UIColor whiteColor] ];
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor colorWithRed:0.49 green:0.99 blue:0.96 alpha:1] backgroundColor: [UIColor clearColor] ];
     
 // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
@@ -235,7 +244,7 @@
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor colorWithRed:0.96 green:0.25 blue:0.25 alpha:1] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
             [self presentDeleteSheet:cell indexPath:indexPath];
         }];
         return cell;
@@ -243,7 +252,7 @@
         MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor colorWithRed:0.96 green:0.25 blue:0.25 alpha:1] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
             [self presentDeleteSheet:cell indexPath:indexPath];
         }];
         return cell;

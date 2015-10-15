@@ -171,13 +171,13 @@ typedef enum{
 -(void)setUpToolbarAndKeyboard {
     
     // Set up textview keyboard accessory view
-    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbar];
+    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.53 alpha:1]];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.navigationController.view addSubview:self.MUSToolBar];
     
     // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboard];
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.53 alpha:1]];
     self.keyboardTopBar.delegate = self;
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;

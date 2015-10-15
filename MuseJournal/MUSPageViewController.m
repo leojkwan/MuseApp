@@ -19,22 +19,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor yellowColor];
-    
-    self.wallpaperImageView = [[UIImageView alloc] init];
-    [self.view addSubview:self.wallpaperImageView];
-    [self.wallpaperImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(@0);
-//        make.height.and.width.equalTo(@500);
-    }];
-    
-    
-    self.wallpaperImageView.image = [UIImage imageNamed:@"wallpaper1"];
-    [self.view sendSubviewToBack: self.wallpaperImageView];
+    [self setUpBackground];
+    [self setUpUserBackGroundPreferences];
+
     // Do any additional setup after loading the view.
 }
 
+-(void)setUpBackground {
+    
+    self.wallpaperImageView = [[UIImageView alloc] init];
+    self.wallpaperImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:self.wallpaperImageView];
+    
+    [self.wallpaperImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        // HUG SUPERVIEW
+        make.edges.equalTo(@0);
+    }];
+    [self.view sendSubviewToBack: self.wallpaperImageView];
+    
+}
+
+-(void) setUpUserBackGroundPreferences {
+    NSInteger userWallpaperPreference = [[[NSUserDefaults standardUserDefaults] objectForKey:@"background"] integerValue];
+    self.wallpaperImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][userWallpaperPreference][1];    // [1] IS IMAGE
+}
 
 -(void)viewWillAppear:(BOOL)animated   {
     [super viewWillAppear:YES];

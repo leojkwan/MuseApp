@@ -9,9 +9,11 @@
 #import "UIButton+ExtraMethods.h"
 #import "UIImageView+ExtraMethods.h"
 #import "UIImage+ExtraMethods.h"
+#import "UIColor+MUSColors.h"
+#import "MUSColorSheet.h"
 
 #define BUTTON_FRAME CGRectMake (0, 0, 50, 50)
-#define BUTTON_COLOR [UIColor colorWithRed:0.78 green:0.62 blue:0.75 alpha:1]
+#define BUTTON_COLOR [UIColor MUSBigStone] //
 
 @interface MUSKeyboardTopBar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -52,20 +54,20 @@
     return self;
 }
 
--(instancetype)initWithToolbar{
+-(instancetype)initWithToolbarWithBackgroundColor:color {
     self = [super init];
     if (self) {
         [self commonInit];
-        [self setUpToolBarButtons];
+        [self setUpToolBarButtonsWithBackgroundColor:color];
     }
     return self;
 }
 
--(instancetype)initWithKeyboard {
+-(instancetype)initWithKeyboardWithBackgroundColor:color {
     self = [super init];
     if (self) {
         [self commonInit];
-        [self setUpKeyboardButtons];
+        [self setUpKeyboardButtonsWithBackgroundColor:color];
     }
     return self;
 }
@@ -85,7 +87,8 @@
 }
 
 
--(void)setUpToolBarButtons {
+-(void)setUpToolBarButtonsWithBackgroundColor:color {
+    
     self.toolbarButtonItems = [[NSMutableArray alloc] init];
     
     // set up bar buttons items in this order left to right
@@ -98,12 +101,15 @@
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self playlistButton]];
     
+    // SET BACKGROUND COLOR
+    self.keyboardToolBar.barTintColor =color;
     
     // after all buttons have been set... set array to toolbar
     [self.keyboardToolBar setItems:self.toolbarButtonItems animated:YES];
 }
 
--(void)setUpKeyboardButtons {
+-(void)setUpKeyboardButtonsWithBackgroundColor:color  {
+    
     self.keyboardButtonItems = [[NSMutableArray alloc] init];
     // set up bar buttons items in this order left to right
     [self.keyboardButtonItems addObject:[self makeTitleButton]];
@@ -115,17 +121,18 @@
     [self.keyboardButtonItems addObject:[self playlistButton]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self doneButton]];
+    
+    // SET BACKGROUND COLOR
+    self.keyboardToolBar.barTintColor =color;
 
     // after all buttons have been set... set array to toolbar
     [self.keyboardToolBar setItems:self.keyboardButtonItems animated:YES];
-    
 }
 
 
 #pragma mark - Create Buttons
 
 -(UIBarButtonItem *)makeTitleButton {
-  
     UIButton *markDownTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [markDownTitleButton setImage:[UIImage imageNamed:@"title" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
     [markDownTitleButton setFrame:CGRectMake(0, 0, 35, 35)];
@@ -137,9 +144,6 @@
 
 
 -(UIBarButtonItem *)cameraButton {
-    
-    
-    
     UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [cameraButton setImage:[UIImage imageNamed:@"addImage" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
     [cameraButton setFrame:BUTTON_FRAME];
@@ -183,7 +187,6 @@
     [pinSongButton setImage:[UIImage imageNamed:@"pinSong" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
     [pinSongButton setFrame:BUTTON_FRAME];
     [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
     UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
     return pinSongButtonItem;
 }
@@ -202,8 +205,17 @@
 
 -(UIBarButtonItem *)doneButton {
     
-    // set up done bar button
-    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
+    
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [doneButton setImage:[UIImage imageNamed:@"save" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [doneButton setFrame:BUTTON_FRAME];
+    [doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+//    return pinSongButtonItem;
+
+//    
+//    // set up done bar button
+//    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
     return doneBarButtonItem;
 }
 

@@ -58,14 +58,14 @@
     [self setUpCurrentTime];
     self.colorStore = [MUSColorSheet sharedInstance];
     [self setUpScrollContent];
-    [self setUpBackGround];
+//    [self setUpBackGround];
     
 }
 
--(void)setUpBackGround {
-    NSInteger userWallpaperPreference = [[[NSUserDefaults standardUserDefaults] objectForKey:@"background"] integerValue];
-//    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][userWallpaperPreference][1];    // [1] IS IMAGE
-}
+//-(void)setUpBackGround {
+//    NSInteger userWallpaperPreference = [[[NSUserDefaults standardUserDefaults] objectForKey:@"background"] integerValue];
+////    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][userWallpaperPreference][1];    // [1] IS IMAGE
+//}
 
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
 

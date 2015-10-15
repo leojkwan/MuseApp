@@ -23,7 +23,8 @@
 
 @property (nonatomic, assign) id<MUSKeyboardInputDelegate> delegate;
 @property (strong, nonatomic) UIBarButtonItem *cameraBarButtonItem;
--(instancetype)initWithToolbar;
--(instancetype)initWithKeyboard;
+@property (strong, nonatomic) UIColor *backgroundColor;
+-(instancetype)initWithToolbarWithBackgroundColor:color;
+-(instancetype)initWithKeyboardWithBackgroundColor:color;
 
 @end

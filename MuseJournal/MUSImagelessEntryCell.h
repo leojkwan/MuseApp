@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIView *deleteView;
 @property (weak, nonatomic) IBOutlet UILabel *datePinnedLabel;
 
+
 -(void)setUpSwipeOptionsForCell:(MUSImagelessEntryCell *)cell;
 -(void)configureArtistLabelLogicCell:(MUSImagelessEntryCell *)cell entry:(Entry *)entryForThisRow;
 

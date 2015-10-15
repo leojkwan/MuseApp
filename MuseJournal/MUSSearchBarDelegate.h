@@ -15,4 +15,6 @@
 
 -(instancetype)initWithTableView:(UITableView *)tableView resultsController:(NSFetchedResultsController *)controller;
 
+-(void)setUpSearchBarUI:(UISearchBar *)searchbar;
+
 @end
