@@ -51,10 +51,8 @@
     self.userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"];
     self.wallpaperNameLabel.text =   [MUSWallpaperManager returnArrayForWallPaperImages][self.userWallpaperPreference][0];     // [0] IS STRING
     
-    
     // SET WALL PAPER
     self.wallpaperPreviewImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][self.userWallpaperPreference][1];    // [1] IS IMAGE
-
 }
 
 
@@ -99,7 +97,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     MUSWallpaperCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"wallpaperCollectionCell" forIndexPath:indexPath];
+    
     cell.wallpaperImageView.image = self.wallpaperArray[indexPath.row][1];
+    cell.wallpaperImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     cell.layer.borderColor = [UIColor whiteColor].CGColor;
     cell.layer.cornerRadius = 5;
@@ -114,8 +114,6 @@
 
 
 - (IBAction)saveButtonPressed:(id)sender {
-    
-    //self.collectionViewCurrentIP
     
     UIAlertController *alertController= [UIAlertController
                                          alertControllerWithTitle:nil

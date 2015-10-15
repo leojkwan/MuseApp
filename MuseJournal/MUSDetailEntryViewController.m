@@ -213,7 +213,6 @@ typedef enum{
     self.destinationEntry.tag = moodText;
     [self.store save];
     [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:moodText] forState:UIControlStateNormal];
-//[NSAttributedString returnAttrTagWithTitle:self.destinationEntry.tag color:[UIColor grayColor] undelineColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
 }
 
 -(void)setUpTagLabel {

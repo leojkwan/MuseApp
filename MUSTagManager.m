@@ -42,6 +42,7 @@
         return [self returnMoodString:mood withUnderlineColor:[UIColor magentaColor]];
     else if ([mood isEqualToString:@"Discouraged"])
         return [self returnMoodString:mood withUnderlineColor:[UIColor magentaColor]];
+
     // DEFAULT IS TO RETURN MOOD IN DARK GRAY
     return [self returnMoodString:mood withUnderlineColor:[UIColor darkGrayColor]];
 }

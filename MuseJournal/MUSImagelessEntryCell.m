@@ -71,6 +71,7 @@
     // set up font
     cell.entryTitleLabel.font = [UIFont returnEntryTitleFont];
     
+
     
     // PLAYLIST text
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];

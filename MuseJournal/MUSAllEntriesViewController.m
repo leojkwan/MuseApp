@@ -106,7 +106,7 @@
 }
 
 -(void)setUpSpinner {
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [spinner startAnimating];
     spinner.frame = CGRectMake(0, 0, 320, 44);
     self.entriesTableView.tableFooterView = spinner;
@@ -189,11 +189,12 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 85;
+        return 100;
     }
-    return 275;
+    return 315;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -210,7 +211,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor colorWithRed:0.49 green:0.99 blue:0.96 alpha:1] backgroundColor: [UIColor clearColor] ];
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor colorWithRed:0.49 green:0.99 blue:0.96 alpha:1] backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     
 // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
@@ -238,7 +239,6 @@
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     
     
-    // CAN THIS BE REFACTORED ????
     
     if (entryForThisRow.coverImage == nil) {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
