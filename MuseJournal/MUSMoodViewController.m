@@ -36,10 +36,6 @@
     self.collectionView.delegate =self;
     self.collectionView.dataSource = self;
     
-    [self.quitButton setImage:[UIImage imageNamed:@"quitButton" withColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    
-    //    [self.navigationController.navigationBar setHidden:NO];
-    
     
     self.moodString = [[NSMutableArray alloc] init];
     self.moodImages = [[NSMutableArray alloc] init];
@@ -52,9 +48,7 @@
         [self.moodImages addObject:mood[1]];
     }
     
-//    [self.moods addObjectsFromArray:@[@"Happy", @"Happy", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty",@"yo", @"yoyo", @"Brat", @"Ty"]];
-    
-    
+
     // Do any additional setup after loading the view.
 }
 
@@ -65,8 +59,9 @@
 
 
 -(void)popVC {
-    [self.destinationToolBar setHidden:NO];
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self.destinationToolBar setHidden:NO];
+    [self.navigationController popViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
@@ -80,7 +75,6 @@
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
-    
     [self.delegate updateMoodLabelWithText:self.moodString[indexPath.row]];
     [self popVC];
 }
@@ -121,49 +115,15 @@
 // set vertical seperation of cell
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     
-    //    CGFloat cellPadding = self.view.frame.size.width * .05f;
     return CELL_PADDING *2;
 }
 
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     
-    // padding really
-    //    CGFloat cellPadding = self.view.frame.size.width * .05f;
+
     return UIEdgeInsetsMake(CELL_PADDING,CELL_PADDING,CELL_PADDING,CELL_PADDING);  // top, left, bottom, right
 }
 
-
-
-#pragma mark <UICollectionViewDelegate>
-
-/*
- // Uncomment this method to specify if the specified item should be highlighted during tracking
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
- }
- */
-
-/*
- // Uncomment this method to specify if the specified item should be selected
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
- return YES;
- }
- */
-
-/*
- // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
- }
- 
- - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
- }
- 
- - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
- }
- */
 
 @end

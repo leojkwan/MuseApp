@@ -7,6 +7,7 @@
 //
 
 #import "MUSHomeViewController.h"
+#import "MUSSettingsTableViewController.h"
 #import "MUSDetailEntryViewController.h"
 #import "MUSAllEntriesViewController.h"
 #import "NSDate+ExtraMethods.h"
@@ -287,6 +288,12 @@
     
 }
 
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"settingsSegue"]) {
+        MUSSettingsTableViewController *dvc = segue.destinationViewController;
+//        [self.navigationController.navigationBar setHidden:YES];
+    }    
+}
 
 @end

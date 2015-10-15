@@ -757,7 +757,7 @@ typedef enum{
         dvc.delegate = self;
         dvc.destinationEntry = self.destinationEntry;
         dvc.destinationToolBar = self.MUSToolBar;
-        //        [self.MUSToolBar setHidden:YES];
+                [self.MUSToolBar setHidden:YES];
     }
 }
 

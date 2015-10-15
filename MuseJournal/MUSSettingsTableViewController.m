@@ -38,19 +38,24 @@
 
 
 -(void)styleNavBarCustomLabelAttributes {
-    
-    // Change System Font UI Label
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.98 green:0.85 blue:0.24 alpha:1]];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.44 alpha:1]];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-
+    
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys: [UIColor blackColor],NSForegroundColorAttributeName,
       [UIFont fontWithName:@"AvenirNext-Medium" size:18],
       NSFontAttributeName, nil]];
-
 }
 
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    [self.navigationController.navigationBar setHidden:NO];
+    // Change System Font UI Label
+  
+}
 
 #pragma mark - Table view data source
 - (IBAction)doneButtonPressed:(id)sender {
