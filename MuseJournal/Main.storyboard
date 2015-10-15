@@ -54,9 +54,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallpaper3" translatesAutoresizingMaskIntoConstraints="NO" id="5v7-bT-6lq" userLabel="Background Image">
+                            <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5v7-bT-6lq" userLabel="Background Image">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="xuw-m6-RKI"/>
                                 </constraints>
@@ -191,7 +192,7 @@
                             </scrollView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kjq-WM-PzM" firstAttribute="centerY" secondItem="pjV-Zx-bcQ" secondAttribute="centerY" id="40q-Iv-Aba"/>
                             <constraint firstItem="Kz1-Wx-lCo" firstAttribute="bottom" secondItem="5v7-bT-6lq" secondAttribute="bottom" constant="-20" id="8bl-69-3MP"/>
@@ -223,9 +224,6 @@
                             <constraint firstItem="rDZ-Bt-EyT" firstAttribute="leading" secondItem="pjV-Zx-bcQ" secondAttribute="leading" constant="15" id="xGU-Mq-Mg8"/>
                         </constraints>
                         <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="8AI-a6-Zaf"/>
-                            </mask>
                             <mask key="constraints">
                                 <exclude reference="9f8-b8-uvg"/>
                             </mask>
@@ -658,6 +656,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Asx-Gt-c1f" userLabel="dark mask">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="100" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
                                 <rect key="frame" x="0.0" y="44" width="600" height="506"/>
                                 <animations/>
@@ -728,6 +731,7 @@
                                                         <constraint firstAttribute="height" constant="100" id="oeg-4c-0XZ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -763,7 +767,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="artistsLabel" destination="aca-b0-B8i" id="YMP-i7-IfT"/>
                                             <outlet property="datePinnedLabel" destination="tBN-cd-ve1" id="2YV-Dc-K1a"/>
@@ -808,6 +812,7 @@
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="i1j-cr-kxJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="20"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -864,6 +869,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="artistsLabel" destination="XW8-nV-M8o" id="PFK-9z-OZv"/>
                                             <outlet property="datePinnedLabel" destination="ItU-Tv-ROI" id="eXc-2Q-P0c"/>
@@ -887,11 +893,14 @@
                             </searchBar>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Asx-Gt-c1f" secondAttribute="bottom" id="0re-EK-Ehk"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cdu-m1-0ky" secondAttribute="bottom" id="2bJ-T1-ZF7"/>
+                            <constraint firstItem="Asx-Gt-c1f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5Ku-eq-ehQ"/>
                             <constraint firstAttribute="trailing" secondItem="cdu-m1-0ky" secondAttribute="trailing" id="8tI-Bs-WWf"/>
                             <constraint firstItem="XI8-Pb-aVz" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Ns0-7Y-d7c"/>
+                            <constraint firstItem="Asx-Gt-c1f" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="R2b-KC-7qt"/>
                             <constraint firstAttribute="trailing" secondItem="Nrv-c5-FiE" secondAttribute="trailing" id="SXT-e6-Vp4"/>
                             <constraint firstItem="Nrv-c5-FiE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Sqf-0g-qcq"/>
                             <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="YQf-Fh-mBO"/>
@@ -901,6 +910,7 @@
                             <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="Nrv-c5-FiE" secondAttribute="bottom" id="pm6-oW-bj1"/>
                             <constraint firstItem="XI8-Pb-aVz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qSV-rY-MFu"/>
                             <constraint firstItem="Nrv-c5-FiE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="rcM-af-0ed"/>
+                            <constraint firstAttribute="trailing" secondItem="Asx-Gt-c1f" secondAttribute="trailing" id="wvw-6o-4Gc"/>
                             <constraint firstItem="cdu-m1-0ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="y4c-HL-zWb"/>
                         </constraints>
                         <variation key="default">

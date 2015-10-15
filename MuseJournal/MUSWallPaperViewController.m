@@ -40,19 +40,21 @@
     self.wallpaperCollectionView.dataSource = self;
     self.wallpaperArray = [MUSWallpaperManager returnArrayForWallPaperImages];
     [self configureNavBar];
+    [self setUpWallpaperUI];
     
     
+    [self animateWallpaperMenu];
+}
+
+-(void)setUpWallpaperUI {
     // SET WALL PAPER LABEL
     self.userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"];
     self.wallpaperNameLabel.text =   [MUSWallpaperManager returnArrayForWallPaperImages][self.userWallpaperPreference][0];     // [0] IS STRING
-
+    
     
     // SET WALL PAPER
     self.wallpaperPreviewImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][self.userWallpaperPreference][1];    // [1] IS IMAGE
 
-    
-    
-    [self animateWallpaperMenu];
 }
 
 
@@ -117,10 +119,10 @@
     
     UIAlertController *alertController= [UIAlertController
                                          alertControllerWithTitle:nil
-                                         message:[NSString stringWithFormat: @"Change to '%@'", self.wallpaperNameLabel.text]
+                                         message:[NSString stringWithFormat: @"Confirm %@", [self.wallpaperNameLabel.text uppercaseString]]
                                          preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction
-                                actionWithTitle:NSLocalizedString(@"Use as Background", @"Use as Background")
+                                actionWithTitle:NSLocalizedString(@"Set as Background", @"Set as Background")
                                 style:UIAlertActionStyleDestructive
                                 handler:^(UIAlertAction *action) {
                                     
@@ -148,8 +150,6 @@
 }
 
 
-
-
 #pragma mark - UICollectionViewLayout
 
 // Set size of collection cell
@@ -164,15 +164,12 @@
     
     
     self.wallpaperNameLabel.alpha = 1;
-    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{ self.wallpaperNameLabel.alpha = 0;}
-                     completion:^(BOOL finished) {
-                         
+    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.wallpaperNameLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+
                          // change label to update wallpapername
                          self.wallpaperNameLabel.text = wallpaperName;
-                         
-                         
-                         
                          
                          // animate back in
                          [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn

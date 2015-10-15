@@ -23,6 +23,7 @@
 #import "NSAttributedString+MUSExtraMethods.h"
 #import "MUSTimeFetcher.h"
 #import "UIFont+MUSFonts.h"
+#import "MUSTimelineUIManager.h"
 
 
 
@@ -199,23 +200,10 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    // RETURN SECTION UI LABEL
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1] backgroundColor: [UIColor whiteColor] ];
     
-    
-    
-    // REFACTOR THIS !!!!
-    
-    
-    
-    
-    
-    
-    UILabel *sectionLabel = [[UILabel alloc] init];
-    // account for left offset
-    sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 25);
-    sectionLabel.backgroundColor = [UIColor whiteColor];
-    sectionLabel.textAlignment = NSTextAlignmentCenter;
-    [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:13.0]];
-    sectionLabel.textColor = [UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1];
+// ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];

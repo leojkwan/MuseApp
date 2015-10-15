@@ -64,7 +64,7 @@
 
 -(void)setUpBackGround {
     NSInteger userWallpaperPreference = [[[NSUserDefaults standardUserDefaults] objectForKey:@"background"] integerValue];
-    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][userWallpaperPreference][1];    // [1] IS IMAGE
+//    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][userWallpaperPreference][1];    // [1] IS IMAGE
 }
 
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
@@ -224,18 +224,17 @@
 -(void)viewWillAppear:(BOOL)animated   {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
-    // GET NOTIFICATION FOR UPDATE WALLPAPER IN HOME VIEW
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackground:) name:@"updateBackground" object:nil];
 }
+//
+//-(void)updateBackground:(NSNotification *)backgroundIndex {
+//    NSDictionary *dict = backgroundIndex.userInfo;
+//    NSInteger indexOfNewWallpaper = [[dict objectForKey:@"wallpaperIndex"] integerValue];
+//    
+//    // SET BACKGROUND IMAGE
+////    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][indexOfNewWallpaper][1];    // [1] IS IMAGE
+//}
+//
 
--(void)updateBackground:(NSNotification *)backgroundIndex {
-    NSDictionary *dict = backgroundIndex.userInfo;
-    NSInteger indexOfNewWallpaper = [[dict objectForKey:@"wallpaperIndex"] integerValue];
-    
-    // SET BACKGROUND IMAGE
-    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][indexOfNewWallpaper][1];    // [1] IS IMAGE
-}
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];

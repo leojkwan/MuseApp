@@ -13,7 +13,6 @@
 #import "MUSHomeViewController.h"
 #import "MUSAllEntriesViewController.h"
 
-
 //%%% customizeable button attributes
 CGFloat X_BUFFER = 0.0; //%%% the number of pixels on either side of the segment
 CGFloat Y_BUFFER = 8.0; //%%% number of pixels on top of the segment
@@ -57,16 +56,17 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     [self setNeedsStatusBarAppearanceUpdate];
     [self.pageScrollView setBounces:NO];
     [self.pageScrollView setBouncesZoom:NO];
-    self.
     self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
 //    self.navigationBar.backgroundColor = [UIColor darkGrayColor];
     
-    viewControllerArray = [[NSMutableArray alloc]init];
+    self.view.backgroundColor = [UIColor greenColor];
     
+    viewControllerArray = [[NSMutableArray alloc]init];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
+    // SET MY PAGE VIEW CONTROLLERS
     MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
     MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
     [viewControllerArray addObjectsFromArray:@[home, entries]];
@@ -148,6 +148,11 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 -(void)viewWillAppear:(BOOL)animated {
     if (!self.hasAppearedFlag) {
         [self setupPageViewController];
+        
+        
+        
+//        self.pageScrollView.backgroundColor = [UIColor redColor];
+        
         [self setupSegmentButtons];
         self.hasAppearedFlag = YES;
         
