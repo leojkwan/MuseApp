@@ -46,14 +46,14 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         // Setting the background color of the cell.
-        cell.contentView.backgroundColor = [UIColor darkGrayColor];
+//        cell.contentView.backgroundColor = [UIColor darkGrayColor];
     }
     
     // Configuring the views and colors.
     self.deleteView = [self viewWithImageName:@"delete"];
     
     // Setting the default inactive state color to the tableView background color.
-    [cell setDefaultColor:[UIColor darkGrayColor]];
+    [cell setDefaultColor:[UIColor clearColor]];
     cell.firstTrigger = 0.50;
 }
 
@@ -73,26 +73,25 @@
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
     
     
-//     SET UP MOOD LABEL
-    
+//     MOOD LABEL
     NSMutableAttributedString *tag =  [[MUSTagManager returnAttributedStringForTag: entryForThisRow.tag] mutableCopy];
     [tag addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, [tag length])];
     self.moodLabel.attributedText = tag;
 
 
-    // set up font
+    //FONT UI
     cell.entryTitleLabel.font = [UIFont returnEntryTitleFont];
     cell.artistsLabel.textColor = [UIColor MUSCorn];
+    [cell.artistsLabel setFont:[UIFont fontWithName:@"Raleway-Light" size:11.0]];
+
     
     // DATE
     cell.datePinnedLabel.text = [entryForThisRow.createdAt returnEntryDateStringForDate:entryForThisRow.epochTime];
     
-    
-    
-
+    // IMAGE
     cell.entryImageView.image = [UIImage imageWithData:entryForThisRow.coverImage];
 
-
+    // DARK MASK
     cell.darkMask.layer.cornerRadius = 3;
 
 }
@@ -104,7 +103,7 @@
     // SET UP UI
     [self setUpViewsForCell:cell entry:entryForThisRow];
     
-    // playlist text
+    // PLAYLIST
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
     
     // ARTIST LABEL LOGIC

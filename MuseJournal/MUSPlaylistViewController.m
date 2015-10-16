@@ -19,7 +19,7 @@
 #import "MUSNotificationManager.h"
 #import <MBProgressHUD.h>
 #import <AFNetworkReachabilityManager.h>
-
+#import "UIColor+MUSColors.h"
 
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -276,9 +276,13 @@
 -(void)loadUILabels {
     self.currentlyPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
     self.currentSongLabel.text = self.currentlyPlayingItem.title;
+    self.currentSongLabel.textColor = [UIColor MUSPolar];
+    
     if (self.currentlyPlayingItem.artist != nil) {
         self.currentArtistLabel.text = [NSString stringWithFormat:@"BY %@" ,self.currentlyPlayingItem.artist];
     }
+    self.currentArtistLabel.textColor = [UIColor MUSPolar];
+    
     self.currentSongView.image = [self.currentlyPlayingItem.artwork imageWithSize:CGSizeMake(500, 500)];
     [self setUpAppleMusicButton];
     [self.playlistTableView reloadData];
@@ -307,8 +311,12 @@
     NSString *songStringAtThisRow = songForThisRow.songName;
     
     cell.songTitleLabel.text = [NSString stringWithFormat:@"%@", songStringAtThisRow];
+    
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
+    cell.artistLabel.textColor = [UIColor MUSPolar];
+
     cell.songNumberLabel.text = [NSString stringWithFormat: @"%ld.", (long)indexPath.row + 1];
+
     
     // SET UP IMAGE
     

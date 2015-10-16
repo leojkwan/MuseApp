@@ -12,12 +12,6 @@
 
 @interface MUSEntryTableViewCell : MCSwipeTableViewCell<MCSwipeTableViewCellDelegate>
 
-//@property (weak, nonatomic) IBOutlet UIImageView *entryImageView;
-//@property (weak, nonatomic) IBOutlet UILabel *entryTitleLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *artistsLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *datePinnedLabel;
-//@property (nonatomic, strong) UIView *deleteView;
-//@property (weak, nonatomic) IBOutlet UILabel *moodLabel;
 @property (nonatomic, strong) UIView *deleteView;
 
 

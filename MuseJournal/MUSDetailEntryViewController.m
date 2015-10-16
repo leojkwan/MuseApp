@@ -32,7 +32,8 @@
 #import "MUSMoodViewController.h"
 #import "MUSNotificationManager.h"
 #import  "MUSTagManager.h"
-
+#import "UIColor+MUSColors.h"
+#import "MUSShareManager.h"
 
 #define TEXT_LIMIT ((int) 35)
 
@@ -171,13 +172,13 @@ typedef enum{
 -(void)setUpToolbarAndKeyboard {
     
     // Set up textview keyboard accessory view
-    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.53 alpha:1]];
+    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:[UIColor MUSSolitude]];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.navigationController.view addSubview:self.MUSToolBar];
     
     // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.53 alpha:1]];
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:[UIColor MUSSolitude]];
     self.keyboardTopBar.delegate = self;
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
@@ -225,6 +226,11 @@ typedef enum{
 
 
 #pragma mark  - Keyboard delegate methods
+
+-(void)didSelectShareButton:(id)sender {
+    [self presentViewController: [MUSShareManager returnShareSheetWithEntry:self.destinationEntry] animated:YES completion:nil];
+}
+
 -(void)didSelectCameraButton {
     [self selectPhoto];
 }
@@ -259,7 +265,8 @@ typedef enum{
 -(void)didSelectTitleButton:(id)sender {
     if ([self.textView isFirstResponder]){ // append pount to content view
         [self.textView insertText:@"#"];
-    } else { // notify user this button does't work for title view
+    } else {
+        // notify user this button does't work for title view
         [MUSNotificationManager displayNotificationWithMessage:@"markdown only for entry content." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
     }
 }
@@ -442,15 +449,16 @@ typedef enum{
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
-    if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
-        [self.musicPlayer.myPlayer pause];
-    }
-    //    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+//    if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
+//        [self.musicPlayer.myPlayer pause];
+//    }
 }
 
 - (void)saveButtonTapped:(id)sender {
     
     if (self.entryTitleTextField.isFirstResponder) {
+        
         // SAVE JUST THE TITLE ON DONE BUTTON PRESS... THIS PRESERVES THE ATTRIBUTED TEXT ON SAVE.... BLOW AWAY ALL MARKDOWN OTHERWISE
         [self saveTitle];
     } else {

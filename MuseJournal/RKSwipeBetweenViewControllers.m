@@ -12,6 +12,7 @@
 #import "UIImageView+ExtraMethods.h"
 #import "MUSHomeViewController.h"
 #import "MUSAllEntriesViewController.h"
+#import "UIColor+MUSColors.h"
 
 //%%% customizeable button attributes
 CGFloat X_BUFFER = 0.0; //%%% the number of pixels on either side of the segment
@@ -58,9 +59,8 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     [self.pageScrollView setBouncesZoom:NO];
     self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
-//    self.navigationBar.backgroundColor = [UIColor darkGrayColor];
     
-    self.view.backgroundColor = [UIColor greenColor];
+//    self.view.backgroundColor = [UIColor greenColor];
     
     viewControllerArray = [[NSMutableArray alloc]init];
     
@@ -136,7 +136,7 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 //%%% sets up the selection bar under the buttons on the navigation bar
 -(void)setupSelector {
     selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
-    selectionBar.backgroundColor = [UIColor colorWithRed:0.98 green:0.75 blue:0.24 alpha:1]; //%%% sbcolor
+    selectionBar.backgroundColor = [UIColor MUSCorn]; //%%% sbcolor
     selectionBar.alpha = 1.0; //%%% sbalpha
     [self.navigationBar addSubview:selectionBar];
 }

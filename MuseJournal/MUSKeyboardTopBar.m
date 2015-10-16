@@ -99,7 +99,10 @@
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self pinSongButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
+    [self.toolbarButtonItems addObject:[self shareButton]];
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self playlistButton]];
+
     
     // SET BACKGROUND COLOR
     self.keyboardToolBar.barTintColor =color;
@@ -113,11 +116,11 @@
     self.keyboardButtonItems = [[NSMutableArray alloc] init];
     // set up bar buttons items in this order left to right
     [self.keyboardButtonItems addObject:[self makeTitleButton]];
-    [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self cameraButton]];
-    [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self pinSongButton]];
-    [self.keyboardButtonItems addObject:[self fixedSpaceButtonOfWidth:15]];
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self playlistButton]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self doneButton]];
@@ -191,6 +194,16 @@
     return pinSongButtonItem;
 }
 
+-(UIBarButtonItem *)shareButton {
+    
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton setImage:[UIImage imageNamed:@"share" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [shareButton setFrame:BUTTON_FRAME];
+    [shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *shareBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
+    return shareBarButtonItem;
+}
+
 
 -(UIBarButtonItem *)flexSpaceButton {
     UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -211,11 +224,7 @@
     [doneButton setFrame:BUTTON_FRAME];
     [doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
-//    return pinSongButtonItem;
 
-//    
-//    // set up done bar button
-//    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(doneButtonPressed:)];
     return doneBarButtonItem;
 }
 
@@ -245,6 +254,9 @@
     [self.delegate didSelectBackButton:sender];
 }
 
+-(void)shareButtonPressed:(id)sender {
+    [self.delegate didSelectShareButton:sender];
+}
 
 -(void)pinSongButtonPressed:(id)sender {
     NSLog(@"pinSongButtonPressed");

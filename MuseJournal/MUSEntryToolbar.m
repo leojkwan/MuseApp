@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
 @property (nonatomic, assign) AutoPlay autoplayStatus;
 @property (weak, nonatomic) IBOutlet UILabel *autoPlayLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *autoplaySwitch;
 
 @end
 
@@ -88,21 +89,35 @@
     }];
 }
 
+- (IBAction)switchTapped:(id)sender {
+    
+    if([sender isOn]){
+        NSLog(@"Switch is ON");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else{
+        NSLog(@"Switch is OFF");
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
 
 
 -(void)autoPlayButtonPressed:(id)sender {
     
     if ([MUSAutoPlayManager returnAutoPlayStatus]) { // if on, toggle off
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
+//        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        
+//        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
         
         self.autoplayStatus = autoplayOFF;
     }   else { // if off, toggle on
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         self.autoplayStatus = autoplayON;
-        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
+//        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
     }
 }
 
@@ -118,7 +133,9 @@
 
 -(void)setUpAutoPlayButton {
     
-    [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:[MUSAutoPlayManager returnAutoPlayStatus]] forState:UIControlStateNormal];
+    [self.autoplaySwitch setOn:[MUSAutoPlayManager returnAutoPlayStatus] animated:YES];
+
+//    [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:[MUSAutoPlayManager returnAutoPlayStatus]] forState:UIControlStateNormal];
 }
 
 @end

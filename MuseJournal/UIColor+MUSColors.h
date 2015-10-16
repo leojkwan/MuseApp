@@ -13,5 +13,7 @@
 + (UIColor *) MUSgreenColor;
 + (UIColor *) MUSBigStone;
 + (UIColor *) MUSCorn;
++(UIColor *) MUSPolar;
++(UIColor *) MUSSolitude;
 
 @end

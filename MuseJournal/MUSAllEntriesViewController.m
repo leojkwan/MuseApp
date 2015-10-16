@@ -25,6 +25,7 @@
 #import "UIFont+MUSFonts.h"
 #import "MUSTimelineUIManager.h"
 #import "UIImage+ExtraMethods.h"
+#import "UIColor+MUSColors.h"
 
 
 
@@ -211,7 +212,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor colorWithRed:0.49 green:0.99 blue:0.96 alpha:1] backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor MUSSolitude] backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:.7]];
     
 // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
@@ -237,8 +238,6 @@
     
     
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
-    
-    
     
     if (entryForThisRow.coverImage == nil) {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];

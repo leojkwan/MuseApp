@@ -15,8 +15,17 @@
 #import "UIFont+MUSFonts.h"
 #import "MUSTimeFetcher.h"
 #import "UIColor+MUSColors.h"
+#import "MUSTagManager.h"
+
 
 @interface MUSImagelessEntryCell ()
+
+@property (weak, nonatomic) IBOutlet UIView *darkMask;
+@property (weak, nonatomic) IBOutlet UILabel *entryTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *datePinnedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *moodLabel;
+
 
 @end
 
@@ -45,17 +54,18 @@
     }
     
     // Configuring the views and colors.
-    self.deleteView = [self viewWithImageName:@"delete"];
+    self.deleteView = [self viewWithImageName:@"trash"];
+    [self.deleteView setFrame:CGRectMake(0, 0, 10, 10)];
     
     // Setting the default inactive state color to the tableView background color.
-    [cell setDefaultColor:[UIColor lightGrayColor]];
+    [cell setDefaultColor:[UIColor MUSBigStone]];
     cell.firstTrigger = 0.50;
 }
 
 - (UIView *)viewWithImageName:(NSString *)imageName {
     UIImage *image = [UIImage imageNamed:imageName];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [imageView setFrame:CGRectMake(0, 0, 200, 200)];
+    [imageView setFrame:CGRectMake(0, 0, 10, 10)];
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
 }
@@ -68,12 +78,21 @@
     cell.entryTitleLabel.text = [self.entryTitleLabel.text capitalizedString];
     cell.datePinnedLabel.text = [entryForThisRow.createdAt returnEntryDateStringForDate:entryForThisRow.epochTime];
     
-    // set up font
+    // FONT
     cell.entryTitleLabel.font = [UIFont returnEntryTitleFont];
+    cell.artistsLabel.textColor = [UIColor MUSCorn];
+    [cell.artistsLabel setFont:[UIFont fontWithName:@"Raleway-Light" size:11.0]];
     
+    // DARK MASK
+    cell.darkMask.layer.cornerRadius = 3;
+    
+//    MOOD LABEL
+    NSMutableAttributedString *tag =  [[MUSTagManager returnAttributedStringForTag: entryForThisRow.tag] mutableCopy];
+    [tag addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, [tag length])];
+    self.moodLabel.attributedText = tag;
 
     
-    // PLAYLIST text
+    // PLAYLIST
     NSMutableArray *songsOrderedByDatePinned = [NSSet convertPlaylistArrayFromSet:entryForThisRow.songs];
     cell.artistsLabel.textColor = [UIColor MUSCorn];
     

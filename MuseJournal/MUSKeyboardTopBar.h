@@ -16,6 +16,8 @@
 -(void)didSelectAddSongButton:(id)sender;
 -(void)didSelectBackButton:(id)sender;
 -(void)didSelectTitleButton:(id)sender;
+-(void)didSelectShareButton:(id)sender;
+
 
 @end
 

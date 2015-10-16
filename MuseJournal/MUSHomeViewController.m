@@ -62,11 +62,6 @@
     
 }
 
-//-(void)setUpBackGround {
-//    NSInteger userWallpaperPreference = [[[NSUserDefaults standardUserDefaults] objectForKey:@"background"] integerValue];
-////    self.backgroundImageView.image =  [MUSWallpaperManager returnArrayForWallPaperImages][userWallpaperPreference][1];    // [1] IS IMAGE
-//}
-
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
 
 }
