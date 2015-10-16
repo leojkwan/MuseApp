@@ -12,8 +12,8 @@
 #import "UIColor+MUSColors.h"
 #import "MUSColorSheet.h"
 
-#define BUTTON_FRAME CGRectMake (0, 0, 50, 50)
-#define BUTTON_COLOR [UIColor MUSBigStone] //
+#define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
+#define BUTTON_COLOR [UIColor whiteColor] //COLOR OF BAR BUTTON ITEMS
 
 @interface MUSKeyboardTopBar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -97,7 +97,7 @@
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self cameraButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self pinSongButton]];
+    [self.toolbarButtonItems addObject:[self findSongButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self shareButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
@@ -115,12 +115,13 @@
     
     self.keyboardButtonItems = [[NSMutableArray alloc] init];
     // set up bar buttons items in this order left to right
+    
     [self.keyboardButtonItems addObject:[self makeTitleButton]];
-    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
+//    [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self cameraButton]];
-    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
+//    [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self pinSongButton]];
-    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
+//    [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self playlistButton]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self doneButton]];
@@ -144,6 +145,16 @@
     UIBarButtonItem *titleBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:markDownTitleButton];
     return titleBarButtonItem;
 }
+
+-(UIBarButtonItem *)findSongButton {
+    UIButton *findSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [findSongButton setImage:[UIImage imageNamed:@"searchSong" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [findSongButton setFrame:BUTTON_FRAME];
+    [findSongButton addTarget:self action:@selector(pickSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *pickSongBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:findSongButton];
+    return pickSongBarButtonItem;
+}
+
 
 
 -(UIBarButtonItem *)cameraButton {
@@ -195,7 +206,6 @@
 }
 
 -(UIBarButtonItem *)shareButton {
-    
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [shareButton setImage:[UIImage imageNamed:@"share" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
     [shareButton setFrame:BUTTON_FRAME];
@@ -210,15 +220,7 @@
     return flexibleSpaceBarButtonItem;
 }
 
--(UIBarButtonItem *)fixedSpaceButtonOfWidth:(CGFloat)width {
-    UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpaceBarButtonItem.width = width;
-    return fixedSpaceBarButtonItem;
-}
-
 -(UIBarButtonItem *)doneButton {
-    
-    
     UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [doneButton setImage:[UIImage imageNamed:@"save" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
     [doneButton setFrame:BUTTON_FRAME];
@@ -256,6 +258,10 @@
 
 -(void)shareButtonPressed:(id)sender {
     [self.delegate didSelectShareButton:sender];
+}
+
+-(void)pickSongButtonPressed:(id)sender {
+    [self.delegate didPickSongButtonPressed:sender];
 }
 
 -(void)pinSongButtonPressed:(id)sender {

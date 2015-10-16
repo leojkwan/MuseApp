@@ -48,7 +48,7 @@
 
 -(void)setUpWallpaperUI {
     // SET WALL PAPER LABEL
-    self.userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"];
+    self.userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
     self.wallpaperNameLabel.text =   [MUSWallpaperManager returnArrayForWallPaperImages][self.userWallpaperPreference][0];     // [0] IS STRING
     
     // SET WALL PAPER

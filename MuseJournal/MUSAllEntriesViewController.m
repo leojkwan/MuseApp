@@ -212,7 +212,8 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor MUSSolitude] backgroundColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:.7]];
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor MUSSolitude] backgroundColor:
+                             [UIColor MUSBigStone]];
     
 // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];

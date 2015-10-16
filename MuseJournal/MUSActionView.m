@@ -8,12 +8,14 @@
 
 #import "MUSActionView.h"
 #import <Masonry/Masonry.h>
-
+#import "MUSWallpaperManager.h"
 
 @interface MUSActionView ()
 @property (strong, nonatomic) IBOutlet UIView *actionView;
 @property (weak, nonatomic) IBOutlet UIButton *randomSongButton;
 @property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
+@property (weak, nonatomic) IBOutlet UILabel *textLabel1;
+@property (weak, nonatomic) IBOutlet UILabel *textLabel2;
 
 @end
 
@@ -51,7 +53,23 @@
     [self.actionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
     }];
+
+    
+    //ADD OBSERVER TO LISTEN FOR WALLPAPER CHANGES
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTextLabelColor) name:@"updateBackground" object:nil];
+
+    // CONFIGURE TEXT COLOR
+    [self configureTextLabelColor];
+    
 }
+
+-(void)configureTextLabelColor {
+    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
+    self.textLabel1.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
+    self.textLabel2.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
+}
+
+
 
 - (IBAction)addButtonTapped:(id)sender {
     [self.delegate didSelectAddButton:self];

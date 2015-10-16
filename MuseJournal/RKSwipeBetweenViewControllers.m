@@ -14,6 +14,8 @@
 #import "MUSAllEntriesViewController.h"
 #import "UIColor+MUSColors.h"
 
+#define SECTION_BAR_COLOR [UIColor MUSSuperYellow]
+
 //%%% customizeable button attributes
 CGFloat X_BUFFER = 0.0; //%%% the number of pixels on either side of the segment
 CGFloat Y_BUFFER = 8.0; //%%% number of pixels on top of the segment
@@ -24,7 +26,6 @@ CGFloat BOUNCE_BUFFER = 10.0; //%%% adds bounce to the selection bar when you sc
 CGFloat ANIMATION_SPEED = 0.005; //%%% the number of seconds it takes to complete the animation
 CGFloat SELECTOR_Y_BUFFER = 38.0; //%%% the y-value of the bar that shows what page you are on (0 is the top)
 CGFloat SELECTOR_HEIGHT = 6.0; //%%% thickness of the selector bar
-
 CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy offset.  I'm going to look for a better workaround in the future
 
 @interface RKSwipeBetweenViewControllers ()
@@ -136,7 +137,7 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 //%%% sets up the selection bar under the buttons on the navigation bar
 -(void)setupSelector {
     selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
-    selectionBar.backgroundColor = [UIColor MUSCorn]; //%%% sbcolor
+    selectionBar.backgroundColor = SECTION_BAR_COLOR; //%%% sbcolor
     selectionBar.alpha = 1.0; //%%% sbalpha
     [self.navigationBar addSubview:selectionBar];
 }

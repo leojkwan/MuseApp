@@ -1,11 +1,15 @@
 
 #import "MUSSearchBarDelegate.h"
 #import "MUSDataStore.h"
+#import "MUSWallpaperManager.h"
 
 @interface MUSSearchBarDelegate ()
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSFetchedResultsController *controller;
+
+@property (strong, nonatomic) NSAttributedString *placeholderSearchText;
+
 @property (nonatomic, strong) MUSDataStore *store;
 @end
 
@@ -20,15 +24,37 @@
         _controller = controller;
         _store = [MUSDataStore sharedDataStore];
     }
+//    
+//    //  GET NOTIFICATION FOR UPDATED WALLPAPER
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:@"updateBackground" object:nil];
+
     return self;
 }
 
+
+//-(void)configureTextColorForSearchBar:(UISearchBar *)searchBar {
+//        
+//    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
+//
+//
+//
+//    
+//}
+
 -(void)setUpSearchBarUI:(UISearchBar *)searchbar {
     
-        UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
-        NSAttributedString *placeholderSearchText = [[NSAttributedString alloc] initWithString:@"artist, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [UIColor grayColor] }];
-        searchBarTextField.attributedPlaceholder = placeholderSearchText;
+    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
+    
+    // SEARCH BAR PLACEHOLDER TEXT COLOR
+    UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
+    self.placeholderSearchText = [[NSAttributedString alloc] initWithString:@"artist, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference] }];
+    
+    searchBarTextField.attributedPlaceholder = self.placeholderSearchText;
+
+    // SEARCH BAR TEXT COLOR
         searchBarTextField.textColor = [UIColor whiteColor];
+
+//    [self configureTextColorForSearchBar:searchbar];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{

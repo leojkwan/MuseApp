@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 
 @interface MUSWallpaperManager : NSObject
 
 +(NSArray *)returnArrayForWallPaperImages;
++(UIColor *)returnTextColorForWallpaperIndex:(NSInteger)index;
 
 @end

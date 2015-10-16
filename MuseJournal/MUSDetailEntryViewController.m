@@ -36,6 +36,8 @@
 #import "MUSShareManager.h"
 
 #define TEXT_LIMIT ((int) 35)
+#define TOOLBAR_COLOR [UIColor MUSBigStone] //COLOR OF BAR BUTTON ITEMS
+
 
 typedef enum{
     Playing,
@@ -172,13 +174,13 @@ typedef enum{
 -(void)setUpToolbarAndKeyboard {
     
     // Set up textview keyboard accessory view
-    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:[UIColor MUSSolitude]];
+    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:TOOLBAR_COLOR];
     self.MUSToolBar.delegate = self;
     [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.navigationController.view addSubview:self.MUSToolBar];
     
     // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:[UIColor MUSSolitude]];
+    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:TOOLBAR_COLOR];
     self.keyboardTopBar.delegate = self;
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
@@ -206,7 +208,7 @@ typedef enum{
 
 #pragma delegate method for Mood View Controller
 -(void)updateMoodLabelWithText:(NSString *)moodText {
-
+    
     // if this is a new entry, create one before saving the tag
     if(self.destinationEntry == nil){
         [self createNewEntry];
@@ -219,7 +221,7 @@ typedef enum{
 -(void)setUpTagLabel {
     if (self.destinationEntry.tag != nil && ![self.destinationEntry.tag isEqualToString:@""]) {
         NSLog(@"This is the destination tag: %@", self.destinationEntry.tag);
-    [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:self.destinationEntry.tag] forState:UIControlStateNormal];
+        [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:self.destinationEntry.tag] forState:UIControlStateNormal];
     }    else
         [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:@"Set Mood"] forState:UIControlStateNormal];
 }
@@ -243,6 +245,13 @@ typedef enum{
 -(void)enableTextFieldInteraction:(BOOL)on {
     self.titleTap.enabled = on;
     [self.entryTitleTextField setUserInteractionEnabled:on];
+}
+
+-(void)didPickSongButtonPressed:(id)sender {
+    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeMusic];
+    picker.delegate = self;
+    picker.allowsPickingMultipleItems= NO;
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 -(void)didSelectDoneButton:(id)sender {
@@ -310,8 +319,7 @@ typedef enum{
     
     
     // add to seperate class
-    
-    
+
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
@@ -352,43 +360,38 @@ typedef enum{
     
     [textView sizeToFit];
     [textView layoutIfNeeded];
-
+    
 }
 
 #pragma mark - music controls
 
-- (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.MUSToolBar setHidden:NO];
-}
-
-
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
-    // this collection will have one mpmedia item and we need to put it in
-    MPMediaItem *selectedItem = mediaItemCollection.items[0];
-    Song *pickedSong = [Song initWithTitle:selectedItem.title artist:selectedItem.artist genre:selectedItem.genre album:selectedItem.albumTitle inManagedObjectContext:self.store.managedObjectContext];
-    [self.destinationEntry addSongsObject:pickedSong];
-    [self.store save];
+    [mediaPicker dismissViewControllerAnimated:YES completion:nil];
     
-    [self.navigationController popViewControllerAnimated:YES];
-    [self playPlaylistForThisEntry];
+    [self.musicPlayer.myPlayer setQueueWithItemCollection:mediaItemCollection];
+    
+    [self.musicPlayer.myPlayer play];
 }
 
 
+- (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker
+{
+    [mediaPicker dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController popViewControllerAnimated:YES];
+        [self.MUSToolBar setHidden:NO];
+}
 
 -(void)playPlaylistForThisEntry {
     
     if (self.entryType == ExistingEntry && self.destinationEntry.songs != nil ) {
         
         //         condition for null objects
-        
         MPMediaItemCollection *collection = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
+        
         // array of mp media items
-        
-        
         // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
+        
         int i = 0;
-        //
         
         for (MPMediaItem *MPSong in collection.items) {
             Song *songForThisIndex = self.formattedPlaylistForThisEntry[i];
@@ -450,9 +453,9 @@ typedef enum{
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
     
-//    if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
-//        [self.musicPlayer.myPlayer pause];
-//    }
+    //    if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
+    //        [self.musicPlayer.myPlayer pause];
+    //    }
 }
 
 - (void)saveButtonTapped:(id)sender {
@@ -551,7 +554,6 @@ typedef enum{
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
     
     // fixes glitch with parallax, new parallax image does not fit into position without first responder
@@ -565,7 +567,7 @@ typedef enum{
     else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
-    // add/ reset parallax image
+    // add reset parallax image
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
     
     // SAVE TO CORE DATA!!
@@ -763,7 +765,7 @@ typedef enum{
         dvc.delegate = self;
         dvc.destinationEntry = self.destinationEntry;
         dvc.destinationToolBar = self.MUSToolBar;
-                [self.MUSToolBar setHidden:YES];
+        [self.MUSToolBar setHidden:YES];
     }
 }
 

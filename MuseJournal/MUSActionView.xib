@@ -17,6 +17,8 @@
                 <outlet property="actionView" destination="XRb-pt-iRf" id="eDe-jQ-vL0"/>
                 <outlet property="addEntryButton" destination="dMJ-SB-2Qr" id="hun-0r-ENw"/>
                 <outlet property="randomSongButton" destination="zhS-6c-F0Q" id="Bvc-CP-gb6"/>
+                <outlet property="textLabel1" destination="XJe-xa-ObB" id="i7O-dN-fHI"/>
+                <outlet property="textLabel2" destination="RQU-Vl-6t9" id="JhF-sP-Slt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
