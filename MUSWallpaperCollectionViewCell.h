@@ -10,5 +10,6 @@
 
 @interface MUSWallpaperCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *wallpaperImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *wallpaperIconImageView;
 
 @end

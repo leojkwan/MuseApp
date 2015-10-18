@@ -77,7 +77,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AI-a6-Zaf" userLabel="dark mask">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" misplaced="YES" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
                                 <rect key="frame" x="15" y="64" width="565" height="40.5"/>
@@ -522,7 +522,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vih-tL-t2Y" userLabel="contentView">
                                 <rect key="frame" x="0.0" y="420" width="600" height="180"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Px-f9n">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Px-f9n">
                                         <rect key="frame" x="200" y="20" width="200" height="23"/>
                                         <animations/>
                                         <constraints>
@@ -562,6 +562,15 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="108" height="108"/>
                                                             <animations/>
                                                         </imageView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-ur-yTo" userLabel="dark mask">
+                                                            <rect key="frame" x="0.0" y="0.0" width="108" height="108"/>
+                                                            <animations/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                                        </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock" translatesAutoresizingMaskIntoConstraints="NO" id="VvQ-x2-waa">
+                                                            <rect key="frame" x="27" y="27" width="54" height="54"/>
+                                                            <animations/>
+                                                        </imageView>
                                                     </subviews>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -569,12 +578,33 @@
                                                 <animations/>
                                                 <color key="backgroundColor" red="0.97254901959999995" green="0.73725490199999999" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
+                                                    <constraint firstItem="NNE-ur-yTo" firstAttribute="width" secondItem="KJC-yz-DYM" secondAttribute="width" id="00U-mG-GK2"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="top" secondItem="NNE-ur-yTo" secondAttribute="bottom" id="08x-YI-2Nr"/>
                                                     <constraint firstItem="KJC-yz-DYM" firstAttribute="leading" secondItem="64T-Lh-OMd" secondAttribute="leading" id="1GG-eJ-wf7"/>
                                                     <constraint firstItem="KJC-yz-DYM" firstAttribute="top" secondItem="64T-Lh-OMd" secondAttribute="top" id="3jZ-On-H5e"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="centerX" secondItem="NNE-ur-yTo" secondAttribute="centerX" id="6x5-ZI-Dm8"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="centerX" secondItem="NNE-ur-yTo" secondAttribute="centerX" id="91o-44-u6J"/>
+                                                    <constraint firstItem="NNE-ur-yTo" firstAttribute="height" secondItem="KJC-yz-DYM" secondAttribute="height" id="DdL-j2-Npp"/>
+                                                    <constraint firstItem="NNE-ur-yTo" firstAttribute="centerX" secondItem="KJC-yz-DYM" secondAttribute="centerX" id="IJ5-tt-x4m"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="width" secondItem="NNE-ur-yTo" secondAttribute="width" multiplier="1/2" id="Nb6-SV-oUa"/>
                                                     <constraint firstAttribute="trailing" secondItem="KJC-yz-DYM" secondAttribute="trailing" id="OvG-Fh-IGq"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="centerY" secondItem="NNE-ur-yTo" secondAttribute="centerY" id="OwS-Pg-Kjv"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="leading" secondItem="NNE-ur-yTo" secondAttribute="trailing" id="QxB-4U-Kk8"/>
+                                                    <constraint firstItem="NNE-ur-yTo" firstAttribute="centerY" secondItem="KJC-yz-DYM" secondAttribute="centerY" id="TbZ-8Z-mgX"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="height" secondItem="NNE-ur-yTo" secondAttribute="height" multiplier="1/2" id="YM8-nb-RmR"/>
+                                                    <constraint firstItem="VvQ-x2-waa" firstAttribute="centerY" secondItem="NNE-ur-yTo" secondAttribute="centerY" id="Yry-GX-63o"/>
                                                     <constraint firstAttribute="bottom" secondItem="KJC-yz-DYM" secondAttribute="bottom" id="uYC-dP-CT8"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="08x-YI-2Nr"/>
+                                                        <exclude reference="6x5-ZI-Dm8"/>
+                                                        <exclude reference="QxB-4U-Kk8"/>
+                                                        <exclude reference="Yry-GX-63o"/>
+                                                    </mask>
+                                                </variation>
                                                 <connections>
+                                                    <outlet property="wallpaperIconImageView" destination="VvQ-x2-waa" id="nfo-1Y-pi2"/>
                                                     <outlet property="wallpaperImageView" destination="KJC-yz-DYM" id="PZg-oK-arX"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -585,7 +615,7 @@
                                             </mask>
                                         </variation>
                                     </collectionView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjx-GS-LVc">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjx-GS-LVc">
                                         <rect key="frame" x="525" y="15" width="75" height="33"/>
                                         <animations/>
                                         <constraints>
@@ -664,6 +694,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionButton" destination="tjx-GS-LVc" id="Wap-fu-8N6"/>
+                        <outlet property="actionview" destination="FIj-LX-IOJ" id="U2A-MH-vxB"/>
                         <outlet property="contentView" destination="Vih-tL-t2Y" id="ZXG-Ok-ZME"/>
                         <outlet property="navTitleLabel" destination="9s0-CU-pRa" id="j5X-0z-4LG"/>
                         <outlet property="wallpaperCollectionView" destination="zpZ-Vf-z2b" id="s8J-q7-nTa"/>
@@ -692,7 +724,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Asx-Gt-c1f" userLabel="dark mask">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.14999999999999999" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-m1-0ky">
                                 <rect key="frame" x="0.0" y="44" width="600" height="506"/>
@@ -1946,10 +1978,11 @@
         <image name="backSong" width="45" height="45"/>
         <image name="blackMask" width="951" height="635"/>
         <image name="forwardSong" width="45" height="45"/>
+        <image name="lock" width="233" height="233"/>
         <image name="playSong" width="45" height="45"/>
         <image name="playlistGaussian" width="398" height="543"/>
         <image name="quitButton" width="14" height="14"/>
         <image name="settings" width="42" height="42"/>
-        <image name="wallpaper3" width="843" height="1080"/>
+        <image name="wallpaper3" width="953" height="1893"/>
     </resources>
 </document>

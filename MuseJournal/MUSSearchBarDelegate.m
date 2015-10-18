@@ -24,37 +24,21 @@
         _controller = controller;
         _store = [MUSDataStore sharedDataStore];
     }
-//    
-//    //  GET NOTIFICATION FOR UPDATED WALLPAPER
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:@"updateBackground" object:nil];
-
     return self;
 }
 
-
-//-(void)configureTextColorForSearchBar:(UISearchBar *)searchBar {
-//        
-//    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
-//
-//
-//
-//    
-//}
-
 -(void)setUpSearchBarUI:(UISearchBar *)searchbar {
-    
-    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
     
     // SEARCH BAR PLACEHOLDER TEXT COLOR
     UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
-    self.placeholderSearchText = [[NSAttributedString alloc] initWithString:@"artist, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference] }];
+    self.placeholderSearchText = [[NSAttributedString alloc] initWithString:@"artist, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     
     searchBarTextField.attributedPlaceholder = self.placeholderSearchText;
 
     // SEARCH BAR TEXT COLOR
         searchBarTextField.textColor = [UIColor whiteColor];
 
-//    [self configureTextColorForSearchBar:searchbar];
+
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{

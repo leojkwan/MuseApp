@@ -14,6 +14,7 @@
 #import "UIImage+ExtraMethods.h"
 #import "MUSWallpaperManager.h"
 #import <Masonry.h>
+#import "MUSActionView.h"
 
 #define CELL_PADDING (self.view.frame.size.height * .02f)
 // 5 cells times 10 for left and right padding...
@@ -28,6 +29,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *wallpaperNameLabel;
 @property(nonatomic, assign)  NSInteger userWallpaperPreference;
 @property(nonatomic, assign)  NSInteger collectionViewCurrentIP;
+@property (weak, nonatomic) IBOutlet MUSActionView *actionview;
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+
 
 
 @end
@@ -113,8 +117,7 @@
 }
 
 
-- (IBAction)saveButtonPressed:(id)sender {
-    
+-(UIAlertController *)returnSaveWallpaperController {
     UIAlertController *alertController= [UIAlertController
                                          alertControllerWithTitle:nil
                                          message:[NSString stringWithFormat: @"Confirm %@", [self.wallpaperNameLabel.text uppercaseString]]
@@ -126,9 +129,8 @@
                                     
                                     [[NSUserDefaults standardUserDefaults] setInteger:self.collectionViewCurrentIP forKey:@"background"];
                                     [[NSUserDefaults standardUserDefaults] synchronize];
-                                    
                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBackground" object:nil userInfo:[NSDictionary dictionaryWithObject: @(self.collectionViewCurrentIP) forKey:@"wallpaperIndex"]];
-
+                                    
                                     [self performSegueWithIdentifier:@"backToHomeView" sender:self];
                                     
                                 }]
@@ -142,7 +144,54 @@
     // for ipads
     alertController.popoverPresentationController.sourceRect = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
     alertController.popoverPresentationController.sourceView= self.contentView;
+    return alertController;
+}
+
+
+-(UIAlertController *)returnPurchaseWallpaperController {
+    UIAlertController *alertController= [UIAlertController
+                                         alertControllerWithTitle:nil
+                                         message:[NSString stringWithFormat: @"Purchase %@ Background", [self.wallpaperNameLabel.text uppercaseString]]
+                                         preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction
+                                actionWithTitle:NSLocalizedString(@"Confirm Purchase $.99", @"Confirm Purchase $.99")
+                                style:UIAlertActionStyleDestructive
+                                handler:^(UIAlertAction *action) {
+                                    
+                                    // figure this out
+//                                    
+//                                    [[NSUserDefaults standardUserDefaults] setInteger:self.collectionViewCurrentIP forKey:@"background"];
+//                                    [[NSUserDefaults standardUserDefaults] synchronize];
+//                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBackground" object:nil userInfo:[NSDictionary dictionaryWithObject: @(self.collectionViewCurrentIP) forKey:@"wallpaperIndex"]];
+                                    
+                                    [self performSegueWithIdentifier:@"backToHomeView" sender:self];
+                                    
+                                }]
+     ];
+    [alertController addAction:[UIAlertAction
+                                actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                style:UIAlertActionStyleDefault
+                                handler:NULL]
+     ];
     
+    // for ipads
+    alertController.popoverPresentationController.sourceRect = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    alertController.popoverPresentationController.sourceView= self.contentView;
+    return alertController;
+}
+
+
+- (IBAction)saveButtonPressed:(id)sender {
+    
+    
+    UIAlertController *alertController;
+    // if purchased
+    
+//    if (self.collectionViewCurrentIP)
+//            alertController = [self returnSaveWallpaperController];
+//    else // not purchased
+            alertController = [self returnPurchaseWallpaperController];
+
     [self presentViewController:alertController animated:YES completion:nil];
     
 }
@@ -151,8 +200,7 @@
 #pragma mark - UICollectionViewLayout
 
 // Set size of collection cell
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     // make cell always 1/5 of the screen width
     CGFloat cellSizeBasedOnPadding = self.view.frame.size.width * .2f;
     return CGSizeMake(cellSizeBasedOnPadding, cellSizeBasedOnPadding);
@@ -160,20 +208,19 @@
 
 -(void)updateWallpaperLabelWithText:(NSString *)wallpaperName {
     
-    
     self.wallpaperNameLabel.alpha = 1;
     [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.wallpaperNameLabel.alpha = 0;
     } completion:^(BOOL finished) {
-
-                         // change label to update wallpapername
-                         self.wallpaperNameLabel.text = wallpaperName;
-                         
-                         // animate back in
-                         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn
-                                          animations:^{ self.wallpaperNameLabel.alpha = 1;}
-                                          completion:nil];
-                     }];
+        
+        // change label to update wallpapername
+        self.wallpaperNameLabel.text = wallpaperName;
+        
+        // animate back in
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{ self.wallpaperNameLabel.alpha = 1;}
+                         completion:nil];
+    }];
 }
 
 
@@ -216,6 +263,12 @@
     
     // pass the name of wallpaper selected
     [self updateWallpaperLabelWithText: [MUSWallpaperManager returnArrayForWallPaperImages][indexPath.row][0]];
+    
+    
+    // Change Color of UILabels
+    self.navTitleLabel.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:indexPath.row];
+    self.actionview.textLabel1.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:indexPath.row];
+    self.actionview.textLabel2.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:indexPath.row];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {

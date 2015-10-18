@@ -14,53 +14,34 @@
 
 +(NSArray *)returnArrayForWallPaperImages {
     return  @[
-              //  DARK BACKGROUND
-              @[@"Dock", [UIImage imageNamed:@"wallpaper1"]],
-              @[@"Seagull", [UIImage imageNamed:@"wallpaper2"]],
-              @[@"Norway River", [UIImage imageNamed:@"wallpaper3"]],
-              @[@"Vintage Camera", [UIImage imageNamed:@"wallpaper4"]],
-              @[@"Hammer", [UIImage imageNamed:@"wallpaper5"]],
-              
-              
               
               
               //  LIGHT BACKGROUND
-              @[@"norwayriver", [UIImage imageNamed:@"wallpaper3"]],
-              @[@"mountains", [UIImage imageNamed:@"wallpaper1"]],
-              @[@"norwaydock", [UIImage imageNamed:@"wallpaper2"]],
-              @[@"norwayriver", [UIImage imageNamed:@"wallpaper3"]],
-              @[@"mountains", [UIImage imageNamed:@"wallpaper1"]],
-              @[@"norwaydock", [UIImage imageNamed:@"wallpaper2"]],
-              @[@"norwayriver", [UIImage imageNamed:@"wallpaper3"]],
-              @[@"mountains", [UIImage imageNamed:@"wallpaper1"]],
-              @[@"norwaydock", [UIImage imageNamed:@"wallpaper2"]],
-              @[@"norwayriver", [UIImage imageNamed:@"wallpaper3"]],
-              @[@"mountains", [UIImage imageNamed:@"wallpaper1"]],
-              @[@"norwaydock", [UIImage imageNamed:@"wallpaper2"]],
-              @[@"norwayriver", [UIImage imageNamed:@"wallpaper3"]]
+              @[@"Vintage Camera", [UIImage imageNamed:@"wallpaper4"]],
+              @[@"Seagull", [UIImage imageNamed:@"wallpaper2"]],
+              @[@"Vintage", [UIImage imageNamed:@"wallpaper14"]],
               
-              
-              //              @[@"Chill", [UIImage imageNamed:@"Chill"]],
-              //              @[@"Celebratory", [UIImage imageNamed:@"Celebratory"]],
-              //              @[@"Confident", [UIImage imageNamed:@"Confident"]],
-              //              @[@"Discouraged", [UIImage imageNamed:@"Discouraged"]],
-              //              @[@"Disappointed", [UIImage imageNamed:@"Disappointed"]],
-              //              @[@"Excited", [UIImage imageNamed:@"Excited"]],
-              //              @[@"Festive", [UIImage imageNamed:@"Festive"]],
-              //              @[@"Frustrated", [UIImage imageNamed:@"Frustrated"]],
-              //              @[@"Happy", [UIImage imageNamed:@"Happy"]],
-              //              @[@"Hyped", [UIImage imageNamed:@"Hyped"]],
-              //              @[@"Hustlin", [UIImage imageNamed:@"Hustlin"]],
-              //              @[@"Romantic", [UIImage imageNamed:@"Romantic"]],
-              //              @[@"Rejected", [UIImage imageNamed:@"Rejected"]],
-              //              @[@"Sleepy", [UIImage imageNamed:@"Sleepy"]],
+              //  DARK BACKGROUND
+              @[@"Venice", [UIImage imageNamed:@"wallpaper6"]],
+              @[@"Hot Air Balloon", [UIImage imageNamed:@"wallpaper10"]],
+              @[@"Electric", [UIImage imageNamed:@"wallpaper13"]],
+              @[@"Shooting Star", [UIImage imageNamed:@"wallpaper12"]],
+              @[@"Coffee Bean", [UIImage imageNamed:@"wallpaper11"]],
+
+
+              @[@"Calm Waters", [UIImage imageNamed:@"wallpaper1"]],
+              @[@"Rose", [UIImage imageNamed:@"wallpaper3"]],
+              @[@"Hammer", [UIImage imageNamed:@"wallpaper5"]],
+              @[@"Sparklers", [UIImage imageNamed:@"wallpaper7"]],
+              @[@"Tiger", [UIImage imageNamed:@"wallpaper8"]],
+              @[@"Jellyfish", [UIImage imageNamed:@"wallpaper9"]],
               ];
 }
 
 // RETURN UI COLOR BASED ON WALLPAPER CONTRAST
 
 +(UIColor *)returnTextColorForWallpaperIndex:(NSInteger)index {
-    if (index >= 0 && index <= 5)
+    if (index > 2 )
         return [UIColor whiteColor];
     else
         return [UIColor MUSBigStone];

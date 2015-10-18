@@ -39,7 +39,10 @@
 
 -(void)styleNavBarCustomLabelAttributes {
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.44 alpha:1]];
+//    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.44 alpha:1]];
+//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.98 green:0.95 blue:0.44 alpha:1];
+
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.44 alpha:1]];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     
     [self.navigationController.navigationBar setTitleTextAttributes:

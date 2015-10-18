@@ -14,8 +14,7 @@
 @property (strong, nonatomic) IBOutlet UIView *actionView;
 @property (weak, nonatomic) IBOutlet UIButton *randomSongButton;
 @property (weak, nonatomic) IBOutlet UIButton *addEntryButton;
-@property (weak, nonatomic) IBOutlet UILabel *textLabel1;
-@property (weak, nonatomic) IBOutlet UILabel *textLabel2;
+
 
 @end
 
