@@ -399,6 +399,8 @@ typedef enum{
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
     NSLog(@"%lu", (unsigned long)textView.text.length);
+    
+    
 //    if (textView.text.length > 50) {
 //        [self toggleKeyboardAvoiding:YES];
 //    }
@@ -488,13 +490,14 @@ typedef enum{
 }
 
 -(void)toggleKeyboardAvoidingForView:(UIView *)view {
+ 
+    [IHKeyboardAvoiding removeAll];
+
     if (view == self.view) {
-    [IHKeyboardAvoiding removeAll];
     [IHKeyboardAvoiding setAvoidingView:self.view];
-    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
-    }  else
-    [IHKeyboardAvoiding removeAll];
+    }  else {
     [IHKeyboardAvoiding setAvoidingView:self.scrollView];
+    }
     [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
 }
 
