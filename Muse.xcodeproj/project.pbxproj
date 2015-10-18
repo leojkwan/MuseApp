@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B3FF408248BF03C59117B8A /* libPods-MuseJournal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */; };
+		5E1AA23552CECEED40D026B4 /* libPods-MuseJournal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C8E8F9671D1575CD192CFB /* libPods-MuseJournal.a */; };
 		940EE95E1BCF280900270D66 /* MUSWallpaperManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */; settings = {ASSET_TAGS = (); }; };
 		941EFBF71BB9FB9C00D70257 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFBF61BB9FB9C00D70257 /* main.m */; };
 		941EFC021BB9FB9C00D70257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC011BB9FB9C00D70257 /* Assets.xcassets */; };
@@ -103,7 +103,7 @@
 
 /* Begin PBXFileReference section */
 		1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.debug.xcconfig"; sourceTree = "<group>"; };
-		55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseJournal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		52C8E8F9671D1575CD192CFB /* libPods-MuseJournal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseJournal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		940EE95C1BCF280900270D66 /* MUSWallpaperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSWallpaperManager.h; sourceTree = "<group>"; };
 		940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSWallpaperManager.m; sourceTree = "<group>"; };
 		941EFBF21BB9FB9C00D70257 /* MuseJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,15 +162,15 @@
 		94336B401BC5E2DC00D86420 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		94336B4C1BC60CB200D86420 /* MUSPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSPageViewController.h; sourceTree = "<group>"; };
 		94336B4D1BC60CB200D86420 /* MUSPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSPageViewController.m; sourceTree = "<group>"; };
-		944468741BD07449003B3F16 /* MUSShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSShareManager.h; sourceTree = "<group>"; };
-		944468751BD07449003B3F16 /* MUSShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSShareManager.m; sourceTree = "<group>"; };
+		944468741BD07449003B3F16 /* MUSShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSShareManager.h; path = ../MUSShareManager.h; sourceTree = "<group>"; };
+		944468751BD07449003B3F16 /* MUSShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSShareManager.m; path = ../MUSShareManager.m; sourceTree = "<group>"; };
 		9450A3EA1BCE1D8F00335606 /* MUSTagManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSTagManager.h; path = ../MUSTagManager.h; sourceTree = "<group>"; };
 		9450A3EB1BCE1D8F00335606 /* MUSTagManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSTagManager.m; path = ../MUSTagManager.m; sourceTree = "<group>"; };
 		945E53541BC70AB900157085 /* MUSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSConstants.m; sourceTree = "<group>"; };
 		9477D5AE1BCEFF2E0059282F /* MUSWallPaperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSWallPaperViewController.h; sourceTree = "<group>"; };
 		9477D5AF1BCEFF2E0059282F /* MUSWallPaperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSWallPaperViewController.m; sourceTree = "<group>"; };
-		94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSOpenSourceViewController.h; sourceTree = "<group>"; };
-		94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSOpenSourceViewController.m; sourceTree = "<group>"; };
+		94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSOpenSourceViewController.h; path = ../MUSOpenSourceViewController.h; sourceTree = "<group>"; };
+		94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSOpenSourceViewController.m; path = ../MUSOpenSourceViewController.m; sourceTree = "<group>"; };
 		94AD69E61BBDABA5009C5553 /* Song+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Song+CoreDataProperties.h"; sourceTree = "<group>"; };
 		94AD69E71BBDABA5009C5553 /* Song+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Song+CoreDataProperties.m"; sourceTree = "<group>"; };
 		94AD69E81BBDABA5009C5553 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
@@ -247,8 +247,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B3FF408248BF03C59117B8A /* libPods-MuseJournal.a in Frameworks */,
 				94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */,
+				5E1AA23552CECEED40D026B4 /* libPods-MuseJournal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,10 +272,6 @@
 		941EFBE91BB9FB9C00D70257 = {
 			isa = PBXGroup;
 			children = (
-				94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */,
-				94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */,
-				944468741BD07449003B3F16 /* MUSShareManager.h */,
-				944468751BD07449003B3F16 /* MUSShareManager.m */,
 				941EFBF41BB9FB9C00D70257 /* MuseJournal */,
 				941EFC0E1BB9FB9D00D70257 /* MuseJournalTests */,
 				941EFC191BB9FB9D00D70257 /* MuseJournalUITests */,
@@ -300,6 +296,7 @@
 			children = (
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
+				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
 				94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */,
 				94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
@@ -311,7 +308,6 @@
 				94775DFC1BB9FF42004ABF0A /* View Controllers */,
 				94775DE31BB9FF25004ABF0A /* Models */,
 				941EFC011BB9FB9C00D70257 /* Assets.xcassets */,
-				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
 				941EFC061BB9FB9C00D70257 /* Info.plist */,
 				941EFBF51BB9FB9C00D70257 /* Supporting Files */,
 			);
@@ -384,6 +380,8 @@
 		94775DE31BB9FF25004ABF0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				944468741BD07449003B3F16 /* MUSShareManager.h */,
+				944468751BD07449003B3F16 /* MUSShareManager.m */,
 				940EE95C1BCF280900270D66 /* MUSWallpaperManager.h */,
 				940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */,
 				9450A3EA1BCE1D8F00335606 /* MUSTagManager.h */,
@@ -417,6 +415,8 @@
 		94775DFC1BB9FF42004ABF0A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */,
+				94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */,
 				9477D5AE1BCEFF2E0059282F /* MUSWallPaperViewController.h */,
 				9477D5AF1BCEFF2E0059282F /* MUSWallPaperViewController.m */,
 				94336B4C1BC60CB200D86420 /* MUSPageViewController.h */,
@@ -523,7 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */,
-				55B956947FDF35A5CC80C624 /* libPods-MuseJournal.a */,
+				52C8E8F9671D1575CD192CFB /* libPods-MuseJournal.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

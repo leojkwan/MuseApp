@@ -55,7 +55,7 @@
     
     // Configuring the views and colors.
     self.deleteView = [self viewWithImageName:@"trash"];
-    [self.deleteView setFrame:CGRectMake(0, 0, 10, 10)];
+
     
     // Setting the default inactive state color to the tableView background color.
     [cell setDefaultColor:[UIColor MUSBigStone]];
@@ -65,7 +65,7 @@
 - (UIView *)viewWithImageName:(NSString *)imageName {
     UIImage *image = [UIImage imageNamed:imageName];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [imageView setFrame:CGRectMake(0, 0, 10, 10)];
+    [imageView setFrame:CGRectMake(0, 0, 200, 200)];
     imageView.contentMode = UIViewContentModeCenter;
     return imageView;
 }

@@ -40,6 +40,8 @@
     return [UIColor colorWithRed:0.95 green:0.99 blue:1 alpha:1];
 }
 
-
++(UIColor *) MUSBloodOrange {
+    return [UIColor colorWithRed:0.96 green:0.25 blue:0.25 alpha:1];
+}
 
 @end

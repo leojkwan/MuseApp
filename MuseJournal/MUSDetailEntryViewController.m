@@ -60,7 +60,6 @@ typedef enum{
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
 @property (weak, nonatomic) IBOutlet UIButton *moodButton;
-
 @property (weak, nonatomic) IBOutlet UILabel* timeOfDayEntryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateOfEntryLabel;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
@@ -75,7 +74,7 @@ typedef enum{
 
 @property (strong, nonatomic) UITapGestureRecognizer *entryTextViewTap;
 @property (strong, nonatomic) UITapGestureRecognizer *titleTap;
-
+@property(strong ,nonatomic) UIImagePickerController *imagePicker;
 
 @end
 
@@ -85,13 +84,13 @@ typedef enum{
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
     
-    
     [self setUpTagLabel];
     [self setUpMusicPlayer];
     [self setUpParallaxForExistingEntries];
     [self setUpTitleTextField];
     [self setUpTextView];
     [self setUpToolbarAndKeyboard];
+    [self setUpImagePicker];
     
     // set bottom contraints
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -128,7 +127,7 @@ typedef enum{
     self.dateOfEntryLabel.text = [self.destinationEntry.createdAt numericMonthDateAndYearString];
     NSString *date = [self.destinationEntry.createdAt returnEntryDateStringForDate:self.destinationEntry.epochTime];
     NSArray *items = [date componentsSeparatedByString:@","];
-    self.timeOfDayEntryLabel.text = items[1]; // 6:40 pm..
+    self.timeOfDayEntryLabel.text = items[0]; // saturday afternoon
     
     
     // set character limit text
@@ -190,6 +189,7 @@ typedef enum{
 }
 
 -(void)setUpParallaxForExistingEntries {
+    
     self.coverImageView = [[UIImageView alloc] init];
     [self.scrollView.parallaxView setDelegate:self];
     
@@ -198,12 +198,12 @@ typedef enum{
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
         self.coverImageView.image = entryCoverImage;
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
+        
         // there are the magic two lines here
         [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, 350)];
         [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2, 175)];
         
     }
-    
 }
 
 #pragma delegate method for Mood View Controller
@@ -228,6 +228,33 @@ typedef enum{
 
 
 #pragma mark  - Keyboard delegate methods
+
+-(void)didSelectMoreOptionsButton {
+    
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
+    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
+    
+    // Share
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Share Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self presentViewController: [MUSShareManager returnShareSheetWithEntry:self.destinationEntry] animated:YES completion:nil];
+    }]];
+    // CANCEL
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
+    }]];
+    
+    // FOR IPAD
+    actionSheet.popoverPresentationController.barButtonItem = self.MUSToolBar.moreOptionsBarButtonItem;
+    
+    // Present action sheet.
+    [self presentViewController:actionSheet animated:YES completion:^{
+        [self enableTextFieldInteraction:YES];
+    }];
+}
+
 
 -(void)didSelectShareButton:(id)sender {
     [self presentViewController: [MUSShareManager returnShareSheetWithEntry:self.destinationEntry] animated:YES completion:nil];
@@ -255,6 +282,7 @@ typedef enum{
 }
 
 -(void)didSelectDoneButton:(id)sender {
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
     [self checkSizeOfContentForTextView:self.textView];
     [self enableTextViewInteraction:YES];
     [self enableTextFieldInteraction:YES];
@@ -319,7 +347,7 @@ typedef enum{
     
     
     // add to seperate class
-
+    
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
@@ -369,7 +397,6 @@ typedef enum{
     [mediaPicker dismissViewControllerAnimated:YES completion:nil];
     
     [self.musicPlayer.myPlayer setQueueWithItemCollection:mediaItemCollection];
-    
     [self.musicPlayer.myPlayer play];
 }
 
@@ -377,8 +404,8 @@ typedef enum{
 - (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker
 {
     [mediaPicker dismissViewControllerAnimated:YES completion:nil];
-//        [self.navigationController popViewControllerAnimated:YES];
-        [self.MUSToolBar setHidden:NO];
+    //        [self.navigationController popViewControllerAnimated:YES];
+    [self.MUSToolBar setHidden:NO];
 }
 
 -(void)playPlaylistForThisEntry {
@@ -400,7 +427,6 @@ typedef enum{
                                                       alertControllerWithTitle:@"Oops!"
                                                       message: [NSString stringWithFormat: @"We can't find '%@' by %@ in your library!", songForThisIndex.songName, songForThisIndex.artistName]
                                                       preferredStyle:UIAlertControllerStyleAlert];
-                
                 
                 UIAlertAction *okAction = [UIAlertAction
                                            actionWithTitle:NSLocalizedString(@"OK", @"OK action")
@@ -441,33 +467,21 @@ typedef enum{
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    
     [IHKeyboardAvoiding setAvoidingView:self.scrollView];
-    [IHKeyboardAvoiding setPadding:20];
-    
+    [IHKeyboardAvoiding setPadding:50];
+//
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.MUSToolBar setHidden:NO];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewDidDisappear:YES];
-    
-    //    if ([self isMovingFromParentViewController] && [MUSAutoPlayManager returnAutoPlayStatus]) {
-    //        [self.musicPlayer.myPlayer pause];
-    //    }
-}
 
 - (void)saveButtonTapped:(id)sender {
     
-    if (self.entryTitleTextField.isFirstResponder) {
-        
+    if (self.entryTitleTextField.isFirstResponder)
         // SAVE JUST THE TITLE ON DONE BUTTON PRESS... THIS PRESERVES THE ATTRIBUTED TEXT ON SAVE.... BLOW AWAY ALL MARKDOWN OTHERWISE
         [self saveTitle];
-    } else {
+    else
         [self saveEntry];
-    }
-    //    [self.view bringSubviewToFront:self.containerView];
 }
 
 -(void)saveEntry {
@@ -551,24 +565,34 @@ typedef enum{
 
 #pragma mark- photo selection methods
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    // SET COVER IMAGE AS SELECTED IMAGE
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
     
-    // fixes glitch with parallax, new parallax image does not fit into position without first responder
-    [self showKeyboard:self.titleTap];
+    // ALLOW INTERACTION FOR TEXT FIELD
+    [self enableTextFieldInteraction:YES];
+    
     
     //IF THIS IS A NEW ENTRY...
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
-    }
-    else {
+    } else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
+    
     // add reset parallax image
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
+    
+    //     fixes glitch with parallax, new parallax image does not fit into position without first responder
+    
+    CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
+    scrollPoint = CGPointMake(scrollPoint.x, scrollPoint.y + 1); // makes scroll
+    [self.scrollView setContentOffset:scrollPoint animated:YES];
+    
     
     // SAVE TO CORE DATA!!
     [self.store save];
@@ -577,21 +601,7 @@ typedef enum{
 #pragma mark - button pressed methods
 
 
--(void)selectPhoto{
-    
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    imagePicker.allowsEditing = YES;
-    
-    
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    // CANCEL
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:YES completion:^{
-        }];
-    }]];
-    
+-(void)addCameraRollActionToController:(UIAlertController *)actionSheet picker:(UIImagePickerController *)imagePicker {
     
     // CAMERA ROLL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -615,21 +625,23 @@ typedef enum{
                                         style:UIAlertActionStyleDefault
                                         handler:NULL]
              ];
+            
+            alertController.popoverPresentationController.barButtonItem = self.MUSToolBar.cameraBarButtonItem;
             [self presentViewController:alertController animated:YES completion:nil];
         }];
-        
     }]];
-    
-    
+}
+
+-(void)addTakePhotoActionToController:(UIAlertController *)actionSheet picker:(UIImagePickerController *)imagePicker {
     // TAKE PHOTO
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         // ask for permission
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypeCamera withSuccessHandler:^{
             
             // add a check if there is a camera...
-            [self presentViewController:imagePicker animated:YES completion:nil];
+            [self presentViewController:self.imagePicker animated:YES completion:nil];
         } andFailure:^{
             UIAlertController *alertController= [UIAlertController
                                                  alertControllerWithTitle:nil
@@ -647,16 +659,36 @@ typedef enum{
                                         style:UIAlertActionStyleDefault
                                         handler:NULL]
              ];
-            
             alertController.popoverPresentationController.barButtonItem = self.MUSToolBar.cameraBarButtonItem;
-            
             [self presentViewController:alertController animated:YES completion:nil];
         }];
     }]];
+}
+
+-(void)setUpImagePicker {
+    self.imagePicker = [[UIImagePickerController alloc] init];
+    self.imagePicker.delegate = self;
+    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    self.imagePicker.allowsEditing = YES;
+}
+
+-(void)selectPhoto{
     
-    // present action sheet
-    actionSheet.popoverPresentationController.barButtonItem = self.MUSToolBar.cameraBarButtonItem;
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    // CANCEL
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
+    }]];
+    
+    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
+    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
+    
+    // present action sheet/ POPover for ipads
+    actionSheet.popoverPresentationController.barButtonItem = self.keyboardTopBar.cameraBarButtonItem;
     [self presentViewController:actionSheet animated:YES completion:nil];
+    [self.view bringSubviewToFront:self.contentView];
 }
 
 

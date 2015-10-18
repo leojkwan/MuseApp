@@ -51,9 +51,9 @@
     
     // Configuring the views and colors.
     self.deleteView = [self viewWithImageName:@"delete"];
-    
+
     // Setting the default inactive state color to the tableView background color.
-    [cell setDefaultColor:[UIColor clearColor]];
+    [cell setDefaultColor:[UIColor MUSBigStone]];
     cell.firstTrigger = 0.50;
 }
 

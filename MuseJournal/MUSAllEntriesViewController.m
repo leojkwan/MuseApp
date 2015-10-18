@@ -244,7 +244,8 @@
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor colorWithRed:0.96 green:0.25 blue:0.25 alpha:1] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        cell.backgroundColor = [UIColor clearColor];
+        [cell setSwipeGestureWithView:cell.deleteView color: [UIColor MUSBloodOrange] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
             [self presentDeleteSheet:cell indexPath:indexPath];
         }];
         return cell;
@@ -252,7 +253,8 @@
         MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor colorWithRed:0.96 green:0.25 blue:0.25 alpha:1] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        cell.backgroundColor = [UIColor clearColor];
+        [cell setSwipeGestureWithView:cell.deleteView color: [UIColor MUSBloodOrange] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
             [self presentDeleteSheet:cell indexPath:indexPath];
         }];
         return cell;

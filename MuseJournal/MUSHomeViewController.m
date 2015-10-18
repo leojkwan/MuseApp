@@ -78,20 +78,20 @@
     
     [self.contentView addSubview:self.upChevronButtonView];
     [self.upChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view.mas_width).dividedBy(10);
-        make.height.equalTo(self.view.mas_width).dividedBy(16);
+        make.width.equalTo(self.view.mas_width).dividedBy(12);
+        make.height.equalTo(self.view.mas_width).dividedBy(20);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.equalTo(self.scrollView.mas_top).with.offset(-10);
+        make.bottom.equalTo(self.scrollView.mas_top).with.offset(-15);
     }];
     
     // MASONRY CONSTRAINTS FOR DOWN BUTTON
     
     [self.contentView addSubview:self.downChevronButtonView];
     [self.downChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view.mas_width).dividedBy(10);
-        make.height.equalTo(self.view.mas_width).dividedBy(16);
+        make.width.equalTo(self.view.mas_width).dividedBy(12);
+        make.height.equalTo(self.view.mas_width).dividedBy(20);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.scrollView.mas_bottom).with.offset(10);
+        make.top.equalTo(self.scrollView.mas_bottom).with.offset(15);
     }];
     
     // ADD TAP GESTURES FOR UP AND DOWN BUTTONS

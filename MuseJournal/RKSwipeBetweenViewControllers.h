@@ -67,7 +67,7 @@
      controllers in "viewControllerArray" and dynamically adjusts the 
      buttons according to how many objects there are. (i.e. if there are 
      2 controllers, there will be 2 tabs, and the slider will be 
-     width/2-buffer/2 wide)
+     width/2-buffer/2 wide) 
      
      The buttons are automatically placed evenly across the navigation bar, 
      but you can adjust placement and size with the x/y buffers or the

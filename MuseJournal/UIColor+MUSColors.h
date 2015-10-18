@@ -17,5 +17,6 @@
 +(UIColor *) MUSPolar;
 +(UIColor *) MUSDanube;
 +(UIColor *) MUSSolitude;
++(UIColor *) MUSBloodOrange;
 
 @end

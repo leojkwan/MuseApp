@@ -190,7 +190,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *selectedCell = [collectionView cellForItemAtIndexPath:indexPath];
-    selectedCell.layer.borderColor =  [UIColor redColor].CGColor;
+    selectedCell.layer.borderColor =  [UIColor cyanColor].CGColor;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -209,7 +209,7 @@
     
     // indicate the ONE selected item
     UICollectionViewCell *selectedCell = [collectionView cellForItemAtIndexPath:indexPath];
-    selectedCell.layer.borderColor =  [UIColor redColor].CGColor;
+    selectedCell.layer.borderColor =  [UIColor cyanColor].CGColor;
     
     // scroll view to center selected index path
     [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];

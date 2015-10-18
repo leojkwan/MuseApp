@@ -95,14 +95,13 @@
     
     [self.toolbarButtonItems addObject:[self backButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self cameraButton]];
+    [self.toolbarButtonItems addObject:[self pinSongButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self findSongButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self shareButton]];
-    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self playlistButton]];
-
+    [self.toolbarButtonItems addObject:[self flexSpaceButton]];
+    [self.toolbarButtonItems addObject:[self moreOptionsButton]];
     
     // SET BACKGROUND COLOR
     self.keyboardToolBar.barTintColor =color;
@@ -117,11 +116,9 @@
     // set up bar buttons items in this order left to right
     
     [self.keyboardButtonItems addObject:[self makeTitleButton]];
-//    [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self cameraButton]];
-//    [self.keyboardButtonItems addObject:[self flexSpaceButton]];
+    [self.toolbarButtonItems addObject:[self findSongButton]];
     [self.keyboardButtonItems addObject:[self pinSongButton]];
-//    [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self playlistButton]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self doneButton]];
@@ -185,7 +182,6 @@
 
 
 -(UIBarButtonItem *)playlistButton {
-    
     UIButton *playlistButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [playlistButton setImage:[UIImage imageNamed:@"musicPlayer" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
     [playlistButton setFrame:BUTTON_FRAME];
@@ -195,6 +191,18 @@
     return playlistBarButtonItem;
 }
 
+-(UIBarButtonItem *)moreOptionsButton {
+    UIButton *moreOptionsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [moreOptionsButton setImage:[UIImage imageNamed:@"moreOptions" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    [moreOptionsButton setFrame:BUTTON_FRAME];
+    [moreOptionsButton addTarget:self action:@selector(moreOptionsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *coolMoreOptionsBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreOptionsButton];
+    
+    self.moreOptionsBarButtonItem = coolMoreOptionsBarButtonItem;
+    return coolMoreOptionsBarButtonItem;
+}
+
 -(UIBarButtonItem *)pinSongButton {
     
     UIButton *pinSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -202,6 +210,7 @@
     [pinSongButton setFrame:BUTTON_FRAME];
     [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
+    
     return pinSongButtonItem;
 }
 
@@ -236,6 +245,9 @@
 
 #pragma mark - Button Actions
 
+-(void)moreOptionsButtonPressed {
+    [self.delegate didSelectMoreOptionsButton];
+}
 
 -(void)seePlaylistButtonPressed:(id)sender {
     NSLog(@"seePlaylistButtonPressed");

@@ -14,7 +14,9 @@
 #import "MUSAllEntriesViewController.h"
 #import "UIColor+MUSColors.h"
 
-#define SECTION_BAR_COLOR [UIColor MUSSuperYellow]
+//#define SECTION_BAR_COLOR [UIColor MUSSuperYellow]
+#define SECTION_BAR_COLOR [UIColor MUSCorn]
+
 
 //%%% customizeable button attributes
 CGFloat X_BUFFER = 0.0; //%%% the number of pixels on either side of the segment
