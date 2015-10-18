@@ -16,7 +16,6 @@
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
-            <string>ADAM.CGPRO</string>
         </mutableArray>
         <mutableArray key="QuattrocentoSans-Regular.ttf">
             <string>QuattrocentoSans</string>
@@ -1091,7 +1090,7 @@
                                                         <rect key="frame" x="10" y="50" width="580" height="33"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes" keyboardAppearance="alert" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                         <connections>
                                                             <action selector="textFieldDidChange:" destination="YMB-QV-Zfr" eventType="editingChanged" id="ojC-QY-aiV"/>
                                                         </connections>
@@ -1117,7 +1116,7 @@
                                                             <constraint firstAttribute="width" constant="100" id="dJ9-iA-FhL"/>
                                                             <constraint firstAttribute="height" constant="40" id="pNe-On-NvH"/>
                                                         </constraints>
-                                                        <state key="normal" title="Button"/>
+                                                        <state key="normal" title="Mood Button"/>
                                                         <connections>
                                                             <segue destination="0ug-3O-428" kind="presentation" identifier="moodSegue" id="2pN-T6-f5x"/>
                                                         </connections>
@@ -1161,7 +1160,7 @@
                                                 <rect key="frame" x="0.0" y="165" width="600" height="37.5"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" keyboardAppearance="alert"/>
                                             </textView>
                                         </subviews>
                                         <animations/>
@@ -1289,15 +1288,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="172" height="178"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGv-gJ-mMi">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGv-gJ-mMi">
                                                     <rect key="frame" x="61" y="128" width="49.5" height="17"/>
                                                     <animations/>
-                                                    <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="partyMood" translatesAutoresizingMaskIntoConstraints="NO" id="DCo-tQ-7sJ">
-                                                    <rect key="frame" x="42" y="15" width="88" height="88"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DCo-tQ-7sJ">
+                                                    <rect key="frame" x="27" y="0.0" width="118" height="118"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="DCo-tQ-7sJ" secondAttribute="height" multiplier="1:1" id="WLM-vf-BNj"/>
@@ -1310,10 +1309,10 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="DCo-tQ-7sJ" firstAttribute="top" secondItem="v5e-47-4d8" secondAttribute="top" constant="15" id="Qjq-Sk-qua"/>
+                                            <constraint firstItem="DCo-tQ-7sJ" firstAttribute="top" secondItem="v5e-47-4d8" secondAttribute="top" id="Qjq-Sk-qua"/>
                                             <constraint firstItem="DCo-tQ-7sJ" firstAttribute="centerX" secondItem="v5e-47-4d8" secondAttribute="centerX" id="cWl-F4-6Cz"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="CGv-gJ-mMi" secondAttribute="bottom" constant="25" id="etb-vY-ILN"/>
-                                            <constraint firstItem="CGv-gJ-mMi" firstAttribute="top" secondItem="DCo-tQ-7sJ" secondAttribute="bottom" constant="25" id="s9y-2K-lZx"/>
+                                            <constraint firstItem="CGv-gJ-mMi" firstAttribute="top" secondItem="DCo-tQ-7sJ" secondAttribute="bottom" constant="10" id="s9y-2K-lZx"/>
                                             <constraint firstItem="CGv-gJ-mMi" firstAttribute="centerX" secondItem="v5e-47-4d8" secondAttribute="centerX" id="tlw-5Q-lp4"/>
                                         </constraints>
                                         <connections>
@@ -1459,8 +1458,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="bpj-kz-o3h"/>
                                         </constraints>
-                                        <color key="separatorColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.5" colorSpace="calibratedRGB"/>
-                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <color key="separatorColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="songReuseCell" rowHeight="100" id="XV0-q2-DNe" customClass="MUSSongTableViewCell">
                                                 <rect key="frame" x="0.0" y="22" width="520" height="100"/>
@@ -1477,11 +1476,11 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="daa-i1-Vv6">
-                                                            <rect key="frame" x="462" y="25" width="50" height="50"/>
+                                                            <rect key="frame" x="477" y="32.5" width="35" height="35"/>
                                                             <animations/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="daa-i1-Vv6" secondAttribute="height" multiplier="1:1" id="g92-vR-fxS"/>
-                                                                <constraint firstAttribute="width" constant="50" id="wWq-fA-kJi"/>
+                                                                <constraint firstAttribute="width" constant="35" id="wWq-fA-kJi"/>
                                                             </constraints>
                                                         </imageView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lst-6v-gda">
@@ -1492,14 +1491,14 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZMq-1s-lQC">
-                                                            <rect key="frame" x="129" y="48" width="313" height="13"/>
+                                                            <rect key="frame" x="129" y="48" width="338" height="13"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
                                                             <color key="textColor" red="0.97254901959999995" green="0.70980392160000005" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="KKv-gh-gAC">
-                                                            <rect key="frame" x="109" y="18" width="333" height="20.5"/>
+                                                            <rect key="frame" x="109" y="18" width="358" height="20.5"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                                             <color key="textColor" red="0.97827888259999995" green="0.97827888259999995" blue="0.97827888259999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1533,9 +1532,9 @@
                                                         <constraint firstItem="Lst-6v-gda" firstAttribute="top" secondItem="KKv-gh-gAC" secondAttribute="top" id="STj-h1-o1s"/>
                                                         <constraint firstItem="ZMq-1s-lQC" firstAttribute="top" secondItem="KKv-gh-gAC" secondAttribute="bottom" constant="10" id="VqJ-bi-smP"/>
                                                         <constraint firstItem="Dz7-E1-RQY" firstAttribute="centerY" secondItem="ZMq-1s-lQC" secondAttribute="centerY" id="X4o-4n-QRq"/>
-                                                        <constraint firstItem="daa-i1-Vv6" firstAttribute="leading" secondItem="KKv-gh-gAC" secondAttribute="trailing" constant="20" id="YK4-qN-mnL"/>
+                                                        <constraint firstItem="daa-i1-Vv6" firstAttribute="leading" secondItem="KKv-gh-gAC" secondAttribute="trailing" constant="10" id="YK4-qN-mnL"/>
                                                         <constraint firstItem="Dz7-E1-RQY" firstAttribute="leading" secondItem="20u-tD-j6q" secondAttribute="leading" id="Ypz-jm-dnr"/>
-                                                        <constraint firstItem="daa-i1-Vv6" firstAttribute="leading" secondItem="ZMq-1s-lQC" secondAttribute="trailing" constant="20" id="kIi-Kd-0cS"/>
+                                                        <constraint firstItem="daa-i1-Vv6" firstAttribute="leading" secondItem="ZMq-1s-lQC" secondAttribute="trailing" constant="10" id="kIi-Kd-0cS"/>
                                                         <constraint firstItem="Dz7-E1-RQY" firstAttribute="leading" secondItem="KKv-gh-gAC" secondAttribute="leading" id="kZP-7S-fNM"/>
                                                         <constraint firstItem="ZMq-1s-lQC" firstAttribute="leading" secondItem="Dz7-E1-RQY" secondAttribute="trailing" constant="15" id="m8o-Rm-ys6"/>
                                                         <constraint firstItem="ZMq-1s-lQC" firstAttribute="leading" secondItem="Dz7-E1-RQY" secondAttribute="trailing" constant="5" id="mSK-qO-ABI"/>
@@ -1606,15 +1605,15 @@
                                             <action selector="exitButtonPressed:" destination="EiH-fH-8rA" eventType="touchUpInside" id="PXL-yK-GQu"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.84999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Gp9-Z7-6K0">
-                                        <rect key="frame" x="40" y="309" width="490" height="23.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="Gp9-Z7-6K0">
+                                        <rect key="frame" x="30" y="309" width="500" height="23.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssf-YQ-TiS" userLabel="break">
-                                        <rect key="frame" x="45" y="303" width="30" height="1"/>
+                                        <rect key="frame" x="35" y="303" width="30" height="1"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1623,7 +1622,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now Playing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpt-WC-mgN">
-                                        <rect key="frame" x="40" y="282" width="91" height="13"/>
+                                        <rect key="frame" x="30" y="282" width="91" height="13"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
                                         <color key="textColor" red="0.97875236742424243" green="0.22734938900580462" blue="0.42629474974525172" alpha="1" colorSpace="calibratedRGB"/>
@@ -1637,7 +1636,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73y-i1-Tg2">
-                                        <rect key="frame" x="356.5" y="61" width="173.5" height="63.5"/>
+                                        <rect key="frame" x="356.5" y="61" width="173.5" height="63"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="73y-i1-Tg2" secondAttribute="height" multiplier="11:4" id="2bS-aE-KT8"/>
@@ -1653,8 +1652,8 @@
                                             <action selector="appleMusicButtonTapped:" destination="EiH-fH-8rA" eventType="touchUpInside" id="it7-Mk-CPf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1gz-nq-fTr">
-                                        <rect key="frame" x="40" y="340" width="480" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="1gz-nq-fTr">
+                                        <rect key="frame" x="30" y="340" width="490" height="0.0"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
                                         <color key="textColor" red="0.97254901959999995" green="0.70980392160000005" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1710,7 +1709,7 @@
                                     <constraint firstItem="TJq-6B-mgU" firstAttribute="width" secondItem="7Kz-Wo-9gc" secondAttribute="width" id="aUq-vy-LGg"/>
                                     <constraint firstItem="yIJ-9g-Cxv" firstAttribute="top" secondItem="nMb-Da-SuQ" secondAttribute="bottom" constant="25" id="bW9-pz-Q76"/>
                                     <constraint firstItem="zUp-le-2VQ" firstAttribute="centerX" secondItem="oa9-os-zGq" secondAttribute="centerX" id="bYr-Mw-bHV"/>
-                                    <constraint firstItem="SOg-sG-VkZ" firstAttribute="leading" secondItem="Cpt-WC-mgN" secondAttribute="leading" constant="-20" id="cDo-6S-qP6"/>
+                                    <constraint firstItem="Cpt-WC-mgN" firstAttribute="leading" secondItem="SOg-sG-VkZ" secondAttribute="leading" constant="10" id="cDo-6S-qP6"/>
                                     <constraint firstItem="Gp9-Z7-6K0" firstAttribute="leading" secondItem="ssf-YQ-TiS" secondAttribute="leading" id="dGp-P6-HOU"/>
                                     <constraint firstItem="Gp9-Z7-6K0" firstAttribute="trailing" secondItem="SOg-sG-VkZ" secondAttribute="trailing" constant="-10" id="eAi-6w-ium"/>
                                     <constraint firstItem="zUp-le-2VQ" firstAttribute="leading" secondItem="oa9-os-zGq" secondAttribute="leading" constant="20" id="fgq-0G-lfn"/>
@@ -1947,7 +1946,6 @@
         <image name="backSong" width="45" height="45"/>
         <image name="blackMask" width="951" height="635"/>
         <image name="forwardSong" width="45" height="45"/>
-        <image name="partyMood" width="67" height="100"/>
         <image name="playSong" width="45" height="45"/>
         <image name="playlistGaussian" width="398" height="543"/>
         <image name="quitButton" width="14" height="14"/>

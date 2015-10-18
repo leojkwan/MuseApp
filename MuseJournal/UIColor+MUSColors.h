@@ -10,7 +10,6 @@
 
 @interface UIColor (MUSColors)
 
-+ (UIColor *) MUSgreenColor;
 + (UIColor *) MUSBigStone;
 + (UIColor *) MUSCorn;
 + (UIColor *) MUSSuperYellow;
@@ -18,5 +17,14 @@
 +(UIColor *) MUSDanube;
 +(UIColor *) MUSSolitude;
 +(UIColor *) MUSBloodOrange;
++ (UIColor *) MUSPurpleG;
++(UIColor *) MUSGreenMachine;
++ (UIColor *) MUSBubbleGumRose;
++ (UIColor *) MUSCherokeeSun;
++ (UIColor *) MUSRebeccaAlmond;
++ (UIColor *) MUSElectricMacaroni;
++ (UIColor *) MUSMistyIce;
+
+
 
 @end

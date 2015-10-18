@@ -10,6 +10,7 @@
 #import "MUSMoodCollectionViewCell.h"
 #import "UIColor+MUSColors.h"
 #import "UIImage+ExtraMethods.h"
+#import "UIImageView+ExtraMethods.h"
 #import "MUSDataStore.h"
 #import  "MUSTagManager.h"
 
@@ -96,6 +97,7 @@
     MUSMoodCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"moodCollectionCell" forIndexPath:indexPath];
     cell.moodLabel.text = self.moodString[indexPath.row];
     cell.moodImageView.image = self.moodImages[indexPath.row];
+    [cell.moodImageView setImageToColorTint:[UIColor whiteColor]];
     return cell;
 }
 
