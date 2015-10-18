@@ -34,7 +34,11 @@
 #import  "MUSTagManager.h"
 #import "UIColor+MUSColors.h"
 #import "MUSShareManager.h"
+#import "MUSiPhoneSizeManager.h"
 
+
+
+#define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
 #define TEXT_LIMIT ((int) 35)
 #define TOOLBAR_COLOR [UIColor MUSBigStone] //COLOR OF BAR BUTTON ITEMS
 
@@ -86,20 +90,13 @@ typedef enum{
     
     [self setUpTagLabel];
     [self setUpMusicPlayer];
-    [self setUpParallaxForExistingEntries];
+    [self setUpParallaxView];
     [self setUpTitleTextField];
     [self setUpTextView];
     [self setUpToolbarAndKeyboard];
     [self setUpImagePicker];
     
-    // set bottom contraints
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.textView.mas_bottom);
-    }];
-    
-
-    
-}
+    }
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
     if (tap == self.entryTextViewTap)
@@ -159,6 +156,8 @@ typedef enum{
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     }
     
+    [self toggleKeyboardAvoidingForView:self.view];
+
     // adjust size of text view
     [self checkSizeOfContentForTextView:self.textView];
 }
@@ -191,21 +190,29 @@ typedef enum{
     
 }
 
--(void)setUpParallaxForExistingEntries {
+-(void)setUpParallaxView {
     
     self.coverImageView = [[UIImageView alloc] init];
-    [self.scrollView.parallaxView setDelegate:self];
     
-    if (self.destinationEntry != nil && self.destinationEntry.coverImage != nil) {
-        // Set Image For This Entry with Parallax
-        UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
-        self.coverImageView.image = entryCoverImage;
-        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
-        // there are the magic two lines here
-        [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, 350)];
-        [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2, 175)];
+    if(iPHONE_SIZE.height <= 480)
+    {
+        return;    // iPhone Classic NO AP IMAGE
     }
     
+    else {
+        [self.scrollView.parallaxView setDelegate:self];
+        
+        if (self.destinationEntry != nil && self.destinationEntry.coverImage != nil) {
+            // Set Image For This Entry with Parallax
+            UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
+            self.coverImageView.image = entryCoverImage;
+            [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
+            
+            // there are the magic two lines here
+            [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width*3/5)];
+            [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2,  self.view.frame.size.width*3/10)];
+        }
+    }
 }
 
 #pragma delegate method for Mood View Controller
@@ -284,7 +291,12 @@ typedef enum{
 }
 
 -(void)didSelectDoneButton:(id)sender {
-    [self.scrollView setContentOffset:CGPointZero animated:YES];
+    
+    // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
+    if (self.destinationEntry.coverImage != nil) {
+            [self.scrollView setContentOffset:CGPointZero animated:YES];
+    }
+
     [self checkSizeOfContentForTextView:self.textView];
     [self enableTextViewInteraction:YES];
     [self enableTextFieldInteraction:YES];
@@ -331,7 +343,7 @@ typedef enum{
 
 
 - (IBAction)textFieldDidChange:(id)sender {
-
+    
     //DISPLAY CHANGES OR CHARACTER LIMIT
     self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.entryTitleTextField.text.length]];
 }
@@ -368,13 +380,13 @@ typedef enum{
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-
+    
     [self toggleKeyboardAvoidingForView:self.scrollView];
     
     // determine whether we need keyboard avoiding for size of text
-//    [self checkSizeOfContentForTextView:self.textView];
+    //    [self checkSizeOfContentForTextView:self.textView];
     
-
+    
     
     
     self.textView.font = [UIFont returnParagraphFont];
@@ -392,27 +404,19 @@ typedef enum{
 
 
 -(void)textViewDidChange:(UITextView *)textView {
-//    [self checkSizeOfContentForTextView:self.textView];
+    //    [self checkSizeOfContentForTextView:self.textView];
 }
 
 
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-    NSLog(@"%lu", (unsigned long)textView.text.length);
+
     
-    
-//    if (textView.text.length > 50) {
-//        [self toggleKeyboardAvoiding:YES];
-//    }
-    
-//     set bottom contraints
+    //     set bottom contraints
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-//
-//    [textView sizeToFit];
-//    [textView layoutIfNeeded];
-//    
+
 }
 
 #pragma mark - music controls
@@ -490,21 +494,25 @@ typedef enum{
 }
 
 -(void)toggleKeyboardAvoidingForView:(UIView *)view {
- 
+    
     [IHKeyboardAvoiding removeAll];
-
+    
     if (view == self.view) {
-    [IHKeyboardAvoiding setAvoidingView:self.view];
+        [IHKeyboardAvoiding setAvoidingView:self.view];
+        
+        //        [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
+        
     }  else {
-    [IHKeyboardAvoiding setAvoidingView:self.scrollView];
+        [IHKeyboardAvoiding setAvoidingView:self.scrollView];
+        //        [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
     }
-    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
+    [IHKeyboardAvoiding setPadding:20];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-
-
+    
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.MUSToolBar setHidden:NO];
 }
@@ -603,14 +611,15 @@ typedef enum{
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    // SET COVER IMAGE AS SELECTED IMAGE
-    self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-    
     // ALLOW INTERACTION FOR TEXT FIELD
     [self enableTextFieldInteraction:YES];
     
     
-    //IF THIS IS A NEW ENTRY...
+    // SET COVER IMAGE AS SELECTED IMAGE
+    self.coverImageView.image = info[UIImagePickerControllerEditedImage];
+    
+    
+    //SAVE TO CORE DATA
     if (self.destinationEntry == nil) {
         Entry *newEntryWithImage = [self createNewEntry];
         newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
@@ -618,17 +627,24 @@ typedef enum{
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
     
-    // add reset parallax image
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
+    // SAVE TO CORE DATA!!
+    [self.store save];
     
+    
+    if(iPHONE_SIZE.height <= 480)
+    {
+        return;    // iPhone Classic...  NO AP IMAGE
+    } else {
+
+        // add reset parallax image
+    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
+
     //     fixes glitch with parallax, new parallax image does not fit into position without first responder
     CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
     scrollPoint = CGPointMake(scrollPoint.x, scrollPoint.y + 1); // makes scroll
     [self.scrollView setContentOffset:scrollPoint animated:YES];
-    
-    
-    // SAVE TO CORE DATA!!
-    [self.store save];
+        
+    }
 }
 
 #pragma mark - button pressed methods
