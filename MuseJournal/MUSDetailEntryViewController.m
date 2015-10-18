@@ -96,6 +96,9 @@ typedef enum{
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
+    
+
+    
 }
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
@@ -139,7 +142,7 @@ typedef enum{
 -(void)setUpTextView {
     
     self.textView.delegate = self;
-    self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 200, 15);     // padding for text view
+    self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 100, 15);     // padding for text view
     
     // add tap to container view to first repond text view
     self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
@@ -198,12 +201,11 @@ typedef enum{
         UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
         self.coverImageView.image = entryCoverImage;
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
-        
         // there are the magic two lines here
         [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, 350)];
         [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2, 175)];
-        
     }
+    
 }
 
 #pragma delegate method for Mood View Controller
@@ -309,22 +311,6 @@ typedef enum{
 }
 
 
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    [self.titleCharacterLimitLabel setHidden:NO];
-    
-    // IF ITS A NEW ENTRY TITLE
-    if (self.entryTitleTextField.textColor == [UIColor lightGrayColor]) {
-        self.entryTitleTextField.textColor = [UIColor blackColor];
-        self.entryTitleTextField.text = @"";
-        return;
-    }
-    
-    // set title field to entry title
-    self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
-    self.entryTextViewTap.enabled = NO;
-}
-
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     [self.titleCharacterLimitLabel setHidden:YES];
 }
@@ -343,8 +329,14 @@ typedef enum{
     return YES;
 }
 
+
+- (IBAction)textFieldDidChange:(id)sender {
+
+    //DISPLAY CHANGES OR CHARACTER LIMIT
+    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.entryTitleTextField.text.length]];
+}
+
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
     
     // add to seperate class
     
@@ -357,13 +349,37 @@ typedef enum{
 }
 
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    [self toggleKeyboardAvoidingForView:self.scrollView];
+    [self.titleCharacterLimitLabel setHidden:NO];
+    
+    // IF ITS A NEW ENTRY TITLE
+    if (self.entryTitleTextField.textColor == [UIColor lightGrayColor]) {
+        self.entryTitleTextField.textColor = [UIColor blackColor];
+        self.entryTitleTextField.text = @"";
+        return;
+    }
+    
+    // set title field to entry title
+    self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
+    self.entryTextViewTap.enabled = NO;
+}
+
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
+
+    [self toggleKeyboardAvoidingForView:self.scrollView];
+    
+    // determine whether we need keyboard avoiding for size of text
+//    [self checkSizeOfContentForTextView:self.textView];
+    
+
+    
     
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
     self.entryTextViewTap.enabled = NO;
-    
     
     // FOR NEW ENTRY
     if (self.textView.textColor == [UIColor lightGrayColor]) {
@@ -374,21 +390,27 @@ typedef enum{
     }
 }
 
-- (IBAction)textFieldDidChange:(id)sender {
-    
-    //DISPLAY CHANGES OR CHARACTER LIMIT
-    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.entryTitleTextField.text.length]];
-}
 
 -(void)textViewDidChange:(UITextView *)textView {
-    [self checkSizeOfContentForTextView:self.textView];
+//    [self checkSizeOfContentForTextView:self.textView];
 }
 
+
+
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
+    NSLog(@"%lu", (unsigned long)textView.text.length);
+//    if (textView.text.length > 50) {
+//        [self toggleKeyboardAvoiding:YES];
+//    }
     
-    [textView sizeToFit];
-    [textView layoutIfNeeded];
-    
+//     set bottom contraints
+    [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.textView.mas_bottom);
+    }];
+//
+//    [textView sizeToFit];
+//    [textView layoutIfNeeded];
+//    
 }
 
 #pragma mark - music controls
@@ -465,18 +487,27 @@ typedef enum{
     }
 }
 
+-(void)toggleKeyboardAvoidingForView:(UIView *)view {
+    if (view == self.view) {
+    [IHKeyboardAvoiding removeAll];
+    [IHKeyboardAvoiding setAvoidingView:self.view];
+    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
+    }  else
+    [IHKeyboardAvoiding removeAll];
+    [IHKeyboardAvoiding setAvoidingView:self.scrollView];
+    [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [IHKeyboardAvoiding setAvoidingView:self.scrollView];
-    [IHKeyboardAvoiding setPadding:50];
-//
+
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.MUSToolBar setHidden:NO];
 }
 
 
 - (void)saveButtonTapped:(id)sender {
-    
     if (self.entryTitleTextField.isFirstResponder)
         // SAVE JUST THE TITLE ON DONE BUTTON PRESS... THIS PRESERVES THE ATTRIBUTED TEXT ON SAVE.... BLOW AWAY ALL MARKDOWN OTHERWISE
         [self saveTitle];
@@ -588,7 +619,6 @@ typedef enum{
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:350 andShadow:YES];
     
     //     fixes glitch with parallax, new parallax image does not fit into position without first responder
-    
     CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
     scrollPoint = CGPointMake(scrollPoint.x, scrollPoint.y + 1); // makes scroll
     [self.scrollView setContentOffset:scrollPoint animated:YES];
@@ -599,6 +629,28 @@ typedef enum{
 }
 
 #pragma mark - button pressed methods
+
+
+-(void)selectPhoto{
+    
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Set Cover Photo" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    // CANCEL
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
+    }]];
+    
+    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
+    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
+    
+    // present action sheet/ POPover for ipads
+    actionSheet.popoverPresentationController.barButtonItem = self.keyboardTopBar.cameraBarButtonItem;
+    [self presentViewController:actionSheet animated:YES completion:nil];
+    [self.view bringSubviewToFront:self.contentView];
+}
+
+
 
 
 -(void)addCameraRollActionToController:(UIAlertController *)actionSheet picker:(UIImagePickerController *)imagePicker {
@@ -634,7 +686,7 @@ typedef enum{
 
 -(void)addTakePhotoActionToController:(UIAlertController *)actionSheet picker:(UIImagePickerController *)imagePicker {
     // TAKE PHOTO
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take a Picture" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         // ask for permission
         self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -671,27 +723,6 @@ typedef enum{
     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     self.imagePicker.allowsEditing = YES;
 }
-
--(void)selectPhoto{
-    
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    // CANCEL
-    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:YES completion:^{
-        }];
-    }]];
-    
-    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
-    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
-    
-    // present action sheet/ POPover for ipads
-    actionSheet.popoverPresentationController.barButtonItem = self.keyboardTopBar.cameraBarButtonItem;
-    [self presentViewController:actionSheet animated:YES completion:nil];
-    [self.view bringSubviewToFront:self.contentView];
-}
-
-
 -(void)playlistButtonPressed:id {
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }

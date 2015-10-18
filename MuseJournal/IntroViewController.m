@@ -33,9 +33,13 @@
                             instantiateViewControllerWithIdentifier:@"Intro1"];
     UIViewController *p2 = [self.storyboard
                             instantiateViewControllerWithIdentifier:@"Intro2"];
+    UIViewController *p3 = [self.storyboard
+                            instantiateViewControllerWithIdentifier:@"Intro3"];
+    UIViewController *p4 = [self.storyboard
+                            instantiateViewControllerWithIdentifier:@"Intro4"];
     
     
-    self.walkthroughVCs = @[p1,p2];
+    self.walkthroughVCs = @[p1,p2, p3,p4];
     
     self.pageControl.numberOfPages = self.walkthroughVCs.count;
     self.pageIndex = 0;

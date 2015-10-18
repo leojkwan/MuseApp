@@ -1631,13 +1631,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73y-i1-Tg2">
-                                        <rect key="frame" x="392" y="61" width="138" height="50"/>
+                                        <rect key="frame" x="356.5" y="61" width="173.5" height="63.5"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="73y-i1-Tg2" secondAttribute="height" multiplier="11:4" id="2bS-aE-KT8"/>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="n7C-RG-DLv"/>
                                         </constraints>
                                         <state key="normal" backgroundImage="AppleMusic"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="n7C-RG-DLv"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <action selector="appleMusicButtonTapped:" destination="EiH-fH-8rA" eventType="touchUpInside" id="it7-Mk-CPf"/>
                                         </connections>
@@ -1694,7 +1699,7 @@
                                     <constraint firstItem="yIJ-9g-Cxv" firstAttribute="leading" secondItem="SOg-sG-VkZ" secondAttribute="leading" id="VBf-hC-36L"/>
                                     <constraint firstItem="OJY-hy-1hF" firstAttribute="width" secondItem="7Kz-Wo-9gc" secondAttribute="width" id="WPG-bg-c7K"/>
                                     <constraint firstItem="yIJ-9g-Cxv" firstAttribute="trailing" secondItem="SOg-sG-VkZ" secondAttribute="trailing" id="XVm-HT-fnK"/>
-                                    <constraint firstItem="73y-i1-Tg2" firstAttribute="width" secondItem="SOg-sG-VkZ" secondAttribute="width" multiplier="1/3" priority="750" id="YT5-B2-h2c"/>
+                                    <constraint firstItem="73y-i1-Tg2" firstAttribute="width" secondItem="SOg-sG-VkZ" secondAttribute="width" multiplier="1/3" id="YT5-B2-h2c"/>
                                     <constraint firstItem="ssf-YQ-TiS" firstAttribute="top" secondItem="Cpt-WC-mgN" secondAttribute="bottom" constant="8" id="ZAw-3I-SrE"/>
                                     <constraint firstItem="TJq-6B-mgU" firstAttribute="width" secondItem="7Kz-Wo-9gc" secondAttribute="width" id="aUq-vy-LGg"/>
                                     <constraint firstItem="yIJ-9g-Cxv" firstAttribute="top" secondItem="nMb-Da-SuQ" secondAttribute="bottom" constant="25" id="bW9-pz-Q76"/>
