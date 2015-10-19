@@ -14,7 +14,7 @@
 #import "MUSAllEntriesViewController.h"
 #import "UIColor+MUSColors.h"
 
-//#define SECTION_BAR_COLOR [UIColor MUSSuperYellow]
+
 #define SECTION_BAR_COLOR [UIColor MUSCorn]
 
 
@@ -35,6 +35,13 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 @property (nonatomic) NSInteger currentPageIndex;
 @property (nonatomic) BOOL isPageScrollingFlag; //%%% prevents scrolling / segment tap crash
 @property (nonatomic) BOOL hasAppearedFlag; //%%% prevents reloading (maintains state)
+
+
+// MY PROPERTIES
+@property(strong, nonatomic) UIButton *leftButton;
+@property(strong, nonatomic) UIButton *rightButton;
+
+
 
 @end
 
@@ -63,8 +70,6 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
     
-//    self.view.backgroundColor = [UIColor greenColor];
-    
     viewControllerArray = [[NSMutableArray alloc]init];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -74,12 +79,21 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
     [viewControllerArray addObjectsFromArray:@[home, entries]];
 
-    
-    
-    
     self.currentPageIndex = 0;
     self.isPageScrollingFlag = NO;
     self.hasAppearedFlag = NO;
+}
+
+-(void)viewWillLayoutSubviews {
+//    [self setupSegmentButtons];
+   
+    
+    // RESET BUTTON AND SELECTOR FRAMES WHEN SCREEN ROTATES
+    NSInteger numControllers = [viewControllerArray count];
+    [self.leftButton setFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    [self.rightButton setFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    [selectionBar setFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
+
 }
 
 #pragma mark Customizables
@@ -98,11 +112,11 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 
     NSInteger numControllers = [viewControllerArray count];
 
-    UIButton *leftButton =   [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
-    UIButton *rightButton =    [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    self.leftButton =   [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    self.rightButton =    [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
     
 
-    NSArray *buttonsArray = @[leftButton,rightButton];
+    NSArray *buttonsArray = @[self.leftButton,self.rightButton];
     
     
     for (UIButton *button in buttonsArray) {
@@ -112,14 +126,14 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
         [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    leftButton.tag = 0;
-    rightButton.tag = 1;
+    self.leftButton.tag = 0;
+    self.rightButton.tag = 1;
     
-    UIImageView *homeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 25, 25)];
+    UIImageView *homeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.leftButton.frame.size.width/2, 0, 25, 25)];
     homeImageView.image = [UIImage imageNamed:@"home"];
-    [leftButton addSubview:homeImageView];
+    [self.leftButton addSubview:homeImageView];
     
-    UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightButton.frame.size.width/2, 0, 25, 25)];
+    UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.rightButton.frame.size.width/2, 0, 25, 25)];
 
     timelineImageView.image = [UIImage imageNamed:@"note"];
     
@@ -130,7 +144,7 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     UITapGestureRecognizer *iconTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSegmentButtonAction:)];
     [timelineImageView addGestureRecognizer:iconTap];
     [homeImageView addGestureRecognizer:iconTap];
-    [rightButton addSubview:timelineImageView];
+    [self.rightButton addSubview:timelineImageView];
     
     [self setupSelector];
 }
@@ -138,7 +152,9 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 
 //%%% sets up the selection bar under the buttons on the navigation bar
 -(void)setupSelector {
+
     selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
+    
     selectionBar.backgroundColor = SECTION_BAR_COLOR; //%%% sbcolor
     selectionBar.alpha = 1.0; //%%% sbalpha
     [self.navigationBar addSubview:selectionBar];

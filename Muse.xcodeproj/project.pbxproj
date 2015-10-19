@@ -43,6 +43,8 @@
 		9450A3EC1BCE1D8F00335606 /* MUSTagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9450A3EB1BCE1D8F00335606 /* MUSTagManager.m */; settings = {ASSET_TAGS = (); }; };
 		945E53551BC70AB900157085 /* MUSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E53541BC70AB900157085 /* MUSConstants.m */; settings = {ASSET_TAGS = (); }; };
 		9477D5B01BCEFF2E0059282F /* MUSWallPaperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9477D5AF1BCEFF2E0059282F /* MUSWallPaperViewController.m */; settings = {ASSET_TAGS = (); }; };
+		949A643E1BD48CAE00614AB1 /* MUSAboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		949A64411BD49A2D00614AB1 /* iTellAFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 949A64401BD49A2D00614AB1 /* iTellAFriend.m */; settings = {ASSET_TAGS = (); }; };
 		94A892D11BD07A2F0049E25F /* MUSOpenSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94AD69EE1BBDABA5009C5553 /* Song+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69E71BBDABA5009C5553 /* Song+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		94AD69EF1BBDABA5009C5553 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69E91BBDABA5009C5553 /* Song.m */; settings = {ASSET_TAGS = (); }; };
@@ -172,6 +174,10 @@
 		945E53541BC70AB900157085 /* MUSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSConstants.m; sourceTree = "<group>"; };
 		9477D5AE1BCEFF2E0059282F /* MUSWallPaperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSWallPaperViewController.h; sourceTree = "<group>"; };
 		9477D5AF1BCEFF2E0059282F /* MUSWallPaperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSWallPaperViewController.m; sourceTree = "<group>"; };
+		949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSAboutTableViewController.h; sourceTree = "<group>"; };
+		949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSAboutTableViewController.m; sourceTree = "<group>"; };
+		949A643F1BD49A2D00614AB1 /* iTellAFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTellAFriend.h; sourceTree = "<group>"; };
+		949A64401BD49A2D00614AB1 /* iTellAFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTellAFriend.m; sourceTree = "<group>"; };
 		94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSOpenSourceViewController.h; path = ../MUSOpenSourceViewController.h; sourceTree = "<group>"; };
 		94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSOpenSourceViewController.m; path = ../MUSOpenSourceViewController.m; sourceTree = "<group>"; };
 		94AD69E61BBDABA5009C5553 /* Song+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Song+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -299,6 +305,8 @@
 			children = (
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
+				949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */,
+				949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */,
 				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
 				94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */,
 				94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */,
@@ -383,6 +391,8 @@
 		94775DE31BB9FF25004ABF0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				949A643F1BD49A2D00614AB1 /* iTellAFriend.h */,
+				949A64401BD49A2D00614AB1 /* iTellAFriend.m */,
 				944ED45E1BD41C3A007874EF /* MUSiPhoneSizeManager.h */,
 				944ED45F1BD41C3A007874EF /* MUSiPhoneSizeManager.m */,
 				944468741BD07449003B3F16 /* MUSShareManager.h */,
@@ -740,6 +750,7 @@
 				94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */,
 				94F493481BCF009500E8D719 /* MUSMoodCollectionViewCell.m in Sources */,
 				944468761BD07449003B3F16 /* MUSShareManager.m in Sources */,
+				949A64411BD49A2D00614AB1 /* iTellAFriend.m in Sources */,
 				94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */,
 				9477D5B01BCEFF2E0059282F /* MUSWallPaperViewController.m in Sources */,
 				94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */,
@@ -753,6 +764,7 @@
 				9421B9FA1BC4AD7200F33EAB /* MUSNotificationManager.m in Sources */,
 				94B314071BBAF88200ECB1AD /* Song+MUSExtraMethods.m in Sources */,
 				94336B4E1BC60CB200D86420 /* MUSPageViewController.m in Sources */,
+				949A643E1BD48CAE00614AB1 /* MUSAboutTableViewController.m in Sources */,
 				94B314041BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m in Sources */,
 				94B314021BBAF88200ECB1AD /* NSDate+ExtraMethods.m in Sources */,
 				941F25321BBC4A24008C8120 /* MUSNotificationDelegate.m in Sources */,

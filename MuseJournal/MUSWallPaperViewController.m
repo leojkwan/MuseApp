@@ -326,17 +326,15 @@
 
 
 - (void)wallpaperLabelPressed {
-    
-    
+
     UIAlertController *alertController;
     
-    if ([self.wallpaperIsPurchased  isEqual: @1])
+    if ([self.wallpaperIsPurchased  isEqual: @1]) {
         alertController = [self returnSaveWallpaperController];
-    else // not purchased
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {// not purchased
         alertController = [self returnPurchaseWallpaperController];
-    
-
-    
     
     if([SKPaymentQueue canMakePayments]){
         NSLog(@"User can make payments");
@@ -346,22 +344,15 @@
         //another function and replace kRemoveAdsProductIdentifier with
         //the identifier for the other product
         
-        
-        
         SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:PREMIUM_WALLPAPER_7]];
         productsRequest.delegate = self;
         [productsRequest start];
-        
-        
     }
     else{
         NSLog(@"User cannot make payments due to parental controls");
         //this is called the user cannot make payments, most likely due to parental controls
     }
-
-    
-    
-//    [self presentViewController:alertController animated:YES completion:nil];
+    }
     
 }
 
@@ -439,6 +430,7 @@
     
     // indicate the ONE selected item
     UICollectionViewCell *selectedCell = [collectionView cellForItemAtIndexPath:indexPath];
+    
     selectedCell.layer.borderColor =  [UIColor cyanColor].CGColor;
     
     // scroll view to center selected index path

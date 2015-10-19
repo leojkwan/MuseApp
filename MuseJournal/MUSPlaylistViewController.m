@@ -142,8 +142,6 @@
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
                             [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist withCompletionBlock:^(BOOL block) {
-                                
-                                NSLog(@"HI HI IM DONE");
                                 [self.HUD hide:YES];
                             }];
                         });
@@ -412,7 +410,6 @@
             }];
         });
     });
-    
     
 }
 

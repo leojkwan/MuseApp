@@ -39,6 +39,9 @@
 
 
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+
 #define TEXT_LIMIT ((int) 35)
 #define TOOLBAR_COLOR [UIColor MUSBigStone] //COLOR OF BAR BUTTON ITEMS
 
@@ -194,8 +197,7 @@ typedef enum{
     
     self.coverImageView = [[UIImageView alloc] init];
     
-    if(iPHONE_SIZE.height <= 480)
-    {
+    if(iPHONE_SIZE.height <= 480 || IS_IPAD) {
         return;    // iPhone Classic NO AP IMAGE
     }
     
@@ -631,7 +633,7 @@ typedef enum{
     [self.store save];
     
     
-    if(iPHONE_SIZE.height <= 480)
+    if(iPHONE_SIZE.height <= 480 || IS_IPAD)
     {
         return;    // iPhone Classic...  NO AP IMAGE
     } else {

@@ -85,6 +85,9 @@
 
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     

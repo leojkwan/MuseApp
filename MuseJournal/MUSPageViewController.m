@@ -25,6 +25,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 -(void)setUpBackground {
     
     self.wallpaperImageView = [[UIImageView alloc] init];

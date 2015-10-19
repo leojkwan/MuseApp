@@ -13,6 +13,6 @@
 
 -(instancetype)initWithTimeOfDay:(TimeOfDay)time firstName:(NSString *)name;
 
-@property (strong, nonatomic) NSString* usergreeting;
+@property (strong, nonatomic) NSString* userGreeting;
 
 @end
