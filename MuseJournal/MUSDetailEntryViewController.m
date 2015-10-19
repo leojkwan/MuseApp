@@ -40,11 +40,8 @@
 
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-
-
 #define TEXT_LIMIT ((int) 35)
 #define TOOLBAR_COLOR [UIColor MUSBigStone] //COLOR OF BAR BUTTON ITEMS
-
 
 typedef enum{
     Playing,
@@ -54,9 +51,6 @@ typedef enum{
 }PlayerStatus;
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol>
-
-
-
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
 @property (nonatomic, strong) MUSDataStore *store;
@@ -449,7 +443,6 @@ typedef enum{
         // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
         
         int i = 0;
-        
         for (MPMediaItem *MPSong in collection.items) {
             Song *songForThisIndex = self.formattedPlaylistForThisEntry[i];
             if (MPSong == [NSNull null]) {
@@ -476,37 +469,44 @@ typedef enum{
             i++; // next song
         } // end of for loop
         
+        
+        // not async
         MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
-        //        BOOL autoplayStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoplay"];
         
         // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
         if ([MUSAutoPlayManager returnAutoPlayStatus] && self.formattedPlaylistForThisEntry.count > 0) {
-            [self.musicPlayer.myPlayer play];
+
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                [self.musicPlayer.myPlayer play];
+            }];
+
         }
     }
     
     // RANDOM SONG
     else if (self.entryType == RandomSong) {
         [self.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
-            [self.musicPlayer.myPlayer setQueueWithItemCollection:randomSong];
-            [self.musicPlayer.myPlayer play];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                
+                [self.musicPlayer.myPlayer setQueueWithItemCollection:randomSong];
+                [self.musicPlayer.myPlayer play];
+                
+                NSLog(@"Main Thread Code");
+                
+            }];
+    
         }];
     }
 }
 
 -(void)toggleKeyboardAvoidingForView:(UIView *)view {
-    
     [IHKeyboardAvoiding removeAll];
     
     if (view == self.view) {
         [IHKeyboardAvoiding setAvoidingView:self.view];
-        
-        //        [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
-        
     }  else {
         [IHKeyboardAvoiding setAvoidingView:self.scrollView];
-        //        [IHKeyboardAvoiding setPaddingForCurrentAvoidingView:20];
     }
     [IHKeyboardAvoiding setPadding:20];
 }
@@ -587,17 +587,6 @@ typedef enum{
     newEntry.titleOfEntry = self.entryTitleTextField.text;
     
     NSDate *currentDate = [NSDate date];
-    
-    //        // check future
-    //    NSDate *today = [[NSDate alloc] init];
-    //    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    //    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    //    [offsetComponents setYear:0];
-    //    [offsetComponents setMonth:-3];
-    //    [offsetComponents setDay:-16];
-    //    NSDate *timeWarp = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
-    
-    
     // month day and year
     newEntry.createdAt = [currentDate monthDateYearDate];
     // month day and year and seconds
@@ -835,8 +824,6 @@ typedef enum{
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
     
     if ([segue.identifier isEqualToString:@"playlistSegue"]) {
         MUSPlaylistViewController *dvc = segue.destinationViewController;
