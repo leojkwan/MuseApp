@@ -522,7 +522,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vih-tL-t2Y" userLabel="contentView">
                                 <rect key="frame" x="0.0" y="420" width="600" height="180"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Px-f9n">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aXm-Px-f9n">
                                         <rect key="frame" x="200" y="20" width="200" height="23"/>
                                         <animations/>
                                         <constraints>
@@ -615,21 +615,16 @@
                                             </mask>
                                         </variation>
                                     </collectionView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjx-GS-LVc">
-                                        <rect key="frame" x="525" y="15" width="75" height="33"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Save" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="9tA-9G-tdM">
+                                        <rect key="frame" x="500" y="19" width="100" height="25"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="Ctz-1H-VRC"/>
+                                            <constraint firstAttribute="width" constant="100" id="pR9-oy-0PG"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
-                                        <state key="normal" title="Save">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveButtonPressed:" destination="MbV-Be-dfL" eventType="touchUpInside" id="HMI-9u-FD1"/>
-                                        </connections>
-                                    </button>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="calibratedWhite"/>
@@ -640,8 +635,8 @@
                                     <constraint firstItem="aXm-Px-f9n" firstAttribute="centerX" secondItem="Vih-tL-t2Y" secondAttribute="centerX" id="Ezb-5m-XmI"/>
                                     <constraint firstItem="zpZ-Vf-z2b" firstAttribute="top" secondItem="aXm-Px-f9n" secondAttribute="bottom" constant="10" id="HS5-KB-heV"/>
                                     <constraint firstAttribute="bottom" secondItem="zpZ-Vf-z2b" secondAttribute="bottom" id="Hnt-cY-T1o"/>
-                                    <constraint firstAttribute="trailing" secondItem="tjx-GS-LVc" secondAttribute="trailing" id="su9-uc-tl7"/>
-                                    <constraint firstItem="tjx-GS-LVc" firstAttribute="centerY" secondItem="aXm-Px-f9n" secondAttribute="centerY" id="t8F-nE-0i9"/>
+                                    <constraint firstItem="9tA-9G-tdM" firstAttribute="centerY" secondItem="aXm-Px-f9n" secondAttribute="centerY" id="enO-tt-6s7"/>
+                                    <constraint firstAttribute="trailing" secondItem="9tA-9G-tdM" secondAttribute="trailing" id="qm8-Va-6uH"/>
                                     <constraint firstAttribute="trailing" secondItem="zpZ-Vf-z2b" secondAttribute="trailing" id="w5Z-Xr-ZtC"/>
                                 </constraints>
                             </view>
@@ -694,10 +689,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="actionButton" destination="tjx-GS-LVc" id="Wap-fu-8N6"/>
                         <outlet property="actionview" destination="FIj-LX-IOJ" id="U2A-MH-vxB"/>
                         <outlet property="contentView" destination="Vih-tL-t2Y" id="ZXG-Ok-ZME"/>
                         <outlet property="navTitleLabel" destination="9s0-CU-pRa" id="j5X-0z-4LG"/>
+                        <outlet property="setWallpaperLabel" destination="9tA-9G-tdM" id="N4q-0P-N9U"/>
                         <outlet property="wallpaperCollectionView" destination="zpZ-Vf-z2b" id="s8J-q7-nTa"/>
                         <outlet property="wallpaperNameLabel" destination="aXm-Px-f9n" id="G9D-KH-L5l"/>
                         <outlet property="wallpaperPreviewImageView" destination="JEK-Zn-XPF" id="cQx-IF-jZE"/>

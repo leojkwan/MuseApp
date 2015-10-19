@@ -38,6 +38,8 @@
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
     
+    
+    
     // FIRST TIME USER SETTINGS
     
     // USER NAME
@@ -61,6 +63,30 @@
     // BACKGROUND IMAGE
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"background"] == nil) {
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"background"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    // IAP
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"purchases"] == nil) {
+       
+        NSMutableDictionary *wallpaperDictionary = [[NSMutableDictionary  alloc] init];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Vintage Camera"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Seagull"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Vinyl"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Venice"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Balloons"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Electric"];
+        
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Shooting Star"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Coffee Bean"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Calm"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Rose"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Hammer"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Spark"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Tiger"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Jellyfish"];
+
+        [[NSUserDefaults standardUserDefaults] setObject:wallpaperDictionary forKey:@"purchasedWallpapers"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
