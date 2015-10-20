@@ -85,14 +85,14 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 }
 
 -(void)viewWillLayoutSubviews {
-//    [self setupSegmentButtons];
-   
     
-    // RESET BUTTON AND SELECTOR FRAMES WHEN SCREEN ROTATES
-    NSInteger numControllers = [viewControllerArray count];
-    [self.leftButton setFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
-    [self.rightButton setFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
-    [selectionBar setFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
+//    // RESET BUTTON AND SELECTOR FRAMES WHEN SCREEN ROTATES
+//    NSInteger numControllers = [viewControllerArray count];
+//    [self.leftButton setFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+//    [self.rightButton setFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+//    
+//    
+//    [selectionBar setFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
 
 }
 
@@ -167,15 +167,22 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 -(void)viewWillAppear:(BOOL)animated {
     if (!self.hasAppearedFlag) {
         [self setupPageViewController];
-        
-        
-        
-//        self.pageScrollView.backgroundColor = [UIColor redColor];
-        
         [self setupSegmentButtons];
         self.hasAppearedFlag = YES;
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
     }
+}
+
+
+
+- (void)orientationChanged:(NSNotification *)notification{
+    // RESET BUTTON AND SELECTOR FRAMES WHEN SCREEN ROTATES
+    NSInteger numControllers = [viewControllerArray count];
+    [self.leftButton setFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    [self.rightButton setFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    
+    
+    [selectionBar setFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
 }
 
 //%%% generic setup stuff for a pageview controller.  Sets up the scrolling style and delegate for the controller
@@ -197,6 +204,10 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     }
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
 //%%% methods called when you tap a button or scroll through the pages
 // generally shouldn't touch this unless you know what you're doing or
 // have a particular performance thing in mind
@@ -207,8 +218,8 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 //but it also has to animate the other pages to make it feel like you're crossing a 2d expansion,
 //so there's a loop that shows every view controller in the array up to the one you selected
 //eg: if you're on page 1 and you click tab 3, then it shows you page 2 and then page 3
+
 -(void)tapSegmentButtonAction:(UIButton *)button {
-    
     if (!self.isPageScrollingFlag) {
         
         NSInteger tempIndex = self.currentPageIndex;

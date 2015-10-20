@@ -50,10 +50,7 @@
 
 
 @implementation MUSHomeViewController
-//
-//#define kExtraThemeProductID @"iapdemo_extra_colors_col1"
-//#define kRemoveAdsProductID @"com.leojkwan.muse.removeads"
-//
+
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -66,9 +63,6 @@
     [self setUpScrollButtons];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
 
 -(void)setUpScrollButtons {
     
@@ -107,12 +101,21 @@
     
     [self setScrollInteraction:YES];
     
+    
+    NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
+    NSLog(@"%@",updatedDictionary);
+    
+
+    
 }
 
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
     [self configureUILabelColors];
     [self setUpCurrentTime];
 
+    NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
+    NSLog(@"%@",updatedDictionary);
+//
 }
 
 

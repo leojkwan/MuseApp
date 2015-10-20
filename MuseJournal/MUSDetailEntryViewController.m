@@ -47,7 +47,7 @@ typedef enum{
     Playing,
     NotPlaying,
     Invalid,
-    AlreadyPinned
+     AlreadyPinned
 }PlayerStatus;
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol>
@@ -166,6 +166,10 @@ typedef enum{
     
     // set up music player
     self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    NSLog(@"Preparing to play music player");
+    [self.musicPlayer.myPlayer prepareToPlay];
+    
+    
     [self playPlaylistForThisEntry];
 }
 
@@ -183,8 +187,7 @@ typedef enum{
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     self.entryTitleTextField.inputAccessoryView = self.keyboardTopBar;
-    
-    
+
 }
 
 -(void)setUpParallaxView {
@@ -378,12 +381,7 @@ typedef enum{
 -(void)textViewDidBeginEditing:(UITextView *)textView {
     
     [self toggleKeyboardAvoidingForView:self.scrollView];
-    
-    // determine whether we need keyboard avoiding for size of text
-    //    [self checkSizeOfContentForTextView:self.textView];
-    
-    
-    
+
     
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
@@ -399,15 +397,8 @@ typedef enum{
 }
 
 
--(void)textViewDidChange:(UITextView *)textView {
-    //    [self checkSizeOfContentForTextView:self.textView];
-}
-
-
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-
-    
     //     set bottom contraints
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
@@ -733,6 +724,9 @@ typedef enum{
     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     self.imagePicker.allowsEditing = YES;
 }
+
+
+
 -(void)playlistButtonPressed:id {
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }

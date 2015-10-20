@@ -22,8 +22,6 @@
 
 #define PREMIUM_WALLPAPER_7 @"MUS_extra_wallpaper_7"
 
-
-
 @interface MUSWallPaperViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver>
 @property (weak, nonatomic) IBOutlet UICollectionView *wallpaperCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *navTitleLabel;
@@ -36,7 +34,7 @@
 @property(nonatomic, assign)  NSInteger collectionViewCurrentIP;
 @property (weak, nonatomic) IBOutlet MUSActionView *actionview;
 @property (strong, nonatomic) NSNumber *wallpaperIsPurchased;
-@property (strong, nonatomic) NSDictionary *wallpaperDictionary;
+@property (strong, nonatomic) NSMutableDictionary *wallpaperDictionary;
 @property (weak, nonatomic) IBOutlet UILabel *setWallpaperLabel;
 
 @end
@@ -48,7 +46,6 @@
     self.wallpaperCollectionView.delegate = self;
     self.wallpaperCollectionView.dataSource = self;
     
-//    [self.wallpaperCollectionView registerClass:[MUSWallpaperCollectionViewCell class] forCellWithReuseIdentifier:@"wallpaperCollectionCell"];
 
     self.wallpaperDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
     self.wallpaperArray = [MUSWallpaperManager returnArrayForWallPaperImages];
@@ -119,7 +116,7 @@
     
     cell.wallpaperImageView.image = self.wallpaperArray[indexPath.row][1];
     cell.wallpaperImageView.contentMode = UIViewContentModeScaleAspectFill;
-//    
+    //
     NSString *wallpaperName = self.wallpaperArray[indexPath.row][0];
     NSNumber *wallpaperPurchasedBOOL = [self.wallpaperDictionary objectForKey:wallpaperName];
     
@@ -130,8 +127,8 @@
         cell.wallpaperIconImageView.image = nil;
     else
         cell.wallpaperIconImageView.image = [UIImage imageNamed:@"lock"];
-
-
+    
+    
     return cell;
 }
 
@@ -142,10 +139,16 @@
 
 -(void)updateUserBackgroundImage {
     
+    // SAVE USER BACKGROUND STATE
     [[NSUserDefaults standardUserDefaults] setInteger:self.collectionViewCurrentIP forKey:@"background"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    // POST NSNOTIFICATION TO OTHER CLASSES TO UPDATE UI
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBackground" object:nil userInfo:[NSDictionary dictionaryWithObject: @(self.collectionViewCurrentIP) forKey:@"wallpaperIndex"]];
 }
+
+
+
 
 -(UIAlertController *)returnSaveWallpaperController {
     UIAlertController *alertController= [UIAlertController
@@ -156,12 +159,8 @@
                                 actionWithTitle:NSLocalizedString(@"Set as Background", @"Set as Background")
                                 style:UIAlertActionStyleDestructive
                                 handler:^(UIAlertAction *action) {
-
+                                    
                                     [self updateUserBackgroundImage];
-//                                    [[NSUserDefaults standardUserDefaults] setInteger:self.collectionViewCurrentIP forKey:@"background"];
-//                                    [[NSUserDefaults standardUserDefaults] synchronize];
-//                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBackground" object:nil userInfo:[NSDictionary dictionaryWithObject: @(self.collectionViewCurrentIP) forKey:@"wallpaperIndex"]];
-                                    
                                     [self performSegueWithIdentifier:@"backToHomeView" sender:self];
                                     
                                 }]
@@ -179,60 +178,31 @@
 }
 
 
--(UIAlertController *)returnPurchaseWallpaperController {
-    UIAlertController *alertController= [UIAlertController
-                                         alertControllerWithTitle:nil
-                                         message:[NSString stringWithFormat: @"%@", [self.wallpaperNameLabel.text uppercaseString]]
-                                         preferredStyle:UIAlertControllerStyleActionSheet];
-    [alertController addAction:[UIAlertAction
-                                actionWithTitle:NSLocalizedString(@"Purchase Premium Theme", @"Purchase Premium Theme")
-                                style:UIAlertActionStyleDestructive
-                                handler:^(UIAlertAction *action) {
+//-(UIAlertController *)returnPurchaseWallpaperController {
+//    UIAlertController *alertController= [UIAlertController
+//                                         alertControllerWithTitle:nil
+//                                         message:[NSString stringWithFormat: @"%@", [self.wallpaperNameLabel.text uppercaseString]]
+//                                         preferredStyle:UIAlertControllerStyleActionSheet];
+//    [alertController addAction:[UIAlertAction
+//                                actionWithTitle:NSLocalizedString(@"Purchase Premium Theme", @"Purchase Premium Theme")
+//                                style:UIAlertActionStyleDestructive
+//                                handler:^(UIAlertAction *action) {
 //                                    
+//                                    [self performSegueWithIdentifier:@"backToHomeView" sender:self];
 //                                    
-//                                    if([SKPaymentQueue canMakePayments]){
-//                                        NSLog(@"User can make payments");
-//                                        
-//                                        //If you have more than one in-app purchase, and would like
-//                                        //to have the user purchase a different product, simply define
-//                                        //another function and replace kRemoveAdsProductIdentifier with
-//                                        //the identifier for the other product
-//                                        
-//                                        
-//                                        
-//                                        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:PREMIUM_WALLPAPER_7]];
-//                                        productsRequest.delegate = self;
-//                                        [productsRequest start];
-//
-//                                        
-//                                    }
-//                                    else{
-//                                        NSLog(@"User cannot make payments due to parental controls");
-//                                        //this is called the user cannot make payments, most likely due to parental controls
-//                                    }
-                                    
-                                    
-                                    // figure this out
-                                    //
-                                    //                                    [[NSUserDefaults standardUserDefaults] setInteger:self.collectionViewCurrentIP forKey:@"background"];
-                                    //                                    [[NSUserDefaults standardUserDefaults] synchronize];
-                                    //                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateBackground" object:nil userInfo:[NSDictionary dictionaryWithObject: @(self.collectionViewCurrentIP) forKey:@"wallpaperIndex"]];
-                                    
-                                    [self performSegueWithIdentifier:@"backToHomeView" sender:self];
-                                    
-                                }]
-     ];
-    [alertController addAction:[UIAlertAction
-                                actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
-                                style:UIAlertActionStyleDefault
-                                handler:NULL]
-     ];
-    // for ipads
-    alertController.popoverPresentationController.sourceRect = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
-    alertController.popoverPresentationController.sourceView= self.contentView;
-    
-    return alertController;
-}
+//                                }]
+//     ];
+//    [alertController addAction:[UIAlertAction
+//                                actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+//                                style:UIAlertActionStyleDefault
+//                                handler:NULL]
+//     ];
+//    // for ipads
+//    alertController.popoverPresentationController.sourceRect = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
+//    alertController.popoverPresentationController.sourceView= self.contentView;
+//    
+//    return alertController;
+//}
 
 
 
@@ -268,23 +238,18 @@
 }
 
 - (void)doAddWallpaper{
-    [self.view setBackgroundColor:[UIColor blueColor]];
-//    areAdsRemoved = YES
-    //set the bool for whether or not they purchased it to YES, you could use your own boolean here, but you would have to declare it in your .h file
     
     // save new key value to dictiionary
-    
-    NSMutableDictionary *updatedDictionary = [self.wallpaperDictionary mutableCopy];
-    [updatedDictionary setObject:[NSNumber numberWithBool:YES] forKey:self.wallpaperNameLabel.text]; // SET YES TO THE CURRENT WALLPAPER
+    [self.wallpaperDictionary setObject:[NSNumber numberWithBool:YES] forKey:self.wallpaperNameLabel.text]; // SET YES TO THE CURRENT WALLPAPER
     
     // overwrite existing dictionary
-    [[NSUserDefaults standardUserDefaults] setObject:updatedDictionary forKey:@"purchasedWallpapers"];
-    
+    [[NSUserDefaults standardUserDefaults] setObject: self.wallpaperDictionary forKey:@"purchasedWallpapers"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     // set new wallpaper preference after successful purchase
     [self updateUserBackgroundImage];
     
-    // SAVE
-    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
@@ -294,16 +259,20 @@
                 //called when the user is in the process of purchasing, do not add any of your own code here.
                 break;
             case SKPaymentTransactionStatePurchased:
+                
                 //this is called when the user has successfully purchased the package (Cha-Ching!)
-                
-                
                 //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
                 
-                NSLog(@"THIS IS WHERE YOU MUSE ADD YES TO NSUSERDEFAULTS");
-                [self doAddWallpaper];
                 
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                NSLog(@"THIS IS WHERE YOU MUSE ADD YES TO NSUSERDEFAULTS");
                 NSLog(@"Transaction state -> Purchased");
+                
+                [self doAddWallpaper];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                
+                
+                [self performSegueWithIdentifier:@"backToHomeView" sender:self];
+                
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLog(@"Transaction state -> Restored");
@@ -326,7 +295,7 @@
 
 
 - (void)wallpaperLabelPressed {
-
+    
     UIAlertController *alertController;
     
     if ([self.wallpaperIsPurchased  isEqual: @1]) {
@@ -334,24 +303,24 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     else {// not purchased
-        alertController = [self returnPurchaseWallpaperController];
-    
-    if([SKPaymentQueue canMakePayments]){
-        NSLog(@"User can make payments");
+//        alertController = [self returnPurchaseWallpaperController];
         
-        //If you have more than one in-app purchase, and would like
-        //to have the user purchase a different product, simply define
-        //another function and replace kRemoveAdsProductIdentifier with
-        //the identifier for the other product
-        
-        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:PREMIUM_WALLPAPER_7]];
-        productsRequest.delegate = self;
-        [productsRequest start];
-    }
-    else{
-        NSLog(@"User cannot make payments due to parental controls");
-        //this is called the user cannot make payments, most likely due to parental controls
-    }
+        if([SKPaymentQueue canMakePayments]){
+            NSLog(@"User can make payments");
+            
+            //If you have more than one in-app purchase, and would like
+            //to have the user purchase a different product, simply define
+            //another function and replace kRemoveAdsProductIdentifier with
+            //the identifier for the other product
+            
+            SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:PREMIUM_WALLPAPER_7]];
+            productsRequest.delegate = self;
+            [productsRequest start];
+        }
+        else{
+            NSLog(@"User cannot make payments due to parental controls");
+            //this is called the user cannot make payments, most likely due to parental controls
+        }
     }
     
 }
@@ -445,7 +414,7 @@
     self.actionview.textLabel1.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:indexPath.row];
     self.actionview.textLabel2.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:indexPath.row];
     
-
+    
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {

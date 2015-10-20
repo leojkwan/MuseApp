@@ -305,11 +305,7 @@
 			children = (
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
-				949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */,
-				949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */,
 				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
-				94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */,
-				94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
 				94336B3F1BC5E2DC00D86420 /* IntroViewController.h */,
 				94336B401BC5E2DC00D86420 /* IntroViewController.m */,
@@ -393,6 +389,8 @@
 			children = (
 				949A643F1BD49A2D00614AB1 /* iTellAFriend.h */,
 				949A64401BD49A2D00614AB1 /* iTellAFriend.m */,
+				94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */,
+				94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */,
 				944ED45E1BD41C3A007874EF /* MUSiPhoneSizeManager.h */,
 				944ED45F1BD41C3A007874EF /* MUSiPhoneSizeManager.m */,
 				944468741BD07449003B3F16 /* MUSShareManager.h */,
@@ -430,6 +428,8 @@
 		94775DFC1BB9FF42004ABF0A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */,
+				949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */,
 				94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */,
 				94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */,
 				9477D5AE1BCEFF2E0059282F /* MUSWallPaperViewController.h */,

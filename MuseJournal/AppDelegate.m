@@ -67,7 +67,7 @@
     }
     
     // IAP
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"purchases"] == nil) {
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"purchasedWallpapers"] == nil) {
        
         NSMutableDictionary *wallpaperDictionary = [[NSMutableDictionary  alloc] init];
         [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Vintage Camera"];
