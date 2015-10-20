@@ -435,8 +435,7 @@ typedef enum{
 }
 
 
-- (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker
-{
+- (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker {
     [mediaPicker dismissViewControllerAnimated:YES completion:nil];
     [self.MUSToolBar setHidden:NO];
 }

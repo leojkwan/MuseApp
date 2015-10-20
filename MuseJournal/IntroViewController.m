@@ -37,8 +37,9 @@
                             instantiateViewControllerWithIdentifier:@"Intro3"];
     UIViewController *p4 = [self.storyboard
                             instantiateViewControllerWithIdentifier:@"Intro4"];
+
     
-    
+
     self.walkthroughVCs = @[p1,p2, p3,p4];
     
     self.pageControl.numberOfPages = self.walkthroughVCs.count;
@@ -48,7 +49,7 @@
 
     [self.pageVC setViewControllers:@[p1]
                           direction:UIPageViewControllerNavigationDirectionForward
-                           animated:NO completion:nil];
+                           animated:YES completion:nil];
     
     }
 
@@ -59,7 +60,9 @@
 
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(nonnull NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
-    [self.pageControl setCurrentPage:self.pageIndex];
+    
+//    [self.pageControl setCurrentPage:self.pageIndex];
+    
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
@@ -81,12 +84,12 @@
     NSUInteger currentIndex = [self.walkthroughVCs indexOfObject:viewController];
     
     self.pageControl.currentPage = currentIndex;
+    
     if (currentIndex < [self.walkthroughVCs count]-1)
         return [self.walkthroughVCs objectAtIndex:currentIndex+1];
     // return the next view controller
     else
         return nil;
-    
 }
 
 
