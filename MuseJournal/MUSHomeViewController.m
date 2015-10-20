@@ -204,13 +204,13 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    if ([[NSUserDefaults standardUserDefaults]
-         boolForKey:@"firstTimeUser"] == YES) {
+//    if ([[NSUserDefaults standardUserDefaults]
+//         boolForKey:@"firstTimeUser"] == YES) {
         NSString * storyboardName = @"Walkthrough";
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
         IntroViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"walkthrough"];
         [self.navigationController pushViewController:controller animated:NO];
-    }
+//    }
 }
 
 
