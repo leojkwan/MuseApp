@@ -20,7 +20,7 @@
 #import <MBProgressHUD.h>
 #import <AFNetworkReachabilityManager.h>
 #import "UIColor+MUSColors.h"
-
+#import "MUSMusicPlayerDataStore.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -41,6 +41,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *playlistGaussian;
 @property (weak, nonatomic) IBOutlet UIButton *appleMusicButton;
 @property (weak,nonatomic) MBProgressHUD *HUD;
+@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
+@property (nonatomic, strong) MPMusicPlayerController *player;
 
 
 @end
@@ -50,9 +52,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.store = [MUSDataStore sharedDataStore];
-    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
+    self.sharedMusicDataStore = [MUSMusicPlayerDataStore sharedMusicPlayerDataStore];
+    self.store = [MUSDataStore sharedDataStore];
+    [self.player beginGeneratingPlaybackNotifications];
     [self listenForSongChanges];
     [self listenForPlaybackState];
     [self updateButtonStatus];
@@ -93,7 +96,7 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         // Do something...
         
-        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+        [self.sharedMusicDataStore.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             
             
             self.artworkImagesForThisEntry = artworkImages;
@@ -108,7 +111,7 @@
 
 
 -(void)setUpAppleMusicButton {
-    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStatePlaying)
+    if (self.currentSongView.image == nil && self.player.playbackState != MPMusicPlaybackStatePlaying)
         [self.appleMusicButton setHidden:YES];
     else
         [self.appleMusicButton setHidden:NO];
@@ -117,7 +120,7 @@
 - (IBAction)appleMusicButtonTapped:(id)sender {
     
     // IF THERE IS NO IMAGE AND THERE IS NO SONG PLAYING
-    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStatePlaying) {
+    if (self.currentSongView.image == nil && self.player.playbackState != MPMusicPlaybackStatePlaying) {
         return;
     }
     
@@ -131,7 +134,7 @@
                 // -- Reachable -- //
                 NSLog(@"Reachable");
                 
-                if (self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStateStopped) {
+                if (self.player.playbackState != MPMusicPlaybackStateStopped) {
                     
                     
                     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -167,21 +170,21 @@
 
 #pragma mark - music player actions
 - (IBAction)nextButtonPressed:(id)sender {
-    [self.musicPlayer.myPlayer skipToNextItem];
+    [self.player skipToNextItem];
     [self.playlistTableView reloadData];
     
 }
 - (IBAction)backButtonPressed:(id)sender {
-    [self.musicPlayer.myPlayer skipToPreviousItem];
+    [self.player skipToPreviousItem];
     [self.playlistTableView reloadData];
 }
 - (IBAction)playbackButtonPressed:(id)sender {
     // change music player playback state
     
-    if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        [self.musicPlayer.myPlayer pause];
+    if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
+        [self.player pause];
     } else {
-        [self.musicPlayer.myPlayer play];
+        [self.player play];
     }
     
     
@@ -223,7 +226,7 @@
         [songTitleArray addObject:songID];
     }
     
-    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.player nowPlayingItem].persistentID];
     
     if (![songTitleArray containsObject:songPersistentNumber]) {
         return NO;
@@ -240,7 +243,7 @@
     } else{
         [self.playbackButtonStatus setEnabled:YES];
         
-        if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+        if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
         } else {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
@@ -257,7 +260,7 @@
     [self.currentMusicPlayingNotifications addObserver: self
                                               selector: @selector (updatePlaybackButton:)
                                                   name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
-                                                object: self.musicPlayer.myPlayer];
+                                                object: self.player];
 }
 
 
@@ -266,13 +269,13 @@
     [self.currentMusicPlayingNotifications addObserver: self
                                               selector: @selector(loadUILabels)
                                                   name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-                                                object: self.musicPlayer.myPlayer];
+                                                object: self.player];
 }
 
 
 
 -(void)loadUILabels {
-    self.currentlyPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
+    self.currentlyPlayingItem = [self.player nowPlayingItem];
     self.currentSongLabel.text = self.currentlyPlayingItem.title;
     self.currentSongLabel.textColor = [UIColor MUSPolar];
     
@@ -325,7 +328,7 @@
     }
     
     // CHECK FOR SONG PLAYING AND ANIMATE ICON
-    NSUInteger indexPathForAnimation = [self.musicPlayer.myPlayer indexOfNowPlayingItem];
+    NSUInteger indexPathForAnimation = [self.player indexOfNowPlayingItem];
     if (indexPath.row == indexPathForAnimation && [self.currentSongLabel.text isEqualToString:cell.songTitleLabel.text]) {
         [cell.animatingIcon startAnimating];
     }
@@ -445,11 +448,11 @@
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry.songs != nil) {
-        MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
+        MPMediaItemCollection *playlistCollectionForThisEntry =    [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
         
         // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
-        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-        [self.musicPlayer.myPlayer play];
+        [self.player setQueueWithItemCollection:playlistCollectionForThisEntry];
+        [self.player play];
     }
 }
 

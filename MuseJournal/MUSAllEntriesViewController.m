@@ -26,6 +26,7 @@
 #import "MUSTimelineUIManager.h"
 #import "UIImage+ExtraMethods.h"
 #import "UIColor+MUSColors.h"
+#import "MUSMusicPlayer.h"
 
 
 
@@ -45,6 +46,8 @@
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
 @property (weak, nonatomic) IBOutlet MUSEntryToolbar *toolbar;
 @property (nonatomic, assign) AutoPlay autoplayStatus;
+@property (strong,nonatomic)  MUSMusicPlayer *musicPlayer;
+
 
 @end
 
@@ -64,7 +67,6 @@
     [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
-    
 
 }
 
@@ -366,12 +368,15 @@
     
     
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
+        
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
-
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-        dvc.destinationEntry = entryForThisRow;
 
+        dvc.destinationEntry = entryForThisRow;
+//        dvc.musicPlayer = self.musicPlayer;
+        
+        
         if (entryForThisRow != nil)
             dvc.entryType = ExistingEntry;
         else
@@ -380,7 +385,6 @@
     
     //clear search bar on segue
     [self.searchBarHelperObject searchBarCancelButtonClicked:self.entrySearchBar];
-    
 }
 
 

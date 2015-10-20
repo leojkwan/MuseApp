@@ -10,6 +10,7 @@
 #import "MUSSettingsTableViewController.h"
 #import "MUSDetailEntryViewController.h"
 #import "MUSAllEntriesViewController.h"
+
 #import "NSDate+ExtraMethods.h"
 #import "UIImage+ExtraMethods.h"
 #import <Masonry.h>
@@ -23,6 +24,8 @@
 #import "MUSConstants.h"
 #import "IntroViewController.h"
 #import "MUSWallpaperManager.h"
+#import "MUSMusicPlayerDataStore.h"
+
 
 @import QuartzCore;
 
@@ -42,9 +45,10 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-
 @property (strong,nonatomic)  UIImageView *upChevronButtonView;
 @property (strong,nonatomic)  UIImageView *downChevronButtonView;
+@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
+
 
 @end
 
@@ -55,8 +59,8 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.scrollView.delegate = self;
-
     self.colorStore = [MUSColorSheet sharedInstance];
+    self.sharedMusicDataStore = [MUSMusicPlayerDataStore sharedMusicPlayerDataStore];
     [self setUpScrollContent];
     [self configureUILabelColors];
     [self setUpCurrentTime];
@@ -104,9 +108,6 @@
     
     NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
     NSLog(@"%@",updatedDictionary);
-    
-
-    
 }
 
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
@@ -115,7 +116,6 @@
 
     NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
     NSLog(@"%@",updatedDictionary);
-//
 }
 
 
@@ -221,10 +221,10 @@
 }
 
 -(void)didSelectShuffleButton:(id)sender {
-    
     MUSDetailEntryViewController *addEntryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEntryVC"];
     addEntryVC.entryType = RandomSong;
     [self.navigationController pushViewController: addEntryVC animated:YES];
+    
 }
 
 

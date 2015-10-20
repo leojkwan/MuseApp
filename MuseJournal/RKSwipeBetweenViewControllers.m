@@ -83,19 +83,6 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     self.isPageScrollingFlag = NO;
     self.hasAppearedFlag = NO;
 }
-
--(void)viewWillLayoutSubviews {
-    
-//    // RESET BUTTON AND SELECTOR FRAMES WHEN SCREEN ROTATES
-//    NSInteger numControllers = [viewControllerArray count];
-//    [self.leftButton setFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
-//    [self.rightButton setFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
-//    
-//    
-//    [selectionBar setFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
-
-}
-
 #pragma mark Customizables
 
 ////%%% color of the status bar

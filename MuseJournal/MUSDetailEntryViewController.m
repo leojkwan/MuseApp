@@ -20,7 +20,6 @@
 #import "Song.h"
 #import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
-#import "MUSMusicPlayer.h"
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
@@ -35,7 +34,7 @@
 #import "UIColor+MUSColors.h"
 #import "MUSShareManager.h"
 #import "MUSiPhoneSizeManager.h"
-
+#import "MUSMusicPlayerDataStore.h"
 
 
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
@@ -56,7 +55,6 @@ typedef enum{
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, assign) AutoPlay autoplayStatus;
 @property (nonatomic,assign) PlayerStatus musicPlayerStatus;
-@property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
@@ -76,6 +74,9 @@ typedef enum{
 @property (strong, nonatomic) UITapGestureRecognizer *entryTextViewTap;
 @property (strong, nonatomic) UITapGestureRecognizer *titleTap;
 @property(strong ,nonatomic) UIImagePickerController *imagePicker;
+@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
+@property (nonatomic, strong) MPMusicPlayerController *player;
+
 
 @end
 
@@ -84,9 +85,10 @@ typedef enum{
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.store = [MUSDataStore sharedDataStore];
-    
+    self.sharedMusicDataStore = [MUSMusicPlayerDataStore sharedMusicPlayerDataStore];
+    self.player = self.sharedMusicDataStore.musicPlayer.myPlayer;
     [self setUpTagLabel];
-    [self setUpMusicPlayer];
+    [self setUpPlaylistForThisEntryAndPlay];
     [self setUpParallaxView];
     [self setUpTitleTextField];
     [self setUpTextView];
@@ -160,14 +162,14 @@ typedef enum{
 }
 
 
--(void)setUpMusicPlayer {
+-(void)setUpPlaylistForThisEntryAndPlay {
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-    // set up music player
-    self.musicPlayer = [[MUSMusicPlayer alloc] init];
-    NSLog(@"Preparing to play music player");
-    [self.musicPlayer.myPlayer prepareToPlay];
+//    // set up music player
+//    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+//    NSLog(@"Preparing to play music player");
+//    [self.musicPlayer.myPlayer prepareToPlay];
     
     
     [self playPlaylistForThisEntry];
@@ -381,8 +383,6 @@ typedef enum{
 -(void)textViewDidBeginEditing:(UITextView *)textView {
     
     [self toggleKeyboardAvoidingForView:self.scrollView];
-
-    
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
     self.entryTextViewTap.enabled = NO;
@@ -411,8 +411,8 @@ typedef enum{
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
     [mediaPicker dismissViewControllerAnimated:YES completion:nil];
     
-    [self.musicPlayer.myPlayer setQueueWithItemCollection:mediaItemCollection];
-    [self.musicPlayer.myPlayer play];
+    [self.player setQueueWithItemCollection:mediaItemCollection];
+    [self.player play];
 }
 
 
@@ -428,7 +428,7 @@ typedef enum{
     if (self.entryType == ExistingEntry && self.destinationEntry.songs != nil ) {
         
         //         condition for null objects
-        MPMediaItemCollection *collection = [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
+        MPMediaItemCollection *collection = [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
         
         // array of mp media items
         // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
@@ -462,14 +462,14 @@ typedef enum{
         
         
         // not async
-        MPMediaItemCollection *filteredCollection =   [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
-        [self.musicPlayer.myPlayer setQueueWithItemCollection:filteredCollection];
+        MPMediaItemCollection *filteredCollection =   [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
+        [self.player setQueueWithItemCollection:filteredCollection];
         
         // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
         if ([MUSAutoPlayManager returnAutoPlayStatus] && self.formattedPlaylistForThisEntry.count > 0) {
 
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-                [self.musicPlayer.myPlayer play];
+                [self.player play];
             }];
 
         }
@@ -477,11 +477,12 @@ typedef enum{
     
     // RANDOM SONG
     else if (self.entryType == RandomSong) {
-        [self.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
+        
+        [self.sharedMusicDataStore.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
                 
-                [self.musicPlayer.myPlayer setQueueWithItemCollection:randomSong];
-                [self.musicPlayer.myPlayer play];
+                [self.player setQueueWithItemCollection:randomSong];
+                [self.player play];
                 
                 NSLog(@"Main Thread Code");
                 
@@ -733,11 +734,11 @@ typedef enum{
 
 -(void)getSongPlayingStatusForSong:(Song *)currentSong {
     
-    if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        [self.musicPlayer checkIfSongIsInLocalLibrary:currentSong withCompletionBlock:^(BOOL local) {
+    if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
+        [self.sharedMusicDataStore.musicPlayer checkIfSongIsInLocalLibrary:currentSong withCompletionBlock:^(BOOL local) {
             if (local) {
                 for (Song *song in  [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]) {
-                    NSString *currentTrack = [self.musicPlayer.myPlayer nowPlayingItem].title;
+                    NSString *currentTrack = [self.player nowPlayingItem].title;
                     if ([currentTrack isEqualToString: song.songName]) {
                         self.musicPlayerStatus = AlreadyPinned;
                         return;
@@ -748,7 +749,7 @@ typedef enum{
                 self.musicPlayerStatus = Invalid;
             }
         }];
-    } else if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePaused || self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStateStopped) {
+    } else if (self.player.playbackState == MPMusicPlaybackStatePaused || self.player.playbackState == MPMusicPlaybackStateStopped) {
         self.musicPlayerStatus = NotPlaying;
     }
 }
@@ -757,7 +758,7 @@ typedef enum{
 -(void)pinSongButtonPressed:id {
     
     // Create managed object on CoreData
-    MPMediaItem *currentSong = [self.musicPlayer.myPlayer nowPlayingItem];
+    MPMediaItem *currentSong = [self.player nowPlayingItem];
     Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
     
     [self getSongPlayingStatusForSong:pinnedSong];
@@ -770,7 +771,7 @@ typedef enum{
         }
         
         // convert long long to nsnumber
-        NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+        NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.player nowPlayingItem].persistentID];
         
         pinnedSong.persistentID = songPersistentNumber;
         pinnedSong.pinnedAt = [NSDate date]; //current date
@@ -782,9 +783,9 @@ typedef enum{
         // Add song to Core Data
         [self.destinationEntry addSongsObject:pinnedSong];
         
-        MPMediaItemCollection *playlistCollectionForThisEntry =  [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
+        MPMediaItemCollection *playlistCollectionForThisEntry =  [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         
-        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
+        [self.player setQueueWithItemCollection:playlistCollectionForThisEntry];
         
         // Save to Core Data
         [self.store save];
@@ -795,7 +796,7 @@ typedef enum{
 
 -(void)displayPinnedSongNotification{
     
-    MPMediaItem *currentSong = self.musicPlayer.myPlayer.nowPlayingItem;
+    MPMediaItem *currentSong = self.player.nowPlayingItem;
     
     if (self.musicPlayerStatus == NotPlaying){
         [MUSNotificationManager displayNotificationWithMessage:@"No Song Playing" backgroundColor:[UIColor grayColor] textColor:[UIColor whiteColor]];
@@ -823,7 +824,7 @@ typedef enum{
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry =[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
-        dvc.musicPlayer = self.musicPlayer;
+//        dvc.musicPlayer = self.sharedMusicDataStore.musicPlayer;
         
     } else if ([segue.identifier isEqualToString:@"moodSegue"]) {
         MUSMoodViewController *dvc = segue.destinationViewController;

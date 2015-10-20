@@ -16,9 +16,6 @@
 
 @property (nonatomic, strong) MPMusicPlayerController *myPlayer;
 
-
-
--(instancetype)init;
 -(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist;
 -(void)loadPlaylistArtworkForThisEntryWithCompletionBlock:(void (^)(NSMutableArray *))block;
 -(void)checkIfSongIsInLocalLibrary:(Song *)song withCompletionBlock:(void (^) (BOOL)) completionBlock;

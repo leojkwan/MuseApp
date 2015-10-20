@@ -80,6 +80,7 @@
 		94EB3EE11BBDE22D0060AF28 /* QuattrocentoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */; };
 		94EB3EE21BBDE22D0060AF28 /* QuattrocentoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */; };
 		94EB3EE41BBDE4020060AF28 /* ADAM.CG PRO.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */; };
+		94F37E151BD5CEC800CD106C /* MUSMusicPlayerDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F37E141BD5CEC800CD106C /* MUSMusicPlayerDataStore.m */; settings = {ASSET_TAGS = (); }; };
 		94F493481BCF009500E8D719 /* MUSMoodCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F493461BCF009500E8D719 /* MUSMoodCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		94F4934B1BCF02CE00E8D719 /* MUSWallpaperCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F4934A1BCF02CE00E8D719 /* MUSWallpaperCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		94F6BE871BCCAF37009AFC2C /* MUSAutoPlayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */; settings = {ASSET_TAGS = (); }; };
@@ -239,6 +240,8 @@
 		94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Italic.ttf"; sourceTree = "<group>"; };
 		94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "QuattrocentoSans-Regular.ttf"; sourceTree = "<group>"; };
 		94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ADAM.CG PRO.otf"; sourceTree = "<group>"; };
+		94F37E131BD5CEC800CD106C /* MUSMusicPlayerDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSMusicPlayerDataStore.h; sourceTree = "<group>"; };
+		94F37E141BD5CEC800CD106C /* MUSMusicPlayerDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSMusicPlayerDataStore.m; sourceTree = "<group>"; };
 		94F493461BCF009500E8D719 /* MUSMoodCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSMoodCollectionViewCell.m; path = MuseJournal/MUSMoodCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		94F493471BCF009500E8D719 /* MUSMoodCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSMoodCollectionViewCell.h; path = MuseJournal/MUSMoodCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		94F493491BCF02CE00E8D719 /* MUSWallpaperCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSWallpaperCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -306,6 +309,8 @@
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
 				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
+				94F37E131BD5CEC800CD106C /* MUSMusicPlayerDataStore.h */,
+				94F37E141BD5CEC800CD106C /* MUSMusicPlayerDataStore.m */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
 				94336B3F1BC5E2DC00D86420 /* IntroViewController.h */,
 				94336B401BC5E2DC00D86420 /* IntroViewController.m */,
@@ -754,6 +759,7 @@
 				94B314001BBAF88200ECB1AD /* MUSTimeFetcher.m in Sources */,
 				9477D5B01BCEFF2E0059282F /* MUSWallPaperViewController.m in Sources */,
 				94B313FB1BBAF88200ECB1AD /* MUSDetailEntryViewController.m in Sources */,
+				94F37E151BD5CEC800CD106C /* MUSMusicPlayerDataStore.m in Sources */,
 				94F6BE871BCCAF37009AFC2C /* MUSAutoPlayManager.m in Sources */,
 				94D366EF1BD007800080A27B /* MUSTimelineUIManager.m in Sources */,
 				94E180641BCDA344008023C5 /* MUSMoodViewController.m in Sources */,

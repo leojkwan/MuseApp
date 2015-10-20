@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Entry.h"
 
+
+
 typedef enum{
     NewEntry,
     RandomSong,
@@ -25,9 +27,10 @@ typedef enum {
 @end
 
 @interface MUSDetailEntryViewController : UIViewController
-
 @property (nonatomic, strong) Entry *destinationEntry;
 @property (nonatomic, assign) id <MUSNotificationDelegate> delegate;
 @property (nonatomic, assign) EntryType entryType;
+//@property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
+
 
 @end
