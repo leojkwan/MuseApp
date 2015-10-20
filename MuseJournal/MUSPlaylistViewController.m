@@ -19,8 +19,8 @@
 #import "MUSNotificationManager.h"
 #import <MBProgressHUD.h>
 #import <AFNetworkReachabilityManager.h>
-
-
+#import "UIColor+MUSColors.h"
+#import "MUSMusicPlayerDataStore.h"
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -40,7 +40,10 @@
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *playlistGaussian;
 @property (weak, nonatomic) IBOutlet UIButton *appleMusicButton;
+@property (weak,nonatomic) MBProgressHUD *HUD;
 
+@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
+@property (nonatomic, strong) MPMusicPlayerController *player;
 
 
 @end
@@ -50,11 +53,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MBProgressHUD showHUDAddedTo:self.view
-                         animated:YES];
     
+    self.sharedMusicDataStore = [MUSMusicPlayerDataStore sharedMusicPlayerDataStore];
     self.store = [MUSDataStore sharedDataStore];
-    [self.musicPlayer.myPlayer beginGeneratingPlaybackNotifications];
+    self.player = self.sharedMusicDataStore.musicPlayer.myPlayer;
+    [self.player beginGeneratingPlaybackNotifications];
+    
     [self listenForSongChanges];
     [self listenForPlaybackState];
     [self updateButtonStatus];
@@ -69,6 +73,11 @@
 
 
 -(void)addTapGesturesForImageViews{
+    
+    //    UITapGestureRecognizer *dismissHUDTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissHUDTapped)];
+    //    [self.playerView addGestureRecognizer:dismissHUDTap];
+    //
+    //
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
     [self.playlistGaussian addGestureRecognizer:dismissTap];
     
@@ -77,16 +86,20 @@
     [self.maskImageView addGestureRecognizer:albumArtTap];
 }
 
+//-(void)dismissHUDTapped {
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//}
+
+
 -(void)setUpMusicPlayerUI {
     self.playerView.layer.cornerRadius = 5;
     
-    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         // Do something...
         
-        [self.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
+        [self.sharedMusicDataStore.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
             
             
             self.artworkImagesForThisEntry = artworkImages;
@@ -97,11 +110,11 @@
             });
         }];
     });
-    }
+}
 
 
 -(void)setUpAppleMusicButton {
-    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStatePlaying)
+    if (self.currentSongView.image == nil && self.player.playbackState != MPMusicPlaybackStatePlaying)
         [self.appleMusicButton setHidden:YES];
     else
         [self.appleMusicButton setHidden:NO];
@@ -110,7 +123,7 @@
 - (IBAction)appleMusicButtonTapped:(id)sender {
     
     // IF THERE IS NO IMAGE AND THERE IS NO SONG PLAYING
-    if (self.currentSongView.image == nil && self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStatePlaying) {
+    if (self.currentSongView.image == nil && self.player.playbackState != MPMusicPlaybackStatePlaying) {
         return;
     }
     
@@ -123,11 +136,24 @@
             case AFNetworkReachabilityStatusReachableViaWiFi:
                 // -- Reachable -- //
                 NSLog(@"Reachable");
-                [MBProgressHUD showHUDAddedTo:self.view
-                                     animated:YES];
-                if (self.musicPlayer.myPlayer.playbackState != MPMusicPlaybackStateStopped) {
-                    [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist];
+                
+                if (self.player.playbackState != MPMusicPlaybackStateStopped) {
+                    
+                    
+                    self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    [self configureHUD:self.HUD];
+                    
+                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                        // Do something...
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [self makeURLRequestForAlbum:self.currentlyPlayingItem.albumTitle artist:self.currentlyPlayingItem.artist withCompletionBlock:^(BOOL block) {
+                                [self.HUD hide:YES];
+                            }];
+                        });
+                    });
                 }
+                
                 break;
             case AFNetworkReachabilityStatusNotReachable:
             default:
@@ -137,26 +163,31 @@
         }
         
     }];
+    
+}
 
+-(void)configureHUD:(MBProgressHUD *)HUD {
+    HUD.graceTime = 1;
+    HUD.taskInProgress = YES;
 }
 
 #pragma mark - music player actions
 - (IBAction)nextButtonPressed:(id)sender {
-    [self.musicPlayer.myPlayer skipToNextItem];
+    [self.player skipToNextItem];
     [self.playlistTableView reloadData];
     
 }
 - (IBAction)backButtonPressed:(id)sender {
-    [self.musicPlayer.myPlayer skipToPreviousItem];
+    [self.player skipToPreviousItem];
     [self.playlistTableView reloadData];
 }
 - (IBAction)playbackButtonPressed:(id)sender {
     // change music player playback state
     
-    if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-        [self.musicPlayer.myPlayer pause];
+    if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
+        [self.player pause];
     } else {
-        [self.musicPlayer.myPlayer play];
+        [self.player play];
     }
     
     
@@ -198,7 +229,7 @@
         [songTitleArray addObject:songID];
     }
     
-    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.musicPlayer.myPlayer nowPlayingItem].persistentID];
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.player nowPlayingItem].persistentID];
     
     if (![songTitleArray containsObject:songPersistentNumber]) {
         return NO;
@@ -215,7 +246,7 @@
     } else{
         [self.playbackButtonStatus setEnabled:YES];
         
-        if (self.musicPlayer.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
+        if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
         } else {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
@@ -232,7 +263,7 @@
     [self.currentMusicPlayingNotifications addObserver: self
                                               selector: @selector (updatePlaybackButton:)
                                                   name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
-                                                object: self.musicPlayer.myPlayer];
+                                                object: self.player];
 }
 
 
@@ -241,17 +272,21 @@
     [self.currentMusicPlayingNotifications addObserver: self
                                               selector: @selector(loadUILabels)
                                                   name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-                                                object: self.musicPlayer.myPlayer];
+                                                object: self.player];
 }
 
 
 
 -(void)loadUILabels {
-    self.currentlyPlayingItem = [self.musicPlayer.myPlayer nowPlayingItem];
+    self.currentlyPlayingItem = [self.player nowPlayingItem];
     self.currentSongLabel.text = self.currentlyPlayingItem.title;
+    self.currentSongLabel.textColor = [UIColor MUSPolar];
+    
     if (self.currentlyPlayingItem.artist != nil) {
-    self.currentArtistLabel.text = [NSString stringWithFormat:@"BY %@" ,self.currentlyPlayingItem.artist];
+        self.currentArtistLabel.text = [NSString stringWithFormat:@"BY %@" ,self.currentlyPlayingItem.artist];
     }
+    self.currentArtistLabel.textColor = [UIColor MUSPolar];
+    
     self.currentSongView.image = [self.currentlyPlayingItem.artwork imageWithSize:CGSizeMake(500, 500)];
     [self setUpAppleMusicButton];
     [self.playlistTableView reloadData];
@@ -280,8 +315,12 @@
     NSString *songStringAtThisRow = songForThisRow.songName;
     
     cell.songTitleLabel.text = [NSString stringWithFormat:@"%@", songStringAtThisRow];
+    
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
+    cell.artistLabel.textColor = [UIColor MUSPolar];
+    
     cell.songNumberLabel.text = [NSString stringWithFormat: @"%ld.", (long)indexPath.row + 1];
+    
     
     // SET UP IMAGE
     
@@ -292,14 +331,31 @@
     }
     
     // CHECK FOR SONG PLAYING AND ANIMATE ICON
-    NSUInteger indexPathForAnimation = [self.musicPlayer.myPlayer indexOfNowPlayingItem];
+    NSUInteger indexPathForAnimation = [self.player indexOfNowPlayingItem];
     if (indexPath.row == indexPathForAnimation && [self.currentSongLabel.text isEqualToString:cell.songTitleLabel.text]) {
         [cell.animatingIcon startAnimating];
     }
     return cell;
 }
 
--(void)makeURLRequestForAlbum:(NSString *)albumTitle artist:(NSString *)artist {
+
+-(void)stopHUD {
+    
+    // IS HUD IS STILL IN PROGRESS  AFTER 5 SECONDS, CUT IT
+    if (self.HUD.taskInProgress) {
+        [self.HUD hide:YES];
+        [MUSNotificationManager displayNotificationWithMessage:@"Could not connect to Apple Music. Try again." backgroundColor:[UIColor darkGrayColor] textColor:[UIColor whiteColor]];
+        
+    }
+}
+
+-(void)makeURLRequestForAlbum:(NSString *)albumTitle artist:(NSString *)artist withCompletionBlock:(void (^) (BOOL)) completionBlock {
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0
+                                     target:self
+                                   selector:@selector(stopHUD)
+                                   userInfo:nil
+                                    repeats:NO];
     
     [MUSITunesClient getAlbumLinkWithAlbum:albumTitle artist:artist completionBlock:^(NSString *albumURL) {
         
@@ -308,17 +364,19 @@
             // No album that's okay, lets find the artist...
             
             [MUSITunesClient getArtistWithName:artist completionBlock:^(NSString *artistURL) {
+                
                 /// if no artist URL, pass back a 'No URL string'
                 if ([artistURL isEqualToString:@"No Artist URL"]) {
                     
                     [MUSNotificationManager displayNotificationWithMessage:@"Can't find this artist on Apple Music." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
                     
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    // SET TASK IN PROGRESS TO NO
+                    self.HUD.taskInProgress = NO;
                     
+                    completionBlock(YES);
                 } else {
                     
                     NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", artistURL, iTunesAffiliateID];
-                    NSLog(@"%@", artistURLWithAffiliateLink);
                     NSURL *url = [NSURL URLWithString:artistURLWithAffiliateLink];
                     [[UIApplication sharedApplication] openURL:url];
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -327,21 +385,38 @@
             
         } else { // IF THERE IS AN ALBUM LINK
             NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
-            
-            NSLog(@"%@", albumURLWithAffiliateLink);
             NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
             [[UIApplication sharedApplication] openURL:url];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            
+            // SET TASK IN PROGRESS TO NO
+            self.HUD.taskInProgress = NO;
+            
+            completionBlock(YES);
         }
     }];
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
-    //
-    [self makeURLRequestForAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName];
+    
+    
+    self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self configureHUD:self.HUD];
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
+        dispatch_async(dispatch_get_main_queue(), ^{
+            Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
+            
+            [self makeURLRequestForAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName withCompletionBlock:^(BOOL block) {
+                
+                NSLog(@"HI HI IM DONE");
+                [self.HUD hide:YES];
+                
+            }];
+        });
+    });
+    
 }
 
 
@@ -376,11 +451,14 @@
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry.songs != nil) {
-        MPMediaItemCollection *playlistCollectionForThisEntry =    [self.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
         
-        // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
-        [self.musicPlayer.myPlayer setQueueWithItemCollection:playlistCollectionForThisEntry];
-        [self.musicPlayer.myPlayer play];
+        
+        [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry  completionBlock:^(MPMediaItemCollection *playlistCollectionForThisEntry) {
+            [self.player setQueueWithItemCollection:playlistCollectionForThisEntry];
+            [self.player play];
+            
+        }];
+        
     }
 }
 

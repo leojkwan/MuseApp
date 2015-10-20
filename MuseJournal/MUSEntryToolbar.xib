@@ -14,8 +14,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MUSEntryToolbar">
             <connections>
                 <outlet property="addEntryButton" destination="l0S-6s-PMW" id="u5I-SI-g4R"/>
-                <outlet property="autoPlayButton" destination="oal-lU-vLu" id="Dk4-ic-h0q"/>
                 <outlet property="autoPlayLabel" destination="REd-gd-LRi" id="IeQ-F7-g7K"/>
+                <outlet property="autoplaySwitch" destination="5Cw-Vt-EgL" id="0pp-o2-O1l"/>
                 <outlet property="contentView" destination="Lti-Kn-pTT" id="pe1-Wt-T8D"/>
             </connections>
         </placeholder>
@@ -46,42 +46,46 @@
                                 </mask>
                             </variation>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oal-lU-vLu">
-                            <rect key="frame" x="609" y="0.0" width="50.5" height="30"/>
-                            <animations/>
-                            <state key="normal" title="Button"/>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUTOPLAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REd-gd-LRi">
-                            <rect key="frame" x="609" y="30" width="50.5" height="10"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUTOPLAY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REd-gd-LRi">
+                            <rect key="frame" x="555" y="33" width="50.5" height="10"/>
                             <animations/>
                             <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="10"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Cw-Vt-EgL">
+                            <rect key="frame" x="611" y="22.5" width="51" height="31"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="49" id="9iZ-x3-QmM"/>
+                                <constraint firstAttribute="width" secondItem="5Cw-Vt-EgL" secondAttribute="height" multiplier="49:31" id="bYq-8s-2ie"/>
+                            </constraints>
+                            <connections>
+                                <action selector="switchTapped:" destination="-1" eventType="valueChanged" id="12d-Rc-zeg"/>
+                            </connections>
+                        </switch>
                     </subviews>
                     <animations/>
-                    <color key="backgroundColor" red="0.93130636262086075" green="0.94867807174802266" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="REd-gd-LRi" firstAttribute="top" secondItem="oal-lU-vLu" secondAttribute="bottom" id="3bf-Fo-YJy"/>
-                        <constraint firstAttribute="trailing" secondItem="oal-lU-vLu" secondAttribute="trailing" constant="15" id="56l-We-vjn"/>
-                        <constraint firstItem="oal-lU-vLu" firstAttribute="width" secondItem="REd-gd-LRi" secondAttribute="width" id="CMn-je-W48"/>
-                        <constraint firstItem="oal-lU-vLu" firstAttribute="leading" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="15" id="HFP-bb-fz0"/>
+                        <constraint firstItem="REd-gd-LRi" firstAttribute="top" secondItem="5Cw-Vt-EgL" secondAttribute="bottom" constant="10" id="1du-et-HXh"/>
                         <constraint firstAttribute="bottom" secondItem="REd-gd-LRi" secondAttribute="bottom" constant="8" id="IN2-0g-VJu"/>
                         <constraint firstItem="qWt-r4-ak3" firstAttribute="leading" secondItem="bDW-dL-c2d" secondAttribute="leading" id="MSl-H3-lwH"/>
                         <constraint firstAttribute="trailing" secondItem="qWt-r4-ak3" secondAttribute="trailing" id="MTs-3p-raF"/>
+                        <constraint firstItem="5Cw-Vt-EgL" firstAttribute="leading" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="5" id="NlV-1i-oNM"/>
                         <constraint firstAttribute="trailing" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="20" id="SDL-s2-wrE"/>
+                        <constraint firstItem="REd-gd-LRi" firstAttribute="centerY" secondItem="l0S-6s-PMW" secondAttribute="centerY" id="a15-TJ-cJ4"/>
                         <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" id="eJJ-9U-XSs"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="height" secondItem="bDW-dL-c2d" secondAttribute="height" multiplier="8/10" id="ePI-zu-3Mb"/>
-                        <constraint firstItem="oal-lU-vLu" firstAttribute="centerX" secondItem="REd-gd-LRi" secondAttribute="centerX" id="fg2-eR-eXB"/>
+                        <constraint firstItem="5Cw-Vt-EgL" firstAttribute="centerY" secondItem="REd-gd-LRi" secondAttribute="centerY" id="hNs-0Y-Xce"/>
+                        <constraint firstAttribute="bottom" secondItem="REd-gd-LRi" secondAttribute="bottom" constant="8" id="hTH-jV-ME2"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerX" secondItem="bDW-dL-c2d" secondAttribute="centerX" id="iLv-Nq-sps"/>
-                        <constraint firstItem="oal-lU-vLu" firstAttribute="centerY" secondItem="l0S-6s-PMW" secondAttribute="centerY" id="jB5-be-8ln"/>
-                        <constraint firstItem="oal-lU-vLu" firstAttribute="top" secondItem="bDW-dL-c2d" secondAttribute="top" id="kFo-DH-6Cr"/>
-                        <constraint firstItem="oal-lU-vLu" firstAttribute="top" secondItem="l0S-6s-PMW" secondAttribute="top" id="lmC-kt-zdh"/>
                         <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" constant="2" id="szr-Pk-BEC"/>
                         <constraint firstAttribute="bottom" secondItem="qWt-r4-ak3" secondAttribute="bottom" id="txI-OG-o2U"/>
-                        <constraint firstItem="REd-gd-LRi" firstAttribute="centerY" secondItem="oal-lU-vLu" secondAttribute="centerY" id="vBm-jQ-UOI"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerY" secondItem="bDW-dL-c2d" secondAttribute="centerY" id="vIy-Pc-qu5"/>
+                        <constraint firstAttribute="trailing" secondItem="5Cw-Vt-EgL" secondAttribute="trailing" constant="20" id="xvh-z9-qTw"/>
                         <constraint firstItem="qWt-r4-ak3" firstAttribute="top" secondItem="bDW-dL-c2d" secondAttribute="top" id="zis-tX-LVJ"/>
+                        <constraint firstItem="5Cw-Vt-EgL" firstAttribute="centerX" secondItem="REd-gd-LRi" secondAttribute="centerX" id="zwZ-dV-jBH"/>
                     </constraints>
                     <variation key="default">
                         <mask key="subviews">
@@ -90,12 +94,11 @@
                         <mask key="constraints">
                             <exclude reference="eJJ-9U-XSs"/>
                             <exclude reference="szr-Pk-BEC"/>
-                            <exclude reference="56l-We-vjn"/>
-                            <exclude reference="HFP-bb-fz0"/>
-                            <exclude reference="jB5-be-8ln"/>
-                            <exclude reference="lmC-kt-zdh"/>
+                            <exclude reference="1du-et-HXh"/>
                             <exclude reference="IN2-0g-VJu"/>
-                            <exclude reference="vBm-jQ-UOI"/>
+                            <exclude reference="SDL-s2-wrE"/>
+                            <exclude reference="hTH-jV-ME2"/>
+                            <exclude reference="zwZ-dV-jBH"/>
                         </mask>
                     </variation>
                 </view>

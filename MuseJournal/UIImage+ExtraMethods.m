@@ -42,7 +42,6 @@
 
 +(UIImage *)imageNamed:(NSString *)name withColor:(UIColor *)color {
     // load the image
-    
     UIImage *img = [UIImage imageNamed:name];
     
     // begin a new image context, to draw our colored image onto
@@ -71,7 +70,6 @@
     // generate a new UIImage from the graphics context we drew onto
     UIImage *coloredImg = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     //return the color-burned image
     return coloredImg;
 }

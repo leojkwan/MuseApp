@@ -31,23 +31,14 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     // system font color
-    NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:15.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    NSDictionary *systemFontColor = @{NSFontAttributeName : [UIFont fontWithName:@"AvenirNext-Medium" size:18.0], NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:systemFontColor forState:UIControlStateNormal];
-    
-//    
-//    UIPageViewController *pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-//    
-//    RKSwipeBetweenViewControllers *navigationController = [[RKSwipeBetweenViewControllers alloc]initWithRootViewController:pageController];
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    
-//    MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
-//    MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
-//    [navigationController.viewControllerArray addObjectsFromArray:@[home, entries]];
-//    
     
     // username First Name
     NSArray *components = [[[UIDevice currentDevice] name] componentsSeparatedByString: @"'"];
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
+    
+    
     
     // FIRST TIME USER SETTINGS
     
@@ -66,6 +57,36 @@
     // MUSIC AUTOPLAY
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"autoplay"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    // BACKGROUND IMAGE
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"background"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"background"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    // IAP
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"purchasedWallpapers"] == nil) {
+       
+        NSMutableDictionary *wallpaperDictionary = [[NSMutableDictionary  alloc] init];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Vintage Camera"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Seagull"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Vinyl"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Venice"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Balloons"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Electric"];
+        
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Shooting Star"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Coffee Bean"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Calm"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Rose"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Hammer"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Spark"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Tiger"];
+        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Jellyfish"];
+
+        [[NSUserDefaults standardUserDefaults] setObject:wallpaperDictionary forKey:@"purchasedWallpapers"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     

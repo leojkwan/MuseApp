@@ -19,9 +19,7 @@
 @implementation MUSMusicPlayer
 
 -(instancetype)init{
-    
     self = [super init];
-    
     if (self) {
         _myPlayer = [[MPMusicPlayerController  alloc] init];
     }
@@ -42,7 +40,7 @@
 }
 
 
--(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist {
+-(void)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist completionBlock:(void (^)(MPMediaItemCollection *))block {
     
     self.playlistCollection = [[NSMutableArray alloc] init];
     
@@ -64,7 +62,6 @@
             
             // Store the queried MPMediaItems in an NSArray
             NSArray *resultingMediaItemFromQuery  = [songAndArtistQuery items];
-            NSLog(@"%@" ,resultingMediaItemFromQuery);
             // add MPMediaItems into MPMediaCollection
             if (resultingMediaItemFromQuery.count > 1) { // there is a duplicate, just take the first one
                 [self.playlistCollection addObject:resultingMediaItemFromQuery[0]];
@@ -79,9 +76,9 @@
         
         MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
         
-        return currentPlaylistCollection;
+        block(currentPlaylistCollection);
     }
-    return nil;
+    return;
 }
 
 

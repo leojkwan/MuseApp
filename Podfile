@@ -12,6 +12,8 @@ pod 'AttributedMarkdown', :git => 'https://github.com/dreamwieber/AttributedMark
 pod 'AFNetworking', '~> 2.0'
 pod 'MBProgressHUD', '~> 0.9.1'
 
+
+
 end
 
 target 'MuseJournalTests' do

@@ -12,6 +12,10 @@
 #import "UIImageView+ExtraMethods.h"
 #import "MUSHomeViewController.h"
 #import "MUSAllEntriesViewController.h"
+#import "UIColor+MUSColors.h"
+
+
+#define SECTION_BAR_COLOR [UIColor MUSCorn]
 
 
 //%%% customizeable button attributes
@@ -24,7 +28,6 @@ CGFloat BOUNCE_BUFFER = 10.0; //%%% adds bounce to the selection bar when you sc
 CGFloat ANIMATION_SPEED = 0.005; //%%% the number of seconds it takes to complete the animation
 CGFloat SELECTOR_Y_BUFFER = 38.0; //%%% the y-value of the bar that shows what page you are on (0 is the top)
 CGFloat SELECTOR_HEIGHT = 6.0; //%%% thickness of the selector bar
-
 CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy offset.  I'm going to look for a better workaround in the future
 
 @interface RKSwipeBetweenViewControllers ()
@@ -32,6 +35,13 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 @property (nonatomic) NSInteger currentPageIndex;
 @property (nonatomic) BOOL isPageScrollingFlag; //%%% prevents scrolling / segment tap crash
 @property (nonatomic) BOOL hasAppearedFlag; //%%% prevents reloading (maintains state)
+
+
+// MY PROPERTIES
+@property(strong, nonatomic) UIButton *leftButton;
+@property(strong, nonatomic) UIButton *rightButton;
+
+
 
 @end
 
@@ -57,28 +67,22 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     [self setNeedsStatusBarAppearanceUpdate];
     [self.pageScrollView setBounces:NO];
     [self.pageScrollView setBouncesZoom:NO];
-    self.
     self.navigationBar.barTintColor = [UIColor whiteColor]; // adjust status bar color
     self.navigationBar.translucent = NO;
-//    self.navigationBar.backgroundColor = [UIColor darkGrayColor];
     
     viewControllerArray = [[NSMutableArray alloc]init];
     
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
+    // SET MY PAGE VIEW CONTROLLERS
     MUSHomeViewController* home = [storyboard instantiateViewControllerWithIdentifier:@"HomeVC"];
     MUSAllEntriesViewController* entries = [storyboard instantiateViewControllerWithIdentifier:@"AllEntriesVC"];
     [viewControllerArray addObjectsFromArray:@[home, entries]];
 
-    
-    
-    
     self.currentPageIndex = 0;
     self.isPageScrollingFlag = NO;
     self.hasAppearedFlag = NO;
 }
-
 #pragma mark Customizables
 
 ////%%% color of the status bar
@@ -95,11 +99,11 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 
     NSInteger numControllers = [viewControllerArray count];
 
-    UIButton *leftButton =   [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
-    UIButton *rightButton =    [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    self.leftButton =   [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    self.rightButton =    [[UIButton alloc] initWithFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
     
 
-    NSArray *buttonsArray = @[leftButton,rightButton];
+    NSArray *buttonsArray = @[self.leftButton,self.rightButton];
     
     
     for (UIButton *button in buttonsArray) {
@@ -109,14 +113,14 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
         [button addTarget:self action:@selector(tapSegmentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    leftButton.tag = 0;
-    rightButton.tag = 1;
+    self.leftButton.tag = 0;
+    self.rightButton.tag = 1;
     
-    UIImageView *homeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftButton.frame.size.width/2, 0, 25, 25)];
+    UIImageView *homeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.leftButton.frame.size.width/2, 0, 25, 25)];
     homeImageView.image = [UIImage imageNamed:@"home"];
-    [leftButton addSubview:homeImageView];
+    [self.leftButton addSubview:homeImageView];
     
-    UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightButton.frame.size.width/2, 0, 25, 25)];
+    UIImageView *timelineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.rightButton.frame.size.width/2, 0, 25, 25)];
 
     timelineImageView.image = [UIImage imageNamed:@"note"];
     
@@ -127,7 +131,7 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     UITapGestureRecognizer *iconTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSegmentButtonAction:)];
     [timelineImageView addGestureRecognizer:iconTap];
     [homeImageView addGestureRecognizer:iconTap];
-    [rightButton addSubview:timelineImageView];
+    [self.rightButton addSubview:timelineImageView];
     
     [self setupSelector];
 }
@@ -135,8 +139,10 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 
 //%%% sets up the selection bar under the buttons on the navigation bar
 -(void)setupSelector {
+
     selectionBar = [[UIView alloc]initWithFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
-    selectionBar.backgroundColor = [UIColor colorWithRed:0.98 green:0.75 blue:0.24 alpha:1]; //%%% sbcolor
+    
+    selectionBar.backgroundColor = SECTION_BAR_COLOR; //%%% sbcolor
     selectionBar.alpha = 1.0; //%%% sbalpha
     [self.navigationBar addSubview:selectionBar];
 }
@@ -150,8 +156,20 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
         [self setupPageViewController];
         [self setupSegmentButtons];
         self.hasAppearedFlag = YES;
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
     }
+}
+
+
+
+- (void)orientationChanged:(NSNotification *)notification{
+    // RESET BUTTON AND SELECTOR FRAMES WHEN SCREEN ROTATES
+    NSInteger numControllers = [viewControllerArray count];
+    [self.leftButton setFrame:CGRectMake(X_BUFFER+0*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    [self.rightButton setFrame:CGRectMake(X_BUFFER+1*(self.view.frame.size.width-2*X_BUFFER)/numControllers-X_OFFSET, Y_BUFFER, (self.view.frame.size.width-2*X_BUFFER)/numControllers, HEIGHT)];
+    
+    
+    [selectionBar setFrame:CGRectMake(X_BUFFER-X_OFFSET, SELECTOR_Y_BUFFER,(self.navigationBar.frame.size.width-2*X_BUFFER)/[viewControllerArray count], SELECTOR_HEIGHT)];
 }
 
 //%%% generic setup stuff for a pageview controller.  Sets up the scrolling style and delegate for the controller
@@ -173,6 +191,10 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
     }
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
 //%%% methods called when you tap a button or scroll through the pages
 // generally shouldn't touch this unless you know what you're doing or
 // have a particular performance thing in mind
@@ -183,8 +205,8 @@ CGFloat X_OFFSET = 0.0; //%%% for some reason there's a little bit of a glitchy 
 //but it also has to animate the other pages to make it feel like you're crossing a 2d expansion,
 //so there's a loop that shows every view controller in the array up to the one you selected
 //eg: if you're on page 1 and you click tab 3, then it shows you page 2 and then page 3
+
 -(void)tapSegmentButtonAction:(UIButton *)button {
-    
     if (!self.isPageScrollingFlag) {
         
         NSInteger tempIndex = self.currentPageIndex;

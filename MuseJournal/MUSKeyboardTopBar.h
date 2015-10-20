@@ -16,6 +16,9 @@
 -(void)didSelectAddSongButton:(id)sender;
 -(void)didSelectBackButton:(id)sender;
 -(void)didSelectTitleButton:(id)sender;
+-(void)didSelectShareButton:(id)sender;
+-(void)didPickSongButtonPressed:(id)sender;
+-(void)didSelectMoreOptionsButton;
 
 @end
 
@@ -23,7 +26,9 @@
 
 @property (nonatomic, assign) id<MUSKeyboardInputDelegate> delegate;
 @property (strong, nonatomic) UIBarButtonItem *cameraBarButtonItem;
--(instancetype)initWithToolbar;
--(instancetype)initWithKeyboard;
+@property (strong, nonatomic) UIBarButtonItem *moreOptionsBarButtonItem;
+@property (strong, nonatomic) UIColor *backgroundColor;
+-(instancetype)initWithToolbarWithBackgroundColor:color;
+-(instancetype)initWithKeyboardWithBackgroundColor:color;
 
 @end

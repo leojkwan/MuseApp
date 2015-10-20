@@ -23,6 +23,10 @@
 #import "NSAttributedString+MUSExtraMethods.h"
 #import "MUSTimeFetcher.h"
 #import "UIFont+MUSFonts.h"
+#import "MUSTimelineUIManager.h"
+#import "UIImage+ExtraMethods.h"
+#import "UIColor+MUSColors.h"
+#import "MUSMusicPlayer.h"
 
 
 
@@ -42,6 +46,8 @@
 @property (nonatomic, strong) MUSSearchBarDelegate *searchBarHelperObject;
 @property (weak, nonatomic) IBOutlet MUSEntryToolbar *toolbar;
 @property (nonatomic, assign) AutoPlay autoplayStatus;
+@property (strong,nonatomic)  MUSMusicPlayer *musicPlayer;
+
 
 @end
 
@@ -61,6 +67,7 @@
     [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
+
 }
 
 
@@ -74,8 +81,15 @@
     self.searchBarHelperObject = [[MUSSearchBarDelegate alloc] initWithTableView:self.entriesTableView resultsController:self.resultsController];
     self.entrySearchBar.delegate = self.searchBarHelperObject;
     [self.entrySearchBar setShowsScopeBar:YES];
+    
+    [self.searchBarHelperObject setUpSearchBarUI:self.entrySearchBar];
+
+
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -98,7 +112,7 @@
 }
 
 -(void)setUpSpinner {
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [spinner startAnimating];
     spinner.frame = CGRectMake(0, 0, 320, 44);
     self.entriesTableView.tableFooterView = spinner;
@@ -143,8 +157,10 @@
     
     self.entriesTableView.contentInset = UIEdgeInsetsMake(0, 0, 25, 0);
     if (self.currentFetchCount < self.totalNumberOfEntries) {
+        
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
+
         // just make sure to call finishInfiniteScroll in the end
         self.currentFetchCount += 10;
         [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
@@ -179,11 +195,12 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
-        return 85;
+        return 100;
     }
-    return 275;
+    return 315;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -199,23 +216,11 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    // RETURN SECTION UI LABEL
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor MUSSolitude] backgroundColor:
+                             [UIColor MUSBigStone]];
     
-    
-    
-    // REFACTOR THIS !!!!
-    
-    
-    
-    
-    
-    
-    UILabel *sectionLabel = [[UILabel alloc] init];
-    // account for left offset
-    sectionLabel.frame = CGRectMake(0, 0, self.view.frame.size.width, 25);
-    sectionLabel.backgroundColor = [UIColor whiteColor];
-    sectionLabel.textAlignment = NSTextAlignmentCenter;
-    [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:13.0]];
-    sectionLabel.textColor = [UIColor colorWithHue:0.95 saturation:0.82 brightness:0.89 alpha:1];
+// ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
@@ -240,14 +245,12 @@
     
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     
-    
-    // CAN THIS BE REFACTORED ????
-    
     if (entryForThisRow.coverImage == nil) {
         MUSImagelessEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imagelessEntryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        cell.backgroundColor = [UIColor clearColor];
+        [cell setSwipeGestureWithView:cell.deleteView color: [UIColor MUSBloodOrange] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
             [self presentDeleteSheet:cell indexPath:indexPath];
         }];
         return cell;
@@ -255,7 +258,8 @@
         MUSEntryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"entryCell" forIndexPath:indexPath];
         [cell configureArtistLabelLogicCell:cell entry:entryForThisRow];
         [cell setUpSwipeOptionsForCell:cell];
-        [cell setSwipeGestureWithView:cell.deleteView color:[UIColor redColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        cell.backgroundColor = [UIColor clearColor];
+        [cell setSwipeGestureWithView:cell.deleteView color: [UIColor MUSBloodOrange] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
             [self presentDeleteSheet:cell indexPath:indexPath];
         }];
         return cell;
@@ -364,12 +368,15 @@
     
     
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
+        
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
-
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-        dvc.destinationEntry = entryForThisRow;
 
+        dvc.destinationEntry = entryForThisRow;
+//        dvc.musicPlayer = self.musicPlayer;
+        
+        
         if (entryForThisRow != nil)
             dvc.entryType = ExistingEntry;
         else
@@ -378,7 +385,6 @@
     
     //clear search bar on segue
     [self.searchBarHelperObject searchBarCancelButtonClicked:self.entrySearchBar];
-    
 }
 
 

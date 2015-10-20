@@ -1,11 +1,15 @@
 
 #import "MUSSearchBarDelegate.h"
 #import "MUSDataStore.h"
+#import "MUSWallpaperManager.h"
 
 @interface MUSSearchBarDelegate ()
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSFetchedResultsController *controller;
+
+@property (strong, nonatomic) NSAttributedString *placeholderSearchText;
+
 @property (nonatomic, strong) MUSDataStore *store;
 @end
 
@@ -23,6 +27,19 @@
     return self;
 }
 
+-(void)setUpSearchBarUI:(UISearchBar *)searchbar {
+    
+    // SEARCH BAR PLACEHOLDER TEXT COLOR
+    UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
+    self.placeholderSearchText = [[NSAttributedString alloc] initWithString:@"artist, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    
+    searchBarTextField.attributedPlaceholder = self.placeholderSearchText;
+
+    // SEARCH BAR TEXT COLOR
+        searchBarTextField.textColor = [UIColor whiteColor];
+
+
+}
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
@@ -105,10 +122,8 @@
 
 
 
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [searchBar setShowsCancelButton:YES animated:YES];
-    
 }
 
 

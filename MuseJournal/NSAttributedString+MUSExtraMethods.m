@@ -24,12 +24,24 @@
 +(NSAttributedString *)returnAttrTagWithTitle:(NSString *)title color:(UIColor *)color undelineColor:(UIColor *)lineColor{
     
     // return tag attr for text....
-    
     NSMutableAttributedString *attrTag = [[NSMutableAttributedString alloc] initWithString:title];
     [attrTag addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:(NSUnderlineStyleThick)] range:NSMakeRange(0, [attrTag length])];
     [attrTag addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, [attrTag length])];
  
     UIFont *tagFont=  [UIFont fontWithName:@"ADAM.CGPRO" size:10.0];
+    [attrTag addAttribute:NSFontAttributeName value:tagFont range:NSMakeRange(0, [attrTag length])];
+    [attrTag addAttribute:NSUnderlineColorAttributeName value:lineColor range:NSMakeRange(0, [attrTag length])];
+    return attrTag;
+}
+
++(NSAttributedString *)returnStringWithTitle:(NSString *)title color:(UIColor *)color undelineColor:(UIColor *)lineColor fontSize:(CGFloat)size {
+    
+    // return tag attr for text....
+    NSMutableAttributedString *attrTag = [[NSMutableAttributedString alloc] initWithString:title];
+    [attrTag addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:(NSUnderlineStyleThick)] range:NSMakeRange(0, [attrTag length])];
+    [attrTag addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, [attrTag length])];
+    
+    UIFont *tagFont=  [UIFont fontWithName:@"Raleway-Medium" size:size];
     [attrTag addAttribute:NSFontAttributeName value:tagFont range:NSMakeRange(0, [attrTag length])];
     [attrTag addAttribute:NSUnderlineColorAttributeName value:lineColor range:NSMakeRange(0, [attrTag length])];
     return attrTag;

@@ -24,7 +24,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _iconTint = [UIColor MUSgreenColor];
+//        _iconTint = [UIColor MUSgreenColor];
     }
     return self;
 }

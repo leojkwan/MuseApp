@@ -7,13 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//BOOL areAdsRemoved;
 
 @interface MUSHomeViewController : UIViewController
-
-//
-//- (IBAction)purchase;
-//- (IBAction)restore;
-//- (IBAction)tapsRemoveAds;
 
 @end

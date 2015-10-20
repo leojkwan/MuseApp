@@ -25,30 +25,30 @@
     switch (time) {
         case Morning:
             if (name)
-                self.usergreeting = [NSString stringWithFormat:@"Good Morning %@!", name];
+                self.userGreeting = [NSString stringWithFormat:@"Good Morning %@!", name];
              else
-                 self.usergreeting = @"Good Morning!";
+                 self.userGreeting = @"Good Morning!";
             break;
             
         case Afternoon:
             if (name)
-                self.usergreeting = [NSString stringWithFormat:@"Good Afternoon %@!", name];
+                self.userGreeting = [NSString stringWithFormat:@"Good Afternoon %@!", name];
             else
-                self.usergreeting = @"Good Afternoon!";
+                self.userGreeting = @"Good Afternoon!";
             break;
             
         case Evening:
             if (name)
-                self.usergreeting = [NSString stringWithFormat:@"Good Evening %@.", name];
+                self.userGreeting = [NSString stringWithFormat:@"Good Evening %@.", name];
             else
-                self.usergreeting = @"Good Evening.";
+                self.userGreeting = @"Good Evening.";
             break;
             
         default:
             if (name)
-                self.usergreeting = [NSString stringWithFormat:@"It's late night %@.", name];
+                self.userGreeting = [NSString stringWithFormat:@"It's late night %@.", name];
             else
-                self.usergreeting = @"It's late night.";
+                self.userGreeting = @"It's late night.";
             break;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -17,6 +17,8 @@
                 <outlet property="actionView" destination="XRb-pt-iRf" id="eDe-jQ-vL0"/>
                 <outlet property="addEntryButton" destination="dMJ-SB-2Qr" id="hun-0r-ENw"/>
                 <outlet property="randomSongButton" destination="zhS-6c-F0Q" id="Bvc-CP-gb6"/>
+                <outlet property="textLabel1" destination="XJe-xa-ObB" id="i7O-dN-fHI"/>
+                <outlet property="textLabel2" destination="RQU-Vl-6t9" id="JhF-sP-Slt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -44,17 +46,17 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQU-Vl-6t9">
-                    <rect key="frame" x="477" y="242" width="97" height="23.5"/>
+                    <rect key="frame" x="470" y="242" width="111.5" height="27.5"/>
                     <animations/>
-                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="20"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="23"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Surprise Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
-                    <rect key="frame" x="119.5" y="242" width="112" height="23.5"/>
+                    <rect key="frame" x="111.5" y="242" width="128.5" height="27.5"/>
                     <animations/>
-                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="20"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="23"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3O-oH-r3C" userLabel="Vertical Rule">
