@@ -15,7 +15,7 @@ typedef enum{
     NewEntry,
     RandomSong,
     ExistingEntry
-}EntryType;
+} EntryType;
 
 typedef enum {
     autoplayOFF,

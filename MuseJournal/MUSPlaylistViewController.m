@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *playlistGaussian;
 @property (weak, nonatomic) IBOutlet UIButton *appleMusicButton;
 @property (weak,nonatomic) MBProgressHUD *HUD;
+
 @property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
 @property (nonatomic, strong) MPMusicPlayerController *player;
 
@@ -52,10 +53,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.store = [MUSDataStore sharedDataStore];
+    
     self.sharedMusicDataStore = [MUSMusicPlayerDataStore sharedMusicPlayerDataStore];
     self.store = [MUSDataStore sharedDataStore];
+    self.player = self.sharedMusicDataStore.musicPlayer.myPlayer;
     [self.player beginGeneratingPlaybackNotifications];
+    
     [self listenForSongChanges];
     [self listenForPlaybackState];
     [self updateButtonStatus];
@@ -139,7 +142,7 @@
                     
                     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                     [self configureHUD:self.HUD];
-
+                    
                     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                         // Do something...
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -315,9 +318,9 @@
     
     cell.artistLabel.text = [NSString stringWithFormat:@"%@." , artistStringAtThisRow];
     cell.artistLabel.textColor = [UIColor MUSPolar];
-
+    
     cell.songNumberLabel.text = [NSString stringWithFormat: @"%ld.", (long)indexPath.row + 1];
-
+    
     
     // SET UP IMAGE
     
@@ -342,9 +345,9 @@
     if (self.HUD.taskInProgress) {
         [self.HUD hide:YES];
         [MUSNotificationManager displayNotificationWithMessage:@"Could not connect to Apple Music. Try again." backgroundColor:[UIColor darkGrayColor] textColor:[UIColor whiteColor]];
-
+        
     }
-  }
+}
 
 -(void)makeURLRequestForAlbum:(NSString *)albumTitle artist:(NSString *)artist withCompletionBlock:(void (^) (BOOL)) completionBlock {
     
@@ -361,7 +364,7 @@
             // No album that's okay, lets find the artist...
             
             [MUSITunesClient getArtistWithName:artist completionBlock:^(NSString *artistURL) {
-
+                
                 /// if no artist URL, pass back a 'No URL string'
                 if ([artistURL isEqualToString:@"No Artist URL"]) {
                     
@@ -372,7 +375,7 @@
                     
                     completionBlock(YES);
                 } else {
-
+                    
                     NSString *artistURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", artistURL, iTunesAffiliateID];
                     NSURL *url = [NSURL URLWithString:artistURLWithAffiliateLink];
                     [[UIApplication sharedApplication] openURL:url];
@@ -384,10 +387,10 @@
             NSString *albumURLWithAffiliateLink = [NSString stringWithFormat:@"%@?at=%@", albumURL, iTunesAffiliateID];
             NSURL *url = [NSURL URLWithString:albumURLWithAffiliateLink];
             [[UIApplication sharedApplication] openURL:url];
-
+            
             // SET TASK IN PROGRESS TO NO
             self.HUD.taskInProgress = NO;
-    
+            
             completionBlock(YES);
         }
     }];
@@ -399,7 +402,7 @@
     
     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self configureHUD:self.HUD];
-
+    
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         // Do something...
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -448,11 +451,14 @@
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry.songs != nil) {
-        MPMediaItemCollection *playlistCollectionForThisEntry =    [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry];
         
-        // WHEN WE FINISH THE SORTING AND FILTERING, ADD MUSIC TO QUEUE AND PLAY THAT DAMN THING!!!
-        [self.player setQueueWithItemCollection:playlistCollectionForThisEntry];
-        [self.player play];
+        
+        [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry  completionBlock:^(MPMediaItemCollection *playlistCollectionForThisEntry) {
+            [self.player setQueueWithItemCollection:playlistCollectionForThisEntry];
+            [self.player play];
+            
+        }];
+        
     }
 }
 

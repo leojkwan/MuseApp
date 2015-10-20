@@ -16,9 +16,10 @@
 
 @property (nonatomic, strong) MPMusicPlayerController *myPlayer;
 
--(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist;
+//-(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist;
 -(void)loadPlaylistArtworkForThisEntryWithCompletionBlock:(void (^)(NSMutableArray *))block;
 -(void)checkIfSongIsInLocalLibrary:(Song *)song withCompletionBlock:(void (^) (BOOL)) completionBlock;
 -(void)returnRandomSongInLibraryWithCompletionBlock:(void (^)(MPMediaItemCollection *))block;
+-(void)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist completionBlock:(void (^)(MPMediaItemCollection *))block;
 
 @end

@@ -40,7 +40,7 @@
 }
 
 
--(MPMediaItemCollection *)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist {
+-(void)loadMPCollectionFromFormattedMusicPlaylist:(NSArray *)playlist completionBlock:(void (^)(MPMediaItemCollection *))block {
     
     self.playlistCollection = [[NSMutableArray alloc] init];
     
@@ -76,9 +76,9 @@
         
         MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:self.playlistCollection];
         
-        return currentPlaylistCollection;
+        block(currentPlaylistCollection);
     }
-    return nil;
+    return;
 }
 
 

@@ -46,10 +46,10 @@ typedef enum{
     Playing,
     NotPlaying,
     Invalid,
-     AlreadyPinned
+    AlreadyPinned
 }PlayerStatus;
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol>
+@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
 @property (nonatomic, strong) MUSDataStore *store;
@@ -92,10 +92,31 @@ typedef enum{
     [self setUpParallaxView];
     [self setUpTitleTextField];
     [self setUpTextView];
+    [self setUpKeyboardAvoiding];
     [self setUpToolbarAndKeyboard];
     [self setUpImagePicker];
-    
+}
+
+-(void)setUpInteractivePop {
+    self.navigationController.interactivePopGestureRecognizer.delegate= self;
+    [self interactivePopOn:YES];
+    [self.navigationController.interactivePopGestureRecognizer addTarget:self
+                                                                  action:@selector(handlePopGesture:)];
+}
+
+-(void)interactivePopOn:(BOOL)on {
+    self.navigationController.interactivePopGestureRecognizer.enabled = on;
+}
+
+- (void)handlePopGesture:(UIGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        // respond to beginning of pop gesture
+        NSLog(@"popping began");
     }
+    // handle other gesture states, if desired
+}
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
     if (tap == self.entryTextViewTap)
@@ -155,8 +176,8 @@ typedef enum{
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     }
     
-    [self toggleKeyboardAvoidingForView:self.view];
-
+    //    [self toggleKeyboardAvoidingForView:self.view];
+    
     // adjust size of text view
     [self checkSizeOfContentForTextView:self.textView];
 }
@@ -166,10 +187,10 @@ typedef enum{
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-//    // set up music player
-//    self.musicPlayer = [[MUSMusicPlayer alloc] init];
-//    NSLog(@"Preparing to play music player");
-//    [self.musicPlayer.myPlayer prepareToPlay];
+    //    // set up music player
+    //    self.musicPlayer = [[MUSMusicPlayer alloc] init];
+    //    NSLog(@"Preparing to play music player");
+    //    [self.musicPlayer.myPlayer prepareToPlay];
     
     
     [self playPlaylistForThisEntry];
@@ -189,7 +210,7 @@ typedef enum{
     [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
     self.textView.inputAccessoryView = self.keyboardTopBar;
     self.entryTitleTextField.inputAccessoryView = self.keyboardTopBar;
-
+    
 }
 
 -(void)setUpParallaxView {
@@ -292,12 +313,12 @@ typedef enum{
 }
 
 -(void)didSelectDoneButton:(id)sender {
-    
+    [self interactivePopOn:YES];
     // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
     if (self.destinationEntry.coverImage != nil) {
-            [self.scrollView setContentOffset:CGPointZero animated:YES];
+        [self.scrollView setContentOffset:CGPointZero animated:YES];
     }
-
+    
     [self checkSizeOfContentForTextView:self.textView];
     [self enableTextViewInteraction:YES];
     [self enableTextFieldInteraction:YES];
@@ -363,8 +384,7 @@ typedef enum{
 
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    [self toggleKeyboardAvoidingForView:self.scrollView];
+    [self interactivePopOn:NO];
     [self.titleCharacterLimitLabel setHidden:NO];
     
     // IF ITS A NEW ENTRY TITLE
@@ -381,11 +401,10 @@ typedef enum{
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-    
-    [self toggleKeyboardAvoidingForView:self.scrollView];
+    [self interactivePopOn:NO];
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
-    self.entryTextViewTap.enabled = NO;
+    //    self.entryTextViewTap.enabled = NO;
     
     // FOR NEW ENTRY
     if (self.textView.textColor == [UIColor lightGrayColor]) {
@@ -403,7 +422,7 @@ typedef enum{
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-
+    
 }
 
 #pragma mark - music controls
@@ -419,7 +438,6 @@ typedef enum{
 - (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker
 {
     [mediaPicker dismissViewControllerAnimated:YES completion:nil];
-    //        [self.navigationController popViewControllerAnimated:YES];
     [self.MUSToolBar setHidden:NO];
 }
 
@@ -428,13 +446,23 @@ typedef enum{
     if (self.entryType == ExistingEntry && self.destinationEntry.songs != nil ) {
         
         //         condition for null objects
-        MPMediaItemCollection *collection = [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
+        
+        
+//        MPMediaItemCollection *collection = [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
+        
+        
+        
+        [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *currentCollection) {
+
         
         // array of mp media items
         // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
         
-        int i = 0;
-        for (MPMediaItem *MPSong in collection.items) {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                int i = 0;
+
+        for (MPMediaItem *MPSong in currentCollection.items) {
             Song *songForThisIndex = self.formattedPlaylistForThisEntry[i];
             if (MPSong == [NSNull null]) {
                 UIAlertController *alertController = [UIAlertController
@@ -460,20 +488,33 @@ typedef enum{
             i++; // next song
         } // end of for loop
         
-        
-        // not async
-        MPMediaItemCollection *filteredCollection =   [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
-        [self.player setQueueWithItemCollection:filteredCollection];
-        
-        // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
-        if ([MUSAutoPlayManager returnAutoPlayStatus] && self.formattedPlaylistForThisEntry.count > 0) {
+                if ([MUSAutoPlayManager returnAutoPlayStatus] && self.formattedPlaylistForThisEntry.count > 0) {
+                    
+                    // rerue method to get updated playlist count for playlist player vc
+                            [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *filteredCollection) {
+                    [self.player setQueueWithItemCollection:filteredCollection];
+                    
+                    [self.player play];
+                            }];
+                }
 
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-                [self.player play];
-            }];
+                
+                
+            }]; // end of main thread ns operation
 
-        }
+//
+//        [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *filteredCollection) {
+        
+            
+            
+            
+        }];
     }
+    
+    
+    
+    
+    // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
     
     // RANDOM SONG
     else if (self.entryType == RandomSong) {
@@ -487,19 +528,13 @@ typedef enum{
                 NSLog(@"Main Thread Code");
                 
             }];
-    
+            
         }];
     }
 }
 
--(void)toggleKeyboardAvoidingForView:(UIView *)view {
-    [IHKeyboardAvoiding removeAll];
-    
-    if (view == self.view) {
-        [IHKeyboardAvoiding setAvoidingView:self.view];
-    }  else {
-        [IHKeyboardAvoiding setAvoidingView:self.scrollView];
-    }
+-(void)setUpKeyboardAvoiding{
+    [IHKeyboardAvoiding setAvoidingView:self.scrollView];
     [IHKeyboardAvoiding setPadding:20];
 }
 
@@ -618,14 +653,14 @@ typedef enum{
     {
         return;    // iPhone Classic...  NO AP IMAGE
     } else {
-
+        
         // add reset parallax image
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
-
-    //     fixes glitch with parallax, new parallax image does not fit into position without first responder
-    CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
-    scrollPoint = CGPointMake(scrollPoint.x, scrollPoint.y + 1); // makes scroll
-    [self.scrollView setContentOffset:scrollPoint animated:YES];
+        [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
+        
+        //     fixes glitch with parallax, new parallax image does not fit into position without first responder
+        CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
+        scrollPoint = CGPointMake(scrollPoint.x, scrollPoint.y + 1); // makes scroll
+        [self.scrollView setContentOffset:scrollPoint animated:YES];
         
     }
 }
@@ -783,9 +818,21 @@ typedef enum{
         // Add song to Core Data
         [self.destinationEntry addSongsObject:pinnedSong];
         
-        MPMediaItemCollection *playlistCollectionForThisEntry =  [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]];
         
-        [self.player setQueueWithItemCollection:playlistCollectionForThisEntry];
+        [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *newPlaylistCollection) {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                [self.player setQueueWithItemCollection:newPlaylistCollection];
+            }];
+            
+            
+            
+            
+            
+        }];
+        
+        
+        
         
         // Save to Core Data
         [self.store save];
@@ -824,7 +871,7 @@ typedef enum{
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry =[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
-//        dvc.musicPlayer = self.sharedMusicDataStore.musicPlayer;
+        //        dvc.musicPlayer = self.sharedMusicDataStore.musicPlayer;
         
     } else if ([segue.identifier isEqualToString:@"moodSegue"]) {
         MUSMoodViewController *dvc = segue.destinationViewController;
