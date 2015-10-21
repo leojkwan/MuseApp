@@ -70,6 +70,8 @@
 		94B3140C1BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313F11BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */; settings = {ASSET_TAGS = (); }; };
 		94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B314101BBAF97A00ECB1AD /* MUSActionView.xib */; settings = {ASSET_TAGS = (); }; };
+		94B42D0D1BD8056A004322F6 /* MUSStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B42D0C1BD8056A004322F6 /* MUSStatsView.m */; settings = {ASSET_TAGS = (); }; };
+		94B42D0F1BD80575004322F6 /* MUSStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B42D0E1BD80575004322F6 /* MUSStatsView.xib */; settings = {ASSET_TAGS = (); }; };
 		94D366EF1BD007800080A27B /* MUSTimelineUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */; settings = {ASSET_TAGS = (); }; };
 		94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */; settings = {ASSET_TAGS = (); }; };
 		94E180641BCDA344008023C5 /* MUSMoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E180631BCDA344008023C5 /* MUSMoodViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -227,6 +229,9 @@
 		94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSActionView.h; path = MuseJournal/MUSActionView.h; sourceTree = SOURCE_ROOT; };
 		94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSActionView.m; path = MuseJournal/MUSActionView.m; sourceTree = SOURCE_ROOT; };
 		94B314101BBAF97A00ECB1AD /* MUSActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSActionView.xib; path = MuseJournal/MUSActionView.xib; sourceTree = SOURCE_ROOT; };
+		94B42D0B1BD8056A004322F6 /* MUSStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSStatsView.h; path = MuseJournal/MUSStatsView.h; sourceTree = SOURCE_ROOT; };
+		94B42D0C1BD8056A004322F6 /* MUSStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSStatsView.m; path = MuseJournal/MUSStatsView.m; sourceTree = SOURCE_ROOT; };
+		94B42D0E1BD80575004322F6 /* MUSStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSStatsView.xib; path = MuseJournal/MUSStatsView.xib; sourceTree = SOURCE_ROOT; };
 		94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSTimelineUIManager.h; sourceTree = "<group>"; };
 		94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSTimelineUIManager.m; sourceTree = "<group>"; };
 		94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ExtraMethods.h"; path = "MuseJournal/UIImage+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
@@ -380,10 +385,13 @@
 				941F252C1BBC4A0E008C8120 /* MUSKeyboardTopBar.m */,
 				941F252D1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib */,
 				94B313C71BBAF88200ECB1AD /* MUSAlertView.h */,
+				94B313C81BBAF88200ECB1AD /* MUSAlertView.m */,
 				94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */,
 				94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */,
 				94B314101BBAF97A00ECB1AD /* MUSActionView.xib */,
-				94B313C81BBAF88200ECB1AD /* MUSAlertView.m */,
+				94B42D0B1BD8056A004322F6 /* MUSStatsView.h */,
+				94B42D0C1BD8056A004322F6 /* MUSStatsView.m */,
+				94B42D0E1BD80575004322F6 /* MUSStatsView.xib */,
 			);
 			name = Views;
 			path = ../../MuseApp/MuseApp;
@@ -675,6 +683,7 @@
 				94EB3EDC1BBDDA790060AF28 /* Raleway-Medium.ttf in Resources */,
 				94EB3EDD1BBDDA790060AF28 /* Raleway-Regular.ttf in Resources */,
 				94EB3EDE1BBDDA790060AF28 /* Raleway-SemiBold.ttf in Resources */,
+				94B42D0F1BD80575004322F6 /* MUSStatsView.xib in Resources */,
 				941F252F1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib in Resources */,
 				94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */,
 				94336B3E1BC5E25A00D86420 /* Walkthrough.storyboard in Resources */,
@@ -781,6 +790,7 @@
 				941F253E1BBC4A50008C8120 /* UIColor+MUSColors.m in Sources */,
 				941F25291BBC49FF008C8120 /* MUSEntryToolbar.m in Sources */,
 				94A892D11BD07A2F0049E25F /* MUSOpenSourceViewController.m in Sources */,
+				94B42D0D1BD8056A004322F6 /* MUSStatsView.m in Sources */,
 				941F252E1BBC4A0E008C8120 /* MUSKeyboardTopBar.m in Sources */,
 				941F253B1BBC4A47008C8120 /* MUSTextViewDelegate.m in Sources */,
 				94B314111BBAF97A00ECB1AD /* MUSActionView.m in Sources */,
@@ -882,7 +892,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -920,7 +930,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

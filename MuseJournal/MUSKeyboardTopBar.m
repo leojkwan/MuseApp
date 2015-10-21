@@ -117,7 +117,7 @@
     
     [self.keyboardButtonItems addObject:[self makeTitleButton]];
     [self.keyboardButtonItems addObject:[self cameraButton]];
-    [self.toolbarButtonItems addObject:[self findSongButton]];
+    [self.keyboardButtonItems addObject:[self findSongButton]];
     [self.keyboardButtonItems addObject:[self pinSongButton]];
     [self.keyboardButtonItems addObject:[self playlistButton]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];

@@ -16,10 +16,8 @@
     
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     
-    
     // PARAGRAPH FONT
-    // p
-    UIFont *paragraphFont = [UIFont fontWithName:@"GillSans-Light" size:23.0];
+    UIFont *paragraphFont = [UIFont fontWithName:@"GillSans-Light" size:21.0];
     UIColor *pColor = [UIColor blackColor];
     NSMutableParagraphStyle* pParagraphStyle = [[NSMutableParagraphStyle alloc]init];
     pParagraphStyle.paragraphSpacing = 12;
@@ -34,11 +32,10 @@
     [attributes setObject:pAttributes forKey:@(PARA)];
     
     // h1
-    UIColor *h1Color = [UIColor darkGrayColor];
+    UIColor *h1Color = [UIColor blackColor];
     UIFont *h1Font = [UIFont fontWithName:@"Futura" size:27.0];
     NSMutableParagraphStyle* h1Style = [[NSMutableParagraphStyle alloc]init];
     h1Style.alignment = NSTextAlignmentJustified;
-    
     NSDictionary *h1Attributes = @{
                                    NSFontAttributeName : h1Font,
                                    NSForegroundColorAttributeName : h1Color,
@@ -51,7 +48,7 @@
     // h2
     UIFont *h2Font = [UIFont fontWithName:@"Futura" size:24.0];
     NSMutableParagraphStyle* h2Style = [[NSMutableParagraphStyle alloc]init];
-    h2Style.alignment = NSTextAlignmentCenter;
+
     
     NSDictionary *h2Attributes = @{
                                    NSFontAttributeName : h2Font,
@@ -62,20 +59,20 @@
     [attributes setObject:h2Attributes forKey:@(H2)];
     
     // h3
-    UIFont *h3Font = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:23.0];
+    UIFont *h3Font = [UIFont fontWithName:@"Raleway-Medium" size:22.0];
     [attributes setObject:@{NSFontAttributeName : h3Font} forKey:@(H3)];
     
     // h4
-    UIFont *h4Font = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:23.0];
+    UIFont *h4Font =  [UIFont fontWithName:@"Raleway" size:22.0];
     [attributes setObject:@{NSFontAttributeName : h4Font} forKey:@(H4)];
     
     // em
-    UIFont *emFont = [UIFont fontWithName:@"AvenirNext-MediumItalic" size:23.0];
+    UIFont *emFont = [UIFont fontWithName:@"Futura-MediumItalic" size:23.0];
     [attributes setObject:@{NSFontAttributeName : emFont} forKey:@(EMPH)];
     
     
     // strong
-    UIFont *strongFont = [UIFont fontWithName:@"AvenirNext-Heavy" size:23.0];
+    UIFont *strongFont = [UIFont fontWithName:@"Raleway-SemiBold" size:23.0];
     [attributes setObject:@{NSFontAttributeName : strongFont} forKey:@(STRONG)];
     
     // HORIZONTAL RULE
@@ -92,7 +89,7 @@
     
     // hrule
     NSMutableParagraphStyle* horizontalParagraphStyle = [[NSMutableParagraphStyle alloc]init];
-    [horizontalParagraphStyle setAlignment:NSTextAlignmentCenter];
+//    [horizontalParagraphStyle setAlignment:NSTextAlignmentCenter];
     [attributes setObject:@{NSFontAttributeName : ruleFont, NSParagraphStyleAttributeName : horizontalParagraphStyle} forKey:@(HRULE)];
     
     
@@ -112,16 +109,15 @@
     blockquoteParagraphStyle.headIndent = 16.0;
     blockquoteParagraphStyle.tailIndent = 16.0;
     blockquoteParagraphStyle.firstLineHeadIndent = 16.0;
-    [attributes setObject:@{NSFontAttributeName : [emFont fontWithSize:18.0], NSParagraphStyleAttributeName : pParagraphStyle} forKey:@(BLOCKQUOTE)];
+    [attributes setObject:@{NSFontAttributeName : [emFont fontWithSize:18.0], NSParagraphStyleAttributeName : h2Style} forKey:@(BLOCKQUOTE)];
     
     
     return attributes;
 }
 
 +(UIFont *)returnParagraphFont {
-    return [UIFont fontWithName:@"GillSans-Light" size:22.0];
+    return [UIFont fontWithName:@"GillSans-Light" size:21.0];
 }
-
 
 +(UIFont *)returnEntryTitleFont {
     return [UIFont fontWithName:@"Raleway-SemiBold" size:21.0];

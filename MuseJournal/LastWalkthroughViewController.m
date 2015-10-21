@@ -26,6 +26,7 @@
 - (IBAction)doneButtonPressed:(id)sender {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeUser"];
     [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 /*

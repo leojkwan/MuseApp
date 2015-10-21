@@ -11,5 +11,6 @@
 @interface MUSAutoPlayManager : NSObject
 
 +(BOOL)returnAutoPlayStatus;
++(BOOL)returnAutoPauseStatus;
 
 @end

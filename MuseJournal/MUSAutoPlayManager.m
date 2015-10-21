@@ -18,4 +18,15 @@
         return NO;
 }
 
++(BOOL)returnAutoPauseStatus {
+    
+    
+    
+    BOOL autoPauseStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"autopause"];
+    if (autoPauseStatus)
+        return YES;
+    else
+        return NO;
+}
+
 @end

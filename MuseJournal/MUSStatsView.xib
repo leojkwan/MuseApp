@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Raleway-Medium.ttf">
+            <string>Raleway-Medium</string>
+            <string>Raleway-Medium</string>
+            <string>Raleway-Medium</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MUSStatsView">
+            <connections>
+                <outlet property="actionView" destination="7Vj-ZJ-4Jk" id="V9e-q7-yTK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="7Vj-ZJ-4Jk">
+            <rect key="frame" x="0.0" y="0.0" width="601" height="399"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Muse Streak" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="mST-Yw-xau" userLabel="Total Entries">
+                    <rect key="frame" x="241" y="257" width="120" height="40"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="17"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Most Pinned Artist" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="0vB-Fs-FvE">
+                    <rect key="frame" x="390" y="247" width="120" height="40"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="17"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kanye" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvi-FK-7Ri">
+                    <rect key="frame" x="427" y="189" width="47" height="20.5"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.024463383838383868" green="0.024463383838383868" blue="0.024463383838383868" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kanye" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLu-km-Q3u">
+                    <rect key="frame" x="277" y="189" width="47" height="20.5"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.024463383839999998" green="0.024463383839999998" blue="0.024463383839999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kanye" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aND-4M-Gsn">
+                    <rect key="frame" x="127" y="189" width="47" height="20.5"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.024463383839999998" green="0.024463383839999998" blue="0.024463383839999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Number of Entries" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="43I-LE-aUX" userLabel="Total Entries">
+                    <rect key="frame" x="90" y="247" width="120" height="40"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="17"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="0vB-Fs-FvE" firstAttribute="width" secondItem="7Vj-ZJ-4Jk" secondAttribute="width" multiplier="1/5" id="2MP-3Y-Imv"/>
+                <constraint firstItem="aND-4M-Gsn" firstAttribute="centerY" secondItem="zLu-km-Q3u" secondAttribute="centerY" id="8Tg-Nq-WWr"/>
+                <constraint firstItem="Fvi-FK-7Ri" firstAttribute="centerY" secondItem="zLu-km-Q3u" secondAttribute="centerY" id="C2h-h3-4np"/>
+                <constraint firstItem="zLu-km-Q3u" firstAttribute="centerY" secondItem="7Vj-ZJ-4Jk" secondAttribute="centerY" id="L7t-AS-SD5"/>
+                <constraint firstItem="43I-LE-aUX" firstAttribute="centerX" secondItem="aND-4M-Gsn" secondAttribute="centerX" id="SGw-KY-emS"/>
+                <constraint firstItem="mST-Yw-xau" firstAttribute="centerX" secondItem="zLu-km-Q3u" secondAttribute="centerX" id="Ya8-9a-xEh"/>
+                <constraint firstItem="Fvi-FK-7Ri" firstAttribute="centerX" secondItem="7Vj-ZJ-4Jk" secondAttribute="centerX" multiplier="1.5" id="bIh-ix-NWb"/>
+                <constraint firstItem="mST-Yw-xau" firstAttribute="width" secondItem="7Vj-ZJ-4Jk" secondAttribute="width" multiplier="1/5" id="e32-T4-iJi"/>
+                <constraint firstItem="0vB-Fs-FvE" firstAttribute="centerX" secondItem="Fvi-FK-7Ri" secondAttribute="centerX" id="ef4-ds-ZWt"/>
+                <constraint firstItem="zLu-km-Q3u" firstAttribute="centerX" secondItem="7Vj-ZJ-4Jk" secondAttribute="centerX" id="fVN-SZ-V8K"/>
+                <constraint firstItem="0vB-Fs-FvE" firstAttribute="centerY" secondItem="43I-LE-aUX" secondAttribute="centerY" id="jyj-cS-9XW"/>
+                <constraint firstItem="mST-Yw-xau" firstAttribute="top" secondItem="zLu-km-Q3u" secondAttribute="bottom" constant="47" id="lGn-5I-Ulo"/>
+                <constraint firstItem="aND-4M-Gsn" firstAttribute="centerX" secondItem="7Vj-ZJ-4Jk" secondAttribute="centerX" multiplier="1/2" id="mhl-Op-T4x"/>
+                <constraint firstItem="43I-LE-aUX" firstAttribute="width" secondItem="7Vj-ZJ-4Jk" secondAttribute="width" multiplier="1/5" id="nhL-RT-Jth"/>
+                <constraint firstItem="0vB-Fs-FvE" firstAttribute="centerY" secondItem="mST-Yw-xau" secondAttribute="centerY" id="sso-cP-9P6"/>
+                <constraint firstItem="43I-LE-aUX" firstAttribute="centerY" secondItem="mST-Yw-xau" secondAttribute="centerY" id="yUu-3H-w7J"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="jyj-cS-9XW"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="634.5" y="359.5"/>
+        </view>
+    </objects>
+</document>

@@ -7,11 +7,12 @@
 //
 
 #import "IntroViewController.h"
-
+#import "LastWalkthroughViewController.h"
 
 @interface IntroViewController ()<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
 
+@property (weak, nonatomic) IBOutlet UIButton *finishButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong,nonatomic) UIPageViewController *pageVC;
 @property (strong, nonatomic) NSArray *walkthroughVCs;
@@ -36,22 +37,29 @@
     UIViewController *p3 = [self.storyboard
                             instantiateViewControllerWithIdentifier:@"Intro3"];
     UIViewController *p4 = [self.storyboard
-                            instantiateViewControllerWithIdentifier:@"Intro4"];
-
+                                         instantiateViewControllerWithIdentifier:@"Intro4"];
     
-
+    
     self.walkthroughVCs = @[p1,p2, p3,p4];
     
     self.pageControl.numberOfPages = self.walkthroughVCs.count;
     self.pageIndex = 0;
     self.pageControl.currentPage = 0;
     [self.view bringSubviewToFront:self.pageControl];
-
+    
     [self.pageVC setViewControllers:@[p1]
                           direction:UIPageViewControllerNavigationDirectionForward
                            animated:YES completion:nil];
     
-    }
+    self.finishButton.layer.cornerRadius = 3;
+}
+
+
+- (IBAction)doneButtonPressed:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeUser"];
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+}
 
 
 -(UIViewController *)viewControllerAtIndex:(NSUInteger)index {
@@ -61,16 +69,15 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(nonnull NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
     
-//    [self.pageControl setCurrentPage:self.pageIndex];
-    
+    UIViewController *currentViewController = pageViewController.viewControllers[0];
+    NSInteger indexOfCurrentVC =    [self.walkthroughVCs indexOfObject:currentViewController];
+    self.pageControl.currentPage = indexOfCurrentVC;
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController
      viewControllerBeforeViewController:(UIViewController *)viewController {
     
     NSUInteger currentIndex = [self.walkthroughVCs indexOfObject:viewController];
-    self.pageControl.currentPage = currentIndex;
-    
     
     if (currentIndex > 0)
         return [self.walkthroughVCs objectAtIndex:currentIndex-1];
@@ -82,8 +89,7 @@
       viewControllerAfterViewController:(UIViewController *)viewController  {
     
     NSUInteger currentIndex = [self.walkthroughVCs indexOfObject:viewController];
-    
-    self.pageControl.currentPage = currentIndex;
+
     
     if (currentIndex < [self.walkthroughVCs count]-1)
         return [self.walkthroughVCs objectAtIndex:currentIndex+1];
@@ -94,14 +100,6 @@
 
 
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 @end
