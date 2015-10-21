@@ -34,12 +34,12 @@
     
     self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 75, 0);
     [self setUpNameTextField];
-    [self setUpAutoPlayButton];
+    [self setUpAutoPauseButton];
 }
 
 
--(void)setUpAutoPlayButton {
-    [self.autoPauseSwitch setOn:[MUSAutoPlayManager returnAutoPlayStatus] animated:YES];
+-(void)setUpAutoPauseButton {
+    self.autoPauseSwitch.on = [MUSAutoPlayManager returnAutoPauseStatus];
 }
 
 
@@ -59,11 +59,10 @@
 }
 
 - (IBAction)switchTapped:(id)sender {
-    
     if([sender isOn])
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"pauseSongSetting"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autopause"];
      else
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pauseSongSetting"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autopause"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -333,6 +333,7 @@ typedef enum{
     if ([MUSAutoPlayManager returnAutoPauseStatus] && self.formattedPlaylistForThisEntry.count > 0) {
         [self.player pause];
     }
+    
 }
 
 -(void)didSelectTitleButton:(id)sender {

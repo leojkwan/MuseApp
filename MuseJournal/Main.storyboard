@@ -85,8 +85,8 @@
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" misplaced="YES" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
-                                <rect key="frame" x="15" y="64" width="565" height="40.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
+                                <rect key="frame" x="15" y="64" width="565" height="34.5"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="A0I-aC-13h"/>
@@ -104,8 +104,8 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
-                                <rect key="frame" x="15" y="109" width="565" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-mA-BcG">
+                                <rect key="frame" x="15" y="103" width="565" height="20"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -132,7 +132,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kjq-WM-PzM">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kjq-WM-PzM">
                                 <rect key="frame" x="0.0" y="200" width="600" height="200"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f3z-OT-Lh1">
@@ -1448,15 +1448,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="172" height="178"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGv-gJ-mMi">
-                                                    <rect key="frame" x="61" y="128" width="49.5" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGv-gJ-mMi">
+                                                    <rect key="frame" x="64.5" y="121.5" width="43" height="23.5"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DCo-tQ-7sJ">
-                                                    <rect key="frame" x="27" y="0.0" width="118" height="118"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DCo-tQ-7sJ">
+                                                    <rect key="frame" x="30.5" y="0.0" width="111.5" height="111.5"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="DCo-tQ-7sJ" secondAttribute="height" multiplier="1:1" id="WLM-vf-BNj"/>

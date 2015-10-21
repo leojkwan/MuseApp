@@ -31,7 +31,7 @@
     
     // SEARCH BAR PLACEHOLDER TEXT COLOR
     UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
-    self.placeholderSearchText = [[NSAttributedString alloc] initWithString:@"artist, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    self.placeholderSearchText = [[NSAttributedString alloc] initWithString:@"search music, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
     
     searchBarTextField.attributedPlaceholder = self.placeholderSearchText;
 

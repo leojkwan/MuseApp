@@ -59,9 +59,9 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
     }
     
-    // PAUSE MUSIC ON EXIT
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"pauseSongSetting"] == nil) {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pauseSongSetting"];
+    // AUTOPAUSE MUSIC ON EXIT
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"autopause"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autopause"];
     }
     
     // BACKGROUND IMAGE

@@ -31,7 +31,7 @@
                                 <animations/>
                             </imageView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="jf5-sx-mhk">
-                                <rect key="frame" x="269.5" y="476" width="60" height="37"/>
+                                <rect key="frame" x="269.5" y="491.5" width="60" height="37"/>
                                 <animations/>
                             </pageControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kK2-U7-HiC">
@@ -64,7 +64,7 @@
                             <constraint firstItem="jf5-sx-mhk" firstAttribute="width" secondItem="kK2-U7-HiC" secondAttribute="width" multiplier="1/10" id="H0w-P7-uT6"/>
                             <constraint firstItem="fDn-3b-sU8" firstAttribute="top" secondItem="kK2-U7-HiC" secondAttribute="bottom" id="MgH-4z-QLe"/>
                             <constraint firstItem="HZA-wv-BYQ" firstAttribute="leading" secondItem="Bla-CY-Opt" secondAttribute="leading" id="Owc-BB-9Nl"/>
-                            <constraint firstItem="jf5-sx-mhk" firstAttribute="centerY" secondItem="HZA-wv-BYQ" secondAttribute="centerY" multiplier="1.65" id="Pd2-bq-Hmk"/>
+                            <constraint firstItem="jf5-sx-mhk" firstAttribute="centerY" secondItem="HZA-wv-BYQ" secondAttribute="centerY" multiplier="1.7" id="Pd2-bq-Hmk"/>
                             <constraint firstItem="jf5-sx-mhk" firstAttribute="top" secondItem="HZA-wv-BYQ" secondAttribute="centerY" multiplier="1.25" constant="50" id="Umv-QC-Qhq"/>
                             <constraint firstItem="jf5-sx-mhk" firstAttribute="bottom" secondItem="HZA-wv-BYQ" secondAttribute="bottom" constant="-85" id="YEs-tt-vbu"/>
                             <constraint firstItem="kK2-U7-HiC" firstAttribute="top" secondItem="Bla-CY-Opt" secondAttribute="topMargin" id="cvw-1t-Lvr"/>
@@ -123,7 +123,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YN-uT-soc">
                                 <rect key="frame" x="0.0" y="375" width="600" height="225"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Play and pin your favorite songs from your local music library to your stories." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rqm-Dh-8fS">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Play and pin downloaded songs from your iTunes music library to every story." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rqm-Dh-8fS">
                                         <rect key="frame" x="75" y="45" width="450" height="79.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
@@ -211,7 +211,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQg-mU-500">
                                 <rect key="frame" x="0.0" y="375" width="600" height="225"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Tag your current mood and showcase full-sized cover photos." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YsX-ed-OG8">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Tag your current mood &amp; showcase full-sized cover photos." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YsX-ed-OG8">
                                         <rect key="frame" x="75.5" y="45" width="450" height="79"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
@@ -299,8 +299,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqB-Hg-Q73">
                                 <rect key="frame" x="0.0" y="375" width="600" height="225"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Muse lets your music power your stories and mobile journaling." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-H8-8Cd">
-                                        <rect key="frame" x="75" y="45" width="450" height="79.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Let your favorite music power your stories and mobile writing." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-H8-8Cd">
+                                        <rect key="frame" x="75.5" y="45" width="450" height="79.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -461,6 +461,6 @@
         <image name="intro1" width="1222" height="1841"/>
         <image name="intro2" width="1222" height="1841"/>
         <image name="intro3" width="1222" height="1841"/>
-        <image name="intro4" width="1242" height="2208"/>
+        <image name="intro4" width="1222" height="1841"/>
     </resources>
 </document>

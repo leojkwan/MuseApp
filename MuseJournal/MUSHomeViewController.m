@@ -265,11 +265,6 @@
     
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"settingsSegue"]) {
-        MUSSettingsTableViewController *dvc = segue.destinationViewController;
-    }
-}
+
 
 @end
