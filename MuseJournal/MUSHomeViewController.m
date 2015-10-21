@@ -68,6 +68,26 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated   {
+    
+    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+        if ([[NSUserDefaults standardUserDefaults]
+             boolForKey:@"firstTimeUser"] == YES) {
+    NSString * storyboardName = @"Walkthrough";
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    IntroViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"walkthrough"];
+    [self.navigationController pushViewController:controller animated:NO];
+        }
+}
+
+
+
 -(void)setUpScrollButtons {
     
     NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
@@ -102,9 +122,8 @@
     
     UITapGestureRecognizer *downTap = [[UITapGestureRecognizer alloc]  initWithTarget:self action:@selector(scrollDownButtonPressed)];
     [self.downChevronButtonView addGestureRecognizer:downTap];
-    
+
     [self setScrollInteraction:YES];
-    
     
     NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
     NSLog(@"%@",updatedDictionary);
@@ -194,24 +213,6 @@
     [self setScrollInteraction:YES];
 }
 
-
--(void)viewWillAppear:(BOOL)animated   {
-
-    [super viewWillAppear:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
-//    if ([[NSUserDefaults standardUserDefaults]
-//         boolForKey:@"firstTimeUser"] == YES) {
-        NSString * storyboardName = @"Walkthrough";
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-        IntroViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"walkthrough"];
-        [self.navigationController pushViewController:controller animated:NO];
-//    }
-}
 
 
 -(void)didSelectAddButton:(id)sender {

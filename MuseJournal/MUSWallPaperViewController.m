@@ -13,14 +13,16 @@
 #import "NSAttributedString+MUSExtraMethods.h"
 #import "UIImage+ExtraMethods.h"
 #import "MUSWallpaperManager.h"
-#import <Masonry.h>
 #import <StoreKit/StoreKit.h>
 #import "MUSActionView.h"
+#import <MBProgressHUD.h>
+#import "MUSNotificationManager.h"
+#import "UIColor+MUSColors.h"
 
 #define CELL_PADDING (self.view.frame.size.height * .02f)
 // 5 cells times 10 for left and right padding...
 
-#define PREMIUM_WALLPAPER_7 @"MUS_extra_wallpaper_7"
+//#define PREMIUM_WALLPAPER_7 @"MUS_extra_wallpaper_7"
 
 @interface MUSWallPaperViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver>
 @property (weak, nonatomic) IBOutlet UICollectionView *wallpaperCollectionView;
@@ -36,6 +38,7 @@
 @property (strong, nonatomic) NSNumber *wallpaperIsPurchased;
 @property (strong, nonatomic) NSMutableDictionary *wallpaperDictionary;
 @property (weak, nonatomic) IBOutlet UILabel *setWallpaperLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restorePurchasesLabel;
 
 @end
 
@@ -54,13 +57,16 @@
     
     
     [self animateWallpaperMenu];
-    [self setUpCallToActionLabel];
+    [self setUpCallToActionLabels];
     
 }
 
--(void)setUpCallToActionLabel {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(wallpaperLabelPressed)];
-    [self.setWallpaperLabel addGestureRecognizer:tap];
+-(void)setUpCallToActionLabels {
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(wallpaperLabelPressed)];
+    [self.setWallpaperLabel addGestureRecognizer:tap1];
+    
+    UITapGestureRecognizer *tap2= [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(restorePurchasesPressed)];
+    [self.restorePurchasesLabel addGestureRecognizer:tap2];
 }
 
 -(void)setUpWallpaperUI {
@@ -219,6 +225,8 @@
         NSLog(@"No products available");
         //this is called if your product id is not valid, this shouldn't be called unless that happens.
     }
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+
 }
 
 
@@ -232,24 +240,80 @@
 
 
 
-- (IBAction) restore{
+- (void) restorePurchasesPressed{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //this is called when the user restores purchases, you should hook this up to a button
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
-- (void)doAddWallpaper{
+- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+    
+    NSLog(@"received restored transactions: %lu", (unsigned long)queue.transactions.count);
+    
+    if (queue.transactions.count > 0) { // IF THERE ARE ANY PURCHASES TO RESTORE
+        for(SKPaymentTransaction *transaction in queue.transactions){ // for each product
+            if(transaction.transactionState == SKPaymentTransactionStateRestored){
+
+                NSString *productIDToRestore = transaction.payment.productIdentifier;
+                
+            // GET NAME OF WALLPAPER
+                for (NSArray* wallpaper in [MUSWallpaperManager returnWallpaperArrayWithProductID]) {
+                    if ([wallpaper[1] isEqualToString:productIDToRestore]) {
+                        [self doAddWallpaper:wallpaper[0]]; // SET WALLPAPER KEYVALUE TO YES/ PURCHASED
+                    }
+                }
+                //called when the user successfully restores a purchase
+                NSLog(@"Transaction state -> Restored");
+                
+                break;
+            }
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+
+    }
+    
+    [MUSNotificationManager displayNotificationWithMessage:@"Restored purchased wallpapers!" backgroundColor:[UIColor MUSCorn] textColor:[UIColor blackColor]];
+        
+        // VISIBLY UNLOCK RESTORED PURCHASES
+        [self.wallpaperCollectionView reloadData];
+    } else {
+    [MUSNotificationManager displayNotificationWithMessage:@"No wallpapers to restore." backgroundColor:[UIColor MUSSolitude] textColor:[UIColor blackColor]];
+    }
+    
+
+
+//    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+
+- (void)restoreTransaction:(SKPaymentTransaction *)transaction {
+
+}
+
+
+-(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+    [MUSNotificationManager displayNotificationWithMessage:@"Wallpaper restore failed." backgroundColor:[UIColor MUSBloodOrange] textColor:[UIColor whiteColor]];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+
+
+
+- (void)doAddWallpaper:(NSString *)wallpaperName {
+
     
     // save new key value to dictiionary
-    [self.wallpaperDictionary setObject:[NSNumber numberWithBool:YES] forKey:self.wallpaperNameLabel.text]; // SET YES TO THE CURRENT WALLPAPER
+    self.wallpaperDictionary[wallpaperName] = [NSNumber numberWithBool:YES];
+    
+    NSDictionary *newDict = [[NSDictionary alloc] initWithDictionary:self.wallpaperDictionary];
     
     // overwrite existing dictionary
-    [[NSUserDefaults standardUserDefaults] setObject: self.wallpaperDictionary forKey:@"purchasedWallpapers"];
+    [[NSUserDefaults standardUserDefaults] setObject: newDict forKey:@"purchasedWallpapers"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     // set new wallpaper preference after successful purchase
-    [self updateUserBackgroundImage];
-    
-
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
@@ -267,17 +331,18 @@
                 NSLog(@"THIS IS WHERE YOU MUSE ADD YES TO NSUSERDEFAULTS");
                 NSLog(@"Transaction state -> Purchased");
                 
-                [self doAddWallpaper];
+                [self doAddWallpaper:self.wallpaperNameLabel.text]; // SET CURRENT WALLPAPER KEY VALUE TO YES/ PURCHASED
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 
-                
+                [self updateUserBackgroundImage];
                 [self performSegueWithIdentifier:@"backToHomeView" sender:self];
                 
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLog(@"Transaction state -> Restored");
+
                 //add the same code as you did from SKPaymentTransactionStatePurchased here
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+//                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
             case SKPaymentTransactionStateDeferred:
@@ -285,6 +350,7 @@
                 //called when the transaction does not finish
                 if(transaction.error.code == SKErrorPaymentCancelled){
                     NSLog(@"Transaction state -> Cancelled or deferred ");
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                     //the user cancelled the payment ;(
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -295,14 +361,15 @@
 
 
 - (void)wallpaperLabelPressed {
-    
+
     UIAlertController *alertController;
     
     if ([self.wallpaperIsPurchased  isEqual: @1]) {
         alertController = [self returnSaveWallpaperController];
         [self presentViewController:alertController animated:YES completion:nil];
     }
-    else {// not purchased
+    else { // not purchased
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        alertController = [self returnPurchaseWallpaperController];
         
         if([SKPaymentQueue canMakePayments]){
@@ -313,7 +380,9 @@
             //another function and replace kRemoveAdsProductIdentifier with
             //the identifier for the other product
             
-            SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:PREMIUM_WALLPAPER_7]];
+            SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[MUSWallpaperManager returnProductIDForWallPaperNamed:self.wallpaperNameLabel.text]]]; // GET BACK PRODUCT ID NAME FOR CURRENT WALLPAPER SELECTED
+            
+            
             productsRequest.delegate = self;
             [productsRequest start];
         }

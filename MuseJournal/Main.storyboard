@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="M5W-el-9hW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="M5W-el-9hW">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -8,6 +8,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="ADAM.CG PRO.otf">
+            <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
@@ -642,6 +643,16 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Restore Purchases" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EYz-JB-PNn">
+                                        <rect key="frame" x="10" y="19" width="75" height="26"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="ZiI-1v-oes"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="13"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="calibratedWhite"/>
@@ -650,10 +661,12 @@
                                     <constraint firstItem="zpZ-Vf-z2b" firstAttribute="leading" secondItem="Vih-tL-t2Y" secondAttribute="leading" id="9eg-dW-SI6"/>
                                     <constraint firstItem="aXm-Px-f9n" firstAttribute="width" secondItem="Vih-tL-t2Y" secondAttribute="width" multiplier="1/3" id="B3n-QC-lTD"/>
                                     <constraint firstItem="aXm-Px-f9n" firstAttribute="centerX" secondItem="Vih-tL-t2Y" secondAttribute="centerX" id="Ezb-5m-XmI"/>
+                                    <constraint firstItem="EYz-JB-PNn" firstAttribute="leading" secondItem="Vih-tL-t2Y" secondAttribute="leading" constant="10" id="Gyq-e7-u66"/>
                                     <constraint firstItem="zpZ-Vf-z2b" firstAttribute="top" secondItem="aXm-Px-f9n" secondAttribute="bottom" constant="10" id="HS5-KB-heV"/>
                                     <constraint firstAttribute="bottom" secondItem="zpZ-Vf-z2b" secondAttribute="bottom" id="Hnt-cY-T1o"/>
                                     <constraint firstItem="9tA-9G-tdM" firstAttribute="centerY" secondItem="aXm-Px-f9n" secondAttribute="centerY" id="enO-tt-6s7"/>
                                     <constraint firstAttribute="trailing" secondItem="9tA-9G-tdM" secondAttribute="trailing" id="qm8-Va-6uH"/>
+                                    <constraint firstItem="EYz-JB-PNn" firstAttribute="centerY" secondItem="aXm-Px-f9n" secondAttribute="centerY" id="vAk-Ea-aOe"/>
                                     <constraint firstAttribute="trailing" secondItem="zpZ-Vf-z2b" secondAttribute="trailing" id="w5Z-Xr-ZtC"/>
                                 </constraints>
                             </view>
@@ -709,6 +722,7 @@
                         <outlet property="actionview" destination="FIj-LX-IOJ" id="U2A-MH-vxB"/>
                         <outlet property="contentView" destination="Vih-tL-t2Y" id="ZXG-Ok-ZME"/>
                         <outlet property="navTitleLabel" destination="9s0-CU-pRa" id="j5X-0z-4LG"/>
+                        <outlet property="restorePurchasesLabel" destination="EYz-JB-PNn" id="3Me-VV-Vty"/>
                         <outlet property="setWallpaperLabel" destination="9tA-9G-tdM" id="N4q-0P-N9U"/>
                         <outlet property="wallpaperCollectionView" destination="zpZ-Vf-z2b" id="s8J-q7-nTa"/>
                         <outlet property="wallpaperNameLabel" destination="aXm-Px-f9n" id="G9D-KH-L5l"/>

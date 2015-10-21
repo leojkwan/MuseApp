@@ -7,7 +7,6 @@
 //
 
 #import "MUSActionView.h"
-#import <Masonry/Masonry.h>
 #import "MUSWallpaperManager.h"
 
 @interface MUSActionView ()

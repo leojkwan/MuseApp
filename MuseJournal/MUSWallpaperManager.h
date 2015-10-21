@@ -14,5 +14,6 @@
 
 +(NSArray *)returnArrayForWallPaperImages;
 +(UIColor *)returnTextColorForWallpaperIndex:(NSInteger)index;
-
++(NSString *)returnProductIDForWallPaperNamed:(NSString *)name;
++(NSArray *)returnWallpaperArrayWithProductID;
 @end
