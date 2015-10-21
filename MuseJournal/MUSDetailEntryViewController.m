@@ -23,7 +23,6 @@
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
-#import <IHKeyboardAvoiding.h>
 #import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
 #import <MBProgressHUD.h>
@@ -295,11 +294,6 @@ typedef enum{
     [self selectPhoto];
 }
 
--(void)enableTextViewInteraction:(BOOL)on {
-    self.entryTextViewTap.enabled = on;
-    [self.textView setUserInteractionEnabled:on];
-}
-
 -(void)enableTextFieldInteraction:(BOOL)on {
     self.titleTap.enabled = on;
     [self.entryTitleTextField setUserInteractionEnabled:on];
@@ -320,8 +314,8 @@ typedef enum{
     }
     
     [self checkSizeOfContentForTextView:self.textView];
-    [self enableTextViewInteraction:YES];
-    [self enableTextFieldInteraction:YES];
+//    [self enableTextViewInteraction:YES];
+//    [self enableTextFieldInteraction:YES];
     
     [self saveButtonTapped:sender];
 }
@@ -334,7 +328,13 @@ typedef enum{
 -(void)didSelectBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     [self.MUSToolBar setHidden:YES];
+    
+    // PAUSE SONG IF SETTING IS YES
+    if ([MUSAutoPlayManager returnAutoPauseStatus] && self.formattedPlaylistForThisEntry.count > 0) {
+        [self.player pause];
+    }
 }
+
 -(void)didSelectTitleButton:(id)sender {
     if ([self.textView isFirstResponder]){ // append pount to content view
         [self.textView insertText:@"#"];
@@ -350,7 +350,7 @@ typedef enum{
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self.textView setUserInteractionEnabled:YES];
+//    [self.textView setUserInteractionEnabled:YES];
     self.entryTextViewTap.enabled = YES;
     
     
@@ -404,7 +404,6 @@ typedef enum{
     [self interactivePopOn:NO];
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
-    //    self.entryTextViewTap.enabled = NO;
     
     // FOR NEW ENTRY
     if (self.textView.textColor == [UIColor lightGrayColor]) {
@@ -414,6 +413,11 @@ typedef enum{
         self.textView.text = self.destinationEntry.content;
     }
 }
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    [self enableTextFieldInteraction:YES];
+}
+
 
 
 
@@ -445,19 +449,12 @@ typedef enum{
     if (self.entryType == ExistingEntry && self.destinationEntry.songs != nil ) {
         
         //         condition for null objects
-        
-        
-//        MPMediaItemCollection *collection = [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.formattedPlaylistForThisEntry];
-        
-        
-        
         [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *currentCollection) {
 
         
         // array of mp media items
         // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
-        
-            
+
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
                 int i = 0;
 
@@ -496,23 +493,10 @@ typedef enum{
                     [self.player play];
                             }];
                 }
-
-                
-                
             }]; // end of main thread ns operation
-
-//
-//        [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *filteredCollection) {
-        
-            
-            
-            
         }];
     }
-    
-    
-    
-    
+
     // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
     
     // RANDOM SONG
@@ -600,7 +584,6 @@ typedef enum{
 
 
 -(Entry *)createNewEntry {
-    
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     self.destinationEntry = newEntry;
     if ([self.textView.text isEqualToString:@"Begin writing here..."])
@@ -629,7 +612,7 @@ typedef enum{
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     // ALLOW INTERACTION FOR TEXT FIELD
-    [self enableTextFieldInteraction:YES];
+//    [self enableTextFieldInteraction:YES];
     
     
     // SET COVER IMAGE AS SELECTED IMAGE
@@ -823,11 +806,6 @@ typedef enum{
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
                 [self.player setQueueWithItemCollection:newPlaylistCollection];
             }];
-            
-            
-            
-            
-            
         }];
         
         
@@ -849,7 +827,7 @@ typedef enum{
         
     } else if(self.musicPlayerStatus == Invalid) {
         
-        [MUSNotificationManager displayNotificationWithMessage:@"Not a valid song in your iTunes library!" backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
+        [MUSNotificationManager displayNotificationWithMessage:@"Song not locally owned. Download on Apple Music! " backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
         
     } else if(self.musicPlayerStatus == Playing) {
         

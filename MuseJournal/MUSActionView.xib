@@ -9,6 +9,8 @@
         <mutableArray key="Raleway-Medium.ttf">
             <string>Raleway-Medium</string>
             <string>Raleway-Medium</string>
+            <string>Raleway-Medium</string>
+            <string>Raleway-Medium</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -112,6 +114,100 @@
                 <mask key="constraints">
                     <exclude reference="fPl-fe-FG3"/>
                     <exclude reference="EDr-3K-sb4"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="410" y="355.5"/>
+        </view>
+        <view contentMode="scaleToFill" id="77I-rg-kar">
+            <rect key="frame" x="0.0" y="0.0" width="702" height="377"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQg-jx-ZWh" userLabel="add">
+                    <rect key="frame" x="487" y="149" width="78" height="78"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="Dvi-RW-ukX"/>
+                        <constraint firstAttribute="width" secondItem="eQg-jx-ZWh" secondAttribute="height" multiplier="1:1" id="thF-eP-azJ"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="pencil"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Dvi-RW-ukX"/>
+                            <exclude reference="thF-eP-azJ"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="addButtonTapped:" destination="-1" eventType="touchUpInside" id="tXk-U2-Gc2"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeW-9z-15E">
+                    <rect key="frame" x="470" y="242" width="111.5" height="27.5"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="23"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Surprise Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPI-LA-qKb">
+                    <rect key="frame" x="111.5" y="242" width="128.5" height="27.5"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="23"/>
+                    <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wur-Fq-dpD" userLabel="Vertical Rule">
+                    <rect key="frame" x="350" y="151" width="1" height="75"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="NpF-aR-jBx"/>
+                        <constraint firstAttribute="height" constant="75" id="e2e-gb-Rmu"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzb-sT-Zmb" userLabel="play">
+                    <rect key="frame" x="131" y="144" width="88" height="88"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Dzb-sT-Zmb" secondAttribute="height" multiplier="1:1" id="GDY-NU-sQT"/>
+                        <constraint firstAttribute="width" constant="50" id="YaH-Aw-JYt"/>
+                    </constraints>
+                    <state key="normal" image="random"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="GDY-NU-sQT"/>
+                            <exclude reference="YaH-Aw-JYt"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="shuffleButtonTapped:" destination="-1" eventType="touchUpInside" id="bNm-zZ-vh1"/>
+                    </connections>
+                </button>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="AeW-9z-15E" firstAttribute="centerX" secondItem="eQg-jx-ZWh" secondAttribute="centerX" id="2BB-6y-f2f"/>
+                <constraint firstItem="EPI-LA-qKb" firstAttribute="centerX" secondItem="Dzb-sT-Zmb" secondAttribute="centerX" id="3IN-mZ-Rbi"/>
+                <constraint firstItem="wur-Fq-dpD" firstAttribute="centerX" secondItem="77I-rg-kar" secondAttribute="centerX" id="BES-gK-5D9"/>
+                <constraint firstItem="Dzb-sT-Zmb" firstAttribute="centerY" secondItem="wur-Fq-dpD" secondAttribute="centerY" id="FSY-uy-S5A"/>
+                <constraint firstItem="Dzb-sT-Zmb" firstAttribute="centerX" secondItem="77I-rg-kar" secondAttribute="centerX" multiplier="1/2" id="O23-NG-1ha"/>
+                <constraint firstItem="eQg-jx-ZWh" firstAttribute="width" secondItem="eQg-jx-ZWh" secondAttribute="height" multiplier="1:1" id="QjN-a4-WPC"/>
+                <constraint firstItem="eQg-jx-ZWh" firstAttribute="width" secondItem="77I-rg-kar" secondAttribute="width" multiplier="1/9" id="YN3-Bc-a3v"/>
+                <constraint firstItem="eQg-jx-ZWh" firstAttribute="centerY" secondItem="wur-Fq-dpD" secondAttribute="centerY" id="Zpi-ho-8OQ"/>
+                <constraint firstItem="AeW-9z-15E" firstAttribute="centerY" secondItem="EPI-LA-qKb" secondAttribute="centerY" id="fGa-07-w5M"/>
+                <constraint firstItem="Dzb-sT-Zmb" firstAttribute="width" secondItem="Dzb-sT-Zmb" secondAttribute="height" multiplier="1:1" id="fZo-Ed-gZe"/>
+                <constraint firstItem="Dzb-sT-Zmb" firstAttribute="width" secondItem="77I-rg-kar" secondAttribute="width" multiplier="1/8" id="ftg-52-Oqa"/>
+                <constraint firstItem="EPI-LA-qKb" firstAttribute="top" secondItem="Dzb-sT-Zmb" secondAttribute="bottom" constant="10" id="hmO-CD-4sj"/>
+                <constraint firstItem="eQg-jx-ZWh" firstAttribute="centerY" secondItem="Dzb-sT-Zmb" secondAttribute="centerY" id="kKW-n9-iSV"/>
+                <constraint firstItem="eQg-jx-ZWh" firstAttribute="centerX" secondItem="77I-rg-kar" secondAttribute="centerX" multiplier="1.5" id="oEu-pc-0Pe"/>
+                <constraint firstItem="wur-Fq-dpD" firstAttribute="centerY" secondItem="77I-rg-kar" secondAttribute="centerY" id="oN1-DS-vSl"/>
+                <constraint firstItem="AeW-9z-15E" firstAttribute="top" secondItem="eQg-jx-ZWh" secondAttribute="bottom" constant="10" id="teQ-rI-twY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="kKW-n9-iSV"/>
+                    <exclude reference="teQ-rI-twY"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="410" y="355.5"/>

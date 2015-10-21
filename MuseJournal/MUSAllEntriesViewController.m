@@ -23,19 +23,20 @@
 #import "NSAttributedString+MUSExtraMethods.h"
 #import "MUSTimeFetcher.h"
 #import "UIFont+MUSFonts.h"
-#import "MUSTimelineUIManager.h"
 #import "UIImage+ExtraMethods.h"
 #import "UIColor+MUSColors.h"
 #import "MUSMusicPlayer.h"
+#import <Masonry.h>
+#import "UIFont+MUSFonts.h"
+
+#import "MUSTimelineUIManager.h"
 
 
 
-
-@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, MUSEntryToolbarDelegate, UIScrollViewDelegate>
+@interface MUSAllEntriesViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, MUSEntryToolbarDelegate, UIScrollViewDelegate, PromptDelegate>
 
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic, assign) CGFloat lastButtonAlpha;
-
 @property (weak, nonatomic) IBOutlet UITableView *entriesTableView;
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -47,8 +48,9 @@
 @property (weak, nonatomic) IBOutlet MUSEntryToolbar *toolbar;
 @property (nonatomic, assign) AutoPlay autoplayStatus;
 @property (strong,nonatomic)  MUSMusicPlayer *musicPlayer;
-
-
+@property (strong,nonatomic) UIImageView *musePromptView;
+@property (strong,nonatomic) UILabel *musePromptLabel;
+@property (strong,nonatomic) MUSTimelineUIManager *timelineUIManager;
 @end
 
 @implementation MUSAllEntriesViewController
@@ -61,13 +63,20 @@
     
     self.entriesTableView.delegate = self;
     self.entriesTableView.dataSource = self;
+    
     self.toolbar.delegate = self;
+    
+    self.timelineUIManager = [[MUSTimelineUIManager alloc] init];
+    self.timelineUIManager.delegate = self;
+    
+    
     [self.entriesTableView bringSubviewToFront:self.toolbar];
     [self performInitialFetchRequest];
     [self setUpSearchBar];
     [self setUpInfiniteScrollWithFetchRequest];
     [self getCountForTotalEntries];
-
+    [self setUpMusePrompt];
+    
 }
 
 
@@ -83,12 +92,18 @@
     [self.entrySearchBar setShowsScopeBar:YES];
     
     [self.searchBarHelperObject setUpSearchBarUI:self.entrySearchBar];
-
-
+    
+    
 }
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    
+    NSLog(@"%lu NUMBER OF CORE DATA MANAGED OBJECTS", [[self.resultsController fetchedObjects] count] );
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -131,6 +146,7 @@
 
 
 -(void)performInitialFetchRequest {
+    
     // Create the sort descriptors array.
     NSFetchRequest *entryFetch = [[NSFetchRequest alloc] initWithEntityName:@"MUSEntry"];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
@@ -149,7 +165,29 @@
     // set fetch results delegate
     self.resultsController.delegate = self;
     [self.resultsController performFetch:nil];
+}
+
+-(void)setUpMusePrompt {
     
+    // returnMusePromptForView:(UIView*)view
+    
+    self.musePromptView = [self.timelineUIManager returnMuseImagePromptForView:self.view];
+    self.musePromptLabel = [self.timelineUIManager returnMuseLabelPromptForView:self.view imageView:self.musePromptView];
+
+    
+    [self checkEntryCount];
+}
+
+-(void)checkEntryCount {
+    if ([[self.resultsController fetchedObjects] count] == 0)
+        [self musePromptHidden:NO];
+    else
+        [self musePromptHidden:YES];
+}
+
+-(void)musePromptHidden:(BOOL)yes{
+    [self.musePromptView setHidden:yes];
+    [self.musePromptLabel setHidden:yes];
 }
 
 
@@ -160,7 +198,7 @@
         
         // delete cache every time
         [NSFetchedResultsController deleteCacheWithName:nil];
-
+        
         // just make sure to call finishInfiniteScroll in the end
         self.currentFetchCount += 10;
         [self.resultsController.fetchRequest setFetchLimit:self.currentFetchCount];
@@ -177,6 +215,11 @@
 -(void)didSelectAddButton:(id)sender {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
+
+-(void)newEntryFromPrompt {
+    [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
+}
+
 
 #pragma mark - UITable View Delegate methods
 
@@ -195,7 +238,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     if (entryForThisRow.coverImage == nil) {
         return 100;
@@ -220,7 +263,7 @@
     UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor MUSSolitude] backgroundColor:
                              [UIColor MUSBigStone]];
     
-// ADD SECTION TO UIVIEW
+    // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
@@ -336,6 +379,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // this reloads the table view data on reappearing
     [self.entriesTableView reloadData];
+    [self checkEntryCount];
     [self.entriesTableView endUpdates];
 }
 
@@ -372,9 +416,9 @@
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-
+        
         dvc.destinationEntry = entryForThisRow;
-//        dvc.musicPlayer = self.musicPlayer;
+        //        dvc.musicPlayer = self.musicPlayer;
         
         
         if (entryForThisRow != nil)

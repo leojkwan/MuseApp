@@ -75,12 +75,6 @@
     
     // add button action
     [self.addEntryButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.addEntryButton.imageView.im setImage:[UIImage imageNamed:@"addButton" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-//    UIImage *image = [[UIImage alloc] init];
-//    [image
-//    [self.addEntryButton setim
-    
     [self.autoPlayButton addTarget:self action:@selector(autoPlayButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -106,12 +100,6 @@
 -(void)autoPlayButtonPressed:(id)sender {
     
     if ([MUSAutoPlayManager returnAutoPlayStatus]) { // if on, toggle off
-//        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autoplay"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        
-//        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:NO] forState:UIControlStateNormal];
-        
         self.autoplayStatus = autoplayOFF;
     }   else { // if off, toggle on
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
@@ -132,10 +120,7 @@
 }
 
 -(void)setUpAutoPlayButton {
-    
     [self.autoplaySwitch setOn:[MUSAutoPlayManager returnAutoPlayStatus] animated:YES];
-
-//    [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:[MUSAutoPlayManager returnAutoPlayStatus]] forState:UIControlStateNormal];
 }
 
 @end

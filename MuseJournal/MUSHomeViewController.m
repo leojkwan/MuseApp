@@ -90,40 +90,40 @@
 
 -(void)setUpScrollButtons {
     
-    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
-    
-    self.upChevronButtonView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"up" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]]];
-    self.downChevronButtonView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"down" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]]];
-    
-    
-    // MASONRY CONSTRAINTS FOR UP BUTTON
-    
-    [self.contentView addSubview:self.upChevronButtonView];
-    [self.upChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view.mas_width).dividedBy(12);
-        make.height.equalTo(self.view.mas_width).dividedBy(20);
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.equalTo(self.scrollView.mas_top).with.offset(-15);
-    }];
-    
-    // MASONRY CONSTRAINTS FOR DOWN BUTTON
-    
-    [self.contentView addSubview:self.downChevronButtonView];
-    [self.downChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view.mas_width).dividedBy(12);
-        make.height.equalTo(self.view.mas_width).dividedBy(20);
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.scrollView.mas_bottom).with.offset(15);
-    }];
-    
-    // ADD TAP GESTURES FOR UP AND DOWN BUTTONS
-    UITapGestureRecognizer *upTap = [[UITapGestureRecognizer alloc]  initWithTarget:self action:@selector(scrollUpButtonPressed)];
-    [self.upChevronButtonView addGestureRecognizer:upTap];
-    
-    UITapGestureRecognizer *downTap = [[UITapGestureRecognizer alloc]  initWithTarget:self action:@selector(scrollDownButtonPressed)];
-    [self.downChevronButtonView addGestureRecognizer:downTap];
-
-    [self setScrollInteraction:YES];
+//    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
+//    
+//    self.upChevronButtonView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"up" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]]];
+//    self.downChevronButtonView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"down" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]]];
+//    
+//    
+//    // MASONRY CONSTRAINTS FOR UP BUTTON
+//    
+//    [self.contentView addSubview:self.upChevronButtonView];
+//    [self.upChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(self.view.mas_width).dividedBy(12);
+//        make.height.equalTo(self.view.mas_width).dividedBy(20);
+//        make.centerX.equalTo(self.view.mas_centerX);
+//        make.bottom.equalTo(self.scrollView.mas_top).with.offset(-15);
+//    }];
+//    
+//    // MASONRY CONSTRAINTS FOR DOWN BUTTON
+//    
+//    [self.contentView addSubview:self.downChevronButtonView];
+//    [self.downChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(self.view.mas_width).dividedBy(12);
+//        make.height.equalTo(self.view.mas_width).dividedBy(20);
+//        make.centerX.equalTo(self.view.mas_centerX);
+//        make.top.equalTo(self.scrollView.mas_bottom).with.offset(15);
+//    }];
+//    
+//    // ADD TAP GESTURES FOR UP AND DOWN BUTTONS
+//    UITapGestureRecognizer *upTap = [[UITapGestureRecognizer alloc]  initWithTarget:self action:@selector(scrollUpButtonPressed)];
+//    [self.upChevronButtonView addGestureRecognizer:upTap];
+//    
+//    UITapGestureRecognizer *downTap = [[UITapGestureRecognizer alloc]  initWithTarget:self action:@selector(scrollDownButtonPressed)];
+//    [self.downChevronButtonView addGestureRecognizer:downTap];
+//
+//    [self setScrollInteraction:YES];
     
     NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
     NSLog(@"%@",updatedDictionary);
@@ -154,10 +154,8 @@
     MUSActionView* actionView = [[MUSActionView alloc] init];
     actionView.delegate = self;
     
-    MUSActionView *actionView2 = [[MUSActionView alloc] init];
-    MUSActionView *actionView3 = [[MUSActionView alloc] init];
     
-    self.cardsArray= @[actionView,actionView2, actionView3];
+    self.cardsArray= @[actionView];
     
     
     // set up contraints for scroll content view

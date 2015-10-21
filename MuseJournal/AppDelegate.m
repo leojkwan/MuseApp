@@ -13,6 +13,7 @@
 #import "MUSHomeViewController.h"
 #import "MUSColorSheet.h"
 
+
 @interface AppDelegate ()
 
 @end
@@ -45,25 +46,27 @@
     // USER NAME
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"] == nil) {
         [[NSUserDefaults standardUserDefaults] setObject:userFirstName forKey:@"userFirstName"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
+
     }
     
     // APP WALKTHROUGH
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeUser"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     // MUSIC AUTOPLAY
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"autoplay"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    // PAUSE MUSIC ON EXIT
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"pauseSongSetting"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"pauseSongSetting"];
     }
     
     // BACKGROUND IMAGE
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"background"] == nil) {
-        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"background"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"background"];
     }
     
     
@@ -85,31 +88,10 @@
                                          [NSNumber numberWithBool:NO], @"Jellyfish",
                                          
                                          nil];
-    //
+    
     
     // IAP
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"purchasedWallpapers"] == nil) {
-        
-
-//        NSMutableDictionary *wallpaperDictionary = [[NSMutableDictionary  alloc] init];
-//        
-//        
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Vintage Camera"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Seagull"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Vinyl"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Venice"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Balloons"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Electric"];
-//        
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Shooting Star"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Coffee Bean"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Calm"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Rose"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Hammer"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Spark"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Tiger"];
-//        [wallpaperDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Jellyfish"];
-        
         [[NSUserDefaults standardUserDefaults] setObject:wallpaperDictionary forKey:@"purchasedWallpapers"];
     }
     

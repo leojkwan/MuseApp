@@ -68,16 +68,12 @@
     [self setUpMusicPlayerUI];
     [self setUpAppleMusicButton];
     [self addTapGesturesForImageViews];
-    
+    [self.view bringSubviewToFront:self.playerView];
 }
 
 
 -(void)addTapGesturesForImageViews{
-    
-    //    UITapGestureRecognizer *dismissHUDTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissHUDTapped)];
-    //    [self.playerView addGestureRecognizer:dismissHUDTap];
-    //
-    //
+
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
     [self.playlistGaussian addGestureRecognizer:dismissTap];
     
@@ -86,24 +82,14 @@
     [self.maskImageView addGestureRecognizer:albumArtTap];
 }
 
-//-(void)dismissHUDTapped {
-//    [MBProgressHUD hideHUDForView:self.view animated:YES];
-//}
-
-
 -(void)setUpMusicPlayerUI {
     self.playerView.layer.cornerRadius = 5;
     
     
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        // Do something...
-        
         [self.sharedMusicDataStore.musicPlayer loadPlaylistArtworkForThisEntryWithCompletionBlock:^(NSMutableArray *artworkImages) {
-            
-            
             self.artworkImagesForThisEntry = artworkImages;
-            
             // hide HUD after images load
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -398,8 +384,6 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self configureHUD:self.HUD];
     
@@ -451,8 +435,6 @@
 
 -(void)loadPlaylistArrayForThisEntryIntoPlayer {
     if (self.destinationEntry.songs != nil) {
-        
-        
         [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist:self.playlistForThisEntry  completionBlock:^(MPMediaItemCollection *playlistCollectionForThisEntry) {
             [self.player setQueueWithItemCollection:playlistCollectionForThisEntry];
             [self.player play];

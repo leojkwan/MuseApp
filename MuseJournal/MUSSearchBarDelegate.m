@@ -72,7 +72,9 @@
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
-        
+
+        NSPredicate *entryTitlePredicate = [NSPredicate predicateWithFormat:@"titleOfEntry contains[cd] %@", query];
+        NSPredicate *moodPredicate = [NSPredicate predicateWithFormat:@"tag contains[cd] %@", query];
         NSPredicate *contentPredicate = [NSPredicate predicateWithFormat:@"content contains[cd] %@", query];
         NSPredicate *songNamePredicate = [NSPredicate predicateWithFormat:@"songs.songName contains[cd] %@", query];
         NSPredicate *songArtistPredicate = [NSPredicate predicateWithFormat:@"songs.artistName contains[cd] %@", query];
@@ -81,7 +83,7 @@
         NSPredicate *datePredicate = [NSPredicate predicateWithFormat:@"dateInString contains[cd] %@", query];
         
         NSPredicate *compoundPredicate
-        = [NSCompoundPredicate orPredicateWithSubpredicates:@[contentPredicate,albumPredicate,songNamePredicate, genrePredicate, songArtistPredicate, datePredicate]];
+        = [NSCompoundPredicate orPredicateWithSubpredicates:@[entryTitlePredicate, moodPredicate, contentPredicate,albumPredicate,songNamePredicate, genrePredicate, songArtistPredicate, datePredicate]];
 
         
         [self.controller.fetchRequest setPredicate:compoundPredicate];
