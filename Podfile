@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
+platform :ios, '8.4'
 
 target 'MuseJournal' do
 pod 'APParallaxHeader'
@@ -16,7 +16,7 @@ pod 'MBProgressHUD', '~> 0.9.1'
 
 end
 
-target 'MuseJournalTests' do
+target 'MuseJournalTests' do222
 
 end
 

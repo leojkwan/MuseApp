@@ -87,9 +87,11 @@
     MPMediaQuery *allSongsQuery = [ [MPMediaQuery alloc] init];
     NSArray *resultingMediaItemFromQuery = [allSongsQuery items];
     NSUInteger randomNumberInSongCount = arc4random_uniform((uint32_t) [resultingMediaItemFromQuery count]);
-    MPMediaItem *randomSong = [resultingMediaItemFromQuery objectAtIndex:randomNumberInSongCount];
-    MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:@[randomSong]];
-    block(currentPlaylistCollection);
+    if (randomNumberInSongCount != 0) {
+        MPMediaItem *randomSong = [resultingMediaItemFromQuery objectAtIndex:randomNumberInSongCount];
+        MPMediaItemCollection *currentPlaylistCollection = [MPMediaItemCollection collectionWithItems:@[randomSong]];
+        block(currentPlaylistCollection);
+    }
 }
 
 -(void)checkIfSongIsInLocalLibrary:(Song *)song withCompletionBlock:(void (^) (BOOL)) completionBlock {

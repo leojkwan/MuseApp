@@ -48,8 +48,6 @@
     return [UIColor colorWithRed:0.95 green:0.77 blue:0.25 alpha:1];
 }
 
-
-
 + (UIColor *) MUSCorn {
     return [UIColor colorWithRed:0.98 green:0.95 blue:0.53 alpha:1];
 }
