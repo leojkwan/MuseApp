@@ -102,8 +102,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
-    NSLog(@"%lu NUMBER OF CORE DATA MANAGED OBJECTS", [[self.resultsController fetchedObjects] count] );
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -247,7 +245,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 25;
+    return 20;
 }
 
 
@@ -259,10 +257,10 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+
     // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) fontColor:[UIColor MUSSolitude] backgroundColor:
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10 , 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSSolitude] backgroundColor:
                              [UIColor MUSBigStone]];
-    
     // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
     UIView *headerView = [[UIView alloc] init];

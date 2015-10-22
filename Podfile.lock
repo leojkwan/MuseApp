@@ -27,7 +27,7 @@ PODS:
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
   - MCSwipeTableViewCell (2.1.4)
-  - SCLAlertView-Objective-C (0.7.7)
+  - SCLAlertView-Objective-C (0.7.9)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -58,6 +58,6 @@ SPEC CHECKSUMS:
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
-  SCLAlertView-Objective-C: 062808b4664add2d38d44b7867267985a02267ad
+  SCLAlertView-Objective-C: e36ab12dc1ec4ff6f932888083b21d71a3a1ad23
 
 COCOAPODS: 0.38.2

@@ -506,13 +506,13 @@ typedef enum{
         [self.sharedMusicDataStore.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
                 
-                [self.player setQueueWithItemCollection:randomSong];
-                [self.player play];
-                
-                NSLog(@"Main Thread Code");
-                
+                if (randomSong != nil) {
+                    [self.player setQueueWithItemCollection:randomSong];
+                    [self.player play];
+                    NSString *message = [NSString stringWithFormat:@"Now Playing: %@", [self.player nowPlayingItem].title];
+                    [MUSNotificationManager displayNotificationWithMessage:message backgroundColor:[UIColor MUSGreenMachine] textColor:[UIColor blackColor]];
+                }
             }];
-            
         }];
     }
 }

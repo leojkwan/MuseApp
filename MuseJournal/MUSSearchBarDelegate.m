@@ -29,15 +29,17 @@
 
 -(void)setUpSearchBarUI:(UISearchBar *)searchbar {
     
-    // SEARCH BAR PLACEHOLDER TEXT COLOR
-    UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
-    self.placeholderSearchText = [[NSAttributedString alloc] initWithString:@"search music, content, date or mood." attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+
     
-    searchBarTextField.attributedPlaceholder = self.placeholderSearchText;
+    UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
+            searchBarTextField.textColor = [UIColor whiteColor];
+    
+    // set placeholder text
+    [self setPlaceholderTextSearchBar:searchbar placeholderText:@"search music, content, date or mood."];
+    
+
 
     // SEARCH BAR TEXT COLOR
-        searchBarTextField.textColor = [UIColor whiteColor];
-
 
 }
 
@@ -104,6 +106,7 @@
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     // clear search
+    [self setPlaceholderTextSearchBar:searchBar placeholderText:@"search music, content, date or mood."];
     searchBar.text = @"";
     NSPredicate *predicate = nil;
     [self.controller.fetchRequest setPredicate:predicate];
@@ -122,9 +125,15 @@
     [searchBar resignFirstResponder];
 }
 
-
+-(void)setPlaceholderTextSearchBar:(UISearchBar *)searchBar placeholderText:(NSString *) text {
+    UITextField *searchBarTextField = [searchBar valueForKey:@"_searchField"];
+    searchBarTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:text attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+}
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self setPlaceholderTextSearchBar:searchBar placeholderText:@""];
+//    UITextField *searchBarTextField = [searchBar valueForKey:@"_searchField"];
+//    searchBarTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@""];
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
