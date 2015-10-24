@@ -263,8 +263,13 @@ typedef enum{
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
-    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
+//    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
+//    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
+    
+    // Share
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Set Cover Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self selectPhoto];
+    }]];
     
     // Share
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Share Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -337,12 +342,13 @@ typedef enum{
 }
 
 -(void)didSelectTitleButton:(id)sender {
-    if ([self.textView isFirstResponder]){ // append pount to content view
-        [self.textView insertText:@"#"];
-    } else {
-        // notify user this button does't work for title view
-        [MUSNotificationManager displayNotificationWithMessage:@"markdown only for entry content." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
-    }
+//    if ([self.textView isFirstResponder]){ // append pount to content view
+//        [self.textView insertText:@"#"];
+//    } else {
+//        // notify user this button does't work for title view
+//        [MUSNotificationManager displayNotificationWithMessage:@"markdown only for entry content." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
+//    }
+    [self performSegueWithIdentifier:@"markdownSegue" sender:nil];
 }
 
 
@@ -613,7 +619,7 @@ typedef enum{
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     // ALLOW INTERACTION FOR TEXT FIELD
-//    [self enableTextFieldInteraction:YES];
+    [self enableTextFieldInteraction:YES];
     
     
     // SET COVER IMAGE AS SELECTED IMAGE
