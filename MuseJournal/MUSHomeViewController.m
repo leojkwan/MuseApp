@@ -25,7 +25,7 @@
 #import "IntroViewController.h"
 #import "MUSWallpaperManager.h"
 #import "MUSMusicPlayerDataStore.h"
-
+#import "MUSWallPaperViewController.h"
 
 @import QuartzCore;
 
@@ -205,6 +205,7 @@
     }
 }
 
+
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     //  TURN OFF INTERACTION DURING SCROLL ANIMATION,
     // SCREWS OFF CONTENT OFFSET IF USER FLICKS IT BACK AND FORTH BEFORE REACHING END
@@ -214,7 +215,6 @@
 
 
 -(void)didSelectAddButton:(id)sender {
-    
     MUSDetailEntryViewController *addEntryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEntryVC"];
     [self.navigationController pushViewController: addEntryVC animated:YES];
 }

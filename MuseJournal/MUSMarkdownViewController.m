@@ -8,6 +8,7 @@
 
 #import "MUSMarkdownViewController.h"
 #import "MUSMarkdownTableViewCell.h"
+#import "NSAttributedString+MUSExtraMethods.h"
 
 @interface MUSMarkdownViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *markdownTableView;
@@ -27,15 +28,14 @@
 
     
     self.markdownArray = @[
-                           @[@"",@""],
-                           @[@"",@""],
-                           @[@"",@""],
-                           @[@"",@""],
-                           @[@"",@""],
-                           @[@"",@""],
-                           @[@"",@""],
-                           @[@"",@""],
-                           @[@"",@""]];
+                           @[@"H1",@"#Muse"],
+                           @[@"H2",@"##Muse"],
+                           @[@"H3",@"###Muse"],
+                           @[@"para ",@"Muse"],
+                           @[@"Italic",@"_Muse_"],
+                           @[@"Bold",@"**Muse**"],
+                           @[@"Bullet",@"- Muse"],
+                           @[@"Blockquote",@"> Muse"]];
     
     UITapGestureRecognizer *exitTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitModal)];
     [self.view addGestureRecognizer:exitTap];
@@ -49,7 +49,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
-        return 200;
+        return 100;
     }
     return 75;
 }
@@ -69,8 +69,10 @@
     }
     
     MUSMarkdownTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"syntaxCell" forIndexPath:indexPath];
-    cell.syntaxTitle = self.markdownArray[indexPath.row -1 ][0];
-    cell.syntaxExample = self.markdownArray[indexPath.row -1 ][1];
+    cell.syntaxType.text = self.markdownArray[indexPath.row -1 ][0];
+    cell.syntaxTitle.text = self.markdownArray[indexPath.row -1 ][1];
+    cell.syntaxExample.attributedText = [NSAttributedString returnMarkDownStringFromString:self.markdownArray[indexPath.row -1 ][1]];
+
     
     return cell;
 }

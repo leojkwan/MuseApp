@@ -11,5 +11,6 @@
 @interface MUSMarkdownTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *syntaxTitle;
 @property (weak, nonatomic) IBOutlet UILabel *syntaxExample;
+@property (weak, nonatomic) IBOutlet UILabel *syntaxType;
 
 @end

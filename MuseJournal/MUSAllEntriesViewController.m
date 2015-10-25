@@ -28,6 +28,7 @@
 #import "MUSMusicPlayer.h"
 #import <Masonry.h>
 #import "UIFont+MUSFonts.h"
+#import "MUSWallPaperViewController.h"
 
 #import "MUSTimelineUIManager.h"
 
@@ -214,10 +215,20 @@
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
 
+//-(void)didSelectWallpaperButton:(id)sender {
+//    MUSWallPaperViewController *wallpaperVC = [self.storyboard instantiateViewControllerWithIdentifier:@"wallpaperVC"];
+////    [self presentViewController:wallpaperVC animated:YES completion:nil];
+//    [self.navigationController pushViewController:wallpaperVC animated:YES];
+////    [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
+//}
+
 -(void)newEntryFromPrompt {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
 
+-(void)viewWillLayoutSubviews {
+    [self.navigationController setNavigationBarHidden:NO];
+}
 
 #pragma mark - UITable View Delegate methods
 
@@ -282,7 +293,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     
     Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:indexPath];
     
@@ -408,7 +418,6 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    
     if ([segue.identifier isEqualToString:@"detailEntrySegue"]) {
         
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
@@ -416,7 +425,6 @@
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
         
         dvc.destinationEntry = entryForThisRow;
-        //        dvc.musicPlayer = self.musicPlayer;
         
         
         if (entryForThisRow != nil)

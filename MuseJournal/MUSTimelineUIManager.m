@@ -28,7 +28,7 @@
     [view addSubview:promptView];
     [promptView  mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(view);
-        make.width.equalTo(view).dividedBy(3);
+        make.width.equalTo(view).dividedBy(4);
         make.height.equalTo(promptView.mas_width);
     }];
     

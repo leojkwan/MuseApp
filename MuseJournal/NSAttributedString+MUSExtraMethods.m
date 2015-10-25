@@ -47,27 +47,4 @@
     return attrTag;
 }
 
-+(NSAttributedString *)returnAutoPlayButtonText:(BOOL)on {
-
-    NSMutableAttributedString *_switchString;
-    
-    if (on) {
-        _switchString = [[NSMutableAttributedString alloc ]initWithString:@"ON"];
-        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.87 green:0.19 blue:0.4 alpha:1] range:NSMakeRange(0, [_switchString length])];
-    }    else {
-        _switchString = [[NSMutableAttributedString alloc ]initWithString:@"OFF"];
-        [_switchString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, [_switchString length])];
-    }
-    
-    UIFont *switchStringFont=  [UIFont fontWithName:@"Raleway-SemiBold" size:20.0];
-    [_switchString addAttribute:NSFontAttributeName value:switchStringFont range:NSMakeRange(0, [_switchString length])];
-    
-    NSMutableAttributedString *appendedAutoPlayString = [[NSMutableAttributedString alloc] init];
-    
-    [appendedAutoPlayString appendAttributedString:_switchString];
-    
-    return appendedAutoPlayString;
-    
-}
-
 @end

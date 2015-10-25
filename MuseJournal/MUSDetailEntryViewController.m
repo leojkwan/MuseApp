@@ -94,17 +94,7 @@ typedef enum{
     [self setUpKeyboardAvoiding];
     [self setUpToolbarAndKeyboard];
     [self setUpImagePicker];
-}
 
--(void)setUpInteractivePop {
-    self.navigationController.interactivePopGestureRecognizer.delegate= self;
-    [self interactivePopOn:YES];
-    [self.navigationController.interactivePopGestureRecognizer addTarget:self
-                                                                  action:@selector(handlePopGesture:)];
-}
-
--(void)interactivePopOn:(BOOL)on {
-    self.navigationController.interactivePopGestureRecognizer.enabled = on;
 }
 
 - (void)handlePopGesture:(UIGestureRecognizer *)gesture
@@ -312,18 +302,16 @@ typedef enum{
 }
 
 -(void)didSelectDoneButton:(id)sender {
-    [self interactivePopOn:YES];
     // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
     if (self.destinationEntry.coverImage != nil) {
         [self.scrollView setContentOffset:CGPointZero animated:YES];
     }
     
     [self checkSizeOfContentForTextView:self.textView];
-//    [self enableTextViewInteraction:YES];
-//    [self enableTextFieldInteraction:YES];
-    
     [self saveButtonTapped:sender];
 }
+
+
 -(void)didSelectAddSongButton:(id)sender {
     [self pinSongButtonPressed:sender];
 }
@@ -342,12 +330,6 @@ typedef enum{
 }
 
 -(void)didSelectTitleButton:(id)sender {
-//    if ([self.textView isFirstResponder]){ // append pount to content view
-//        [self.textView insertText:@"#"];
-//    } else {
-//        // notify user this button does't work for title view
-//        [MUSNotificationManager displayNotificationWithMessage:@"markdown only for entry content." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
-//    }
     [self performSegueWithIdentifier:@"markdownSegue" sender:nil];
 }
 
@@ -357,7 +339,6 @@ typedef enum{
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-//    [self.textView setUserInteractionEnabled:YES];
     self.entryTextViewTap.enabled = YES;
     
     
@@ -391,7 +372,6 @@ typedef enum{
 
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self interactivePopOn:NO];
     [self.titleCharacterLimitLabel setHidden:NO];
     
     // IF ITS A NEW ENTRY TITLE
@@ -408,7 +388,6 @@ typedef enum{
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-    [self interactivePopOn:NO];
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
     
@@ -634,6 +613,8 @@ typedef enum{
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
     
+    [self saveEntry];
+    
     // SAVE TO CORE DATA!!
     [self.store save];
     
@@ -830,7 +811,7 @@ typedef enum{
     MPMediaItem *currentSong = self.player.nowPlayingItem;
     
     if (self.musicPlayerStatus == NotPlaying){
-        [MUSNotificationManager displayNotificationWithMessage:@"No Song Playing" backgroundColor:[UIColor grayColor] textColor:[UIColor whiteColor]];
+        [MUSNotificationManager displayNotificationWithMessage:@"Play a song to pin!" backgroundColor:[UIColor grayColor] textColor:[UIColor whiteColor]];
         
     } else if(self.musicPlayerStatus == Invalid) {
         
@@ -855,7 +836,6 @@ typedef enum{
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry =[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
-        //        dvc.musicPlayer = self.sharedMusicDataStore.musicPlayer;
         
     } else if ([segue.identifier isEqualToString:@"moodSegue"]) {
         MUSMoodViewController *dvc = segue.destinationViewController;

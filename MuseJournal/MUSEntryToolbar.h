@@ -16,7 +16,6 @@
 @interface MUSEntryToolbar : UIView
 
 @property (nonatomic, assign) id<MUSEntryToolbarDelegate> delegate;
-@property (weak, nonatomic) IBOutlet UIButton *autoPlayButton;
 
 
 

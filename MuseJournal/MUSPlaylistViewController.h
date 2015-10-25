@@ -19,7 +19,6 @@
 
 @property (nonatomic, strong) Entry *destinationEntry;
 @property (nonatomic, strong) NSMutableArray *playlistForThisEntry;
-//@property (nonatomic, strong) MUSMusicPlayer *musicPlayer;
 @property (nonatomic, assign) id <ArtworkLoaderProtocol> delegate;
 
 @end
