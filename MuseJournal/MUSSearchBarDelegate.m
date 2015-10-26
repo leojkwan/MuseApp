@@ -16,7 +16,7 @@
 @implementation MUSSearchBarDelegate
 
 -(instancetype)initWithTableView:(UITableView *)tableView resultsController:(NSFetchedResultsController *)controller {
-
+    
     self = [super init];
     
     if (self) {
@@ -28,19 +28,11 @@
 }
 
 -(void)setUpSearchBarUI:(UISearchBar *)searchbar {
-    
-
-    
     UITextField *searchBarTextField = [searchbar valueForKey:@"_searchField"];
-            searchBarTextField.textColor = [UIColor whiteColor];
+    searchBarTextField.textColor = [UIColor whiteColor];
     
     // set placeholder text
     [self setPlaceholderTextSearchBar:searchbar placeholderText:@"search music, content, date or mood."];
-    
-
-
-    // SEARCH BAR TEXT COLOR
-
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
@@ -74,7 +66,7 @@
         // create a query
         NSFetchRequest *request
         = [NSFetchRequest fetchRequestWithEntityName:@"MUSEntry"];
-
+        
         NSPredicate *entryTitlePredicate = [NSPredicate predicateWithFormat:@"titleOfEntry contains[cd] %@", query];
         NSPredicate *moodPredicate = [NSPredicate predicateWithFormat:@"tag contains[cd] %@", query];
         NSPredicate *contentPredicate = [NSPredicate predicateWithFormat:@"content contains[cd] %@", query];
@@ -86,7 +78,7 @@
         
         NSPredicate *compoundPredicate
         = [NSCompoundPredicate orPredicateWithSubpredicates:@[entryTitlePredicate, moodPredicate, contentPredicate,albumPredicate,songNamePredicate, genrePredicate, songArtistPredicate, datePredicate]];
-
+        
         
         [self.controller.fetchRequest setPredicate:compoundPredicate];
         [self.controller.fetchRequest setFetchLimit:20]; //
@@ -132,8 +124,6 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [self setPlaceholderTextSearchBar:searchBar placeholderText:@""];
-//    UITextField *searchBarTextField = [searchBar valueForKey:@"_searchField"];
-//    searchBarTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@""];
     [searchBar setShowsCancelButton:YES animated:YES];
 }
 
