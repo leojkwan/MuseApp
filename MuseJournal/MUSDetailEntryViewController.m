@@ -94,27 +94,7 @@ typedef enum{
     [self setUpKeyboardAvoiding];
     [self setUpToolbarAndKeyboard];
     [self setUpImagePicker];
-}
-
--(void)setUpInteractivePop {
-    self.navigationController.interactivePopGestureRecognizer.delegate= self;
-    [self interactivePopOn:YES];
-    [self.navigationController.interactivePopGestureRecognizer addTarget:self
-                                                                  action:@selector(handlePopGesture:)];
-}
-
--(void)interactivePopOn:(BOOL)on {
-    self.navigationController.interactivePopGestureRecognizer.enabled = on;
-}
-
-- (void)handlePopGesture:(UIGestureRecognizer *)gesture
-{
-    if (gesture.state == UIGestureRecognizerStateBegan)
-    {
-        // respond to beginning of pop gesture
-        NSLog(@"popping began");
-    }
-    // handle other gesture states, if desired
+    
 }
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
@@ -174,9 +154,6 @@ typedef enum{
         // this is an existing entry
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     }
-    
-    //    [self toggleKeyboardAvoidingForView:self.view];
-    
     // adjust size of text view
     [self checkSizeOfContentForTextView:self.textView];
 }
@@ -185,13 +162,6 @@ typedef enum{
 -(void)setUpPlaylistForThisEntryAndPlay {
     //Convert entry NSSet into appropriate MutableArray
     self.formattedPlaylistForThisEntry = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
-    
-    //    // set up music player
-    //    self.musicPlayer = [[MUSMusicPlayer alloc] init];
-    //    NSLog(@"Preparing to play music player");
-    //    [self.musicPlayer.myPlayer prepareToPlay];
-    
-    
     [self playPlaylistForThisEntry];
 }
 
@@ -263,8 +233,8 @@ typedef enum{
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-//    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
-//    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
+    //    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
+    //    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
     
     // Share
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Set Cover Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -312,18 +282,16 @@ typedef enum{
 }
 
 -(void)didSelectDoneButton:(id)sender {
-    [self interactivePopOn:YES];
     // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
     if (self.destinationEntry.coverImage != nil) {
         [self.scrollView setContentOffset:CGPointZero animated:YES];
     }
     
     [self checkSizeOfContentForTextView:self.textView];
-//    [self enableTextViewInteraction:YES];
-//    [self enableTextFieldInteraction:YES];
-    
     [self saveButtonTapped:sender];
 }
+
+
 -(void)didSelectAddSongButton:(id)sender {
     [self pinSongButtonPressed:sender];
 }
@@ -342,12 +310,6 @@ typedef enum{
 }
 
 -(void)didSelectTitleButton:(id)sender {
-//    if ([self.textView isFirstResponder]){ // append pount to content view
-//        [self.textView insertText:@"#"];
-//    } else {
-//        // notify user this button does't work for title view
-//        [MUSNotificationManager displayNotificationWithMessage:@"markdown only for entry content." backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
-//    }
     [self performSegueWithIdentifier:@"markdownSegue" sender:nil];
 }
 
@@ -357,7 +319,6 @@ typedef enum{
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-//    [self.textView setUserInteractionEnabled:YES];
     self.entryTextViewTap.enabled = YES;
     
     
@@ -391,7 +352,6 @@ typedef enum{
 
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self interactivePopOn:NO];
     [self.titleCharacterLimitLabel setHidden:NO];
     
     // IF ITS A NEW ENTRY TITLE
@@ -408,7 +368,6 @@ typedef enum{
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-    [self interactivePopOn:NO];
     self.textView.font = [UIFont returnParagraphFont];
     [self.entryTitleTextField setUserInteractionEnabled:NO];
     
@@ -457,53 +416,53 @@ typedef enum{
         
         //         condition for null objects
         [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *currentCollection) {
-
-        
-        // array of mp media items
-        // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
-
+            
+            
+            // array of mp media items
+            // loop through playlist collection and track the index so we can reference formatted playlist with song names in it
+            
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
                 int i = 0;
-
-        for (MPMediaItem *MPSong in currentCollection.items) {
-            Song *songForThisIndex = self.formattedPlaylistForThisEntry[i];
-            if (MPSong == [NSNull null]) {
-                UIAlertController *alertController = [UIAlertController
-                                                      alertControllerWithTitle:@"Oops!"
-                                                      message: [NSString stringWithFormat: @"We can't find '%@' by %@ in your library!", songForThisIndex.songName, songForThisIndex.artistName]
-                                                      preferredStyle:UIAlertControllerStyleAlert];
                 
-                UIAlertAction *okAction = [UIAlertAction
-                                           actionWithTitle:NSLocalizedString(@"OK", @"OK action")
-                                           style:UIAlertActionStyleDefault
-                                           handler:^(UIAlertAction *action)
-                                           {
-                                           }];
-                [alertController addAction:okAction];
-                // present alert if there are null songs
-                [self presentViewController:alertController animated:YES completion:nil];
+                for (MPMediaItem *MPSong in currentCollection.items) {
+                    Song *songForThisIndex = self.formattedPlaylistForThisEntry[i];
+                    if (MPSong == [NSNull null]) {
+                        UIAlertController *alertController = [UIAlertController
+                                                              alertControllerWithTitle:@"Oops!"
+                                                              message: [NSString stringWithFormat: @"We can't find '%@' by %@ in your library!", songForThisIndex.songName, songForThisIndex.artistName]
+                                                              preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *okAction = [UIAlertAction
+                                                   actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                                   style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction *action)
+                                                   {
+                                                   }];
+                        [alertController addAction:okAction];
+                        // present alert if there are null songs
+                        [self presentViewController:alertController animated:YES completion:nil];
+                        
+                        // delete null song from core data
+                        [self.destinationEntry removeSongsObject:self.formattedPlaylistForThisEntry[i]];
+                        [self.store save];
+                    } //  end of if statment
+                    
+                    i++; // next song
+                } // end of for loop
                 
-                // delete null song from core data
-                [self.destinationEntry removeSongsObject:self.formattedPlaylistForThisEntry[i]];
-                [self.store save];
-            } //  end of if statment
-            
-            i++; // next song
-        } // end of for loop
-        
                 if ([MUSAutoPlayManager returnAutoPlayStatus] && self.formattedPlaylistForThisEntry.count > 0) {
                     
                     // rerue method to get updated playlist count for playlist player vc
-                            [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *filteredCollection) {
-                    [self.player setQueueWithItemCollection:filteredCollection];
-                    
-                    [self.player play];
-                            }];
+                    [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *filteredCollection) {
+                        [self.player setQueueWithItemCollection:filteredCollection];
+                        
+                        [self.player play];
+                    }];
                 }
             }]; // end of main thread ns operation
         }];
     }
-
+    
     // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
     
     // RANDOM SONG
@@ -511,7 +470,6 @@ typedef enum{
         
         [self.sharedMusicDataStore.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-                
                 if (randomSong != nil) {
                     [self.player setQueueWithItemCollection:randomSong];
                     [self.player play];
@@ -545,8 +503,8 @@ typedef enum{
         [self saveEntry];
 }
 
+
 -(void)saveEntry {
-    
     // NEW ENTRIES MUST BE CREATED
     if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
@@ -633,6 +591,8 @@ typedef enum{
     } else {
         self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
     }
+    
+    [self saveEntry];
     
     // SAVE TO CORE DATA!!
     [self.store save];
@@ -815,9 +775,6 @@ typedef enum{
             }];
         }];
         
-        
-        
-        
         // Save to Core Data
         [self.store save];
     }
@@ -830,7 +787,7 @@ typedef enum{
     MPMediaItem *currentSong = self.player.nowPlayingItem;
     
     if (self.musicPlayerStatus == NotPlaying){
-        [MUSNotificationManager displayNotificationWithMessage:@"No Song Playing" backgroundColor:[UIColor grayColor] textColor:[UIColor whiteColor]];
+        [MUSNotificationManager displayNotificationWithMessage:@"Play a song to pin!" backgroundColor:[UIColor grayColor] textColor:[UIColor whiteColor]];
         
     } else if(self.musicPlayerStatus == Invalid) {
         
@@ -855,7 +812,6 @@ typedef enum{
         MUSPlaylistViewController *dvc = segue.destinationViewController;
         dvc.destinationEntry = self.destinationEntry;
         dvc.playlistForThisEntry =[NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
-        //        dvc.musicPlayer = self.sharedMusicDataStore.musicPlayer;
         
     } else if ([segue.identifier isEqualToString:@"moodSegue"]) {
         MUSMoodViewController *dvc = segue.destinationViewController;

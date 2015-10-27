@@ -140,6 +140,7 @@
 }
 
 - (IBAction)backbuttonPressed:(id)sender {
+    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

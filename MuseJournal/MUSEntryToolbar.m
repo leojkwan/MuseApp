@@ -75,7 +75,7 @@
     
     // add button action
     [self.addEntryButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.autoPlayButton addTarget:self action:@selector(autoPlayButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.autoPlayButton addTarget:self action:@selector(autoPlayButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,7 +105,6 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         self.autoplayStatus = autoplayON;
-//        [self.autoPlayButton setAttributedTitle:[NSAttributedString returnAutoPlayButtonText:YES] forState:UIControlStateNormal];
     }
 }
 

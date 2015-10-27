@@ -46,10 +46,8 @@
     
     
     // h2
-    UIFont *h2Font = [UIFont fontWithName:@"Futura" size:24.0];
-    NSMutableParagraphStyle* h2Style = [[NSMutableParagraphStyle alloc]init];
+    UIFont *h2Font = [UIFont fontWithName:@"ADAM.CGPRO" size:25.0];
 
-    
     NSDictionary *h2Attributes = @{
                                    NSFontAttributeName : h2Font,
                                    NSForegroundColorAttributeName : h1Color,
@@ -59,12 +57,8 @@
     [attributes setObject:h2Attributes forKey:@(H2)];
     
     // h3
-    UIFont *h3Font = [UIFont fontWithName:@"Raleway-Medium" size:22.0];
+    UIFont *h3Font = [UIFont fontWithName:@"Raleway-SemiBold" size:24.0];
     [attributes setObject:@{NSFontAttributeName : h3Font} forKey:@(H3)];
-    
-    // h4
-    UIFont *h4Font =  [UIFont fontWithName:@"Raleway" size:22.0];
-    [attributes setObject:@{NSFontAttributeName : h4Font} forKey:@(H4)];
     
     // em
     UIFont *emFont = [UIFont fontWithName:@"Futura-MediumItalic" size:23.0];
@@ -102,16 +96,14 @@
     NSMutableParagraphStyle* listParagraphStyle = [[NSMutableParagraphStyle alloc]init];
     listItemParagraphStyle.headIndent = 16.0;
     [attributes setObject:@{NSFontAttributeName : paragraphFont, NSParagraphStyleAttributeName : listParagraphStyle} forKey:@(LIST)];
+
     
+    UIFont *blockFont = [UIFont fontWithName:@"Futura-MediumItalic" size:18.0];
+
     
-    // blockquote
-    NSMutableParagraphStyle* blockquoteParagraphStyle = [[NSMutableParagraphStyle alloc]init];
-    blockquoteParagraphStyle.headIndent = 16.0;
-    blockquoteParagraphStyle.tailIndent = 16.0;
-    blockquoteParagraphStyle.firstLineHeadIndent = 16.0;
-    [attributes setObject:@{NSFontAttributeName : [emFont fontWithSize:18.0], NSParagraphStyleAttributeName : h2Style} forKey:@(BLOCKQUOTE)];
+    [attributes setObject:@{NSFontAttributeName : blockFont, NSParagraphStyleAttributeName : h1Style, NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle), NSUnderlineColorAttributeName : [UIColor grayColor]} forKey:@(BLOCKQUOTE)];
     
-    
+
     return attributes;
 }
 

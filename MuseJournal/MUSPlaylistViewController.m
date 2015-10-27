@@ -227,17 +227,14 @@
 
 - (void)updateButtonStatus {
     
-    if (self.playlistForThisEntry.count == 0) {
-        [self.playbackButtonStatus setEnabled:NO];
-    } else{
-        [self.playbackButtonStatus setEnabled:YES];
-        
+//        [self.playbackButtonStatus setEnabled:YES];
         if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
+            
         } else {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
+            
         }
-    }
 }
 
 -(void)updatePlaybackButton:(id)sender {
@@ -391,10 +388,7 @@
         // Do something...
         dispatch_async(dispatch_get_main_queue(), ^{
             Song *songForThisRow = self.playlistForThisEntry[indexPath.row];
-            
             [self makeURLRequestForAlbum:songForThisRow.albumTitle artist:songForThisRow.artistName withCompletionBlock:^(BOOL block) {
-                
-                NSLog(@"HI HI IM DONE");
                 [self.HUD hide:YES];
                 
             }];
