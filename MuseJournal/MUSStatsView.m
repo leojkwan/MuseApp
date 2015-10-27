@@ -55,8 +55,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTextLabelColor) name:@"updateBackground" object:nil];
     
     // CONFIGURE TEXT COLOR
-    [self configureTextLabelColor];
-    
+//    [self configureTextLabelColor];
+
+}
+
+-(void)willMoveToWindow:(UIWindow *)newWindow {
+    if (newWindow == nil) {
+        // unsubscribe from any notifications here
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateBackground" object:nil];
+    }
 }
 
 -(void)configureTextLabelColor {

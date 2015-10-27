@@ -75,6 +75,7 @@
 		94B42D0D1BD8056A004322F6 /* MUSStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B42D0C1BD8056A004322F6 /* MUSStatsView.m */; };
 		94B42D0F1BD80575004322F6 /* MUSStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B42D0E1BD80575004322F6 /* MUSStatsView.xib */; };
 		94D366EF1BD007800080A27B /* MUSTimelineUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */; };
+		94DFBBEB1BE045DB00374817 /* UIView+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DFBBEA1BE045DB00374817 /* UIView+MUSExtraMethods.m */; };
 		94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */; };
 		94E180641BCDA344008023C5 /* MUSMoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E180631BCDA344008023C5 /* MUSMoodViewController.m */; };
 		94EB3EDB1BBDDA790060AF28 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */; };
@@ -240,6 +241,8 @@
 		94B42D0E1BD80575004322F6 /* MUSStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSStatsView.xib; path = MuseJournal/MUSStatsView.xib; sourceTree = SOURCE_ROOT; };
 		94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSTimelineUIManager.h; sourceTree = "<group>"; };
 		94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSTimelineUIManager.m; sourceTree = "<group>"; };
+		94DFBBE91BE045DB00374817 /* UIView+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+MUSExtraMethods.h"; path = "MuseJournal/UIView+MUSExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		94DFBBEA1BE045DB00374817 /* UIView+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+MUSExtraMethods.m"; path = "MuseJournal/UIView+MUSExtraMethods.m"; sourceTree = SOURCE_ROOT; };
 		94E023491BBCDADD00404E90 /* UIImage+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ExtraMethods.h"; path = "MuseJournal/UIImage+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
 		94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ExtraMethods.m"; path = "MuseJournal/UIImage+ExtraMethods.m"; sourceTree = SOURCE_ROOT; };
 		94E180621BCDA344008023C5 /* MUSMoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSMoodViewController.h; sourceTree = "<group>"; };
@@ -429,6 +432,8 @@
 				941F252B1BBC4A0E008C8120 /* MUSKeyboardTopBar.h */,
 				941F252C1BBC4A0E008C8120 /* MUSKeyboardTopBar.m */,
 				941F252D1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib */,
+				94DFBBE91BE045DB00374817 /* UIView+MUSExtraMethods.h */,
+				94DFBBEA1BE045DB00374817 /* UIView+MUSExtraMethods.m */,
 				94B313C71BBAF88200ECB1AD /* MUSAlertView.h */,
 				94B313C81BBAF88200ECB1AD /* MUSAlertView.m */,
 				94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */,
@@ -807,6 +812,7 @@
 				94D366EF1BD007800080A27B /* MUSTimelineUIManager.m in Sources */,
 				94E180641BCDA344008023C5 /* MUSMoodViewController.m in Sources */,
 				94B313F71BBAF88200ECB1AD /* MUSAlertView.m in Sources */,
+				94DFBBEB1BE045DB00374817 /* UIView+MUSExtraMethods.m in Sources */,
 				94B3140A1BBAF88200ECB1AD /* UIFont+MUSFonts.m in Sources */,
 				941F254D1BBC4B12008C8120 /* UIImageView+ExtraMethods.m in Sources */,
 				94AD69EE1BBDABA5009C5553 /* Song+CoreDataProperties.m in Sources */,

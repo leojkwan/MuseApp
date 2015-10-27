@@ -67,7 +67,12 @@
     self.textLabel2.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
 }
 
-
+-(void)willMoveToWindow:(UIWindow *)newWindow {
+    if (newWindow == nil) {
+        // unsubscribe from any notifications here
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateBackground" object:nil];
+    }
+}
 
 - (IBAction)addButtonTapped:(id)sender {
     [self.delegate didSelectAddButton:self];

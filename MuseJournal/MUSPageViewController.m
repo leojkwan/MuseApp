@@ -54,6 +54,12 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackground:) name:@"updateBackground" object:nil];
 }
 
+-(void)viewWillDisappear:(BOOL)animated   {
+    [super viewWillDisappear:YES];
+    //       GET NOTIFICATION FOR UPDATE WALLPAPER IN HOME VIEW
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateBackground" object:nil];
+}
+
 -(void)updateBackground:(NSNotification *)backgroundIndex {
     NSDictionary *dict = backgroundIndex.userInfo;
     NSInteger indexOfNewWallpaper = [[dict objectForKey:@"wallpaperIndex"] integerValue];

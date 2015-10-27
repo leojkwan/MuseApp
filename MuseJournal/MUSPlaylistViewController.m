@@ -125,7 +125,6 @@
                 
                 if (self.player.playbackState != MPMusicPlaybackStateStopped) {
                     
-                    
                     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                     [self configureHUD:self.HUD];
                     
@@ -226,14 +225,10 @@
 #pragma mark - music notifications and handling
 
 - (void)updateButtonStatus {
-    
-//        [self.playbackButtonStatus setEnabled:YES];
         if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
-            
         } else {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
-            
         }
 }
 

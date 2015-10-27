@@ -10,6 +10,8 @@
 #import "UIImageView+ExtraMethods.h"
 #import "UIImage+ExtraMethods.h"
 #import "UIColor+MUSColors.h"
+
+#import "UIView+MUSExtraMethods.h"
 #import "MUSColorSheet.h"
 
 #define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
@@ -84,6 +86,8 @@
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(@0);
     }];
+    
+    [self fadeInWithDuration:.2];
 }
 
 
@@ -92,7 +96,6 @@
     self.toolbarButtonItems = [[NSMutableArray alloc] init];
     
     // set up bar buttons items in this order left to right
-    
     [self.toolbarButtonItems addObject:[self backButton]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self pinSongButton]];

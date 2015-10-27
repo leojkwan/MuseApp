@@ -76,18 +76,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    // Reference Data Store
     self.store = [MUSDataStore sharedDataStore];
     self.sharedMusicDataStore = [MUSMusicPlayerDataStore sharedMusicPlayerDataStore];
+    
+    // make it easier to call
     self.player = self.sharedMusicDataStore.musicPlayer.myPlayer;
-    [self setUpTagLabel];
+
+    
+    // this method should only be called in didLoad, otherwise playlist collection will keep restarting on dvc dismissals
     [self setUpPlaylistForThisEntryAndPlay];
-    [self setUpParallaxView];
+
     [self setUpTitleTextField];
     [self setUpTextView];
-    [self setUpKeyboardAvoiding];
-    [self setUpToolbarAndKeyboard];
-    [self setUpImagePicker];
+    [self checkSizeOfContentForTextView:self.textView];
     
+    [self setUpImagePicker];
+    [self setUpParallaxView];
+    [self setUpTagLabel];
+    [self setUpKeyboardAvoiding];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+//    [self setUpTitleTextField];
+//    [self setUpTextView];
+//    [self checkSizeOfContentForTextView:self.textView];
+//    [self setUpTagLabel];
+//    [self setUpParallaxView];
+//    [self setUpKeyboardAvoiding];
+    [self setUpToolbarAndKeyboard];
+//    [self setUpImagePicker];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
@@ -133,22 +155,18 @@
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 100, 15);     // padding for text view
     
-    // add tap to container view to first repond text view
+    // add tap gesture to container view to make text view first responder
     self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
     [self.containerView addGestureRecognizer:self.entryTextViewTap];
     
-    
-    
-    // set up placeholder text for nil entries or entries with no text
+    // NEW ENTRY SET TEXT
     if (self.destinationEntry.content == nil || [self.destinationEntry.content isEqualToString:@""]) {
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
     } else{
-        // this is an existing entry
+        // EXISTING ENTRY SET TEXT
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
     }
-    // adjust size of text view
-    [self checkSizeOfContentForTextView:self.textView];
 }
 
 
@@ -159,20 +177,21 @@
 }
 
 -(void)setUpToolbarAndKeyboard {
-    
-    // Set up textview keyboard accessory view
-    self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:TOOLBAR_COLOR];
-    self.MUSToolBar.delegate = self;
-    [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-    [self.navigationController.view addSubview:self.MUSToolBar];
-    
-    // Set up textview toolbar input
-    self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:TOOLBAR_COLOR];
-    self.keyboardTopBar.delegate = self;
-    [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
-    self.textView.inputAccessoryView = self.keyboardTopBar;
-    self.entryTitleTextField.inputAccessoryView = self.keyboardTopBar;
-    
+
+    if (self.MUSToolBar == nil) {
+        // Set up textview keyboard accessory view
+        self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:TOOLBAR_COLOR];
+        self.MUSToolBar.delegate = self;
+        [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+        [self.navigationController.view addSubview:self.MUSToolBar];
+        
+        // Set up textview toolbar input
+        self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:TOOLBAR_COLOR];
+        self.keyboardTopBar.delegate = self;
+        [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
+        self.textView.inputAccessoryView = self.keyboardTopBar;
+        self.entryTitleTextField.inputAccessoryView = self.keyboardTopBar;
+    }
 }
 
 -(void)setUpParallaxView {
@@ -291,15 +310,20 @@
 -(void)didSelectPlaylistButton:(id)sender {
     [self playlistButtonPressed:sender];
 }
+
 -(void)didSelectBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     [self.MUSToolBar setHidden:YES];
     
     // PAUSE SONG IF SETTING IS YES
-    if ([MUSAutoPlayManager returnAutoPauseStatus] && self.formattedPlaylistForThisEntry.count > 0) {
+    if ([MUSAutoPlayManager returnAutoPauseStatus] && self.formattedPlaylistForThisEntry.count > 0)
         [self.player pause];
-    }
     
+   }
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:YES];
+
 }
 
 -(void)didSelectTitleButton:(id)sender {
@@ -381,11 +405,11 @@
 
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
+
     //     set bottom contraints
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
-    
 }
 
 #pragma mark - music controls
@@ -407,9 +431,8 @@
     
     if (self.entryType == ExistingEntry && self.destinationEntry.songs != nil ) {
         
-        //         condition for null objects
+        //  condition for null objects
         [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *currentCollection) {
-            
             
             // array of mp media items
             // loop through playlist collection and track the index so we can reference formatted playlist with song names in it

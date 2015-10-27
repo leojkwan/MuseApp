@@ -30,7 +30,6 @@
 @import QuartzCore;
 
 @interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate, ActionViewDelegate, SKStoreProductViewControllerDelegate>
-// SKPaymentTransactionObserver add this to protocol when you implement iAD
 
 @property (nonatomic,assign) TimeOfDay time;
 @property (strong, nonatomic) NSArray *cardsArray;
