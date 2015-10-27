@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Entry.h"
 
-
+typedef enum{
+    Playing,
+    NotPlaying,
+    Invalid,
+    AlreadyPinned
+}PlayerStatus;
 
 typedef enum{
     NewEntry,

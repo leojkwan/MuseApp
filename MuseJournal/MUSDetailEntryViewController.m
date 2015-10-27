@@ -41,13 +41,6 @@
 #define TEXT_LIMIT ((int) 35)
 #define TOOLBAR_COLOR [UIColor MUSBigStone] //COLOR OF BAR BUTTON ITEMS
 
-typedef enum{
-    Playing,
-    NotPlaying,
-    Invalid,
-    AlreadyPinned
-}PlayerStatus;
-
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
@@ -561,10 +554,9 @@ typedef enum{
     newEntry.titleOfEntry = self.entryTitleTextField.text;
     
     NSDate *currentDate = [NSDate date];
-    // month day and year
-    newEntry.createdAt = [currentDate monthDateYearDate];
-    // month day and year and seconds
-    newEntry.epochTime = currentDate;
+    newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
+    newEntry.epochTime = currentDate; // month day and year and seconds
+
     newEntry.tag = @"";
     newEntry.dateInString = [currentDate monthDateAndYearString];
     return newEntry;
@@ -716,7 +708,7 @@ typedef enum{
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];
 }
 
--(void)getSongPlayingStatusForSong:(Song *)currentSong {
+-(void)getStatusForSong:(Song *)currentSong {
     
     if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
         [self.sharedMusicDataStore.musicPlayer checkIfSongIsInLocalLibrary:currentSong withCompletionBlock:^(BOOL local) {
@@ -745,7 +737,8 @@ typedef enum{
     MPMediaItem *currentSong = [self.player nowPlayingItem];
     Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
     
-    [self getSongPlayingStatusForSong:pinnedSong];
+    
+    [self getStatusForSong:pinnedSong];
     
     if (self.musicPlayerStatus == Playing) {
         if(self.destinationEntry == nil){
@@ -783,23 +776,8 @@ typedef enum{
 
 
 -(void)displayPinnedSongNotification{
-    
-    MPMediaItem *currentSong = self.player.nowPlayingItem;
-    
-    if (self.musicPlayerStatus == NotPlaying){
-        [MUSNotificationManager displayNotificationWithMessage:@"Play a song to pin!" backgroundColor:[UIColor grayColor] textColor:[UIColor whiteColor]];
-        
-    } else if(self.musicPlayerStatus == Invalid) {
-        
-        [MUSNotificationManager displayNotificationWithMessage:@"Song not locally owned. Download on Apple Music! " backgroundColor:[UIColor yellowColor] textColor:[UIColor blackColor]];
-        
-    } else if(self.musicPlayerStatus == Playing) {
-        
-        [MUSNotificationManager displayNotificationWithMessage:[NSString stringWithFormat:@"Successfully Pinned '%@'", currentSong.title] backgroundColor:[UIColor colorWithRed:0.21 green:0.72 blue:0.00 alpha:1.0] textColor:[UIColor whiteColor]];
-        
-    } else if(self.musicPlayerStatus == AlreadyPinned) {
-        [MUSNotificationManager displayNotificationWithMessage:[NSString stringWithFormat:@"%@ is already pinned!", currentSong.title] backgroundColor:[UIColor colorWithRed:0.98 green:0.21 blue:0.37 alpha:1]textColor:[UIColor whiteColor]];
-    }
+    NSString *currentSongTitle = self.player.nowPlayingItem.title;
+    [MUSNotificationManager selectNotificationForSong:currentSongTitle musicStatus:self.musicPlayerStatus];
 }
 
 
@@ -821,6 +799,5 @@ typedef enum{
         [self.MUSToolBar setHidden:YES];
     }
 }
-
 
 @end
