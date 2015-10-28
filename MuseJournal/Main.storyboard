@@ -1889,6 +1889,7 @@
                                             <constraint firstAttribute="width" secondItem="a4X-Xs-bhu" secondAttribute="height" multiplier="1:1" id="UvO-fe-j3l"/>
                                             <constraint firstAttribute="width" constant="50" id="nUg-1e-ant"/>
                                         </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="quitButton">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

@@ -234,7 +234,10 @@
 
 -(UIBarButtonItem *)doneButton {
     UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [doneButton setImage:[UIImage imageNamed:@"save" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
+    doneButton.tintColor = [UIColor MUSGreenMachine];
+//    UIImage *doneButtonImage = [UIImage imageNamed:@"save" withColor:[UIColor MUSGreenMachine]];
+    UIImage *doneButtonImage = [UIImage imageNamed:@"save"];
+    [doneButton setImage:doneButtonImage forState:UIControlStateNormal];
     [doneButton setFrame:BUTTON_FRAME];
     [doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
