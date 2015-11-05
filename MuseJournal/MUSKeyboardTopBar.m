@@ -255,18 +255,15 @@
     [self.delegate didSelectMoreOptionsButton];
 }
 
--(void)seePlaylistButtonPressed:(id)sender {
-    NSLog(@"seePlaylistButtonPressed");
+-(void)seePlaylistButtonPressed:(id)sender {;
     [self.delegate didSelectPlaylistButton:sender];
 }
 
 -(void)titleButtonPressed:(id)sender {
-    NSLog(@"titleButtonPressed");
     [self.delegate didSelectTitleButton:sender];
 }
 
 -(void)doneButtonPressed:(id)sender{
-    NSLog(@"doneButtonPressed");
     [self.delegate didSelectDoneButton:sender];;
 }
 
@@ -283,13 +280,11 @@
 }
 
 -(void)pinSongButtonPressed:(id)sender {
-    NSLog(@"pinSongButtonPressed");
     [self.delegate didSelectAddSongButton:sender];
 }
 
 #pragma mark - Button Pressed methods
 -(void)cameraButtonPressed{
-    NSLog(@"cameraButtonPressed");
     [self.delegate didSelectCameraButton];
 }
 @end
