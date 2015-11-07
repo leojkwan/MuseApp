@@ -17,7 +17,7 @@
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import <Masonry/Masonry.h>
-#import "Song.h"
+
 #import "Song+MUSExtraMethods.h"
 #import "MUSPlaylistViewController.h"
 #import "MUSKeyboardTopBar.h"
@@ -33,6 +33,7 @@
 #import "UIColor+MUSColors.h"
 #import "MUSShareManager.h"
 #import "MUSiPhoneSizeManager.h"
+#import "MUSPlaceholderTextManager.h"
 #import "MUSMusicPlayerDataStore.h"
 
 
@@ -152,6 +153,8 @@
 
 -(void)setUpTextView {
     
+    
+//    astsrt
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 100, 15);     // padding for text view
     
@@ -160,7 +163,8 @@
     [self.containerView addGestureRecognizer:self.entryTextViewTap];
     
     // NEW ENTRY SET TEXT
-    if (self.destinationEntry.content == nil || [self.destinationEntry.content isEqualToString:@""]) {
+    
+    if (self.textView.attributedText == nil) {
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
         self.textView.textColor = [UIColor lightGrayColor];
     } else{
@@ -244,9 +248,6 @@
 -(void)didSelectMoreOptionsButton {
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    //    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
-    //    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
     
     // Share
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Set Cover Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -345,6 +346,9 @@
     }
     
     [self saveTitle];
+    
+    // dismiss keyboard
+    [self.view endEditing:YES];
     return YES;
 }
 
@@ -369,24 +373,25 @@
 
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
+    
     [self.titleCharacterLimitLabel setHidden:NO];
     
     // IF ITS A NEW ENTRY TITLE
     if (self.entryTitleTextField.textColor == [UIColor lightGrayColor]) {
         self.entryTitleTextField.textColor = [UIColor blackColor];
         self.entryTitleTextField.text = @"";
-        return;
-    }
-    
+    } else {
     // set title field to entry title
     self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
-    self.entryTextViewTap.enabled = NO;
+    }
+    
+    [self saveEntry];
 }
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
+
     self.textView.font = [UIFont returnParagraphFont];
-    [self.entryTitleTextField setUserInteractionEnabled:NO];
     
     // FOR NEW ENTRY
     if (self.textView.textColor == [UIColor lightGrayColor]) {
@@ -395,6 +400,9 @@
     } else {
         self.textView.text = self.destinationEntry.content;
     }
+    
+    [self saveTitle];
+
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
@@ -512,11 +520,15 @@
 
 
 - (void)saveButtonTapped:(id)sender {
-    if (self.entryTitleTextField.isFirstResponder)
+    if (self.entryTitleTextField.isFirstResponder) {
         // SAVE JUST THE TITLE ON DONE BUTTON PRESS... THIS PRESERVES THE ATTRIBUTED TEXT ON SAVE.... BLOW AWAY ALL MARKDOWN OTHERWISE
         [self saveTitle];
-    else
+    }    else {
         [self saveEntry];
+}
+    // dismiss keyboard
+    [self.view endEditing:YES];
+
 }
 
 
@@ -528,8 +540,8 @@
     }
     
     // FOR EXISTING ENTRIES
-    self.destinationEntry.content = self.textView.text;
     self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
+    self.destinationEntry.content = self.textView.text;
     
     
     if ([self.textView.text isEqualToString:@"Begin writing here..." ])
@@ -541,14 +553,13 @@
     // SAVE TO CORE DATA
     [self.store save];
     
-    // dismiss keyboard
-    [self.view endEditing:YES];
     
     // display content as attributed string
     self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
 -(void)saveTitle {
+    
     if (self.destinationEntry == nil) {
         Entry *newEntry = [self createNewEntry];
         newEntry.coverImage = nil;
@@ -558,9 +569,7 @@
     }
     // save to core data
     [self.store save];
-    
-    // dismiss keyboard
-    [self.view endEditing:YES];
+
 }
 
 
@@ -608,6 +617,10 @@
     }
     
     [self saveEntry];
+    
+    // dismiss keyboard
+    [self.view endEditing:YES];
+
     
     // SAVE TO CORE DATA!!
     [self.store save];
