@@ -23,7 +23,6 @@
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
-#import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
 #import <MBProgressHUD.h>
 #import "MUSAutoPlayManager.h"

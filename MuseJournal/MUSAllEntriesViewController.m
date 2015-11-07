@@ -15,8 +15,6 @@
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "NSDate+ExtraMethods.h"
-#import <SCLAlertView.h>
-#import "MUSAlertView.h"
 #import "MUSSearchBarDelegate.h"
 #import "MUSEntryToolbar.h"
 #import "MUSHomeViewController.h"
