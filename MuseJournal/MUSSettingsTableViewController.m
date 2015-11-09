@@ -11,6 +11,7 @@
 #import "iTellAFriend.h"
 #import "IntroViewController.h"
 #import "MUSAutoPlayManager.h"
+#import "MUSNavigationBar.h"
 
 @interface MUSSettingsTableViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -23,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self prefersStatusBarHidden];
-    
+        
     self.userNameTextField.delegate = self;
     
     // remove empty cell hairline
@@ -90,8 +91,6 @@
     [super viewWillAppear:YES];
     
     [self.navigationController.navigationBar setHidden:NO];
-    // Change System Font UI Label
-  
 }
 
 #pragma mark - Table view data source
@@ -131,33 +130,23 @@
     [self.navigationController pushViewController:controller animated:YES];
     }
     
-    //
+    // TELL A FRIEND
     if (indexPath.row == 5) {
         if ([[iTellAFriend sharedInstance] canTellAFriend]) {
             UINavigationController* tellAFriendController = [[iTellAFriend sharedInstance] tellAFriendController];
             [self presentViewController:tellAFriendController animated:YES completion:nil];
 
         }
+        
+    // RATE APP
     } else if (indexPath.row == 6) {
         [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
         }
     
-    
     // DESELECT CELL COLOR
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 

@@ -20,12 +20,14 @@
 #import "MUSActionView.h"
 #import "MUSGreetingManager.h"
 #import <StoreKit/StoreKit.h>
-#import "MUSITunesClient.h"
-#import "MUSConstants.h"
+//#import "MUSITunesClient.h"
 #import "IntroViewController.h"
 #import "MUSWallpaperManager.h"
 #import "MUSMusicPlayerDataStore.h"
-#import "MUSWallPaperViewController.h"
+//#import "MUSWallPaperViewController.h"
+#import "MUSNavigationBar.h"
+#import "MUSSettingsNavigationController.h"
+
 
 @import QuartzCore;
 
@@ -261,6 +263,16 @@
 }
 
 - (IBAction)settingButtonTapped:(id)sender {
+    
+    
+    // All this code to make the height of the nav bar normal and it didn't work...
+    MUSNavigationBar *navBar = [[MUSNavigationBar alloc] init];
+    MUSSettingsNavigationController *navController = [[MUSSettingsNavigationController alloc] initWithNavigationBarClass:[navBar class] toolbarClass:[UIToolbar class]];
+    [navBar setNormalHeight];
+    MUSSettingsTableViewController *settingsVC = (MUSSettingsTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"settingsVC"];
+
+    [navController setViewControllers:@[settingsVC] animated:NO];
+    [self presentViewController:navController animated:YES completion:nil];
     
 }
 
