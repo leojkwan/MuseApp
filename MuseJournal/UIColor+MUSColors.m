@@ -15,6 +15,10 @@
     return [UIColor colorWithRed:0.21 green:0.26 blue:0.27 alpha:1];
 }
 
++(UIColor *) MUSBirdBlue {
+    return [UIColor colorWithRed:0.93 green:0.95 blue:0.96 alpha:1];
+}
+
 + (UIColor *) MUSRebeccaAlmond {
     return [UIColor colorWithRed:0.75 green:0.41 blue:0.41 alpha:1];
 }

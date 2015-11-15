@@ -39,7 +39,7 @@
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define TEXT_LIMIT ((int) 35)
-#define TOOLBAR_COLOR [UIColor MUSBigStone] //COLOR OF BAR BUTTON ITEMS
+#define TOOLBAR_COLOR [UIColor MUSBirdBlue] //COLOR OF BAR BUTTON ITEMS
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol, UIGestureRecognizerDelegate>
 

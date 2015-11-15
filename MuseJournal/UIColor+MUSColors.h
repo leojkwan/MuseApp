@@ -14,6 +14,7 @@
 + (UIColor *) MUSCorn;
 + (UIColor *) MUSSuperYellow;
 +(UIColor *) MUSPolar;
++(UIColor *) MUSBirdBlue;
 +(UIColor *) MUSDanube;
 +(UIColor *) MUSSolitude;
 +(UIColor *) MUSBloodOrange;
