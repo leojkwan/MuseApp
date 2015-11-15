@@ -84,11 +84,10 @@
     
     // make it easier to call
     self.player = self.sharedMusicDataStore.musicPlayer.myPlayer;
-
     
     // this method should only be called in didLoad, otherwise playlist collection will keep restarting on dvc dismissals
     [self setUpPlaylistForThisEntryAndPlay];
-
+    
     [self setUpTitleTextField];
     [self setUpTextView];
     [self checkSizeOfContentForTextView:self.textView];
@@ -101,14 +100,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-//    [self setUpTitleTextField];
-//    [self setUpTextView];
-//    [self checkSizeOfContentForTextView:self.textView];
-//    [self setUpTagLabel];
-//    [self setUpParallaxView];
-//    [self setUpKeyboardAvoiding];
     [self setUpToolbarAndKeyboard];
-//    [self setUpImagePicker];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
@@ -153,7 +145,7 @@
 -(void)setUpTextView {
     
     
-//    astsrt
+    //    astsrt
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 100, 15);     // padding for text view
     
@@ -180,7 +172,7 @@
 }
 
 -(void)setUpToolbarAndKeyboard {
-
+    
     if (self.MUSToolBar == nil) {
         // Set up textview keyboard accessory view
         self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:TOOLBAR_COLOR];
@@ -319,11 +311,11 @@
     if ([MUSAutoPlayManager returnAutoPauseStatus] && self.formattedPlaylistForThisEntry.count > 0)
         [self.player pause];
     
-   }
+}
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
-
+    
 }
 
 -(void)didSelectTitleButton:(id)sender {
@@ -372,6 +364,7 @@
 
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.textView.font = [UIFont returnParagraphFont];
     
     [self.titleCharacterLimitLabel setHidden:NO];
     
@@ -380,16 +373,17 @@
         self.entryTitleTextField.textColor = [UIColor blackColor];
         self.entryTitleTextField.text = @"";
     } else {
-    // set title field to entry title
-    self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
+        // set title field to entry title
+        self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
+        [self saveEntry];
+        self.textView.text = self.destinationEntry.content;
     }
-    
     [self saveEntry];
 }
 
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
-
+    
     self.textView.font = [UIFont returnParagraphFont];
     
     // FOR NEW ENTRY
@@ -401,7 +395,7 @@
     }
     
     [self saveTitle];
-
+    
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
@@ -412,7 +406,7 @@
 
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-
+    
     //     set bottom contraints
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
@@ -524,10 +518,12 @@
         [self saveTitle];
     }    else {
         [self saveEntry];
-}
+    }
     // dismiss keyboard
     [self.view endEditing:YES];
-
+    
+    // display content as attributed string
+    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
 
@@ -540,6 +536,8 @@
     
     // FOR EXISTING ENTRIES
     self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
+    
+    // we save the content with markdown
     self.destinationEntry.content = self.textView.text;
     
     
@@ -552,9 +550,6 @@
     // SAVE TO CORE DATA
     [self.store save];
     
-    
-    // display content as attributed string
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
 -(void)saveTitle {
@@ -568,7 +563,7 @@
     }
     // save to core data
     [self.store save];
-
+    
 }
 
 
@@ -587,7 +582,7 @@
     NSDate *currentDate = [NSDate date];
     newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
     newEntry.epochTime = currentDate; // month day and year and seconds
-
+    
     newEntry.tag = @"";
     newEntry.dateInString = [currentDate monthDateAndYearString];
     return newEntry;
@@ -619,7 +614,7 @@
     
     // dismiss keyboard
     [self.view endEditing:YES];
-
+    
     
     // SAVE TO CORE DATA!!
     [self.store save];
