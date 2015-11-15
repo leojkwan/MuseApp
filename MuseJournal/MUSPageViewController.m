@@ -21,7 +21,6 @@
     [super viewDidLoad];
     [self setUpBackground];
     [self setUpUserBackGroundPreferences];
-
     // Do any additional setup after loading the view.
 }
 
@@ -56,8 +55,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated   {
     [super viewWillDisappear:YES];
-    //       GET NOTIFICATION FOR UPDATE WALLPAPER IN HOME VIEW
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateBackground" object:nil];
 }
 
 -(void)updateBackground:(NSNotification *)backgroundIndex {
@@ -73,15 +70,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
