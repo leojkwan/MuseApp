@@ -24,10 +24,14 @@
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (weak,nonatomic) MBProgressHUD *HUD;
+@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
+@property (nonatomic, strong) MUSDataStore *store;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *playlistTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *currentSongView;
 @property (weak, nonatomic) IBOutlet UIImageView *maskImageView;
-@property (nonatomic, strong) MUSDataStore *store;
 @property (strong, nonatomic) MPMediaItem *currentlyPlayingItem;
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
@@ -40,9 +44,6 @@
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *playlistGaussian;
 @property (weak, nonatomic) IBOutlet UIButton *appleMusicButton;
-@property (weak,nonatomic) MBProgressHUD *HUD;
-
-@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
 @property (nonatomic, strong) MPMusicPlayerController *player;
 
 
