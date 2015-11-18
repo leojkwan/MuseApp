@@ -87,7 +87,7 @@
         make.edges.equalTo(@0);
     }];
     
-    [self fadeInWithDuration:.4 withCompletion:nil];
+    [self fadeInWithDuration:.3 withCompletion:nil];
 }
 
 
