@@ -1,6 +1,6 @@
 # <a href="http://www.musetheapp.com">Muse - Journal with Sound</a>
 
-Music && Journaling iOS App on Core Data
+Music && Journaling iOS App on Core Data <a href="https://itunes.apple.com/app/id1044888483?aId=1001l5Yq&ct=app-website">url("https://d2kfjaekmjmy1l.cloudfront.net/images/websites/public/app-store-black-on-color@2x-vd3eb32e86e4d.png")</a>
 
 Muse is a mobile journaling app with music pinning capabilities. That is, while an entry is written on Muse, users can pin a currently playing song (from your local iTunes/Apple Music library) to that specific text. When that entry is revisit or edit in the future, the pinned songs playback.
 
