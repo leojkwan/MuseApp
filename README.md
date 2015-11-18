@@ -1,4 +1,8 @@
-# <a href="http://www.musetheapp.com">Muse - Journal with Sound</a><a href="https://itunes.apple.com/app/id1044888483?aId=1001l5Yq&ct=app-website"> <img src="https://d2kfjaekmjmy1l.cloudfront.net/images/websites/public/app-store-black-on-color@2x-vd3eb32e86e4d.png" width="150"/></a>
+
+# <a style="text-decoration:none" href="http://www.musetheapp.com">Muse - Journal with Sound</a>
+
+<a style="text-decoration:none" href="https://itunes.apple.com/app/id1044888483?aId=1001l5Yq&ct=app-website">
+<img style="text-decoration:none;text-align:right" src="https://d2kfjaekmjmy1l.cloudfront.net/images/websites/public/app-store-black-on-color@2x-vd3eb32e86e4d.png" width="150"/></a>
 
 Music && Journaling iOS App on Core Data 
 
