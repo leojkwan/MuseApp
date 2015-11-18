@@ -1,15 +1,12 @@
-# MuseApp
-Muse Music Journal Entry App on Core Data
+# <a href="http://www.musetheapp.com">Muse - Journal with Sound</a>
 
+Music && Journaling iOS App on Core Data
 
-Muse is an iOS journaling app with music pinning capabilities. While writing an entry, users can pin a currently playing song (from your local iTunes/Apple Music library) to that specific text. When that entry is revisit or edit in the future, the pinned songs playback.
+Muse is a mobile journaling app with music pinning capabilities. That is, while an entry is written on Muse, users can pin a currently playing song (from your local iTunes/Apple Music library) to that specific text. When that entry is revisit or edit in the future, the pinned songs playback.
 
+When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-at-flatiron/) into an iOS summer program in NYC, I connected this project with the Parse SDK to store and save entries. I decided to strip away the Parse plug-in backend  entirely and instead have Muse rely entirely on Core Data for persistance. 
 
-
-When I first started this app [7 weeks](http://leojkwan.com/2015/07/26/week-7-8-at-flatiron/) into an iOS summer program in NYC, I connected this project with the Parse SDK to store and save entries. Now the app relies on Core Data for local persistance. 
-
-
-##Screenshots
+##Screenshots (old)
 
 <div align="center">
 <tr>
