@@ -738,11 +738,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFj-q8-eQr">
-<<<<<<< HEAD
-                                <rect key="frame" x="25" y="45" width="37.5" height="60.5"/>
-=======
                                 <rect key="frame" x="25" y="25" width="43" height="43"/>
->>>>>>> 59f06655ed587553199ad228c68ff36598ab0814
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="DFj-q8-eQr" secondAttribute="height" multiplier="1:1" id="8o9-F4-LH7"/>
