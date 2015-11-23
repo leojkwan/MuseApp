@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol WalkthroughDelegate <NSObject>
+-(void)didSelectDoneButton;
+@end
+
 @interface EntryWalkthroughView : UIView
+@property (nonatomic, assign) id <WalkthroughDelegate> delegate;
 
 @end

@@ -40,6 +40,7 @@
 		944468761BD07449003B3F16 /* MUSShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 944468751BD07449003B3F16 /* MUSShareManager.m */; };
 		944842351C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */; };
 		944842381C02C26A006D05C4 /* EntryWalkthroughView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944842371C02C26A006D05C4 /* EntryWalkthroughView.m */; };
+		9448423B1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */; };
 		944ED4601BD41C3A007874EF /* MUSiPhoneSizeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 944ED45F1BD41C3A007874EF /* MUSiPhoneSizeManager.m */; };
 		9450A3EC1BCE1D8F00335606 /* MUSTagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9450A3EB1BCE1D8F00335606 /* MUSTagManager.m */; };
 		945E53551BC70AB900157085 /* MUSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E53541BC70AB900157085 /* MUSConstants.m */; };
@@ -172,6 +173,8 @@
 		944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MUSExtraMethods.m"; sourceTree = "<group>"; };
 		944842361C02C26A006D05C4 /* EntryWalkthroughView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryWalkthroughView.h; sourceTree = "<group>"; };
 		944842371C02C26A006D05C4 /* EntryWalkthroughView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryWalkthroughView.m; sourceTree = "<group>"; };
+		944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSBlurOverlayViewController.h; sourceTree = "<group>"; };
+		9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSBlurOverlayViewController.m; sourceTree = "<group>"; };
 		944ED45E1BD41C3A007874EF /* MUSiPhoneSizeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSiPhoneSizeManager.h; sourceTree = "<group>"; };
 		944ED45F1BD41C3A007874EF /* MUSiPhoneSizeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSiPhoneSizeManager.m; sourceTree = "<group>"; };
 		9450A3EA1BCE1D8F00335606 /* MUSTagManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSTagManager.h; path = ../MUSTagManager.h; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 			children = (
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
+				944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */,
+				9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */,
 				944842361C02C26A006D05C4 /* EntryWalkthroughView.h */,
 				944842371C02C26A006D05C4 /* EntryWalkthroughView.m */,
 				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
@@ -813,6 +818,7 @@
 				94B314041BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m in Sources */,
 				94B314021BBAF88200ECB1AD /* NSDate+ExtraMethods.m in Sources */,
 				941F25441BBC4A69008C8120 /* MUSImagelessEntryCell.m in Sources */,
+				9448423B1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m in Sources */,
 				941F25101BBC388F008C8120 /* MUSDataStore.m in Sources */,
 				940EE95E1BCF280900270D66 /* MUSWallpaperManager.m in Sources */,
 				94AD69F01BBDABA5009C5553 /* Entry+CoreDataProperties.m in Sources */,

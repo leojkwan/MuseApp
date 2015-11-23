@@ -10,6 +10,6 @@
 
 @interface UIViewController (MUSExtraMethods)
 
--(void)presentBlurModalWithView:(UIView *)viewOverBlur;
+-(void)presentViewController:(UIViewController *)dvc withView:(UIView *)viewOverBlur;
 
 @end

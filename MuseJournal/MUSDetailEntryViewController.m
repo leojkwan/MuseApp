@@ -14,6 +14,7 @@
 #import "UIColor+MUSColors.h"
 #import "UIView+MUSExtraMethods.h"
 #import "Song+MUSExtraMethods.h"
+#import "UIViewController+MUSExtraMethods.h"
 
 #import "MUSDetailEntryViewController.h"
 #import "MUSAllEntriesViewController.h"
@@ -36,6 +37,8 @@
 #import "MUSShareManager.h"
 #import "MUSiPhoneSizeManager.h"
 #import "MUSMusicPlayerDataStore.h"
+#import "EntryWalkthroughView.h"
+#import "MUSBlurOverlayViewController.h"
 
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -86,6 +89,16 @@
     
     // this method should only be called in didLoad, otherwise playlist collection will keep restarting on dvc dismissals
     [self setUpPlaylistForThisEntryAndPlay];
+}
+
+- (IBAction)buttonta:(id)sender {
+
+        MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc] init];
+        EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
+
+        // SET DELEGATE FOR DONE BUTTON
+        walkthroughView.delegate = modalBlurVC;
+        [self presentViewController:modalBlurVC withView:walkthroughView];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

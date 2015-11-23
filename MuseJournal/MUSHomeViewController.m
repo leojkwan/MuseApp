@@ -50,7 +50,6 @@
 @property (strong,nonatomic)  UIImageView *upChevronButtonView;
 @property (strong,nonatomic)  UIImageView *downChevronButtonView;
 @property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
-@property (weak, nonatomic) IBOutlet UIButton *button;
 
 
 @end
@@ -69,11 +68,6 @@
     [self setUpCurrentTime];
     [self setUpScrollButtons];
 
-}
-
-- (IBAction)buttontapped:(id)sender {
-    EntryWalkthroughView *view = [[EntryWalkthroughView alloc] init];
-    [self presentBlurModalWithView:view];
 }
 
 -(void)viewWillAppear:(BOOL)animated   {

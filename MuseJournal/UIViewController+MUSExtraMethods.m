@@ -1,14 +1,15 @@
 
 #import "UIViewController+MUSExtraMethods.h"
+#import "MUSBlurOverlayViewController.h"
 #import <Masonry/Masonry.h>
 
 @implementation UIViewController (MUSExtraMethods)
 
--(void)presentBlurModalWithView:(UIView *)viewOverBlur {
-
+-(void)presentViewController:(UIViewController *)dvc withView:(UIView *)viewOverBlur {
+    
     // Set modal to lay over stack
-    UIViewController *modalBlurVC= [[UIViewController alloc] init];
-    modalBlurVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    dvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+
     
     // Dark Blur
     UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
@@ -16,13 +17,13 @@
     visualEffectView.frame = self.view.bounds;
     
     // Add over main view
-    [self.view addSubview:visualEffectView];
+    [dvc.view addSubview:visualEffectView];
     
     // add content over blur
     [visualEffectView addSubview:viewOverBlur];
     viewOverBlur.frame = visualEffectView.bounds;
     
-    [self presentViewController:modalBlurVC animated:YES completion:nil];
+    [self presentViewController:dvc animated:YES completion:nil];
 }
 
 @end

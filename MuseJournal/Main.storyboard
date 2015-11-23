@@ -184,14 +184,6 @@
                                     <rect key="frame" x="0.0" y="110" width="400" height="230"/>
                                 </variation>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zkt-M5-YAm">
-                                <rect key="frame" x="428" y="69" width="46" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="buttontapped:" destination="Reu-be-NJQ" eventType="touchUpInside" id="HNK-5p-g7n"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -209,12 +201,10 @@
                             <constraint firstItem="OK4-mb-iil" firstAttribute="centerY" secondItem="Kz1-Wx-lCo" secondAttribute="centerY" id="LV9-Z5-uJI"/>
                             <constraint firstItem="Kz1-Wx-lCo" firstAttribute="top" secondItem="8AI-a6-Zaf" secondAttribute="bottom" constant="-70" id="LVR-ue-E3T"/>
                             <constraint firstItem="Kjq-WM-PzM" firstAttribute="height" secondItem="pjV-Zx-bcQ" secondAttribute="height" multiplier="1/3" id="PWC-jS-kYU"/>
-                            <constraint firstItem="Zkt-M5-YAm" firstAttribute="leading" secondItem="8AI-a6-Zaf" secondAttribute="trailing" constant="-172" id="QZd-Jc-cKw"/>
                             <constraint firstAttribute="trailing" secondItem="Kjq-WM-PzM" secondAttribute="trailing" id="Tw5-bp-vQT"/>
                             <constraint firstItem="A7g-mA-BcG" firstAttribute="centerX" secondItem="rDZ-Bt-EyT" secondAttribute="centerX" id="UxB-55-nfz"/>
                             <constraint firstItem="Kz1-Wx-lCo" firstAttribute="bottom" secondItem="8AI-a6-Zaf" secondAttribute="bottom" constant="-20" id="Wou-xs-QDh"/>
                             <constraint firstItem="uE5-7z-dT4" firstAttribute="top" secondItem="8AI-a6-Zaf" secondAttribute="bottom" id="Zhp-Qe-37R"/>
-                            <constraint firstItem="Zkt-M5-YAm" firstAttribute="centerY" secondItem="rDZ-Bt-EyT" secondAttribute="centerY" id="ebD-qh-itZ"/>
                             <constraint firstItem="Kjq-WM-PzM" firstAttribute="leading" secondItem="pjV-Zx-bcQ" secondAttribute="leading" id="iMe-Bv-v6T"/>
                             <constraint firstAttribute="trailing" secondItem="r9N-vS-53v" secondAttribute="trailing" id="itn-Ni-EPt"/>
                             <constraint firstItem="rDZ-Bt-EyT" firstAttribute="top" secondItem="kJ4-kJ-0hA" secondAttribute="bottom" constant="20" id="j7S-yb-O4d"/>
@@ -253,7 +243,6 @@
                     <navigationItem key="navigationItem" id="xQR-4A-d6c"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="button" destination="Zkt-M5-YAm" id="zcF-9X-jY9"/>
                         <outlet property="contentView" destination="pjV-Zx-bcQ" id="2NZ-1e-F1i"/>
                         <outlet property="dateLabel" destination="A7g-mA-BcG" id="lah-5F-ueB"/>
                         <outlet property="greetingLabel" destination="rDZ-Bt-EyT" id="8nI-ww-ArF"/>
@@ -1203,16 +1192,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="111"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
-                                                <rect key="frame" x="0.0" y="73.5" width="600" height="37.5"/>
+                                                <rect key="frame" x="0.0" y="74" width="600" height="38"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" keyboardAppearance="alert"/>
                                             </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aK9-BB-r1I" userLabel="Entry Header">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="73.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKc-0j-Brl" userLabel="break">
-                                                        <rect key="frame" x="150" y="52.5" width="300" height="1"/>
+                                                        <rect key="frame" x="150" y="53" width="300" height="1"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -1244,21 +1233,31 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHi-if-fDw" userLabel="date">
-                                                        <rect key="frame" x="17" y="32.5" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="17" y="33" width="0.0" height="0.0"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="12"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AV-IP-fJz">
+                                                        <rect key="frame" x="356" y="14" width="46" height="30"/>
+                                                        <animations/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="buttonta:" destination="YMB-QV-Zfr" eventType="touchUpInside" id="fsJ-S2-r65"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="centerX" secondItem="aK9-BB-r1I" secondAttribute="centerX" id="1Wd-WU-EZn"/>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="width" secondItem="aK9-BB-r1I" secondAttribute="width" multiplier="1/2" id="59e-B2-k31"/>
                                                     <constraint firstAttribute="bottom" secondItem="TKc-0j-Brl" secondAttribute="bottom" constant="20" id="7pz-ud-6jA"/>
+                                                    <constraint firstItem="3bG-Aw-aDF" firstAttribute="leading" secondItem="0AV-IP-fJz" secondAttribute="trailing" constant="98" id="C5s-ZW-93o"/>
                                                     <constraint firstItem="PHi-if-fDw" firstAttribute="top" secondItem="ffh-xq-7Os" secondAttribute="bottom" constant="7.5" id="MMs-hy-BsX"/>
                                                     <constraint firstItem="PHi-if-fDw" firstAttribute="leading" secondItem="ffh-xq-7Os" secondAttribute="leading" id="Nh1-On-ngG"/>
                                                     <constraint firstAttribute="trailing" secondItem="3bG-Aw-aDF" secondAttribute="trailing" id="RaO-Zy-c8D"/>
+                                                    <constraint firstItem="TKc-0j-Brl" firstAttribute="top" secondItem="0AV-IP-fJz" secondAttribute="bottom" constant="9" id="T4S-Qq-wPZ"/>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="top" secondItem="PHi-if-fDw" secondAttribute="bottom" constant="20" id="TBO-ZV-fCe"/>
                                                     <constraint firstItem="ffh-xq-7Os" firstAttribute="leading" secondItem="aK9-BB-r1I" secondAttribute="leading" constant="17" id="U58-vi-Wgh"/>
                                                     <constraint firstItem="ffh-xq-7Os" firstAttribute="centerY" secondItem="3bG-Aw-aDF" secondAttribute="centerY" id="UGx-aH-A3Q"/>
