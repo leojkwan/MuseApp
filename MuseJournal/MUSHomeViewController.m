@@ -26,6 +26,9 @@
 #import "MUSWallpaperManager.h"
 #import "MUSMusicPlayerDataStore.h"
 #import "MUSWallPaperViewController.h"
+#import "UIViewController+MUSExtraMethods.h"
+#import "EntryWalkthroughView.h"
+
 
 @import QuartzCore;
 
@@ -47,6 +50,7 @@
 @property (strong,nonatomic)  UIImageView *upChevronButtonView;
 @property (strong,nonatomic)  UIImageView *downChevronButtonView;
 @property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
+@property (weak, nonatomic) IBOutlet UIButton *button;
 
 
 @end
@@ -64,8 +68,13 @@
     [self configureUILabelColors];
     [self setUpCurrentTime];
     [self setUpScrollButtons];
+
 }
 
+- (IBAction)buttontapped:(id)sender {
+    EntryWalkthroughView *view = [[EntryWalkthroughView alloc] init];
+    [self presentBlurModalWithView:view];
+}
 
 -(void)viewWillAppear:(BOOL)animated   {
     

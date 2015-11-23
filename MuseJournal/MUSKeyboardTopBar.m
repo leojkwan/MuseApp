@@ -100,7 +100,7 @@
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"searchSong"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong"] action:@selector(pinSongButtonPressed:) frame:BUTTON_FRAME]];
+    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong2"] action:@selector(pinSongButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
@@ -121,7 +121,7 @@
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"title"] action:@selector(titleButtonPressed:) frame:CGRectMake(0, 0, 35, 35)]];
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"addImage"] action:@selector(cameraButtonPressed) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"searchSong"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
-    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong"] action:@selector(pinSongButtonPressed:) frame:BUTTON_FRAME]];
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong2"] action:@selector(pinSongButtonPressed:) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"save"] action:@selector(doneButtonPressed:) frame:BUTTON_FRAME]];

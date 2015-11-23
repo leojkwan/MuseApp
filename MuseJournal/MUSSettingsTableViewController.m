@@ -1,6 +1,6 @@
 //
 //  MUSSettingsTableViewController.m
-//  
+//
 //
 //  Created by Leo Kwan on 9/29/15.
 //
@@ -28,7 +28,7 @@
     
     // remove empty cell hairline
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
+    
     
     [self styleNavBarCustomLabelAttributes];
     
@@ -61,7 +61,7 @@
 - (IBAction)switchTapped:(id)sender {
     if([sender isOn])
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autopause"];
-     else
+    else
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"autopause"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -75,7 +75,7 @@
 
 -(void)styleNavBarCustomLabelAttributes {
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-
+    
     [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.44 alpha:1]];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     
@@ -91,7 +91,7 @@
     
     [self.navigationController.navigationBar setHidden:NO];
     // Change System Font UI Label
-  
+    
 }
 
 #pragma mark - Table view data source
@@ -103,8 +103,7 @@
     [self performSegueWithIdentifier:@"backToHomeView" sender:self];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
 }
 
@@ -123,12 +122,11 @@
         [self performSegueWithIdentifier:@"aboutSegue" sender:nil];
     }
     
-    
     // TOUR THE APP
     if (indexPath.row == 4) {
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
-    IntroViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"walkthrough"];
-    [self.navigationController pushViewController:controller animated:YES];
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Walkthrough" bundle:nil];
+        IntroViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"walkthrough"];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     
     //
@@ -136,29 +134,14 @@
         if ([[iTellAFriend sharedInstance] canTellAFriend]) {
             UINavigationController* tellAFriendController = [[iTellAFriend sharedInstance] tellAFriendController];
             [self presentViewController:tellAFriendController animated:YES completion:nil];
-
+            
         }
     } else if (indexPath.row == 6) {
         [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
-        }
-    
-    
+    }
     // DESELECT CELL COLOR
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
 
 @end

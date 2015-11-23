@@ -35,7 +35,6 @@
 #import  "MUSTagManager.h"
 #import "MUSShareManager.h"
 #import "MUSiPhoneSizeManager.h"
-#import "MUSPlaceholderTextManager.h"
 #import "MUSMusicPlayerDataStore.h"
 
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
@@ -67,6 +66,7 @@
 @property(strong ,nonatomic) UIImagePickerController *imagePicker;
 @property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
 @property (nonatomic, strong) MPMusicPlayerController *player;
+@property (weak, nonatomic) IBOutlet UIView *entryHRule;
 
 
 @end
@@ -91,6 +91,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     
+    self.entryHRule.backgroundColor = [UIColor lightGrayColor];
     [self.containerView fadeInWithDuration:.3 withCompletion:nil];
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     [self setUpEntryHeader];
@@ -325,15 +326,8 @@
     }
 }
 
--(void)textViewDidEndEditing:(UITextView *)textView {
-}
-
-
-
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-    
-    //     set bottom contraints
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
@@ -468,7 +462,6 @@
     }
     // SAVE TO CORE DATA
     [self.store save];
-    
 }
 
 
@@ -482,16 +475,16 @@
     if ([self.textView.text isEqualToString:@"Begin writing here..."]) {
         newEntry.content = @"";
     } else {
-    newEntry.content = self.textView.text;
-    newEntry.tag = @"";
-    newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
-    
-    NSDate *currentDate = [NSDate date];
-    newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
-    newEntry.epochTime = currentDate; // month day and year and seconds
-    
-    newEntry.tag = @"";
-    newEntry.dateInString = [currentDate monthDateAndYearString];
+        newEntry.content = self.textView.text;
+        newEntry.tag = @"";
+        newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
+        
+        NSDate *currentDate = [NSDate date];
+        newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
+        newEntry.epochTime = currentDate; // month day and year and seconds
+        
+        newEntry.tag = @"";
+        newEntry.dateInString = [currentDate monthDateAndYearString];
     }
     return newEntry;
 }
@@ -519,16 +512,12 @@
     // dismiss keyboard
     [self.view endEditing:YES];
     
-    
     // SAVE TO CORE DATA!!
     [self.store save];
     
-    
-    if(iPHONE_SIZE.height <= 480 || IS_IPAD)
-    {
+    if(iPHONE_SIZE.height <= 480 || IS_IPAD)   {
         return;    // iPhone Classic...  NO AP IMAGE
     } else {
-        
         // add reset parallax image
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
         
@@ -635,8 +624,6 @@
     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     self.imagePicker.allowsEditing = YES;
 }
-
-
 
 -(void)playlistButtonPressed:id {
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];

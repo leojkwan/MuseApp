@@ -18,7 +18,6 @@
                      animations:^{
                          self.alpha = 1;
                      }
-     
                      completion:^(BOOL finished){
                          if (completion) {
                              completion(finished);
