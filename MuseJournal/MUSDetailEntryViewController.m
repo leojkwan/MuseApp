@@ -11,35 +11,39 @@
 #import "NSSet+MUSExtraMethod.h"
 #import <UIScrollView+APParallaxHeader.h>
 #import "UIImagePickerController+ExtraMethods.h"
+#import "UIColor+MUSColors.h"
+#import "UIView+MUSExtraMethods.h"
+#import "Song+MUSExtraMethods.h"
+#import "UIViewController+MUSExtraMethods.h"
 
 #import "MUSDetailEntryViewController.h"
 #import "MUSAllEntriesViewController.h"
+#import "MUSPlaylistViewController.h"
+#import "MUSMoodViewController.h"
+
 #import "MUSDataStore.h"
 #import "Entry.h"
 #import <Masonry/Masonry.h>
-#import "Song.h"
-#import "Song+MUSExtraMethods.h"
-#import "MUSPlaylistViewController.h"
 #import "MUSKeyboardTopBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MUSKeyboardTopBar.h"
-#import "MUSAlertView.h"
 #import <CWStatusBarNotification.h>
 #import <MBProgressHUD.h>
+
 #import "MUSAutoPlayManager.h"
-#import "MUSMoodViewController.h"
+
 #import "MUSNotificationManager.h"
 #import  "MUSTagManager.h"
-#import "UIColor+MUSColors.h"
 #import "MUSShareManager.h"
 #import "MUSiPhoneSizeManager.h"
 #import "MUSMusicPlayerDataStore.h"
-
+#import "EntryWalkthroughView.h"
+#import "MUSBlurOverlayViewController.h"
 
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define TEXT_LIMIT ((int) 35)
-#define TOOLBAR_COLOR [UIColor MUSBigStone] //COLOR OF BAR BUTTON ITEMS
+#define TOOLBAR_COLOR [UIColor MUSBirdBlue] //COLOR OF BAR BUTTON ITEMS
 
 @interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol, UIGestureRecognizerDelegate>
 
@@ -47,7 +51,7 @@
 @property (nonatomic, strong) MUSDataStore *store;
 @property (nonatomic, assign) AutoPlay autoplayStatus;
 @property (nonatomic,assign) PlayerStatus musicPlayerStatus;
-@property (nonatomic, strong) MUSKeyboardTopBar *keyboardTopBar;
+@property (nonatomic, strong) MUSKeyboardTopBar *MUSKeyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
 @property (weak, nonatomic) IBOutlet UIButton *moodButton;
@@ -59,15 +63,13 @@
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) UIImageView *coverImageView;
 @property (nonatomic, strong) NSMutableArray *formattedPlaylistForThisEntry;
-@property (weak, nonatomic) IBOutlet UITextField *entryTitleTextField;
-@property (weak, nonatomic) IBOutlet UILabel *titleCharacterLimitLabel;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 
 @property (strong, nonatomic) UITapGestureRecognizer *entryTextViewTap;
-@property (strong, nonatomic) UITapGestureRecognizer *titleTap;
 @property(strong ,nonatomic) UIImagePickerController *imagePicker;
 @property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
 @property (nonatomic, strong) MPMusicPlayerController *player;
+@property (weak, nonatomic) IBOutlet UIView *entryHRule;
 
 
 @end
@@ -76,7 +78,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo: self.view animated:YES];
     
     // Reference Data Store
     self.store = [MUSDataStore sharedDataStore];
@@ -84,70 +86,51 @@
     
     // make it easier to call
     self.player = self.sharedMusicDataStore.musicPlayer.myPlayer;
-
     
     // this method should only be called in didLoad, otherwise playlist collection will keep restarting on dvc dismissals
     [self setUpPlaylistForThisEntryAndPlay];
+}
 
-    [self setUpTitleTextField];
-    [self setUpTextView];
-    [self checkSizeOfContentForTextView:self.textView];
-    
-    [self setUpImagePicker];
-    [self setUpParallaxView];
-    [self setUpTagLabel];
-    [self setUpKeyboardAvoiding];
+- (IBAction)buttonta:(id)sender {
+
+        MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc] init];
+        EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
+
+        // SET DELEGATE FOR DONE BUTTON
+        walkthroughView.delegate = modalBlurVC;
+        [self presentViewController:modalBlurVC withView:walkthroughView];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-//    [self setUpTitleTextField];
-//    [self setUpTextView];
-//    [self checkSizeOfContentForTextView:self.textView];
-//    [self setUpTagLabel];
-//    [self setUpParallaxView];
-//    [self setUpKeyboardAvoiding];
-    [self setUpToolbarAndKeyboard];
-//    [self setUpImagePicker];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    self.entryHRule.backgroundColor = [UIColor lightGrayColor];
+    [self.containerView fadeInWithDuration:.3 withCompletion:nil];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [self setUpEntryHeader];
+    [self setUpParallaxView];
+    [self setUpTagLabel];
+    [self setUpTextView];
+    [self checkSizeOfContentForTextView:self.textView];
+    [self setUpImagePicker];
+    [self setUpKeyboardAvoiding];
+    
+    [self setUpToolbar];
+    [self setUpKeyboard];
 }
 
--(void)showKeyboard:(UITapGestureRecognizer*)tap {
-    if (tap == self.entryTextViewTap)
-        [self.textView becomeFirstResponder];
-    else
-        [self.entryTitleTextField becomeFirstResponder];
-}
 
--(void)setUpTitlePlaceHolderText {
-    if (self.destinationEntry.titleOfEntry == nil || [self.destinationEntry.titleOfEntry isEqualToString:@""]) {
-        self.entryTitleTextField.textColor = [UIColor lightGrayColor];
-        self.entryTitleTextField.text = @"Title";
-    } else {
-        self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
-    }
-}
-
--(void)setUpTitleTextField {
-    self.entryTitleTextField.delegate = self;
-    
-    // add tap to container view to first repond text view
-    self.titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
-    [self.titleView addGestureRecognizer:self.titleTap];
-    
-    [self setUpTitlePlaceHolderText];
-    
+-(void)setUpEntryHeader {
     // set time stamp of entry once instantiated
     self.dateOfEntryLabel.text = [self.destinationEntry.createdAt numericMonthDateAndYearString];
     NSString *date = [self.destinationEntry.createdAt returnEntryDateStringForDate:self.destinationEntry.epochTime];
     NSArray *items = [date componentsSeparatedByString:@","];
     self.timeOfDayEntryLabel.text = items[0]; // saturday afternoon
-    
-    
-    // set character limit text
-    [self.titleCharacterLimitLabel setHidden:YES];
-    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.destinationEntry.titleOfEntry.length]];
-    
+}
+
+-(void)showKeyboard:(UITapGestureRecognizer*)tap {
+    if (tap == self.entryTextViewTap)
+        [self.textView becomeFirstResponder];
 }
 
 -(void)setUpTextView {
@@ -176,8 +159,29 @@
     [self playPlaylistForThisEntry];
 }
 
--(void)setUpToolbarAndKeyboard {
 
+-(void)setUpToolbar{
+    if (self.MUSToolBar == nil) {
+        // Set up textview keyboard accessory view
+        self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:TOOLBAR_COLOR];
+        self.MUSToolBar.delegate = self;
+        [self.MUSToolBar setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
+        [self.navigationController.view addSubview:self.MUSToolBar];
+    }
+}
+
+-(void)setUpKeyboard {
+    if (self.MUSKeyboardTopBar == nil) {
+        // Set up textview toolbar input
+        self.MUSKeyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:TOOLBAR_COLOR];
+        self.MUSKeyboardTopBar.delegate = self;
+        [self.MUSKeyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
+        self.textView.inputAccessoryView = self.MUSKeyboardTopBar;
+    }
+}
+
+-(void)setUpToolbarAndKeyboard {
+    
     if (self.MUSToolBar == nil) {
         // Set up textview keyboard accessory view
         self.MUSToolBar = [[MUSKeyboardTopBar alloc] initWithToolbarWithBackgroundColor:TOOLBAR_COLOR];
@@ -186,11 +190,10 @@
         [self.navigationController.view addSubview:self.MUSToolBar];
         
         // Set up textview toolbar input
-        self.keyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:TOOLBAR_COLOR];
-        self.keyboardTopBar.delegate = self;
-        [self.keyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
-        self.textView.inputAccessoryView = self.keyboardTopBar;
-        self.entryTitleTextField.inputAccessoryView = self.keyboardTopBar;
+        self.MUSKeyboardTopBar = [[MUSKeyboardTopBar alloc] initWithKeyboardWithBackgroundColor:TOOLBAR_COLOR];
+        self.MUSKeyboardTopBar.delegate = self;
+        [self.MUSKeyboardTopBar setFrame:CGRectMake(0, 0, 0, 50)];
+        self.textView.inputAccessoryView = self.MUSKeyboardTopBar;
     }
 }
 
@@ -245,9 +248,6 @@
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    //    [self addCameraRollActionToController:actionSheet picker:self.imagePicker];
-    //    [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
-    
     // Share
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Set Cover Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self selectPhoto];
@@ -268,7 +268,6 @@
     
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:^{
-        [self enableTextFieldInteraction:YES];
     }];
 }
 
@@ -281,10 +280,6 @@
     [self selectPhoto];
 }
 
--(void)enableTextFieldInteraction:(BOOL)on {
-    self.titleTap.enabled = on;
-    [self.entryTitleTextField setUserInteractionEnabled:on];
-}
 
 -(void)didPickSongButtonPressed:(id)sender {
     MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeMusic];
@@ -319,11 +314,11 @@
     if ([MUSAutoPlayManager returnAutoPauseStatus] && self.formattedPlaylistForThisEntry.count > 0)
         [self.player pause];
     
-   }
+}
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
-
+    
 }
 
 -(void)didSelectTitleButton:(id)sender {
@@ -331,62 +326,9 @@
 }
 
 
--(void)textFieldDidEndEditing:(UITextField *)textField {
-    [self.titleCharacterLimitLabel setHidden:YES];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    self.entryTextViewTap.enabled = YES;
-    
-    
-    if ([self.textView respondsToSelector:@selector(becomeFirstResponder)]) {
-        [self.textView becomeFirstResponder];
-        return NO;
-    }
-    
-    [self saveTitle];
-    return YES;
-}
-
-
-- (IBAction)textFieldDidChange:(id)sender {
-    
-    //DISPLAY CHANGES OR CHARACTER LIMIT
-    self.titleCharacterLimitLabel.text = [NSString stringWithFormat:@"%@", [NSNumber numberWithInt:TEXT_LIMIT - (int)self.entryTitleTextField.text.length]];
-}
-
-- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    // add to seperate class
-    
-    NSUInteger oldLength = [textField.text length];
-    NSUInteger replacementLength = [string length];
-    NSUInteger rangeLength = range.length;
-    NSUInteger newLength = oldLength - rangeLength + replacementLength;
-    BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-    return newLength <= TEXT_LIMIT || returnKey;
-}
-
-
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self.titleCharacterLimitLabel setHidden:NO];
-    
-    // IF ITS A NEW ENTRY TITLE
-    if (self.entryTitleTextField.textColor == [UIColor lightGrayColor]) {
-        self.entryTitleTextField.textColor = [UIColor blackColor];
-        self.entryTitleTextField.text = @"";
-        return;
-    }
-    
-    // set title field to entry title
-    self.entryTitleTextField.text = self.destinationEntry.titleOfEntry;
-    self.entryTextViewTap.enabled = NO;
-}
-
-
 -(void)textViewDidBeginEditing:(UITextView *)textView {
+    
     self.textView.font = [UIFont returnParagraphFont];
-    [self.entryTitleTextField setUserInteractionEnabled:NO];
     
     // FOR NEW ENTRY
     if (self.textView.textColor == [UIColor lightGrayColor]) {
@@ -397,16 +339,8 @@
     }
 }
 
--(void)textViewDidEndEditing:(UITextView *)textView {
-    [self enableTextFieldInteraction:YES];
-}
-
-
-
 
 -(void)checkSizeOfContentForTextView:(UITextView *)textView{
-
-    //     set bottom contraints
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.textView.mas_bottom);
     }];
@@ -512,11 +446,13 @@
 
 
 - (void)saveButtonTapped:(id)sender {
-    if (self.entryTitleTextField.isFirstResponder)
-        // SAVE JUST THE TITLE ON DONE BUTTON PRESS... THIS PRESERVES THE ATTRIBUTED TEXT ON SAVE.... BLOW AWAY ALL MARKDOWN OTHERWISE
-        [self saveTitle];
-    else
-        [self saveEntry];
+    [self saveEntry];
+    
+    // dismiss keyboard
+    [self.view endEditing:YES];
+    
+    // display content as attributed string
+    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
 
@@ -528,60 +464,41 @@
     }
     
     // FOR EXISTING ENTRIES
+    self.destinationEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
+    
+    // we save the content with markdown
     self.destinationEntry.content = self.textView.text;
-    self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
     
     
-    if ([self.textView.text isEqualToString:@"Begin writing here..." ])
+    if ([self.textView.text isEqualToString:@"Begin writing here..." ]) {
         self.destinationEntry.content = @"";
-    
-    else if ([self.entryTitleTextField.text isEqualToString:@"Title" ])
-        self.destinationEntry.titleOfEntry = @"";
-    
+    }
     // SAVE TO CORE DATA
     [self.store save];
-    
-    // dismiss keyboard
-    [self.view endEditing:YES];
-    
-    // display content as attributed string
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
 }
 
--(void)saveTitle {
-    if (self.destinationEntry == nil) {
-        Entry *newEntry = [self createNewEntry];
-        newEntry.coverImage = nil;
-        
-    } else {
-        self.destinationEntry.titleOfEntry = self.entryTitleTextField.text;
-    }
-    // save to core data
-    [self.store save];
-    
-    // dismiss keyboard
-    [self.view endEditing:YES];
-}
 
+-(NSString *)returnCurrentTitleOfEntry{
+    return [[self.textView.text componentsSeparatedByString:@"\n"] objectAtIndex:0];
+}
 
 -(Entry *)createNewEntry {
     Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
     self.destinationEntry = newEntry;
-    if ([self.textView.text isEqualToString:@"Begin writing here..."])
+    if ([self.textView.text isEqualToString:@"Begin writing here..."]) {
         newEntry.content = @"";
-    else if ([self.entryTitleTextField.text isEqualToString:@"Title"])
-        newEntry.titleOfEntry = @""; // wipe attributed placeholder text
-    else
+    } else {
         newEntry.content = self.textView.text;
-    newEntry.tag = @"";
-    newEntry.titleOfEntry = self.entryTitleTextField.text;
-    
-    NSDate *currentDate = [NSDate date];
-    newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
-    newEntry.epochTime = currentDate; // month day and year and seconds
-
-    newEntry.tag = @"";
-    newEntry.dateInString = [currentDate monthDateAndYearString];
+        newEntry.tag = @"";
+        newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
+        
+        NSDate *currentDate = [NSDate date];
+        newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
+        newEntry.epochTime = currentDate; // month day and year and seconds
+        
+        newEntry.tag = @"";
+        newEntry.dateInString = [currentDate monthDateAndYearString];
+    }
     return newEntry;
 }
 
@@ -590,10 +507,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    // ALLOW INTERACTION FOR TEXT FIELD
-    [self enableTextFieldInteraction:YES];
-    
     
     // SET COVER IMAGE AS SELECTED IMAGE
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
@@ -609,15 +522,15 @@
     
     [self saveEntry];
     
+    // dismiss keyboard
+    [self.view endEditing:YES];
+    
     // SAVE TO CORE DATA!!
     [self.store save];
     
-    
-    if(iPHONE_SIZE.height <= 480 || IS_IPAD)
-    {
+    if(iPHONE_SIZE.height <= 480 || IS_IPAD)   {
         return;    // iPhone Classic...  NO AP IMAGE
     } else {
-        
         // add reset parallax image
         [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
         
@@ -646,7 +559,7 @@
     [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
     
     // present action sheet/ POPover for ipads
-    actionSheet.popoverPresentationController.barButtonItem = self.keyboardTopBar.cameraBarButtonItem;
+    actionSheet.popoverPresentationController.barButtonItem = self.MUSKeyboardTopBar.cameraBarButtonItem;
     [self presentViewController:actionSheet animated:YES completion:nil];
     [self.view bringSubviewToFront:self.contentView];
 }
@@ -724,8 +637,6 @@
     self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
     self.imagePicker.allowsEditing = YES;
 }
-
-
 
 -(void)playlistButtonPressed:id {
     [self performSegueWithIdentifier:@"playlistSegue" sender:self];

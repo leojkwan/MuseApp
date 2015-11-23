@@ -307,9 +307,7 @@
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLog(@"Transaction state -> Restored");
-                
-                //add the same code as you did from SKPaymentTransactionStatePurchased here
-                //                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            
                 break;
             case SKPaymentTransactionStateFailed:
             case SKPaymentTransactionStateDeferred:

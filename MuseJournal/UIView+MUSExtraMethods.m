@@ -10,14 +10,19 @@
 
 @implementation UIView (MUSExtraMethods)
 
--(void)fadeInWithDuration:(NSTimeInterval)duration {
+-(void)fadeInWithDuration:(NSTimeInterval)duration withCompletion:(void (^) (BOOL))completion {
     // start invisible
     self.alpha= 0;
     
-    
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{ self.alpha = 1;}
-                     completion:nil];
+                     animations:^{
+                         self.alpha = 1;
+                     }
+                     completion:^(BOOL finished){
+                         if (completion) {
+                             completion(finished);
+                         }
+                     }];
 }
 
 @end

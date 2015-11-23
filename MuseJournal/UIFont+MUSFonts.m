@@ -46,7 +46,7 @@
     
     
     // h2
-    UIFont *h2Font = [UIFont fontWithName:@"ADAM.CGPRO" size:25.0];
+    UIFont *h2Font = [UIFont fontWithName:@"ADAM.CGPRO" size:22.0];
 
     NSDictionary *h2Attributes = @{
                                    NSFontAttributeName : h2Font,

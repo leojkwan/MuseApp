@@ -10,7 +10,8 @@
 
 @interface UIView (MUSExtraMethods)
 
--(void)fadeInWithDuration:(NSTimeInterval)duration;
+-(void)fadeInWithDuration:(NSTimeInterval)duration withCompletion:(void (^) (BOOL))completion;
+
 
 
 @end

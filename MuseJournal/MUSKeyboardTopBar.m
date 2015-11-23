@@ -15,7 +15,7 @@
 #import "MUSColorSheet.h"
 
 #define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
-#define BUTTON_COLOR [UIColor whiteColor] //COLOR OF BAR BUTTON ITEMS
+#define BUTTON_COLOR [UIColor darkGrayColor] //COLOR OF BAR BUTTON ITEMS
 
 @interface MUSKeyboardTopBar ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -87,7 +87,7 @@
         make.edges.equalTo(@0);
     }];
     
-    [self fadeInWithDuration:.2];
+    [self fadeInWithDuration:.3 withCompletion:nil];
 }
 
 
@@ -96,16 +96,16 @@
     self.toolbarButtonItems = [[NSMutableArray alloc] init];
     
     // set up bar buttons items in this order left to right
-    [self.toolbarButtonItems addObject:[self backButton]];
+    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"back"] action:@selector(backButtonPressed:) frame:CGRectMake(0, 0, 30, 30)]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self pinSongButton]];
+    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"searchSong"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self findSongButton]];
+    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong2"] action:@selector(pinSongButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self playlistButton]];
+    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self moreOptionsButton]];
-    
+    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"moreOptions"] action:@selector(moreOptionsButtonPressed) frame:BUTTON_FRAME]];
+
     // SET BACKGROUND COLOR
     self.keyboardToolBar.barTintColor =color;
     
@@ -116,19 +116,19 @@
 -(void)setUpKeyboardButtonsWithBackgroundColor:color  {
     
     self.keyboardButtonItems = [[NSMutableArray alloc] init];
-    // set up bar buttons items in this order left to right
     
-    [self.keyboardButtonItems addObject:[self makeTitleButton]];
-    [self.keyboardButtonItems addObject:[self cameraButton]];
-    [self.keyboardButtonItems addObject:[self findSongButton]];
-    [self.keyboardButtonItems addObject:[self pinSongButton]];
-    [self.keyboardButtonItems addObject:[self playlistButton]];
+    // set up bar buttons items in this order left to right
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"title"] action:@selector(titleButtonPressed:) frame:CGRectMake(0, 0, 35, 35)]];
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"addImage"] action:@selector(cameraButtonPressed) frame:BUTTON_FRAME]];
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"searchSong"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong2"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
-    [self.keyboardButtonItems addObject:[self doneButton]];
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"save"] action:@selector(doneButtonPressed:) frame:BUTTON_FRAME]];
     
     // SET BACKGROUND COLOR
     self.keyboardToolBar.barTintColor =color;
-
+    
     // after all buttons have been set... set array to toolbar
     [self.keyboardToolBar setItems:self.keyboardButtonItems animated:YES];
 }
@@ -136,118 +136,21 @@
 
 #pragma mark - Create Buttons
 
--(UIBarButtonItem *)makeTitleButton {
-    UIButton *markDownTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [markDownTitleButton setImage:[UIImage imageNamed:@"title" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [markDownTitleButton setFrame:CGRectMake(0, 0, 35, 35)];
-    [markDownTitleButton addTarget:self action:@selector(titleButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *titleBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:markDownTitleButton];
-    return titleBarButtonItem;
-}
-
--(UIBarButtonItem *)findSongButton {
-    UIButton *findSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [findSongButton setImage:[UIImage imageNamed:@"searchSong" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [findSongButton setFrame:BUTTON_FRAME];
-    [findSongButton addTarget:self action:@selector(pickSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *pickSongBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:findSongButton];
-    return pickSongBarButtonItem;
-}
-
-
-
--(UIBarButtonItem *)cameraButton {
-    UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cameraButton setImage:[UIImage imageNamed:@"addImage" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [cameraButton setFrame:BUTTON_FRAME];
-    [cameraButton addTarget:self action:@selector(cameraButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *coolCameraBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cameraButton];
-
-    self.cameraBarButtonItem = coolCameraBarButtonItem;
-    return coolCameraBarButtonItem;
-}
-
--(UIBarButtonItem *)backButton {
-
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"back" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-
-    [backButton setFrame:CGRectMake(0, 0, 30, 30)];
-    
-    [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView: backButton];
-    return backBarButtonItem;
-}
-
-
-
--(UIBarButtonItem *)playlistButton {
-    UIButton *playlistButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [playlistButton setImage:[UIImage imageNamed:@"musicPlayer" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [playlistButton setFrame:BUTTON_FRAME];
-    [playlistButton addTarget:self action:@selector(seePlaylistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *playlistBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playlistButton];
-    return playlistBarButtonItem;
-}
-
--(UIBarButtonItem *)moreOptionsButton {
-    UIButton *moreOptionsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [moreOptionsButton setImage:[UIImage imageNamed:@"moreOptions" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [moreOptionsButton setFrame:BUTTON_FRAME];
-    [moreOptionsButton addTarget:self action:@selector(moreOptionsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *coolMoreOptionsBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreOptionsButton];
-    
-    self.moreOptionsBarButtonItem = coolMoreOptionsBarButtonItem;
-    return coolMoreOptionsBarButtonItem;
-}
-
--(UIBarButtonItem *)pinSongButton {
-    
-    UIButton *pinSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [pinSongButton setImage:[UIImage imageNamed:@"pinSong" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [pinSongButton setFrame:BUTTON_FRAME];
-    [pinSongButton addTarget:self action:@selector(pinSongButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *pinSongButtonItem = [[UIBarButtonItem alloc] initWithCustomView:pinSongButton];
-    
-    return pinSongButtonItem;
-}
-
--(UIBarButtonItem *)shareButton {
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton setImage:[UIImage imageNamed:@"share" withColor:BUTTON_COLOR] forState:UIControlStateNormal];
-    [shareButton setFrame:BUTTON_FRAME];
-    [shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *shareBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shareButton];
-    return shareBarButtonItem;
-}
-
-
 -(UIBarButtonItem *)flexSpaceButton {
     UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     return flexibleSpaceBarButtonItem;
 }
 
--(UIBarButtonItem *)doneButton {
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    doneButton.tintColor = [UIColor MUSGreenMachine];
-//    UIImage *doneButtonImage = [UIImage imageNamed:@"save" withColor:[UIColor MUSGreenMachine]];
-    UIImage *doneButtonImage = [UIImage imageNamed:@"save"];
-    [doneButton setImage:doneButtonImage forState:UIControlStateNormal];
-    [doneButton setFrame:BUTTON_FRAME];
-    [doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
-
-    return doneBarButtonItem;
+-(UIBarButtonItem *)createButtonWithImage:(UIImage *)image action:(SEL)action frame:(CGRect)frame {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.tintColor = BUTTON_COLOR;
+    UIImage *doneButtonImage = image;
+    [button setImage:doneButtonImage forState:UIControlStateNormal];
+    [button setFrame:frame];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
 }
-
-
-
-
 
 #pragma mark - Button Actions
 
