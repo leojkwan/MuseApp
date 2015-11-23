@@ -11,7 +11,6 @@
 #import "iTellAFriend.h"
 #import "IntroViewController.h"
 #import "MUSAutoPlayManager.h"
-#import "MUSNavigationBar.h"
 
 @interface MUSSettingsTableViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
