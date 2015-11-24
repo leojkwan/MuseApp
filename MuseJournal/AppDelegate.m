@@ -40,7 +40,7 @@
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
     
     
-    
+
     // FIRST TIME USER SETTINGS
     
     // USER NAME
