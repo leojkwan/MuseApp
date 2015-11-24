@@ -130,8 +130,8 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OK4-mb-iil">
-                                <rect key="frame" x="300" y="550" width="0.0" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OK4-mb-iil">
+                                <rect key="frame" x="300" y="559" width="0.0" height="0.0"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="23"/>
@@ -193,6 +193,8 @@
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="OK4-mb-iil" firstAttribute="centerY" secondItem="Kz1-Wx-lCo" secondAttribute="centerY" id="1xG-Ml-aUS"/>
+                            <constraint firstItem="OK4-mb-iil" firstAttribute="centerX" secondItem="Kz1-Wx-lCo" secondAttribute="centerX" id="3Y6-6J-gjE"/>
                             <constraint firstItem="Kjq-WM-PzM" firstAttribute="centerY" secondItem="pjV-Zx-bcQ" secondAttribute="centerY" id="40q-Iv-Aba"/>
                             <constraint firstItem="8AI-a6-Zaf" firstAttribute="trailing" secondItem="rDZ-Bt-EyT" secondAttribute="trailing" constant="20" id="87p-Vk-wcv"/>
                             <constraint firstItem="OK4-mb-iil" firstAttribute="top" secondItem="Kjq-WM-PzM" secondAttribute="bottom" constant="20" id="9f8-b8-uvg"/>
@@ -221,6 +223,7 @@
                                 <exclude reference="r9N-vS-53v"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="3Y6-6J-gjE"/>
                                 <exclude reference="9f8-b8-uvg"/>
                                 <exclude reference="CW1-PR-gtX"/>
                                 <exclude reference="kEc-wb-EmO"/>
@@ -1226,10 +1229,9 @@
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AV-IP-fJz">
-                                                        <rect key="frame" x="356" y="14" width="46" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AV-IP-fJz">
+                                                        <rect key="frame" x="356" y="15" width="46" height="30"/>
                                                         <animations/>
-                                                        <state key="normal" title="Button"/>
                                                         <connections>
                                                             <action selector="buttonta:" destination="YMB-QV-Zfr" eventType="touchUpInside" id="fsJ-S2-r65"/>
                                                         </connections>

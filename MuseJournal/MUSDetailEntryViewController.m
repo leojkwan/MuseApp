@@ -92,33 +92,36 @@
 }
 
 - (IBAction)buttonta:(id)sender {
-
-        MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc] init];
-        EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
-
-        // SET DELEGATE FOR DONE BUTTON
-        walkthroughView.delegate = modalBlurVC;
-        [self presentViewController:modalBlurVC withView:walkthroughView];
+    EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
+    MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc] initWithView:walkthroughView];
+    // SET DELEGATE FOR DONE BUTTON
+    walkthroughView.delegate = modalBlurVC;
+    [self presentViewController:modalBlurVC animated:YES completion:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
-    self.entryHRule.backgroundColor = [UIColor lightGrayColor];
-    [self.containerView fadeInWithDuration:.3 withCompletion:nil];
     [MBProgressHUD hideHUDForView:self.view animated:NO];
-    [self setUpEntryHeader];
-    [self setUpParallaxView];
-    [self setUpTagLabel];
-    [self setUpTextView];
-    [self checkSizeOfContentForTextView:self.textView];
-    [self setUpImagePicker];
-    [self setUpKeyboardAvoiding];
-    
-    [self setUpToolbar];
-    [self setUpKeyboard];
+    if (self.MUSKeyboardTopBar == nil) {
+        [self.containerView fadeInWithDuration:.3 withCompletion:nil];
+        self.entryHRule.backgroundColor = [UIColor lightGrayColor];
+        [self setUpEntryHeader];
+        [self setUpParallaxView];
+        [self setUpTagLabel];
+        [self setUpTextView];
+        [self checkSizeOfContentForTextView:self.textView];
+        [self setUpImagePicker];
+        [self setUpKeyboardAvoiding];
+        [self setUpToolbar];
+        [self setUpKeyboard];
+    }
 }
 
+-(void)presentFirstTimeEntry {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeEntry"] == YES) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeEntry"];
+    }
+}
 
 -(void)setUpEntryHeader {
     // set time stamp of entry once instantiated
@@ -134,14 +137,12 @@
 }
 
 -(void)setUpTextView {
-    
     self.textView.delegate = self;
     self.textView.textContainerInset = UIEdgeInsetsMake(30, 15, 100, 15);     // padding for text view
     
     // add tap gesture to container view to make text view first responder
     self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
     [self.containerView addGestureRecognizer:self.entryTextViewTap];
-    
     // NEW ENTRY SET TEXT
     if (self.destinationEntry.content == nil || [self.destinationEntry.content isEqualToString:@""]) {
         self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
@@ -198,7 +199,6 @@
 }
 
 -(void)setUpParallaxView {
-    
     self.coverImageView = [[UIImageView alloc] init];
     
     if(iPHONE_SIZE.height <= 480 || IS_IPAD) {
@@ -313,12 +313,6 @@
     // PAUSE SONG IF SETTING IS YES
     if ([MUSAutoPlayManager returnAutoPauseStatus] && self.formattedPlaylistForThisEntry.count > 0)
         [self.player pause];
-    
-}
-
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:YES];
-    
 }
 
 -(void)didSelectTitleButton:(id)sender {
@@ -405,7 +399,6 @@
                     // rerue method to get updated playlist count for playlist player vc
                     [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *filteredCollection) {
                         [self.player setQueueWithItemCollection:filteredCollection];
-                        
                         [self.player play];
                     }];
                 }
@@ -414,7 +407,6 @@
     }
     
     // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
-    
     // RANDOM SONG
     else if (self.entryType == RandomSong) {
         
@@ -447,8 +439,6 @@
 
 - (void)saveButtonTapped:(id)sender {
     [self saveEntry];
-    
-    // dismiss keyboard
     [self.view endEditing:YES];
     
     // display content as attributed string
@@ -670,7 +660,6 @@
     // Create managed object on CoreData
     MPMediaItem *currentSong = [self.player nowPlayingItem];
     Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
-    
     
     [self getStatusForSong:pinnedSong];
     

@@ -54,6 +54,12 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
     }
     
+    
+    // APP WALKTHROUGH
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeEntry"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeEntry"];
+    }
+    
     // MUSIC AUTOPLAY
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"autoplay"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"autoplay"];

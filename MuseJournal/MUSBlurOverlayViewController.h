@@ -9,9 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "EntryWalkthroughView.h"
 
+@interface MUSBlurOverlayViewController : UIViewController <WalkthroughDelegate> {
+    UIModalTransitionStyle modalTransitionStyle;
+    UIModalPresentationStyle modalPresentationStyle;
+}
 
-
-@interface MUSBlurOverlayViewController : UIViewController <WalkthroughDelegate>
+// This is the content view over blur
+@property (nonatomic, strong) UIView *viewOverBlur;
+@property (nonatomic, strong) UIVisualEffect *blurType;
 -(void)didSelectDoneButton;
+-(instancetype)initWithView:(UIView *)viewOverBlur;
 
 @end
