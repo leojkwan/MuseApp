@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C31f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -46,63 +46,27 @@
                                 <action selector="switchTapped:" destination="-1" eventType="valueChanged" id="12d-Rc-zeg"/>
                             </connections>
                         </switch>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qWt-r4-ak3">
-                            <rect key="frame" x="0.0" y="0.0" width="680" height="75.5"/>
-                            <animations/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0S-6s-PMW">
                             <rect key="frame" x="307" y="4" width="67.5" height="67.5"/>
                             <animations/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="50" id="NWo-44-BCA"/>
                                 <constraint firstAttribute="width" secondItem="l0S-6s-PMW" secondAttribute="height" multiplier="1:1" id="Q5K-Py-rTv"/>
                             </constraints>
                             <color key="tintColor" red="1" green="0.19750353210279448" blue="0.39675312044962019" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" backgroundImage="add-entry-button"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="NWo-44-BCA"/>
-                                </mask>
-                            </variation>
                         </button>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="REd-gd-LRi" firstAttribute="top" secondItem="5Cw-Vt-EgL" secondAttribute="bottom" constant="10" id="1du-et-HXh"/>
-                        <constraint firstAttribute="bottom" secondItem="REd-gd-LRi" secondAttribute="bottom" constant="8" id="IN2-0g-VJu"/>
-                        <constraint firstItem="qWt-r4-ak3" firstAttribute="leading" secondItem="bDW-dL-c2d" secondAttribute="leading" id="MSl-H3-lwH"/>
-                        <constraint firstAttribute="trailing" secondItem="qWt-r4-ak3" secondAttribute="trailing" id="MTs-3p-raF"/>
                         <constraint firstItem="5Cw-Vt-EgL" firstAttribute="leading" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="5" id="NlV-1i-oNM"/>
-                        <constraint firstAttribute="trailing" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="20" id="SDL-s2-wrE"/>
                         <constraint firstItem="REd-gd-LRi" firstAttribute="centerY" secondItem="l0S-6s-PMW" secondAttribute="centerY" id="a15-TJ-cJ4"/>
-                        <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" id="eJJ-9U-XSs"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="height" secondItem="bDW-dL-c2d" secondAttribute="height" multiplier="9/10" id="ePI-zu-3Mb"/>
                         <constraint firstItem="5Cw-Vt-EgL" firstAttribute="centerY" secondItem="REd-gd-LRi" secondAttribute="centerY" id="hNs-0Y-Xce"/>
-                        <constraint firstAttribute="bottom" secondItem="REd-gd-LRi" secondAttribute="bottom" constant="8" id="hTH-jV-ME2"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerX" secondItem="bDW-dL-c2d" secondAttribute="centerX" id="iLv-Nq-sps"/>
-                        <constraint firstAttribute="bottom" secondItem="l0S-6s-PMW" secondAttribute="bottom" constant="2" id="szr-Pk-BEC"/>
-                        <constraint firstAttribute="bottom" secondItem="qWt-r4-ak3" secondAttribute="bottom" id="txI-OG-o2U"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerY" secondItem="bDW-dL-c2d" secondAttribute="centerY" id="vIy-Pc-qu5"/>
                         <constraint firstAttribute="trailing" secondItem="5Cw-Vt-EgL" secondAttribute="trailing" constant="20" id="xvh-z9-qTw"/>
-                        <constraint firstItem="qWt-r4-ak3" firstAttribute="top" secondItem="bDW-dL-c2d" secondAttribute="top" id="zis-tX-LVJ"/>
-                        <constraint firstItem="5Cw-Vt-EgL" firstAttribute="centerX" secondItem="REd-gd-LRi" secondAttribute="centerX" id="zwZ-dV-jBH"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="subviews">
-                            <exclude reference="qWt-r4-ak3"/>
-                        </mask>
-                        <mask key="constraints">
-                            <exclude reference="eJJ-9U-XSs"/>
-                            <exclude reference="szr-Pk-BEC"/>
-                            <exclude reference="1du-et-HXh"/>
-                            <exclude reference="IN2-0g-VJu"/>
-                            <exclude reference="SDL-s2-wrE"/>
-                            <exclude reference="hTH-jV-ME2"/>
-                            <exclude reference="zwZ-dV-jBH"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <animations/>

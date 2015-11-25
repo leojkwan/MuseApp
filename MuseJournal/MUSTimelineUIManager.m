@@ -24,7 +24,7 @@
 
 -(UIImageView *) returnMuseImagePromptForView:(UIView*)view {
     
-    UIImageView *promptView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MUSIcon"]];
+    UIImageView *promptView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"museLogo2"]];
     [view addSubview:promptView];
     [promptView  mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(view);
@@ -41,10 +41,20 @@
 
 -(UILabel *) returnMuseLabelPromptForView:(UIView*)view imageView:(UIImageView *)promptImageView {
     UILabel *musePromptLabel = [[UILabel alloc] init];
-    musePromptLabel.text = @"Begin a new story!";
+    musePromptLabel.text = @"Begin a new entry.";
     musePromptLabel.numberOfLines = 0;
     musePromptLabel.textAlignment = NSTextAlignmentCenter;
-    musePromptLabel.font = [UIFont fontWithName:@"ADAM.CGPRO" size:20.0];
+    musePromptLabel.font = [UIFont fontWithName:@"Gill Sans" size:20.0];
+    
+    for (NSString *familyName in [UIFont familyNames]){
+        NSLog(@"Family name: %@", familyName);
+        for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
+            NSLog(@"--Font name: %@", fontName);
+        }
+    }
+    
+    
+
     musePromptLabel.textColor = [UIColor whiteColor];
     
     [view addSubview:musePromptLabel];

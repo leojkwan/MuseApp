@@ -73,6 +73,7 @@
 		94B314121BBAF97A00ECB1AD /* MUSActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B314101BBAF97A00ECB1AD /* MUSActionView.xib */; };
 		94B42D0D1BD8056A004322F6 /* MUSStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B42D0C1BD8056A004322F6 /* MUSStatsView.m */; };
 		94B42D0F1BD80575004322F6 /* MUSStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B42D0E1BD80575004322F6 /* MUSStatsView.xib */; };
+		94CEC5ED1C063D95002CD958 /* ADAM-CG PRO LIGHT.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94CEC5EC1C063D95002CD958 /* ADAM-CG PRO LIGHT.otf */; };
 		94D366EF1BD007800080A27B /* MUSTimelineUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */; };
 		94DFBBEB1BE045DB00374817 /* UIView+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DFBBEA1BE045DB00374817 /* UIView+MUSExtraMethods.m */; };
 		94E0234B1BBCDADD00404E90 /* UIImage+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0234A1BBCDADD00404E90 /* UIImage+ExtraMethods.m */; };
@@ -169,10 +170,10 @@
 		94336B4D1BC60CB200D86420 /* MUSPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSPageViewController.m; sourceTree = "<group>"; };
 		944468741BD07449003B3F16 /* MUSShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSShareManager.h; path = ../MUSShareManager.h; sourceTree = "<group>"; };
 		944468751BD07449003B3F16 /* MUSShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSShareManager.m; path = ../MUSShareManager.m; sourceTree = "<group>"; };
-		944842331C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MUSExtraMethods.h"; sourceTree = "<group>"; };
-		944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MUSExtraMethods.m"; sourceTree = "<group>"; };
-		944842361C02C26A006D05C4 /* EntryWalkthroughView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryWalkthroughView.h; sourceTree = "<group>"; };
-		944842371C02C26A006D05C4 /* EntryWalkthroughView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryWalkthroughView.m; sourceTree = "<group>"; };
+		944842331C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MUSExtraMethods.h"; path = "MuseJournal/UIViewController+MUSExtraMethods.h"; sourceTree = SOURCE_ROOT; };
+		944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MUSExtraMethods.m"; path = "MuseJournal/UIViewController+MUSExtraMethods.m"; sourceTree = SOURCE_ROOT; };
+		944842361C02C26A006D05C4 /* EntryWalkthroughView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntryWalkthroughView.h; path = MuseJournal/EntryWalkthroughView.h; sourceTree = "<group>"; };
+		944842371C02C26A006D05C4 /* EntryWalkthroughView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntryWalkthroughView.m; path = MuseJournal/EntryWalkthroughView.m; sourceTree = SOURCE_ROOT; };
 		944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSBlurOverlayViewController.h; sourceTree = "<group>"; };
 		9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSBlurOverlayViewController.m; sourceTree = "<group>"; };
 		944ED45E1BD41C3A007874EF /* MUSiPhoneSizeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSiPhoneSizeManager.h; sourceTree = "<group>"; };
@@ -236,6 +237,7 @@
 		94B42D0B1BD8056A004322F6 /* MUSStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSStatsView.h; path = MuseJournal/MUSStatsView.h; sourceTree = SOURCE_ROOT; };
 		94B42D0C1BD8056A004322F6 /* MUSStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSStatsView.m; path = MuseJournal/MUSStatsView.m; sourceTree = SOURCE_ROOT; };
 		94B42D0E1BD80575004322F6 /* MUSStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MUSStatsView.xib; path = MuseJournal/MUSStatsView.xib; sourceTree = SOURCE_ROOT; };
+		94CEC5EC1C063D95002CD958 /* ADAM-CG PRO LIGHT.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ADAM-CG PRO LIGHT.otf"; sourceTree = "<group>"; };
 		94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSTimelineUIManager.h; sourceTree = "<group>"; };
 		94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSTimelineUIManager.m; sourceTree = "<group>"; };
 		94DFBBE91BE045DB00374817 /* UIView+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+MUSExtraMethods.h"; path = "MuseJournal/UIView+MUSExtraMethods.h"; sourceTree = SOURCE_ROOT; };
@@ -319,13 +321,7 @@
 			children = (
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
-				944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */,
-				9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */,
-				944842361C02C26A006D05C4 /* EntryWalkthroughView.h */,
-				944842371C02C26A006D05C4 /* EntryWalkthroughView.m */,
 				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
-				944842331C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.h */,
-				944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */,
 				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
 				94B313B81BBAF86200ECB1AD /* AppDelegate.m */,
 				946EB8781BBA039E0067CDC2 /* Views */,
@@ -427,6 +423,8 @@
 		946EB8781BBA039E0067CDC2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				944842361C02C26A006D05C4 /* EntryWalkthroughView.h */,
+				944842371C02C26A006D05C4 /* EntryWalkthroughView.m */,
 				941F24FE1BBC388F008C8120 /* MUSIconAnimation.h */,
 				941F24FF1BBC388F008C8120 /* MUSIconAnimation.m */,
 				941F25281BBC49FF008C8120 /* MUSEntryToolbar.xib */,
@@ -475,6 +473,8 @@
 		94775DFC1BB9FF42004ABF0A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */,
+				9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */,
 				94336B3F1BC5E2DC00D86420 /* IntroViewController.h */,
 				94336B401BC5E2DC00D86420 /* IntroViewController.m */,
 				9410A1411BDABFDD0078EBCE /* MUSMarkdownViewController.h */,
@@ -528,6 +528,8 @@
 		94CD1C731BBA007700934769 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				944842331C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.h */,
+				944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */,
 				94DFBBE91BE045DB00374817 /* UIView+MUSExtraMethods.h */,
 				94DFBBEA1BE045DB00374817 /* UIView+MUSExtraMethods.m */,
 				941F254B1BBC4B12008C8120 /* UIImageView+ExtraMethods.h */,
@@ -571,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				94EB3EE31BBDE3F10060AF28 /* ADAM.CG PRO.otf */,
+				94CEC5EC1C063D95002CD958 /* ADAM-CG PRO LIGHT.otf */,
 				94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */,
 				94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */,
 				94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */,
@@ -725,6 +728,7 @@
 				941F252A1BBC49FF008C8120 /* MUSEntryToolbar.xib in Resources */,
 				94B313F41BBAF88200ECB1AD /* Main.storyboard in Resources */,
 				941EFC021BB9FB9C00D70257 /* Assets.xcassets in Resources */,
+				94CEC5ED1C063D95002CD958 /* ADAM-CG PRO LIGHT.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

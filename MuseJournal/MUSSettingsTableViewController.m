@@ -135,11 +135,11 @@
 
         }
 
-    // RATE APP
+//    // RATE APP
     } else if (indexPath.row == 6) {
         [[iTellAFriend sharedInstance] rateThisAppWithAlertView:YES];
         }
-    // DESELECT CELL COLOR
+//    // DESELECT CELL COLOR
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
