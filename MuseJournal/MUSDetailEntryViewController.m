@@ -92,16 +92,11 @@
 }
 
 - (IBAction)buttonta:(id)sender {
-    EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
-    MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc] initWithView:walkthroughView];
-    // SET DELEGATE FOR DONE BUTTON
-    walkthroughView.delegate = modalBlurVC;
-    [self presentViewController:modalBlurVC animated:YES completion:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    // load views with fade
     if (self.MUSKeyboardTopBar == nil) {
         [self.containerView fadeInWithDuration:.3 withCompletion:nil];
         self.entryHRule.backgroundColor = [UIColor lightGrayColor];
@@ -115,12 +110,34 @@
         [self setUpToolbar];
         [self setUpKeyboard];
     }
+    
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    [self presentFirstTimeEntry];
 }
 
 -(void)presentFirstTimeEntry {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeEntry"];
+
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeEntry"] == YES) {
+        
+        [self performSelector:@selector(presentEntryWalkthrough) withObject:self afterDelay:1.0];
+        
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeEntry"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
+}
+
+-(void)presentEntryWalkthrough {
+    EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
+    
+    MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc] initWithView:walkthroughView];
+    modalBlurVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    modalBlurVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    
+    // SET DELEGATE FOR DONE BUTTON
+    walkthroughView.delegate = modalBlurVC;
+    [self presentViewController:modalBlurVC animated:YES completion:nil];
 }
 
 -(void)setUpEntryHeader {
@@ -235,7 +252,6 @@
 
 -(void)setUpTagLabel {
     if (self.destinationEntry.tag != nil && ![self.destinationEntry.tag isEqualToString:@""]) {
-        NSLog(@"This is the destination tag: %@", self.destinationEntry.tag);
         [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:self.destinationEntry.tag] forState:UIControlStateNormal];
     }    else
         [self.moodButton setAttributedTitle:[MUSTagManager returnAttributedStringForTag:@"Set Mood"] forState:UIControlStateNormal];

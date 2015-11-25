@@ -25,22 +25,28 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    // Create Bluw Effect View Over Full Screen
-    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:self.blurType];
+    //     Create Blur Effect View Over Full Screen
+    UIView *darkOverlay = [[UIView alloc] init];
+    darkOverlay.backgroundColor = [UIColor blackColor];
+    darkOverlay.alpha = .85;
     
-    visualEffectView.frame = self.view.bounds;
-    
+    //    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:self.blurType];
+    //    visualEffectView.frame = self.view.bounds;
+    //
     // Add over main view
-    [self.view addSubview:visualEffectView];
+    //    [self.view addSubview:visualEffectView];
+    //
+    [self.view addSubview:darkOverlay];
+    darkOverlay.frame = self.view.bounds;
     
-    // add content over blur
-    [visualEffectView addSubview:self.viewOverBlur];
-    self.viewOverBlur.frame = visualEffectView.bounds;
-
+    
+    //     add content over blur
+    [darkOverlay addSubview:self.viewOverBlur];
+    self.viewOverBlur.frame = darkOverlay.bounds;
+    //    [visualEffectView addSubview:self.viewOverBlur];
+    //    self.viewOverBlur.frame = visualEffectView.bounds;
+    
 }
-
 
 #pragma Blur Delegate Methods
 
