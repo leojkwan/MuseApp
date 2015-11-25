@@ -213,13 +213,6 @@
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
 
-//-(void)didSelectWallpaperButton:(id)sender {
-//    MUSWallPaperViewController *wallpaperVC = [self.storyboard instantiateViewControllerWithIdentifier:@"wallpaperVC"];
-////    [self presentViewController:wallpaperVC animated:YES completion:nil];
-//    [self.navigationController pushViewController:wallpaperVC animated:YES];
-////    [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
-//}
-
 -(void)newEntryFromPrompt {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
@@ -268,10 +261,11 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
     // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10 , 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSSolitude] backgroundColor:
-                             [UIColor MUSBigStone]];
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10 , 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSSolitude] backgroundColor:[UIColor MUSLogoBlue]];
     // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    sectionLabel.textColor = [UIColor darkGrayColor];
+    
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:sectionLabel];
     return headerView;
@@ -317,6 +311,9 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    // make sure the search bar dismissed to prevent nav bar from showing in dvc
+    [self.entrySearchBar resignFirstResponder];
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
 }
 
@@ -421,7 +418,6 @@
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-        
         dvc.destinationEntry = entryForThisRow;
         
         

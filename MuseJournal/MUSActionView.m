@@ -66,8 +66,8 @@
     self.textLabel1.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
     self.textLabel2.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
 
-    self.textLabel1.font = [UIFont fontWithName:@"ADAM.CGPRO-Light" size:17];
-    self.textLabel2.font = [UIFont fontWithName:@"ADAM.CGPRO-Light" size:17];
+    self.textLabel1.font = [UIFont fontWithName:@"Raleway" size:20];
+    self.textLabel2.font = [UIFont fontWithName:@"Raleway" size:20];
 }
 
 - (IBAction)addButtonTapped:(id)sender {

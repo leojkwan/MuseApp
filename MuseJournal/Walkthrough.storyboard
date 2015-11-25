@@ -43,9 +43,12 @@
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVh-hY-T2e">
-                                <rect key="frame" x="74" y="550" width="451" height="40"/>
+                                <rect key="frame" x="119" y="552.5" width="361" height="35"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.96862745100000003" green="0.98039215690000003" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.90980392160000001" green="0.93725490199999995" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="SCy-4A-UmN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="23"/>
                                 <state key="normal" title="Start Muse">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,7 +61,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jVh-hY-T2e" firstAttribute="height" secondItem="kK2-U7-HiC" secondAttribute="height" multiplier="1/15" id="3r3-jP-MIU"/>
+                            <constraint firstItem="jVh-hY-T2e" firstAttribute="height" secondItem="kK2-U7-HiC" secondAttribute="height" multiplier="1/18" id="3r3-jP-MIU"/>
                             <constraint firstAttribute="trailing" secondItem="HZA-wv-BYQ" secondAttribute="trailing" id="5IP-hQ-hhy"/>
                             <constraint firstItem="kK2-U7-HiC" firstAttribute="leading" secondItem="jVh-hY-T2e" secondAttribute="trailing" constant="-322" id="7Ty-ji-TGp"/>
                             <constraint firstItem="HZA-wv-BYQ" firstAttribute="top" secondItem="Bla-CY-Opt" secondAttribute="top" id="Gxj-zU-Np1"/>
@@ -74,13 +77,14 @@
                             <constraint firstItem="jf5-sx-mhk" firstAttribute="centerX" secondItem="Bla-CY-Opt" secondAttribute="centerX" id="j3f-Q2-BsB"/>
                             <constraint firstItem="fDn-3b-sU8" firstAttribute="top" secondItem="jf5-sx-mhk" secondAttribute="bottom" constant="15" id="kwG-ph-7in"/>
                             <constraint firstItem="kK2-U7-HiC" firstAttribute="leading" secondItem="Bla-CY-Opt" secondAttribute="leading" id="lxV-pJ-7dz"/>
-                            <constraint firstItem="jVh-hY-T2e" firstAttribute="width" secondItem="kK2-U7-HiC" secondAttribute="width" multiplier="3/4" constant="1" id="pTQ-F6-jhe"/>
+                            <constraint firstItem="jVh-hY-T2e" firstAttribute="width" secondItem="kK2-U7-HiC" secondAttribute="width" multiplier="3/5" constant="1" id="pTQ-F6-jhe"/>
                             <constraint firstItem="jVh-hY-T2e" firstAttribute="centerX" secondItem="kK2-U7-HiC" secondAttribute="centerX" id="ywu-UN-6R0"/>
                             <constraint firstItem="fDn-3b-sU8" firstAttribute="top" secondItem="HZA-wv-BYQ" secondAttribute="bottom" id="zWr-nE-PyU"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="7Ty-ji-TGp"/>
+                                <exclude reference="3r3-jP-MIU"/>
                                 <exclude reference="Umv-QC-Qhq"/>
                                 <exclude reference="YEs-tt-vbu"/>
                                 <exclude reference="kwG-ph-7in"/>
@@ -124,21 +128,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YN-uT-soc">
                                 <rect key="frame" x="0.0" y="375" width="600" height="225"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Play and pin downloaded songs from your iTunes music library to every story." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rqm-Dh-8fS">
-                                        <rect key="frame" x="75" y="45" width="450" height="79.5"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Optimized for Apple Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xf4-C8-GbL">
-                                        <rect key="frame" x="75" y="10" width="450" height="35"/>
+                                        <rect key="frame" x="75" y="10.5" width="450" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="ZSR-kq-RAe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="25"/>
-                                        <color key="textColor" red="0.96862745098039216" green="0.98039215686274506" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.97254901959999995" green="0.96078431369999995" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="so that you can pin virtually any song to your writiing." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rqm-Dh-8fS">
+                                        <rect key="frame" x="75" y="45" width="450" height="79.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -212,21 +216,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQg-mU-500">
                                 <rect key="frame" x="0.0" y="375" width="600" height="225"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Tag your current mood &amp; showcase full-sized cover photos." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YsX-ed-OG8">
-                                        <rect key="frame" x="75.5" y="45" width="450" height="79"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" text="with color-coded and full-sized cover photos." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YsX-ed-OG8">
+                                        <rect key="frame" x="75" y="45" width="450" height="79"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Set the mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JCI-uU-dUl">
-                                        <rect key="frame" x="150" y="10" width="300" height="35"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" misplaced="YES" text="Capture the mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JCI-uU-dUl">
+                                        <rect key="frame" x="150" y="8" width="300" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="HMR-fL-qyI"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="23"/>
-                                        <color key="textColor" red="0.96862745100000003" green="0.98039215690000003" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.97254901959999995" green="0.96078431369999995" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -300,21 +304,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqB-Hg-Q73">
                                 <rect key="frame" x="0.0" y="375" width="600" height="225"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Let your favorite music power your stories and mobile writing." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-H8-8Cd">
-                                        <rect key="frame" x="75.5" y="45" width="450" height="79.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-H8-8Cd">
+                                        <rect key="frame" x="45" y="45" width="510" height="79.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Journal with Sound" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NmH-qP-cdu">
-                                        <rect key="frame" x="150" y="10" width="300" height="35"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="This is Muse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NmH-qP-cdu">
+                                        <rect key="frame" x="150" y="10.5" width="300" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="hYm-uo-H9U"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="25"/>
-                                        <color key="textColor" red="0.96862745100000003" green="0.98039215690000003" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.97254901959999995" green="0.96078431369999995" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -367,7 +371,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hF4-Eo-QeZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2159" y="1764"/>
+            <point key="canvasLocation" x="-2182" y="1799"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="TE8-hc-2j6">
@@ -388,21 +392,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mge-b8-IYo">
                                 <rect key="frame" x="0.0" y="375" width="600" height="225"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Pin your local music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KHq-rp-yJy">
-                                        <rect key="frame" x="150" y="10" width="300" height="35"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" misplaced="YES" text="then read back your entries like the day you wrote it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rId-8h-1bP">
+                                        <rect key="frame" x="75" y="45" width="450" height="79.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" misplaced="YES" text="Pin songs as you write" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KHq-rp-yJy">
+                                        <rect key="frame" x="174" y="8" width="253" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="ps8-Yq-kDe"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="25"/>
-                                        <color key="textColor" red="0.96862745100000003" green="0.98039215690000003" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Pin songs, then read back your stories like the day you wrote it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rId-8h-1bP">
-                                        <rect key="frame" x="75" y="45" width="450" height="79.5"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.97254901959999995" green="0.96078431369999995" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

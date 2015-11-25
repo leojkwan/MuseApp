@@ -28,6 +28,7 @@
             // Needs to be 12 (not 10 like ui label) because icon has padding
             make.top.equalTo(self).with.offset(VIEW_WIDTH/12);
             make.centerX.equalTo(self);
+            make.width.equalTo(self).multipliedBy(.9);
         }];
 
     
@@ -149,7 +150,7 @@
     label.font = [UIFont fontWithName:@"ADAM.CGPRO" size:20.0];
     
     // minimum font size
-    label.minimumScaleFactor = 18/[UIFont labelFontSize];
+    label.minimumScaleFactor = 15/[UIFont labelFontSize];
     label.adjustsFontSizeToFitWidth = YES;
     label.numberOfLines = 1;
     return label;

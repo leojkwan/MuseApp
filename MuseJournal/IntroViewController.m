@@ -51,7 +51,10 @@
                           direction:UIPageViewControllerNavigationDirectionForward
                            animated:YES completion:nil];
     
-    self.finishButton.layer.cornerRadius = 3;
+    UIImage *MUSGradient= [UIImage imageNamed:@"MUSGradient"];
+    [self.finishButton setTitleColor:[UIColor colorWithPatternImage:MUSGradient] forState:UIControlStateNormal];
+//    self.finishButton.titleLabel.textColor = [UIColor colorWithPatternImage:MUSGradient];
+    self.finishButton.layer.cornerRadius = 15;
 }
 
 

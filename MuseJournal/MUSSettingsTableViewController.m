@@ -11,6 +11,7 @@
 #import "iTellAFriend.h"
 #import "IntroViewController.h"
 #import "MUSAutoPlayManager.h"
+#import "UIColor+MUSColors.h"
 
 @interface MUSSettingsTableViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -76,7 +77,7 @@
 -(void)styleNavBarCustomLabelAttributes {
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
 
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0.98 green:0.95 blue:0.44 alpha:1]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor MUSLogoBlue]];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
 
     [self.navigationController.navigationBar setTitleTextAttributes:

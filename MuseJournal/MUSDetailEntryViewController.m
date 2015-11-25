@@ -78,6 +78,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
     [MBProgressHUD showHUDAddedTo: self.view animated:YES];
     
     // Reference Data Store
@@ -89,9 +91,6 @@
     
     // this method should only be called in didLoad, otherwise playlist collection will keep restarting on dvc dismissals
     [self setUpPlaylistForThisEntryAndPlay];
-}
-
-- (IBAction)buttonta:(id)sender {
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -117,12 +116,11 @@
 }
 
 -(void)presentFirstTimeEntry {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeEntry"];
-
+    
+    // If user is first time, show tutorial
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeEntry"] == YES) {
         
         [self performSelector:@selector(presentEntryWalkthrough) withObject:self afterDelay:1.0];
-        
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeEntry"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -263,6 +261,11 @@
 -(void)didSelectMoreOptionsButton {
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    // Share
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Quick Entry Tutorial" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self presentEntryWalkthrough];
+    }]];
     
     // Share
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Set Cover Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -447,8 +450,6 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
-    
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.MUSToolBar setHidden:NO];
 }
 

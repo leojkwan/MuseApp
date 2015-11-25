@@ -14,6 +14,8 @@
 
 +(UILabel *)returnSectionLabelWithFrame:(CGRect)sectionFrame fontColor:(UIColor*)color backgroundColor:(UIColor *)bgColor {
     UILabel *sectionLabel = [[UILabel alloc] init];
+    sectionLabel.layer.masksToBounds = YES;
+    sectionLabel.layer.cornerRadius = 3;
     sectionLabel.frame = sectionFrame;
     sectionLabel.textAlignment = NSTextAlignmentCenter;
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:13.0]];

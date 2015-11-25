@@ -10,6 +10,9 @@
 
 @implementation UIColor (MUSColors)
 
++(UIColor *)MUSLogoBlue {
+    return [UIColor colorWithRed:0.93 green:0.95 blue:0.96 alpha:1];
+}
 
 + (UIColor *) MUSBigStone {
     return [UIColor colorWithRed:0.21 green:0.26 blue:0.27 alpha:1];

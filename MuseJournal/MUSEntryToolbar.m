@@ -75,7 +75,6 @@
     
     // add button action
     [self.addEntryButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.autoPlayButton addTarget:self action:@selector(autoPlayButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {

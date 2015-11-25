@@ -1134,7 +1134,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2461" y="1373"/>
+            <point key="canvasLocation" x="2464" y="1373"/>
         </scene>
         <!--Detail Entry View Controller-->
         <scene sceneID="sch-Iy-1Au">
@@ -1202,24 +1202,15 @@
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AV-IP-fJz">
-                                                        <rect key="frame" x="356" y="15" width="46" height="30"/>
-                                                        <animations/>
-                                                        <connections>
-                                                            <action selector="buttonta:" destination="YMB-QV-Zfr" eventType="touchUpInside" id="fsJ-S2-r65"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="centerX" secondItem="aK9-BB-r1I" secondAttribute="centerX" id="1Wd-WU-EZn"/>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="width" secondItem="aK9-BB-r1I" secondAttribute="width" multiplier="1/2" id="59e-B2-k31"/>
                                                     <constraint firstAttribute="bottom" secondItem="TKc-0j-Brl" secondAttribute="bottom" constant="20" id="7pz-ud-6jA"/>
-                                                    <constraint firstItem="3bG-Aw-aDF" firstAttribute="leading" secondItem="0AV-IP-fJz" secondAttribute="trailing" constant="98" id="C5s-ZW-93o"/>
                                                     <constraint firstItem="PHi-if-fDw" firstAttribute="top" secondItem="ffh-xq-7Os" secondAttribute="bottom" constant="7.5" id="MMs-hy-BsX"/>
                                                     <constraint firstItem="PHi-if-fDw" firstAttribute="leading" secondItem="ffh-xq-7Os" secondAttribute="leading" id="Nh1-On-ngG"/>
                                                     <constraint firstAttribute="trailing" secondItem="3bG-Aw-aDF" secondAttribute="trailing" id="RaO-Zy-c8D"/>
-                                                    <constraint firstItem="TKc-0j-Brl" firstAttribute="top" secondItem="0AV-IP-fJz" secondAttribute="bottom" constant="9" id="T4S-Qq-wPZ"/>
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="top" secondItem="PHi-if-fDw" secondAttribute="bottom" constant="20" id="TBO-ZV-fCe"/>
                                                     <constraint firstItem="ffh-xq-7Os" firstAttribute="leading" secondItem="aK9-BB-r1I" secondAttribute="leading" constant="17" id="U58-vi-Wgh"/>
                                                     <constraint firstItem="ffh-xq-7Os" firstAttribute="centerY" secondItem="3bG-Aw-aDF" secondAttribute="centerY" id="UGx-aH-A3Q"/>
@@ -2182,15 +2173,23 @@
                         <sections>
                             <tableViewSection id="6wh-X9-gbw">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="281" id="ukE-KQ-5zK">
-                                        <rect key="frame" x="0.0" y="44" width="600" height="281"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="200" id="ukE-KQ-5zK">
+                                        <rect key="frame" x="0.0" y="44" width="600" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ukE-KQ-5zK" id="Wn4-SJ-iCz">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="280.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MUSIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ISX-yq-4Gb">
-                                                    <rect key="frame" x="240" y="10" width="120" height="120"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I1u-eu-cQ1">
+                                                    <rect key="frame" x="75" y="146.5" width="450" height="35.5"/>
+                                                    <animations/>
+                                                    <string key="text">A journaling app combining your stories with your favorite music. Read and listen to your past entries like the day you wrote it. </string>
+                                                    <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="museLogo2" translatesAutoresizingMaskIntoConstraints="NO" id="ISX-yq-4Gb">
+                                                    <rect key="frame" x="240" y="21" width="120" height="120"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ISX-yq-4Gb" secondAttribute="height" multiplier="1:1" id="GqQ-7N-v9X"/>
@@ -2202,16 +2201,9 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I1u-eu-cQ1">
-                                                    <rect key="frame" x="75.5" y="135" width="450" height="127.5"/>
-                                                    <animations/>
-                                                    <string key="text">A journaling app combining your stories with your favorite music. Read and listen to your past entries like the day you wrote it. </string>
-                                                    <fontDescription key="fontDescription" name="Raleway" family="Raleway" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <animations/>
+                                            <color key="backgroundColor" red="0.90358538602389493" green="0.97254901959999995" blue="0.62366143245386962" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="ISX-yq-4Gb" firstAttribute="top" secondItem="Wn4-SJ-iCz" secondAttribute="top" constant="10" id="1FY-lh-aFi"/>
                                                 <constraint firstItem="I1u-eu-cQ1" firstAttribute="leading" secondItem="Wn4-SJ-iCz" secondAttribute="leading" constant="240" id="4bf-Cq-mGo"/>
@@ -2227,14 +2219,14 @@
                                                 <mask key="constraints">
                                                     <exclude reference="4bf-Cq-mGo"/>
                                                     <exclude reference="OaB-lw-fV5"/>
+                                                    <exclude reference="1FY-lh-aFi"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
                                         <animations/>
-                                        <color key="backgroundColor" red="0.2901960784" green="0.36078431370000003" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Spx-mr-10L">
-                                        <rect key="frame" x="0.0" y="325" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="244" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Spx-mr-10L" id="IP1-m3-CFV">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -2266,7 +2258,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nwQ-4H-10P">
-                                        <rect key="frame" x="0.0" y="369" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="288" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nwQ-4H-10P" id="TTg-gP-Ir3">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -2292,7 +2284,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6RI-IO-IPE">
-                                        <rect key="frame" x="0.0" y="413" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="332" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6RI-IO-IPE" id="s5d-3c-hDd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -2325,19 +2317,19 @@
                     <navigationItem key="navigationItem" title="About" prompt="" id="smu-OU-CW9" userLabel="About"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="MUSCellContentView" destination="Wn4-SJ-iCz" id="P3j-jM-Qk5"/>
                         <segue destination="wc7-AL-A6t" kind="unwind" identifier="backToHomeView" unwindAction="prepareForUnwind:" id="raz-Gm-KjN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mYn-Mh-AjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="wc7-AL-A6t" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4627" y="-110"/>
+            <point key="canvasLocation" x="4662" y="-92"/>
         </scene>
     </scenes>
     <resources>
         <image name="AppleMusic" width="110" height="40"/>
         <image name="FIS" width="393" height="194"/>
-        <image name="MUSIcon" width="464" height="464"/>
         <image name="Octocat" width="400" height="333"/>
         <image name="Tune" width="352" height="416"/>
         <image name="back" width="135" height="135"/>
@@ -2345,6 +2337,7 @@
         <image name="backSong" width="45" height="45"/>
         <image name="blackMask" width="951" height="635"/>
         <image name="forwardSong" width="45" height="45"/>
+        <image name="museLogo2" width="1024" height="1024"/>
         <image name="playSong" width="45" height="45"/>
         <image name="playlistGaussian" width="398" height="543"/>
         <image name="quitButton" width="14" height="14"/>

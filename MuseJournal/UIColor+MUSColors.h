@@ -10,6 +10,7 @@
 
 @interface UIColor (MUSColors)
 
++(UIColor *)MUSLogoBlue;
 + (UIColor *) MUSBigStone;
 + (UIColor *) MUSCorn;
 + (UIColor *) MUSSuperYellow;
