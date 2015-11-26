@@ -119,7 +119,6 @@
     
     // If user is first time, show tutorial
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeEntry"] == YES) {
-        
         [self performSelector:@selector(presentEntryWalkthrough) withObject:self afterDelay:1.0];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeEntry"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -261,7 +260,8 @@
 -(void)didSelectMoreOptionsButton {
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
+    [actionSheet setModalPresentationStyle:UIModalPresentationPopover];
+
     // Share
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Quick Entry Tutorial" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self presentEntryWalkthrough];
@@ -274,7 +274,13 @@
     
     // Share
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Share Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [self presentViewController: [MUSShareManager returnShareSheetWithEntry:self.destinationEntry] animated:YES completion:nil];
+        UIActivityViewController *shareSheet = [MUSShareManager returnShareSheetWithEntry:self.destinationEntry] ;
+        
+        if ( [shareSheet respondsToSelector:@selector(popoverPresentationController)] ) {
+            // iOS8
+            shareSheet.popoverPresentationController.sourceView = self.MUSToolBar.moreOptionsButton;
+            [self presentViewController: shareSheet animated:YES completion:nil];
+        }
     }]];
     // CANCEL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -283,10 +289,11 @@
     }]];
     
     // FOR IPAD
+    actionSheet.popoverPresentationController.sourceView =  self.MUSToolBar.moreOptionsButton;
+    actionSheet.popoverPresentationController.sourceRect = self.MUSToolBar.moreOptionsButton.bounds;
     actionSheet.popoverPresentationController.barButtonItem = self.MUSToolBar.moreOptionsBarButtonItem;
     
-    // Present action sheet.
-    [self presentViewController:actionSheet animated:YES completion:^{
+        [self presentViewController:actionSheet animated:YES completion:^{
     }];
 }
 
@@ -514,7 +521,6 @@
         newEntry.epochTime = currentDate; // month day and year and seconds
         
         newEntry.tag = @"";
-        //        newEntry.dateInString = [currentDate monthDateAndYearString];
         newEntry.dateInString = [currentDate returnMonthAndYear];
     }
     return newEntry;
@@ -528,7 +534,6 @@
     
     // SET COVER IMAGE AS SELECTED IMAGE
     self.coverImageView.image = info[UIImagePickerControllerEditedImage];
-    
     
     //SAVE TO CORE DATA
     if (self.destinationEntry == nil) {
@@ -562,7 +567,7 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:YES completion:nil];
     [self saveEntry];
-    [self.textView becomeFirstResponder];
+//    [self.textView becomeFirstResponder];
 }
 #pragma mark - button pressed methods
 
@@ -570,7 +575,6 @@
 -(void)selectPhoto{
     
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Set Cover Photo" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
     // CANCEL
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         [self dismissViewControllerAnimated:YES completion:^{
@@ -581,7 +585,11 @@
     [self addTakePhotoActionToController:actionSheet picker:self.imagePicker];
     
     // present action sheet/ POPover for ipads
+    actionSheet.popoverPresentationController.sourceView =  self.MUSKeyboardTopBar.selectPhotoButton;
+    actionSheet.popoverPresentationController.sourceRect = self.MUSKeyboardTopBar.selectPhotoButton.bounds;
     actionSheet.popoverPresentationController.barButtonItem = self.MUSKeyboardTopBar.cameraBarButtonItem;
+
+    
     [self presentViewController:actionSheet animated:YES completion:nil];
     [self.view bringSubviewToFront:self.contentView];
 }

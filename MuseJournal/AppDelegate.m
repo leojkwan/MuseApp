@@ -48,15 +48,14 @@
         [[NSUserDefaults standardUserDefaults] setObject:userFirstName forKey:@"userFirstName"];
 
     }
-    
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
+
     // APP WALKTHROUGH
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeUser"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
     }
     
     
-    // APP WALKTHROUGH
+    // ENTRY WALKTHROUGH
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeEntry"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeEntry"];
     }

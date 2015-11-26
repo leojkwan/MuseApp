@@ -49,15 +49,6 @@
     musePromptLabel.textAlignment = NSTextAlignmentCenter;
     musePromptLabel.font = [UIFont fontWithName:@"Gill Sans" size:20.0];
     
-    for (NSString *familyName in [UIFont familyNames]){
-        NSLog(@"Family name: %@", familyName);
-        for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
-            NSLog(@"--Font name: %@", fontName);
-        }
-    }
-    
-    
-    
     musePromptLabel.textColor = [UIColor whiteColor];
     
     [view addSubview:musePromptLabel];

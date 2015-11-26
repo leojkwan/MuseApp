@@ -38,9 +38,12 @@
                             instantiateViewControllerWithIdentifier:@"Intro3"];
     UIViewController *p4 = [self.storyboard
                                          instantiateViewControllerWithIdentifier:@"Intro4"];
+    UIViewController *p5 = [self.storyboard
+                            instantiateViewControllerWithIdentifier:@"Intro5"];
+
     
     
-    self.walkthroughVCs = @[p1,p2, p3,p4];
+    self.walkthroughVCs = @[p1,p2, p3,p4,p5];
     
     self.pageControl.numberOfPages = self.walkthroughVCs.count;
     self.pageIndex = 0;
@@ -59,6 +62,8 @@
 
 - (IBAction)doneButtonPressed:(id)sender {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeUser"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController setNavigationBarHidden:NO];
 }

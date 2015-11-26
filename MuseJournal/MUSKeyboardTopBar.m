@@ -104,8 +104,12 @@
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
     [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
-    [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"moreOptions"] action:@selector(moreOptionsButtonPressed) frame:BUTTON_FRAME]];
 
+//    [self.toolbarButtonItems addObject:[self createBBIForButton:_moreOptionsButton withImage:[UIImage imageNamed:@"moreOptions"] action:@selector(moreOptionsButtonPressed) frame:BUTTON_FRAME]];
+//    
+    [self.toolbarButtonItems addObject:[self createMoreOptionsButtonwithImage:[UIImage imageNamed:@"moreOptions"] action:@selector(moreOptionsButtonPressed) frame:BUTTON_FRAME]];
+
+    
     // SET BACKGROUND COLOR
     self.keyboardToolBar.barTintColor =color;
     
@@ -119,8 +123,11 @@
     
     // set up bar buttons items in this order left to right
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"title"] action:@selector(titleButtonPressed:) frame:CGRectMake(0, 0, 35, 35)]];
-    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"addImage"] action:@selector(cameraButtonPressed) frame:BUTTON_FRAME]];
+    
+    [self.keyboardButtonItems addObject:[self createSelectPhotoButtonwithImage:[UIImage imageNamed:@"addImage"] action:@selector(cameraButtonPressed) frame:BUTTON_FRAME]];
+
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"searchSong"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
+    
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong3"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
@@ -151,6 +158,40 @@
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
 }
+
+-(UIBarButtonItem *)createBBIForButton:(UIButton *)button withImage:(UIImage *)image action:(SEL)action frame:(CGRect)frame {
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.tintColor = BUTTON_COLOR;
+    UIImage *doneButtonImage = image;
+    [button setImage:doneButtonImage forState:UIControlStateNormal];
+    [button setFrame:frame];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
+-(UIBarButtonItem *)createMoreOptionsButtonwithImage:(UIImage *)image action:(SEL)action frame:(CGRect)frame {
+    self.moreOptionsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.moreOptionsButton.tintColor = BUTTON_COLOR;
+    UIImage *doneButtonImage = image;
+    [self.moreOptionsButton setImage:doneButtonImage forState:UIControlStateNormal];
+    [self.moreOptionsButton setFrame:frame];
+    [self.moreOptionsButton addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.moreOptionsButton];
+    return barButtonItem;
+}
+
+-(UIBarButtonItem *)createSelectPhotoButtonwithImage:(UIImage *)image action:(SEL)action frame:(CGRect)frame {
+    self.selectPhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.selectPhotoButton.tintColor = BUTTON_COLOR;
+    UIImage *doneButtonImage = image;
+    [self.selectPhotoButton setImage:doneButtonImage forState:UIControlStateNormal];
+    [self.selectPhotoButton setFrame:frame];
+    [self.selectPhotoButton addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.selectPhotoButton];
+    return barButtonItem;
+}
+
 
 #pragma mark - Button Actions
 
