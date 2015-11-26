@@ -157,7 +157,7 @@
     
     // Create and initialize the fetch results controller.
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"createdAt" cacheName:nil];
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
     
     // set fetch results delegate
     self.resultsController.delegate = self;
@@ -251,8 +251,7 @@
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
     return [[[sectionInfo objects] objectAtIndex:0] dateInString];
 }
@@ -261,13 +260,26 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
     // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10 , 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSSolitude] backgroundColor:[UIColor MUSLogoBlue]];
-    // ADD SECTION TO UIVIEW
+//    UIImage *MUSGradient= [UIImage imageNamed:@"MUSGradient2"];
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10, 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSCorn] backgroundColor:[UIColor clearColor]];
+    sectionLabel.alpha = .9;
+
+        // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    sectionLabel.textColor = [UIColor darkGrayColor];
     
     UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+
+    UIView *darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(10, 0, self.view.frame.size.width -20, 20)];
+    [headerView addSubview:darkOverlay];
+
+    darkOverlay.backgroundColor = [UIColor blackColor];
+    darkOverlay.alpha = .7;
+    darkOverlay.layer.masksToBounds = YES;
+    darkOverlay.layer.cornerRadius = 10;
     [headerView addSubview:sectionLabel];
+    
+    
     return headerView;
 }
 

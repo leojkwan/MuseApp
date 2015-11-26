@@ -315,6 +315,7 @@
     
     [self checkSizeOfContentForTextView:self.textView];
     [self saveButtonTapped:sender];
+    [self.textView setUserInteractionEnabled:YES];
 }
 
 
@@ -499,12 +500,22 @@
         newEntry.tag = @"";
         newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
         
+        //
+        //        NSDate *today = [[NSDate alloc] init];
+        //        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        //        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        //        [offsetComponents setYear:5];
+        //        [offsetComponents setMonth:-1];
+        //        [offsetComponents setDay:3];
+        //        NSDate *currentDate = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+        
         NSDate *currentDate = [NSDate date];
         newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
         newEntry.epochTime = currentDate; // month day and year and seconds
         
         newEntry.tag = @"";
-        newEntry.dateInString = [currentDate monthDateAndYearString];
+        //        newEntry.dateInString = [currentDate monthDateAndYearString];
+        newEntry.dateInString = [currentDate returnMonthAndYear];
     }
     return newEntry;
 }
@@ -530,7 +541,7 @@
     [self saveEntry];
     
     // dismiss keyboard
-    [self.view endEditing:YES];
+    //    [self.view endEditing:YES];
     
     // SAVE TO CORE DATA!!
     [self.store save];
@@ -545,10 +556,14 @@
         CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
         scrollPoint = CGPointMake(scrollPoint.x, scrollPoint.y + 1); // makes scroll
         [self.scrollView setContentOffset:scrollPoint animated:YES];
-        
     }
 }
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self saveEntry];
+    [self.textView becomeFirstResponder];
+}
 #pragma mark - button pressed methods
 
 

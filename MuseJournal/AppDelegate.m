@@ -49,6 +49,7 @@
 
     }
     
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
     // APP WALKTHROUGH
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeUser"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];

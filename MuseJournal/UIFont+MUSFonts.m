@@ -66,7 +66,7 @@
     
     
     // strong
-    UIFont *strongFont = [UIFont fontWithName:@"Raleway-SemiBold" size:23.0];
+    UIFont *strongFont = [UIFont fontWithName:@"Raleway" size:23.0];
     [attributes setObject:@{NSFontAttributeName : strongFont} forKey:@(STRONG)];
     
     // HORIZONTAL RULE

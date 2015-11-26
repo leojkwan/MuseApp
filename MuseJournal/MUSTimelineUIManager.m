@@ -15,11 +15,12 @@
 +(UILabel *)returnSectionLabelWithFrame:(CGRect)sectionFrame fontColor:(UIColor*)color backgroundColor:(UIColor *)bgColor {
     UILabel *sectionLabel = [[UILabel alloc] init];
     sectionLabel.layer.masksToBounds = YES;
-    sectionLabel.layer.cornerRadius = 3;
+    sectionLabel.layer.cornerRadius = 10;
     sectionLabel.frame = sectionFrame;
     sectionLabel.textAlignment = NSTextAlignmentCenter;
+
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:13.0]];
-    sectionLabel.textColor = color;
+    [sectionLabel setTextColor:color];
     sectionLabel.backgroundColor = bgColor;
     return sectionLabel;
 }
@@ -56,7 +57,7 @@
     }
     
     
-
+    
     musePromptLabel.textColor = [UIColor whiteColor];
     
     [view addSubview:musePromptLabel];
@@ -66,7 +67,7 @@
         make.width.equalTo(view).dividedBy(2);
     }];
     
-        // ADD GESTURE RECOGNIZER
+    // ADD GESTURE RECOGNIZER
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(promptTapped)];
     [musePromptLabel addGestureRecognizer:tap];
     [musePromptLabel setUserInteractionEnabled:YES];
