@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C31f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CUn-S0-GP9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CUn-S0-GP9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -179,6 +179,9 @@
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="33" y="63" width="333" height="592"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="162" width="400" height="710.5"/>
+                                </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqB-Hg-Q73">
                                 <rect key="frame" x="0.0" y="1250" width="600" height="225"/>
@@ -224,7 +227,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qSG-ak-VkD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="so that you can pin virtually any song to each of your entries." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qSG-ak-VkD">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
                                 <animations/>
                                 <constraints>
@@ -267,6 +270,9 @@
                                     <mask key="constraints">
                                         <include reference="yUM-ha-FPL"/>
                                     </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="30" width="400" height="27"/>
                                 </variation>
                             </label>
                         </subviews>
@@ -406,9 +412,6 @@
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="33" y="63" width="333" height="592"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="158" width="400" height="709.5"/>
-                                </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHT-jW-Tn5">
                                 <rect key="frame" x="0.0" y="1250" width="600" height="225"/>
@@ -454,7 +457,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xz4-dA-fK5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="then read back your entries like the day you wrote it." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xz4-dA-fK5">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
                                 <animations/>
                                 <constraints>
@@ -468,8 +471,7 @@
                                         <exclude reference="GEN-bW-ocT"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="73" width="400" height="55"/>
+                                <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
                                         <exclude reference="GEN-bW-ocT"/>
                                     </mask>
@@ -498,9 +500,6 @@
                                     <mask key="constraints">
                                         <include reference="HaG-l7-8fv"/>
                                     </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="30" width="400" height="23"/>
                                 </variation>
                             </label>
                         </subviews>
@@ -641,7 +640,7 @@
                                     <rect key="frame" x="33" y="63" width="333" height="592"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="158" width="400" height="709.5"/>
+                                    <rect key="frame" x="200" y="162" width="400" height="710.5"/>
                                 </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yq6-4B-kUc">
@@ -688,27 +687,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tRj-hi-Q1l">
-                                <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="6W6-Bl-NUw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="6W6-Bl-NUw"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="73" width="400" height="55"/>
-                                    <mask key="constraints">
-                                        <exclude reference="6W6-Bl-NUw"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="Muse: Journal with Sound." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="XK1-Yb-nCL">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
                                 <animations/>
@@ -734,7 +712,28 @@
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="30" width="400" height="23"/>
+                                    <rect key="frame" x="200" y="30" width="400" height="27"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tRj-hi-Q1l">
+                                <rect key="frame" x="150" y="10" width="300" height="35"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="6W6-Bl-NUw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="6W6-Bl-NUw"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="77" width="400" height="55"/>
+                                    <mask key="constraints">
+                                        <exclude reference="6W6-Bl-NUw"/>
+                                    </mask>
                                 </variation>
                             </label>
                         </subviews>
@@ -875,7 +874,7 @@
                                     <rect key="frame" x="33" y="63" width="333" height="592"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="158" width="400" height="709.5"/>
+                                    <rect key="frame" x="200" y="158" width="400" height="710.5"/>
                                 </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5O8-XG-zFW">
@@ -922,27 +921,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2wb-UA-2xE">
-                                <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="lJe-ge-ui2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="lJe-ge-ui2"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="73" width="400" height="55"/>
-                                    <mask key="constraints">
-                                        <exclude reference="lJe-ge-ui2"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="Capture the mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="6gS-hY-dbZ">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
                                 <animations/>
@@ -967,8 +945,27 @@
                                         <include reference="lsV-aN-IUX"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="30" width="400" height="23"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2wb-UA-2xE">
+                                <rect key="frame" x="150" y="10" width="300" height="35"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="lJe-ge-ui2"/>
+                                </constraints>
+                                <string key="text">with color-coded tags and full-sized cover photos.
+</string>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="lJe-ge-ui2"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="lJe-ge-ui2"/>
+                                    </mask>
                                 </variation>
                             </label>
                         </subviews>
@@ -1109,7 +1106,7 @@
                                     <rect key="frame" x="33" y="63" width="333" height="592"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="158" width="400" height="709.5"/>
+                                    <rect key="frame" x="200" y="158" width="400" height="710.5"/>
                                 </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="neN-JV-zfZ">
@@ -1156,27 +1153,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Y0P-iG-gYj">
-                                <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="nU3-Ae-1Ej"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="nU3-Ae-1Ej"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="73" width="400" height="55"/>
-                                    <mask key="constraints">
-                                        <exclude reference="nU3-Ae-1Ej"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="over 10 stunning HD backgrounds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="zAR-GX-tVd">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
                                 <animations/>
@@ -1201,8 +1177,25 @@
                                         <include reference="ZBk-rp-b2n"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="200" y="30" width="400" height="23"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="to personalize your journaling experience with. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Y0P-iG-gYj">
+                                <rect key="frame" x="150" y="10" width="300" height="35"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="nU3-Ae-1Ej"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="nU3-Ae-1Ej"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="nU3-Ae-1Ej"/>
+                                    </mask>
                                 </variation>
                             </label>
                         </subviews>
@@ -1323,10 +1316,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="wtc1" width="563" height="1000"/>
-        <image name="wtc2" width="563" height="1000"/>
-        <image name="wtc3" width="563" height="1000"/>
-        <image name="wtc4" width="563" height="1000"/>
-        <image name="wtc5" width="563" height="1000"/>
+        <image name="wtc1" width="281" height="500"/>
+        <image name="wtc2" width="282" height="500"/>
+        <image name="wtc3" width="282" height="500"/>
+        <image name="wtc4" width="282" height="500"/>
+        <image name="wtc5" width="282" height="500"/>
     </resources>
 </document>
