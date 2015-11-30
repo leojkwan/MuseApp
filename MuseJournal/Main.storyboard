@@ -1313,6 +1313,7 @@
                                                 <constraint firstAttribute="width" secondItem="R31-hK-tHg" secondAttribute="height" multiplier="1:1" id="Oe7-3c-uaq"/>
                                                 <constraint firstAttribute="width" secondItem="R31-hK-tHg" secondAttribute="height" multiplier="1:1" id="PVG-Nh-n5G"/>
                                             </constraints>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" image="back2"/>
                                             <variation key="default">
                                                 <mask key="constraints">

@@ -12,7 +12,6 @@
 		9410A1431BDABFDD0078EBCE /* MUSMarkdownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9410A1421BDABFDD0078EBCE /* MUSMarkdownViewController.m */; };
 		9410A1441BDAC0540078EBCE /* MUSMarkdownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9410A13E1BDABCDB0078EBCE /* MUSMarkdownTableViewCell.m */; };
 		941EFBF71BB9FB9C00D70257 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFBF61BB9FB9C00D70257 /* main.m */; };
-		941EFC021BB9FB9C00D70257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC011BB9FB9C00D70257 /* Assets.xcassets */; };
 		941EFC051BB9FB9C00D70257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */; };
 		941EFC101BB9FB9D00D70257 /* MuseJournalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFC0F1BB9FB9D00D70257 /* MuseJournalTests.m */; };
 		941EFC1B1BB9FB9D00D70257 /* MuseJournalUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFC1A1BB9FB9D00D70257 /* MuseJournalUITests.m */; };
@@ -37,6 +36,7 @@
 		94336B3E1BC5E25A00D86420 /* Walkthrough.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */; };
 		94336B411BC5E2DC00D86420 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94336B401BC5E2DC00D86420 /* IntroViewController.m */; };
 		94336B4E1BC60CB200D86420 /* MUSPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94336B4D1BC60CB200D86420 /* MUSPageViewController.m */; };
+		94385D761C06A3D100A07378 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94385D751C06A3D100A07378 /* Assets.xcassets */; };
 		944468761BD07449003B3F16 /* MUSShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 944468751BD07449003B3F16 /* MUSShareManager.m */; };
 		944842351C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */; };
 		944842381C02C26A006D05C4 /* EntryWalkthroughView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944842371C02C26A006D05C4 /* EntryWalkthroughView.m */; };
@@ -120,7 +120,6 @@
 		9410A1421BDABFDD0078EBCE /* MUSMarkdownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSMarkdownViewController.m; sourceTree = "<group>"; };
 		941EFBF21BB9FB9C00D70257 /* MuseJournal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuseJournal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		941EFBF61BB9FB9C00D70257 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		941EFC011BB9FB9C00D70257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		941EFC041BB9FB9C00D70257 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		941EFC061BB9FB9C00D70257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		941EFC0B1BB9FB9D00D70257 /* MuseJournalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseJournalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +167,7 @@
 		94336B401BC5E2DC00D86420 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		94336B4C1BC60CB200D86420 /* MUSPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSPageViewController.h; sourceTree = "<group>"; };
 		94336B4D1BC60CB200D86420 /* MUSPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSPageViewController.m; sourceTree = "<group>"; };
+		94385D751C06A3D100A07378 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		944468741BD07449003B3F16 /* MUSShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSShareManager.h; path = ../MUSShareManager.h; sourceTree = "<group>"; };
 		944468751BD07449003B3F16 /* MUSShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSShareManager.m; path = ../MUSShareManager.m; sourceTree = "<group>"; };
 		944842331C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MUSExtraMethods.h"; path = "MuseJournal/UIViewController+MUSExtraMethods.h"; sourceTree = SOURCE_ROOT; };
@@ -319,6 +319,7 @@
 		941EFBF41BB9FB9C00D70257 /* MuseJournal */ = {
 			isa = PBXGroup;
 			children = (
+				94385D751C06A3D100A07378 /* Assets.xcassets */,
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
 				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
@@ -328,7 +329,6 @@
 				94775DFC1BB9FF42004ABF0A /* View Controllers */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
 				94775DE31BB9FF25004ABF0A /* Models */,
-				941EFC011BB9FB9C00D70257 /* Assets.xcassets */,
 				941EFC061BB9FB9C00D70257 /* Info.plist */,
 				941EFBF51BB9FB9C00D70257 /* Supporting Files */,
 			);
@@ -727,7 +727,7 @@
 				941EFC051BB9FB9C00D70257 /* LaunchScreen.storyboard in Resources */,
 				941F252A1BBC49FF008C8120 /* MUSEntryToolbar.xib in Resources */,
 				94B313F41BBAF88200ECB1AD /* Main.storyboard in Resources */,
-				941EFC021BB9FB9C00D70257 /* Assets.xcassets in Resources */,
+				94385D761C06A3D100A07378 /* Assets.xcassets in Resources */,
 				94CEC5ED1C063D95002CD958 /* ADAM-CG PRO LIGHT.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -259,8 +259,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
-    // RETURN SECTION UI LABEL
-//    UIImage *MUSGradient= [UIImage imageNamed:@"MUSGradient2"];
     UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10, 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSCorn] backgroundColor:[UIColor clearColor]];
     sectionLabel.alpha = .9;
 
