@@ -241,7 +241,8 @@
                                         <exclude reference="Tdm-nf-TGu"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="77" width="400" height="55"/>
                                     <mask key="constraints">
                                         <exclude reference="Tdm-nf-TGu"/>
                                     </mask>
@@ -412,6 +413,9 @@
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="33" y="63" width="333" height="592"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="162" width="400" height="710.5"/>
+                                </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHT-jW-Tn5">
                                 <rect key="frame" x="0.0" y="1250" width="600" height="225"/>
@@ -471,7 +475,8 @@
                                         <exclude reference="GEN-bW-ocT"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="77" width="400" height="55"/>
                                     <mask key="constraints">
                                         <exclude reference="GEN-bW-ocT"/>
                                     </mask>
@@ -500,6 +505,9 @@
                                     <mask key="constraints">
                                         <include reference="HaG-l7-8fv"/>
                                     </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="30" width="400" height="27"/>
                                 </variation>
                             </label>
                         </subviews>
@@ -729,7 +737,8 @@
                                         <exclude reference="6W6-Bl-NUw"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="77" width="400" height="55"/>
                                     <mask key="constraints">
                                         <exclude reference="6W6-Bl-NUw"/>
                                     </mask>
@@ -944,6 +953,9 @@
                                         <include reference="lsV-aN-IUX"/>
                                     </mask>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="30" width="400" height="27"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2wb-UA-2xE">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
@@ -961,7 +973,8 @@
                                         <exclude reference="lJe-ge-ui2"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="77" width="400" height="63"/>
                                     <mask key="constraints">
                                         <exclude reference="lJe-ge-ui2"/>
                                     </mask>
@@ -1176,6 +1189,9 @@
                                         <include reference="ZBk-rp-b2n"/>
                                     </mask>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="30" width="400" height="27"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="to personalize your journaling experience with. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Y0P-iG-gYj">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
@@ -1191,7 +1207,8 @@
                                         <exclude reference="nU3-Ae-1Ej"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="200" y="77" width="400" height="60.5"/>
                                     <mask key="constraints">
                                         <exclude reference="nU3-Ae-1Ej"/>
                                     </mask>
