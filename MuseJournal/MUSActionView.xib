@@ -50,8 +50,8 @@
                         <action selector="addButtonTapped:" destination="-1" eventType="touchUpInside" id="ir3-pU-wnF"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Quick Play" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
-                    <rect key="frame" x="118.5" y="242" width="113" height="27.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quick Play" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-xa-ObB">
+                    <rect key="frame" x="112.5" y="242" width="125" height="23"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="ADAM.CGPRO-Light" family="ADAM.CG PRO" pointSize="23"/>
                     <color key="textColor" red="0.1795296717" green="0.1795296717" blue="0.1795296717" alpha="1" colorSpace="calibratedRGB"/>

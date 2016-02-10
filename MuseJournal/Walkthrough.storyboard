@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C31f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CUn-S0-GP9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CUn-S0-GP9">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -31,18 +31,15 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HZA-wv-BYQ" userLabel="imageView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kK2-U7-HiC">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                                 <connections>
                                     <segue destination="hwz-ep-TeB" kind="embed" id="boS-la-Y7c"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVh-hY-T2e">
                                 <rect key="frame" x="119.5" y="518" width="361" height="44"/>
-                                <animations/>
                                 <color key="backgroundColor" red="0.90980392160000001" green="0.93725490199999995" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="SCy-4A-UmN"/>
@@ -79,10 +76,8 @@
                             </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="jf5-sx-mhk">
                                 <rect key="frame" x="270" y="491" width="60" height="37"/>
-                                <animations/>
                             </pageControl>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.83137254901960789" green="0.0" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="jVh-hY-T2e" firstAttribute="height" secondItem="kK2-U7-HiC" secondAttribute="height" multiplier="1/18" id="3r3-jP-MIU"/>
@@ -172,7 +167,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="wtc5" translatesAutoresizingMaskIntoConstraints="NO" id="rzJ-lo-oSi" userLabel="imageView">
                                 <rect key="frame" x="18" y="500" width="563" height="1000"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rzJ-lo-oSi" secondAttribute="height" multiplier="563:1000" id="RVt-WZ-44o"/>
                                 </constraints>
@@ -188,7 +182,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" text="so that you can pin virtually any song to your writiing." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NmH-qP-cdu">
                                         <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="hYm-uo-H9U"/>
                                         </constraints>
@@ -205,7 +198,6 @@
                                         </variation>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="NmH-qP-cdu" firstAttribute="top" secondItem="vqB-Hg-Q73" secondAttribute="top" constant="30" id="4gi-ev-RB0"/>
@@ -229,7 +221,6 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="so that you can pin virtually any song to each of your entries." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qSG-ak-VkD">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Tdm-nf-TGu"/>
                                 </constraints>
@@ -250,7 +241,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="Optimized for Apple Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-H8-8Cd">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="yUM-ha-FPL">
                                         <variation key="heightClass=regular-widthClass=compact" constant="35"/>
@@ -277,7 +267,6 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.87450980392156863" green="0.098039215686274508" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="rzJ-lo-oSi" firstAttribute="width" secondItem="hJq-p9-y96" secondAttribute="width" multiplier="3/6" id="0SK-ci-zbk"/>
@@ -406,7 +395,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="wtc4" translatesAutoresizingMaskIntoConstraints="NO" id="iVr-Wz-JR3" userLabel="imageView">
                                 <rect key="frame" x="18" y="500" width="563" height="1000"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="iVr-Wz-JR3" secondAttribute="height" multiplier="563:1000" id="ykj-XH-s32"/>
                                 </constraints>
@@ -422,7 +410,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" text="then read back your entries like the day you wrote it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zJ9-2h-gSA">
                                         <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="rbB-qA-OWb"/>
                                         </constraints>
@@ -439,7 +426,6 @@
                                         </variation>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="zJ9-2h-gSA" firstAttribute="top" secondItem="yHT-jW-Tn5" secondAttribute="top" constant="30" id="BoA-UP-Uaw"/>
@@ -463,7 +449,6 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="then read back your entries like the day you wrote it." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xz4-dA-fK5">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="GEN-bW-ocT"/>
                                 </constraints>
@@ -484,7 +469,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="Pin songs as you write" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="0oD-nH-Fn3">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="HaG-l7-8fv">
                                         <variation key="heightClass=regular-widthClass=compact" constant="35"/>
@@ -511,7 +495,6 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.20784313725490197" green="0.53725490196078429" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iVr-Wz-JR3" firstAttribute="top" secondItem="Xz4-dA-fK5" secondAttribute="bottom" constant="82" id="0LL-lJ-nMh"/>
@@ -640,7 +623,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="wtc1" translatesAutoresizingMaskIntoConstraints="NO" id="BSt-pH-N5j" userLabel="imageView">
                                 <rect key="frame" x="18" y="500" width="563" height="1000"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="BSt-pH-N5j" secondAttribute="height" multiplier="563:1000" id="3UD-r8-9gg"/>
                                 </constraints>
@@ -656,7 +638,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="J3l-kx-xeF">
                                         <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="MSY-p1-EBq"/>
                                         </constraints>
@@ -673,7 +654,6 @@
                                         </variation>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="J3l-kx-xeF" firstAttribute="centerY" secondItem="Yq6-4B-kUc" secondAttribute="centerY" multiplier="1/2" id="Egp-W8-ti0"/>
@@ -697,7 +677,6 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="Muse: Journal with Sound." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="XK1-Yb-nCL">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="HSG-LH-S7n">
                                         <variation key="heightClass=regular-widthClass=compact" constant="35"/>
@@ -725,7 +704,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Where journaling and note-taking meet your personal music." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tRj-hi-Q1l">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="6W6-Bl-NUw"/>
                                 </constraints>
@@ -745,7 +723,6 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.70980392160000005" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Yq6-4B-kUc" firstAttribute="bottom" secondItem="BSt-pH-N5j" secondAttribute="bottom" id="8du-lp-eEU"/>
@@ -874,7 +851,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="wtc3" translatesAutoresizingMaskIntoConstraints="NO" id="fwA-dV-lPl" userLabel="imageView">
                                 <rect key="frame" x="18" y="500" width="563" height="1000"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fwA-dV-lPl" secondAttribute="height" multiplier="563:1000" id="fgU-a1-6ge"/>
                                 </constraints>
@@ -890,7 +866,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" text="with color-coded tags and full-sized cover photos." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oB9-Lm-2E5">
                                         <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="70U-Bp-un0"/>
                                         </constraints>
@@ -907,7 +882,6 @@
                                         </variation>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="oB9-Lm-2E5" firstAttribute="centerX" secondItem="5O8-XG-zFW" secondAttribute="centerX" id="31K-bA-pi4"/>
@@ -931,7 +905,6 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="Capture the mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="6gS-hY-dbZ">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="lsV-aN-IUX">
                                         <variation key="heightClass=regular-widthClass=compact" constant="35"/>
@@ -959,7 +932,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2wb-UA-2xE">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="lJe-ge-ui2"/>
                                 </constraints>
@@ -981,7 +953,6 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.21568627450980393" green="0.21568627450980393" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="6gS-hY-dbZ" firstAttribute="top" secondItem="cMb-Zv-Qou" secondAttribute="bottom" constant="20" id="0ZF-yo-b0x"/>
@@ -1110,7 +1081,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="wtc2" translatesAutoresizingMaskIntoConstraints="NO" id="Wnz-nv-gEX" userLabel="imageView">
                                 <rect key="frame" x="18" y="500" width="563" height="1000"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Wnz-nv-gEX" secondAttribute="height" multiplier="563:1000" id="mOD-Fk-uDP"/>
                                 </constraints>
@@ -1126,7 +1096,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" text="you can select from to complement your journal flow. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vHO-d3-bBH">
                                         <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="QKo-er-BLe"/>
                                         </constraints>
@@ -1143,7 +1112,6 @@
                                         </variation>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="vHO-d3-bBH" firstAttribute="width" secondItem="neN-JV-zfZ" secondAttribute="width" multiplier="3/4" id="H6E-Ne-vYz"/>
@@ -1167,7 +1135,6 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="over 10 stunning HD backgrounds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="zAR-GX-tVd">
                                 <rect key="frame" x="44" y="396" width="510" height="79.5"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="ZBk-rp-b2n">
                                         <variation key="heightClass=regular-widthClass=compact" constant="35"/>
@@ -1195,7 +1162,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="to personalize your journaling experience with. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Y0P-iG-gYj">
                                 <rect key="frame" x="150" y="10" width="300" height="35"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="nU3-Ae-1Ej"/>
                                 </constraints>
@@ -1215,7 +1181,6 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" red="0.38823529411764707" green="0.18431372549019609" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Wnz-nv-gEX" firstAttribute="centerX" secondItem="iVv-BB-MOC" secondAttribute="centerX" id="2tB-5r-lZL"/>

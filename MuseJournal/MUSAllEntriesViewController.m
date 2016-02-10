@@ -321,7 +321,6 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
     // make sure the search bar dismissed to prevent nav bar from showing in dvc
     [self.entrySearchBar resignFirstResponder];
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];

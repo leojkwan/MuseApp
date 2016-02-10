@@ -1,15 +1,12 @@
-//
-//  EntryWalkthroughView.h
-//  Muse
-//
-//  Created by Leo Kwan on 11/22/15.
-//  Copyright © 2015 Leo Kwan. All rights reserved.
-//
+/**
+ * Quick entry walkthrough for users
+ * writing an entry for the first time.
+ */
 
 #import <UIKit/UIKit.h>
 
 @protocol WalkthroughDelegate <NSObject>
--(void)didSelectDoneButton;
+-(void)dismissView;
 @end
 
 @interface EntryWalkthroughView : UIView

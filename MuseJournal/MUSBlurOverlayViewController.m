@@ -1,11 +1,3 @@
-//
-//  MUSBlurOverlayViewController.m
-//  Muse
-//
-//  Created by Leo Kwan on 11/23/15.
-//  Copyright © 2015 Leo Kwan. All rights reserved.
-//
-
 #import "MUSBlurOverlayViewController.h"
 
 @interface MUSBlurOverlayViewController ()
@@ -13,44 +5,32 @@
 
 @implementation MUSBlurOverlayViewController
 
--(instancetype)initWithView:(UIView *)viewOverBlur {
+-(instancetype)initWithView:(UIView *)viewOverBlur blurEffect:(UIVisualEffect*)effect {
     self = [super init];
     
     if (self) {
         _viewOverBlur = viewOverBlur;
-        _blurType = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        _blurType = effect;
     }
     return self;
 }
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    //     Create Blur Effect View Over Full Screen
-    UIView *darkOverlay = [[UIView alloc] init];
-    darkOverlay.backgroundColor = [UIColor blackColor];
-    darkOverlay.alpha = .85;
     
-    //    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:self.blurType];
-    //    visualEffectView.frame = self.view.bounds;
-    //
-    // Add over main view
-    //    [self.view addSubview:visualEffectView];
-    //
-    [self.view addSubview:darkOverlay];
-    darkOverlay.frame = self.view.bounds;
+    // Create Blur View, add to subview, cover entire frame.
+    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:self.blurType];
+    [self.view addSubview:visualEffectView];
+    visualEffectView.frame = self.view.bounds;
     
-    
-    //     add content over blur
-    [darkOverlay addSubview:self.viewOverBlur];
-    self.viewOverBlur.frame = darkOverlay.bounds;
-    //    [visualEffectView addSubview:self.viewOverBlur];
-    //    self.viewOverBlur.frame = visualEffectView.bounds;
-    
+    // add content over blur
+    [visualEffectView addSubview:self.viewOverBlur];
+    self.viewOverBlur.frame = visualEffectView.bounds;
 }
 
-#pragma Blur Delegate Methods
+#pragma mark-Blur View Methods
 
--(void)didSelectDoneButton {
+-(void)dismissView {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

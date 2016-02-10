@@ -54,7 +54,6 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
     }
     
-    
     // ENTRY WALKTHROUGH
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeEntry"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeEntry"];

@@ -94,7 +94,7 @@
         }];
         
         //MUSIC TEXT
-        
+    
         UILabel *musicPlayerLabel = [self returnMessageLabelWithText:@"3. See your playlist and music player!"];
         [self addSubview:musicPlayerLabel];
         
@@ -102,13 +102,11 @@
             make.centerY.equalTo(musicPlayerIcon);
             make.left.equalTo(searchIcon.mas_right);
             make.right.equalTo(pinIcon.mas_right);
-            NSLog(@"This is the screen width:%f", [[UIScreen mainScreen] bounds].size.width);
         }];
         
-        // GOT IT DONE BUTTON
+        // Done Button
         UIButton *doneButton = [[UIButton alloc] init];
-        [doneButton setUserInteractionEnabled:YES];
-        [doneButton addTarget:self action:@selector(didSelectDoneButton:) forControlEvents:UIControlEventTouchUpInside];
+        [doneButton addTarget:self action:@selector(doneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [doneButton setBackgroundColor:[UIColor colorWithRed:0.29 green:0.74 blue:0.32 alpha:1]];
         doneButton.titleLabel.font = [UIFont fontWithName:@"Avenir" size:24];
         doneButton.titleLabel.textColor = [UIColor whiteColor];
@@ -157,9 +155,8 @@
 }
 
 
--(void)didSelectDoneButton:(id)sender {
-    NSLog(@"tapped");
-    [self.delegate didSelectDoneButton];
+-(void)doneButtonTapped:(id)sender {
+    [self.delegate dismissView];
 }
 
 @end

@@ -41,7 +41,6 @@
 		944842351C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 944842341C02BDAC006D05C4 /* UIViewController+MUSExtraMethods.m */; };
 		944842381C02C26A006D05C4 /* EntryWalkthroughView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944842371C02C26A006D05C4 /* EntryWalkthroughView.m */; };
 		9448423B1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */; };
-		944ED4601BD41C3A007874EF /* MUSiPhoneSizeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 944ED45F1BD41C3A007874EF /* MUSiPhoneSizeManager.m */; };
 		9450A3EC1BCE1D8F00335606 /* MUSTagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9450A3EB1BCE1D8F00335606 /* MUSTagManager.m */; };
 		945E53551BC70AB900157085 /* MUSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E53541BC70AB900157085 /* MUSConstants.m */; };
 		9477D5B01BCEFF2E0059282F /* MUSWallPaperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9477D5AF1BCEFF2E0059282F /* MUSWallPaperViewController.m */; };
@@ -176,8 +175,6 @@
 		944842371C02C26A006D05C4 /* EntryWalkthroughView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntryWalkthroughView.m; path = MuseJournal/EntryWalkthroughView.m; sourceTree = SOURCE_ROOT; };
 		944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSBlurOverlayViewController.h; sourceTree = "<group>"; };
 		9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSBlurOverlayViewController.m; sourceTree = "<group>"; };
-		944ED45E1BD41C3A007874EF /* MUSiPhoneSizeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSiPhoneSizeManager.h; sourceTree = "<group>"; };
-		944ED45F1BD41C3A007874EF /* MUSiPhoneSizeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSiPhoneSizeManager.m; sourceTree = "<group>"; };
 		9450A3EA1BCE1D8F00335606 /* MUSTagManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSTagManager.h; path = ../MUSTagManager.h; sourceTree = "<group>"; };
 		9450A3EB1BCE1D8F00335606 /* MUSTagManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSTagManager.m; path = ../MUSTagManager.m; sourceTree = "<group>"; };
 		945E53541BC70AB900157085 /* MUSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSConstants.m; sourceTree = "<group>"; };
@@ -322,9 +319,9 @@
 				94385D751C06A3D100A07378 /* Assets.xcassets */,
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
-				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
 				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
 				94B313B81BBAF86200ECB1AD /* AppDelegate.m */,
+				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
 				946EB8781BBA039E0067CDC2 /* Views */,
 				94775DFC1BB9FF42004ABF0A /* View Controllers */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
@@ -361,6 +358,159 @@
 			path = MuseJournalUITests;
 			sourceTree = "<group>";
 		};
+		943406201C6AEF7100395A7D /* BlurViewOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */,
+				9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */,
+			);
+			name = BlurViewOverlay;
+			sourceTree = "<group>";
+		};
+		943406211C6AEF7F00395A7D /* WalkthroughVC */ = {
+			isa = PBXGroup;
+			children = (
+				942F254E1BC7450C0004D806 /* LastWalkthroughViewController.h */,
+				942F254F1BC7450C0004D806 /* LastWalkthroughViewController.m */,
+				94336B3F1BC5E2DC00D86420 /* IntroViewController.h */,
+				94336B401BC5E2DC00D86420 /* IntroViewController.m */,
+			);
+			name = WalkthroughVC;
+			sourceTree = "<group>";
+		};
+		943406221C6AEF9800395A7D /* SettingsVC */ = {
+			isa = PBXGroup;
+			children = (
+				94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */,
+				94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */,
+				94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */,
+				94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */,
+				949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */,
+				949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */,
+			);
+			name = SettingsVC;
+			sourceTree = "<group>";
+		};
+		943406231C6AEFAE00395A7D /* WallpaperVC */ = {
+			isa = PBXGroup;
+			children = (
+				9477D5AE1BCEFF2E0059282F /* MUSWallPaperViewController.h */,
+				9477D5AF1BCEFF2E0059282F /* MUSWallPaperViewController.m */,
+			);
+			name = WallpaperVC;
+			sourceTree = "<group>";
+		};
+		943406241C6AEFF900395A7D /* PageViewSwipeVC */ = {
+			isa = PBXGroup;
+			children = (
+				94336B4C1BC60CB200D86420 /* MUSPageViewController.h */,
+				94336B4D1BC60CB200D86420 /* MUSPageViewController.m */,
+			);
+			name = PageViewSwipeVC;
+			sourceTree = "<group>";
+		};
+		943406251C6AF02C00395A7D /* AutoplayToggleManager */ = {
+			isa = PBXGroup;
+			children = (
+				94F6BE851BCCAF37009AFC2C /* MUSAutoPlayManager.h */,
+				94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */,
+			);
+			name = AutoplayToggleManager;
+			sourceTree = "<group>";
+		};
+		943406261C6AF0E400395A7D /* EntryMoodVC */ = {
+			isa = PBXGroup;
+			children = (
+				94E180621BCDA344008023C5 /* MUSMoodViewController.h */,
+				94E180631BCDA344008023C5 /* MUSMoodViewController.m */,
+			);
+			name = EntryMoodVC;
+			sourceTree = "<group>";
+		};
+		943406271C6AF15500395A7D /* EntryPlaylistVC */ = {
+			isa = PBXGroup;
+			children = (
+				94B313D61BBAF88200ECB1AD /* MUSPlaylistViewController.h */,
+				94B313D71BBAF88200ECB1AD /* MUSPlaylistViewController.m */,
+			);
+			name = EntryPlaylistVC;
+			sourceTree = "<group>";
+		};
+		943406281C6AF16A00395A7D /* SwipeHomeEntryVC */ = {
+			isa = PBXGroup;
+			children = (
+				94B313D21BBAF88200ECB1AD /* MUSHomeViewController.h */,
+				94B313D31BBAF88200ECB1AD /* MUSHomeViewController.m */,
+				94B313E01BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.h */,
+				94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */,
+				94B313C91BBAF88200ECB1AD /* MUSAllEntriesViewController.h */,
+				94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */,
+			);
+			name = SwipeHomeEntryVC;
+			sourceTree = "<group>";
+		};
+		943406291C6AF18300395A7D /* EntryDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				94B313CF1BBAF88200ECB1AD /* MUSDetailEntryViewController.h */,
+				94B313D01BBAF88200ECB1AD /* MUSDetailEntryViewController.m */,
+			);
+			name = EntryDetailVC;
+			sourceTree = "<group>";
+		};
+		9434062A1C6AF18D00395A7D /* EntryMarkdownVC */ = {
+			isa = PBXGroup;
+			children = (
+				9410A1411BDABFDD0078EBCE /* MUSMarkdownViewController.h */,
+				9410A1421BDABFDD0078EBCE /* MUSMarkdownViewController.m */,
+			);
+			name = EntryMarkdownVC;
+			sourceTree = "<group>";
+		};
+		9434062B1C6AF1A300395A7D /* Muse Icon Animation */ = {
+			isa = PBXGroup;
+			children = (
+				941F24FE1BBC388F008C8120 /* MUSIconAnimation.h */,
+				941F24FF1BBC388F008C8120 /* MUSIconAnimation.m */,
+			);
+			name = "Muse Icon Animation";
+			sourceTree = "<group>";
+		};
+		9449C26B1C136CF300F808E2 /* Entry Button Walkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				944842361C02C26A006D05C4 /* EntryWalkthroughView.h */,
+				944842371C02C26A006D05C4 /* EntryWalkthroughView.m */,
+			);
+			name = "Entry Button Walkthrough";
+			sourceTree = "<group>";
+		};
+		9449C26C1C136D0D00F808E2 /* Keyboard Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				941F25281BBC49FF008C8120 /* MUSEntryToolbar.xib */,
+				941F24F91BBC388F008C8120 /* MUSEntryToolbar.h */,
+				941F25271BBC49FF008C8120 /* MUSEntryToolbar.m */,
+				941F252B1BBC4A0E008C8120 /* MUSKeyboardTopBar.h */,
+				941F252C1BBC4A0E008C8120 /* MUSKeyboardTopBar.m */,
+				941F252D1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib */,
+			);
+			name = "Keyboard Toolbar";
+			sourceTree = "<group>";
+		};
+		9449C26D1C136D3A00F808E2 /* Home Widget Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */,
+				94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */,
+				94B314101BBAF97A00ECB1AD /* MUSActionView.xib */,
+				94B42D0B1BD8056A004322F6 /* MUSStatsView.h */,
+				94B42D0C1BD8056A004322F6 /* MUSStatsView.m */,
+				94B42D0E1BD80575004322F6 /* MUSStatsView.xib */,
+			);
+			name = "Home Widget Xibs";
+			sourceTree = "<group>";
+		};
 		944E2E561BE01D820011D19D /* Helper Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,8 +518,6 @@
 				9421B9F91BC4AD7200F33EAB /* MUSNotificationManager.m */,
 				94D366ED1BD007800080A27B /* MUSTimelineUIManager.h */,
 				94D366EE1BD007800080A27B /* MUSTimelineUIManager.m */,
-				944ED45E1BD41C3A007874EF /* MUSiPhoneSizeManager.h */,
-				944ED45F1BD41C3A007874EF /* MUSiPhoneSizeManager.m */,
 				944468741BD07449003B3F16 /* MUSShareManager.h */,
 				944468751BD07449003B3F16 /* MUSShareManager.m */,
 				940EE95C1BCF280900270D66 /* MUSWallpaperManager.h */,
@@ -380,13 +528,13 @@
 			name = "Helper Objects";
 			sourceTree = "<group>";
 		};
-		944E2E571BE01DA30011D19D /* Pods */ = {
+		944E2E571BE01DA30011D19D /* iTellAFriend */ = {
 			isa = PBXGroup;
 			children = (
 				949A643F1BD49A2D00614AB1 /* iTellAFriend.h */,
 				949A64401BD49A2D00614AB1 /* iTellAFriend.m */,
 			);
-			name = Pods;
+			name = iTellAFriend;
 			sourceTree = "<group>";
 		};
 		944E2E581BE01DD30011D19D /* Datastore */ = {
@@ -417,28 +565,16 @@
 				941F25431BBC4A69008C8120 /* MUSImagelessEntryCell.m */,
 			);
 			name = "Custom Cells";
-			path = ../../MuseApp/MuseApp;
+			path = ../MuseApp;
 			sourceTree = "<group>";
 		};
 		946EB8781BBA039E0067CDC2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				944842361C02C26A006D05C4 /* EntryWalkthroughView.h */,
-				944842371C02C26A006D05C4 /* EntryWalkthroughView.m */,
-				941F24FE1BBC388F008C8120 /* MUSIconAnimation.h */,
-				941F24FF1BBC388F008C8120 /* MUSIconAnimation.m */,
-				941F25281BBC49FF008C8120 /* MUSEntryToolbar.xib */,
-				941F24F91BBC388F008C8120 /* MUSEntryToolbar.h */,
-				941F25271BBC49FF008C8120 /* MUSEntryToolbar.m */,
-				941F252B1BBC4A0E008C8120 /* MUSKeyboardTopBar.h */,
-				941F252C1BBC4A0E008C8120 /* MUSKeyboardTopBar.m */,
-				941F252D1BBC4A0E008C8120 /* MUSKeyboardTopBar.xib */,
-				94B3140E1BBAF97A00ECB1AD /* MUSActionView.h */,
-				94B3140F1BBAF97A00ECB1AD /* MUSActionView.m */,
-				94B314101BBAF97A00ECB1AD /* MUSActionView.xib */,
-				94B42D0B1BD8056A004322F6 /* MUSStatsView.h */,
-				94B42D0C1BD8056A004322F6 /* MUSStatsView.m */,
-				94B42D0E1BD80575004322F6 /* MUSStatsView.xib */,
+				9449C26B1C136CF300F808E2 /* Entry Button Walkthrough */,
+				9449C26C1C136D0D00F808E2 /* Keyboard Toolbar */,
+				9449C26D1C136D3A00F808E2 /* Home Widget Xibs */,
+				9434062B1C6AF1A300395A7D /* Muse Icon Animation */,
 			);
 			name = Views;
 			path = ../../MuseApp/MuseApp;
@@ -447,8 +583,10 @@
 		94775DE31BB9FF25004ABF0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				943406251C6AF02C00395A7D /* AutoplayToggleManager */,
+				946EB84A1BBA00E90067CDC2 /* Custom Cells */,
 				944E2E581BE01DD30011D19D /* Datastore */,
-				944E2E571BE01DA30011D19D /* Pods */,
+				944E2E571BE01DA30011D19D /* iTellAFriend */,
 				944E2E561BE01D820011D19D /* Helper Objects */,
 				9421B9F51BC47D0F00F33EAB /* MUSConstants.h */,
 				945E53541BC70AB900157085 /* MUSConstants.m */,
@@ -465,7 +603,6 @@
 				94BDA3121BBB91AD0071948D /* Managed Objects */,
 				94CD1C841BBA008E00934769 /* Delegate Helpers */,
 				94CD1C731BBA007700934769 /* Categories */,
-				946EB84A1BBA00E90067CDC2 /* Custom Cells */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -473,38 +610,16 @@
 		94775DFC1BB9FF42004ABF0A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				944842391C02E7D6006D05C4 /* MUSBlurOverlayViewController.h */,
-				9448423A1C02E7D6006D05C4 /* MUSBlurOverlayViewController.m */,
-				94336B3F1BC5E2DC00D86420 /* IntroViewController.h */,
-				94336B401BC5E2DC00D86420 /* IntroViewController.m */,
-				9410A1411BDABFDD0078EBCE /* MUSMarkdownViewController.h */,
-				9410A1421BDABFDD0078EBCE /* MUSMarkdownViewController.m */,
-				949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */,
-				949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */,
-				94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */,
-				94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */,
-				9477D5AE1BCEFF2E0059282F /* MUSWallPaperViewController.h */,
-				9477D5AF1BCEFF2E0059282F /* MUSWallPaperViewController.m */,
-				94336B4C1BC60CB200D86420 /* MUSPageViewController.h */,
-				94336B4D1BC60CB200D86420 /* MUSPageViewController.m */,
-				942F254E1BC7450C0004D806 /* LastWalkthroughViewController.h */,
-				942F254F1BC7450C0004D806 /* LastWalkthroughViewController.m */,
-				94B313D21BBAF88200ECB1AD /* MUSHomeViewController.h */,
-				94B313D31BBAF88200ECB1AD /* MUSHomeViewController.m */,
-				94B313E01BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.h */,
-				94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */,
-				94B313C91BBAF88200ECB1AD /* MUSAllEntriesViewController.h */,
-				94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */,
-				94F6BE851BCCAF37009AFC2C /* MUSAutoPlayManager.h */,
-				94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */,
-				94B313CF1BBAF88200ECB1AD /* MUSDetailEntryViewController.h */,
-				94B313D01BBAF88200ECB1AD /* MUSDetailEntryViewController.m */,
-				94E180621BCDA344008023C5 /* MUSMoodViewController.h */,
-				94E180631BCDA344008023C5 /* MUSMoodViewController.m */,
-				94B313D61BBAF88200ECB1AD /* MUSPlaylistViewController.h */,
-				94B313D71BBAF88200ECB1AD /* MUSPlaylistViewController.m */,
-				94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */,
-				94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */,
+				943406201C6AEF7100395A7D /* BlurViewOverlay */,
+				943406211C6AEF7F00395A7D /* WalkthroughVC */,
+				9434062A1C6AF18D00395A7D /* EntryMarkdownVC */,
+				943406221C6AEF9800395A7D /* SettingsVC */,
+				943406231C6AEFAE00395A7D /* WallpaperVC */,
+				943406241C6AEFF900395A7D /* PageViewSwipeVC */,
+				943406281C6AF16A00395A7D /* SwipeHomeEntryVC */,
+				943406291C6AF18300395A7D /* EntryDetailVC */,
+				943406261C6AF0E400395A7D /* EntryMoodVC */,
+				943406271C6AF15500395A7D /* EntryPlaylistVC */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -841,7 +956,6 @@
 				941F25381BBC4A3A008C8120 /* MUSSearchBarDelegate.m in Sources */,
 				941F25411BBC4A63008C8120 /* MUSEntryTableViewCell.m in Sources */,
 				941F254A1BBC4A8D008C8120 /* MuseApp.xcdatamodeld in Sources */,
-				944ED4601BD41C3A007874EF /* MUSiPhoneSizeManager.m in Sources */,
 				942F25501BC7450C0004D806 /* LastWalkthroughViewController.m in Sources */,
 				94B3140C1BBAF88200ECB1AD /* UIImagePickerController+ExtraMethods.m in Sources */,
 				94B314081BBAF88200ECB1AD /* UIButton+ExtraMethods.m in Sources */,

@@ -1,23 +1,17 @@
-//
-//  MUSBlurOverlayViewController.h
-//  Muse
-//
-//  Created by Leo Kwan on 11/23/15.
-//  Copyright © 2015 Leo Kwan. All rights reserved.
-//
+
+/**
+ * Blur View Controller with a convenience initializer
+ * so pass custom UIView on top of blur
+ */
 
 #import <UIKit/UIKit.h>
 #import "EntryWalkthroughView.h"
 
-@interface MUSBlurOverlayViewController : UIViewController <WalkthroughDelegate> {
-    UIModalTransitionStyle modalTransitionStyle;
-    UIModalPresentationStyle modalPresentationStyle;
-}
+@interface MUSBlurOverlayViewController : UIViewController <WalkthroughDelegate>
 
-// This is the content view over blur
 @property (nonatomic, strong) UIView *viewOverBlur;
 @property (nonatomic, strong) UIVisualEffect *blurType;
--(void)didSelectDoneButton;
--(instancetype)initWithView:(UIView *)viewOverBlur;
+
+-(instancetype)initWithView:(UIView *)viewOverBlur blurEffect:(UIVisualEffect*)effect;
 
 @end
