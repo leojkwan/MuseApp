@@ -390,6 +390,7 @@
   [self.MUSToolBar setHidden:NO];
 }
 
+
 -(void)playPlaylistForThisEntry {
   
   if (self.entryType == ExistingEntry && self.destinationEntry.songs != nil ) {

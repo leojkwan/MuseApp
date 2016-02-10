@@ -128,7 +128,7 @@
 
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"searchSong"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
     
-    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong3"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
+    [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"pinSong3"] action:@selector(pinSongButtonPressed:) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.keyboardButtonItems addObject:[self flexSpaceButton]];
     [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"save"] action:@selector(doneButtonPressed:) frame:BUTTON_FRAME]];
