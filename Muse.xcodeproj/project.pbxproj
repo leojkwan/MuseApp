@@ -587,6 +587,7 @@
 				941EFBEF1BB9FB9C00D70257 /* Frameworks */,
 				941EFBF01BB9FB9C00D70257 /* Resources */,
 				3F65C1798A48A6919D4D4CCE /* Copy Pods Resources */,
+				6BFA2EB57C0C5C51FFD32D7F /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -749,6 +750,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BFA2EB57C0C5C51FFD32D7F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
