@@ -120,10 +120,6 @@ UIGestureRecognizerDelegate
     [self setUpToolbar];
     [self setUpKeyboard];
     
-//    /** Display now playing alert */
-//    if (self.musicPlayerStatus == Valid) {
-//      [self displayNowPlayingItem];
-//    }
   }
   
   [MBProgressHUD hideHUDForView:self.view animated:NO];

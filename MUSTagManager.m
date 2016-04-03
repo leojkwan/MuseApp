@@ -54,7 +54,7 @@
     [attrTag addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:(NSUnderlineStyleThick)] range:NSMakeRange(0, [attrTag length])];
     [attrTag addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:NSMakeRange(0, [attrTag length])];
     
-    UIFont *tagFont=  [UIFont fontWithName:@"ADAM.CGPRO" size:12.0];
+    UIFont *tagFont=  [UIFont fontWithName:@"ADAM.CGPRO" size:14.0];
     [attrTag addAttribute:NSFontAttributeName value:tagFont range:NSMakeRange(0, [attrTag length])];
     [attrTag addAttribute:NSKernAttributeName value: @(0.75f) range:NSMakeRange(0, [attrTag length])]; // Horizontal Character spacing
     [attrTag addAttribute:NSUnderlineColorAttributeName value:color range:NSMakeRange(0, [attrTag length])];
