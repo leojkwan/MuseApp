@@ -122,12 +122,16 @@
   
   // set up bar buttons items in this order left to right
   [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"title"] action:@selector(titleButtonPressed:) frame:CGRectMake(0, 0, 35, 35)]];
-  [self.keyboardButtonItems addObject:[self flexSpaceButton]];
+  
+  [self.keyboardButtonItems addObject:[self fixedSpaceButton:20]];
   
   [self.keyboardButtonItems addObject:[self createSelectPhotoButtonwithImage:[UIImage imageNamed:@"addImage"] action:@selector(cameraButtonPressed) frame:BUTTON_FRAME]];
   
+  [self.keyboardButtonItems addObject:[self fixedSpaceButton:10]];
   
   [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"searchSong"] action:@selector(pickSongButtonPressed:) frame:BUTTON_FRAME]];
+  
+  [self.keyboardButtonItems addObject:[self fixedSpaceButton:10]];
   
   [self.keyboardButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
   
@@ -147,6 +151,12 @@
 
 -(UIBarButtonItem *)flexSpaceButton {
   UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc]  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+  return flexibleSpaceBarButtonItem;
+}
+
+-(UIBarButtonItem *)fixedSpaceButton:(CGFloat)width {
+  UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+  flexibleSpaceBarButtonItem.width = width;
   return flexibleSpaceBarButtonItem;
 }
 
