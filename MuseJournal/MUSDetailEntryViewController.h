@@ -10,7 +10,7 @@
 #import "Entry.h"
 
 typedef enum{
-    Playing,
+    Valid,
     NotPlaying,
     Invalid,
     AlreadyPinned

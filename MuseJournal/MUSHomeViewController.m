@@ -16,7 +16,6 @@
 #import <Masonry.h>
 #import "UIButton+ExtraMethods.h"
 #import "MUSTimeFetcher.h"
-#import "MUSColorSheet.h"
 #import "MUSActionView.h"
 #import "MUSGreetingManager.h"
 #import <StoreKit/StoreKit.h>
@@ -37,7 +36,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *greetingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) MUSColorSheet* colorStore;
 @property (strong, nonatomic) MUSTimeFetcher* timeManager;
 @property (strong, nonatomic) MUSGreetingManager* greetManager;
 @property (weak, nonatomic) IBOutlet UIView *scrollContentView;
@@ -59,7 +57,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.scrollView.delegate = self;
-    self.colorStore = [MUSColorSheet sharedInstance];
+//    self.colorStore = [MUSColorSheet sharedInstance];
     self.sharedMusicDataStore = [MUSMusicPlayerDataStore sharedMusicPlayerDataStore];
     [self setUpScrollContent];
     [self configureUILabelColors];

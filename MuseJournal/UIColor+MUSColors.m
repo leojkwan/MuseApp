@@ -40,7 +40,7 @@
 
 + (UIColor *) MUSGreenMachine {
 
-    return [UIColor colorWithRed:0.39 green:1 blue:0.14 alpha:1];
+  return [UIColor colorWithRed:0.29 green:0.68 blue:0.19 alpha:1];
 }
 
 + (UIColor *) MUSBubbleGumRose {

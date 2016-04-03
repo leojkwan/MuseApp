@@ -12,7 +12,7 @@
 #import "UIColor+MUSColors.h"
 
 #import "UIView+MUSExtraMethods.h"
-#import "MUSColorSheet.h"
+
 
 #define BUTTON_FRAME CGRectMake (0, 0, 40, 40)
 #define BUTTON_COLOR [UIColor darkGrayColor] //COLOR OF BAR BUTTON ITEMS

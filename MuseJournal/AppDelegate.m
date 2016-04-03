@@ -11,7 +11,7 @@
 #import "RKSwipeBetweenViewControllers.h"
 #import "MUSAllEntriesViewController.h"
 #import "MUSHomeViewController.h"
-#import "MUSColorSheet.h"
+//#import "MUSColorSheet.h"
 
 
 @interface AppDelegate ()

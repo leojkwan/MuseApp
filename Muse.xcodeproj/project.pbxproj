@@ -15,7 +15,6 @@
 		941EFC051BB9FB9C00D70257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */; };
 		941EFC101BB9FB9D00D70257 /* MuseJournalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFC0F1BB9FB9D00D70257 /* MuseJournalTests.m */; };
 		941EFC1B1BB9FB9D00D70257 /* MuseJournalUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 941EFC1A1BB9FB9D00D70257 /* MuseJournalUITests.m */; };
-		941F250F1BBC388F008C8120 /* MUSColorSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24F21BBC388F008C8120 /* MUSColorSheet.m */; };
 		941F25101BBC388F008C8120 /* MUSDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24F41BBC388F008C8120 /* MUSDataStore.m */; };
 		941F25151BBC388F008C8120 /* MUSGreetingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24FD1BBC388F008C8120 /* MUSGreetingManager.m */; };
 		941F25161BBC388F008C8120 /* MUSIconAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 941F24FF1BBC388F008C8120 /* MUSIconAnimation.m */; };
@@ -127,8 +126,6 @@
 		941EFC161BB9FB9D00D70257 /* MuseJournalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuseJournalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		941EFC1A1BB9FB9D00D70257 /* MuseJournalUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuseJournalUITests.m; sourceTree = "<group>"; };
 		941EFC1C1BB9FB9D00D70257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		941F24F11BBC388F008C8120 /* MUSColorSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSColorSheet.h; sourceTree = "<group>"; };
-		941F24F21BBC388F008C8120 /* MUSColorSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSColorSheet.m; sourceTree = "<group>"; };
 		941F24F31BBC388F008C8120 /* MUSDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSDataStore.h; sourceTree = "<group>"; };
 		941F24F41BBC388F008C8120 /* MUSDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSDataStore.m; sourceTree = "<group>"; };
 		941F24F91BBC388F008C8120 /* MUSEntryToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSEntryToolbar.h; path = MuseJournal/MUSEntryToolbar.h; sourceTree = "<group>"; };
@@ -291,6 +288,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		941BCA681CB0CF9C00FA90C1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				94385D751C06A3D100A07378 /* Assets.xcassets */,
+				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
+				94B313B81BBAF86200ECB1AD /* AppDelegate.m */,
+				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		941BCA691CB0D03200FA90C1 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				944E2E571BE01DA30011D19D /* iTellAFriend */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		941BCA6A1CB0D05C00FA90C1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */,
+				94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		941BCA6B1CB0D06200FA90C1 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */,
+				949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
+		941BCA6C1CB0D06C00FA90C1 /* Open Source */ = {
+			isa = PBXGroup;
+			children = (
+				94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */,
+				94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */,
+			);
+			name = "Open Source";
+			sourceTree = "<group>";
+		};
+		941BCA6D1CB0D33B00FA90C1 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				9421B9F51BC47D0F00F33EAB /* MUSConstants.h */,
+				945E53541BC70AB900157085 /* MUSConstants.m */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
 		941EFBE91BB9FB9C00D70257 = {
 			isa = PBXGroup;
 			children = (
@@ -316,14 +368,12 @@
 		941EFBF41BB9FB9C00D70257 /* MuseJournal */ = {
 			isa = PBXGroup;
 			children = (
-				94385D751C06A3D100A07378 /* Assets.xcassets */,
 				94336B3D1BC5E25A00D86420 /* Walkthrough.storyboard */,
 				94B313C31BBAF88200ECB1AD /* Main.storyboard */,
-				94B313B71BBAF86200ECB1AD /* AppDelegate.h */,
-				94B313B81BBAF86200ECB1AD /* AppDelegate.m */,
-				941EFC031BB9FB9C00D70257 /* LaunchScreen.storyboard */,
+				941BCA681CB0CF9C00FA90C1 /* App */,
 				946EB8781BBA039E0067CDC2 /* Views */,
 				94775DFC1BB9FF42004ABF0A /* View Controllers */,
+				941BCA691CB0D03200FA90C1 /* Vendor */,
 				94EB3ED61BBDDA110060AF28 /* Resources */,
 				94775DE31BB9FF25004ABF0A /* Models */,
 				941EFC061BB9FB9C00D70257 /* Info.plist */,
@@ -381,12 +431,9 @@
 		943406221C6AEF9800395A7D /* SettingsVC */ = {
 			isa = PBXGroup;
 			children = (
-				94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */,
-				94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */,
-				94A892CF1BD07A2F0049E25F /* MUSOpenSourceViewController.h */,
-				94A892D01BD07A2F0049E25F /* MUSOpenSourceViewController.m */,
-				949A643C1BD48CAE00614AB1 /* MUSAboutTableViewController.h */,
-				949A643D1BD48CAE00614AB1 /* MUSAboutTableViewController.m */,
+				941BCA6A1CB0D05C00FA90C1 /* Settings */,
+				941BCA6C1CB0D06C00FA90C1 /* Open Source */,
+				941BCA6B1CB0D06200FA90C1 /* About */,
 			);
 			name = SettingsVC;
 			sourceTree = "<group>";
@@ -511,7 +558,7 @@
 			name = "Home Widget Xibs";
 			sourceTree = "<group>";
 		};
-		944E2E561BE01D820011D19D /* Helper Objects */ = {
+		944E2E561BE01D820011D19D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				9421B9F81BC4AD7200F33EAB /* MUSNotificationManager.h */,
@@ -525,7 +572,7 @@
 				9450A3EA1BCE1D8F00335606 /* MUSTagManager.h */,
 				9450A3EB1BCE1D8F00335606 /* MUSTagManager.m */,
 			);
-			name = "Helper Objects";
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		944E2E571BE01DA30011D19D /* iTellAFriend */ = {
@@ -586,18 +633,14 @@
 				943406251C6AF02C00395A7D /* AutoplayToggleManager */,
 				946EB84A1BBA00E90067CDC2 /* Custom Cells */,
 				944E2E581BE01DD30011D19D /* Datastore */,
-				944E2E571BE01DA30011D19D /* iTellAFriend */,
-				944E2E561BE01D820011D19D /* Helper Objects */,
-				9421B9F51BC47D0F00F33EAB /* MUSConstants.h */,
-				945E53541BC70AB900157085 /* MUSConstants.m */,
+				941BCA6D1CB0D33B00FA90C1 /* Constants */,
+				944E2E561BE01D820011D19D /* Helpers */,
 				9421B9F21BC47CC300F33EAB /* MUSITunesClient.h */,
 				9421B9F31BC47CC300F33EAB /* MUSITunesClient.m */,
 				94B313D41BBAF88200ECB1AD /* MUSMusicPlayer.h */,
 				94B313D51BBAF88200ECB1AD /* MUSMusicPlayer.m */,
 				94B313D81BBAF88200ECB1AD /* MUSTimeFetcher.h */,
 				94B313D91BBAF88200ECB1AD /* MUSTimeFetcher.m */,
-				941F24F11BBC388F008C8120 /* MUSColorSheet.h */,
-				941F24F21BBC388F008C8120 /* MUSColorSheet.m */,
 				941F24FC1BBC388F008C8120 /* MUSGreetingManager.h */,
 				941F24FD1BBC388F008C8120 /* MUSGreetingManager.m */,
 				94BDA3121BBB91AD0071948D /* Managed Objects */,
@@ -926,7 +969,6 @@
 				94B313FF1BBAF88200ECB1AD /* MUSPlaylistViewController.m in Sources */,
 				94B314031BBAF88200ECB1AD /* NSSet+MUSExtraMethod.m in Sources */,
 				944842381C02C26A006D05C4 /* EntryWalkthroughView.m in Sources */,
-				941F250F1BBC388F008C8120 /* MUSColorSheet.m in Sources */,
 				941F25161BBC388F008C8120 /* MUSIconAnimation.m in Sources */,
 				94B313C21BBAF86A00ECB1AD /* Entry+ExtraMethods.m in Sources */,
 				941EFBF71BB9FB9C00D70257 /* main.m in Sources */,

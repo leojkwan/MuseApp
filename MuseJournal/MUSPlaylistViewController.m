@@ -1,10 +1,5 @@
 //
 //  MUSPlaylistViewController.m
-//
-//
-//  Created by Leo Kwan on 8/24/15.
-//
-//
 
 #import "MUSPlaylistViewController.h"
 #import "Song.h"
@@ -36,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
 @property (weak, nonatomic) IBOutlet UIButton *playbackButtonStatus;
-@property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
+//@property (nonatomic, strong) NSNotificationCenter *currentMusicPlayingNotifications;
 @property (nonatomic, strong) NSMutableArray *artworkImagesForThisEntry;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *playerView;
@@ -239,7 +234,7 @@
 }
 
 -(void)listenForPlaybackState {
-    [self.currentMusicPlayingNotifications addObserver: self
+    [[NSNotificationCenter defaultCenter] addObserver: self
                                               selector: @selector (updatePlaybackButton:)
                                                   name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
                                                 object: self.player];
@@ -247,8 +242,8 @@
 
 
 -(void)listenForSongChanges {
-    self.currentMusicPlayingNotifications = [NSNotificationCenter defaultCenter];
-    [self.currentMusicPlayingNotifications addObserver: self
+//    self.currentMusicPlayingNotifications = ;
+    [[NSNotificationCenter defaultCenter] addObserver: self
                                               selector: @selector(loadUILabels)
                                                   name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                                                 object: self.player];
@@ -434,5 +429,8 @@
     }
 }
 
+-(void)dealloc {
+   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

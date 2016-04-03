@@ -1,10 +1,5 @@
 //
 //  MUSITunesClient.m
-//
-//
-//  Created by Leo Kwan on 10/6/15.
-//
-//
 
 #import "MUSITunesClient.h"
 #import <AFNetworking/AFNetworking.h>
