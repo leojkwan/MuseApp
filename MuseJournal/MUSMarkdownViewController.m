@@ -72,7 +72,7 @@
     cell.syntaxType.text = self.markdownArray[indexPath.row -1 ][0];
     cell.syntaxTitle.text = self.markdownArray[indexPath.row -1 ][1];
     cell.syntaxExample.attributedText = [NSAttributedString returnMarkDownStringFromString:self.markdownArray[indexPath.row -1 ][1]];
-
+    cell.syntaxExample.textColor = [UIColor whiteColor];
     
     return cell;
 }

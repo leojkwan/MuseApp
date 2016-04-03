@@ -20,17 +20,17 @@
 #import "MUSActionView.h"
 #import "MUSGreetingManager.h"
 #import <StoreKit/StoreKit.h>
-#import "MUSITunesClient.h"
-#import "MUSConstants.h"
 #import "IntroViewController.h"
 #import "MUSWallpaperManager.h"
 #import "MUSMusicPlayerDataStore.h"
 #import "MUSWallPaperViewController.h"
+#import "UIViewController+MUSExtraMethods.h"
+#import "EntryWalkthroughView.h"
+
 
 @import QuartzCore;
 
 @interface MUSHomeViewController ()<CurrentTimeDelegate, UIScrollViewDelegate, ActionViewDelegate, SKStoreProductViewControllerDelegate>
-// SKPaymentTransactionObserver add this to protocol when you implement iAD
 
 @property (nonatomic,assign) TimeOfDay time;
 @property (strong, nonatomic) NSArray *cardsArray;
@@ -65,11 +65,11 @@
     [self configureUILabelColors];
     [self setUpCurrentTime];
     [self setUpScrollButtons];
+
 }
 
-
 -(void)viewWillAppear:(BOOL)animated   {
-    
+
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -89,15 +89,15 @@
 
 
 -(void)setUpScrollButtons {
-    
+
 //    NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
-//    
+//
 //    self.upChevronButtonView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"up" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]]];
 //    self.downChevronButtonView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"down" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]]];
-//    
-//    
+//
+//
 //    // MASONRY CONSTRAINTS FOR UP BUTTON
-//    
+//
 //    [self.contentView addSubview:self.upChevronButtonView];
 //    [self.upChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.width.equalTo(self.view.mas_width).dividedBy(12);
@@ -105,9 +105,9 @@
 //        make.centerX.equalTo(self.view.mas_centerX);
 //        make.bottom.equalTo(self.scrollView.mas_top).with.offset(-15);
 //    }];
-//    
+//
 //    // MASONRY CONSTRAINTS FOR DOWN BUTTON
-//    
+//
 //    [self.contentView addSubview:self.downChevronButtonView];
 //    [self.downChevronButtonView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.width.equalTo(self.view.mas_width).dividedBy(12);
@@ -115,16 +115,16 @@
 //        make.centerX.equalTo(self.view.mas_centerX);
 //        make.top.equalTo(self.scrollView.mas_bottom).with.offset(15);
 //    }];
-//    
+//
 //    // ADD TAP GESTURES FOR UP AND DOWN BUTTONS
 //    UITapGestureRecognizer *upTap = [[UITapGestureRecognizer alloc]  initWithTarget:self action:@selector(scrollUpButtonPressed)];
 //    [self.upChevronButtonView addGestureRecognizer:upTap];
-//    
+//
 //    UITapGestureRecognizer *downTap = [[UITapGestureRecognizer alloc]  initWithTarget:self action:@selector(scrollDownButtonPressed)];
 //    [self.downChevronButtonView addGestureRecognizer:downTap];
 //
 //    [self setScrollInteraction:YES];
-    
+
     NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
     NSLog(@"%@",updatedDictionary);
 }
@@ -139,12 +139,12 @@
 
 
 -(void)configureUILabelColors {
-    
+
     // SET PRIMARY FONT COLOR BASED ON WALLPAPER SELECTION
     NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
     self.greetingLabel.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
     self.dateLabel.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
-    
+
     self.upChevronButtonView.image = [UIImage imageNamed:@"up" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]];
     self.downChevronButtonView.image = [UIImage imageNamed:@"down" withColor:[MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference]];
 }
@@ -153,23 +153,23 @@
 -(void) setUpScrollContent {
     MUSActionView* actionView = [[MUSActionView alloc] init];
     actionView.delegate = self;
-    
-    
+
+
     self.cardsArray= @[actionView];
-    
-    
+
+
     // set up contraints for scroll content view
     [self.scrollContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(self.scrollView.mas_height).multipliedBy(self.cardsArray.count);
     }];
-    
+
     // set up contraints for main action card
     [self.scrollContentView addSubview:actionView];
     [actionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.and.height.equalTo(self.scrollView);
         make.left.and.top.and.right.equalTo(self.scrollContentView);
     }];
-    
+
     // i at 0 is the action view
     for (int i = 1; i < self.cardsArray.count; i++) {
         [self.scrollContentView addSubview:self.cardsArray[i]];
@@ -181,7 +181,7 @@
             make.top.equalTo(lastCard.mas_bottom);
         }];
     }
-    
+
     [self setUpPagingControl:self.cardsArray.count];
 }
 
@@ -223,7 +223,7 @@
     MUSDetailEntryViewController *addEntryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddEntryVC"];
     addEntryVC.entryType = RandomSong;
     [self.navigationController pushViewController: addEntryVC animated:YES];
-    
+
 }
 
 
@@ -259,10 +259,6 @@
     NSString *userFirstName = [[NSUserDefaults standardUserDefaults] stringForKey:@"userFirstName"];
     self.greetManager = [[MUSGreetingManager alloc] initWithTimeOfDay:self.time firstName:userFirstName];
     self.greetingLabel.text = self.greetManager.userGreeting;
-}
-
-- (IBAction)settingButtonTapped:(id)sender {
-    
 }
 
 

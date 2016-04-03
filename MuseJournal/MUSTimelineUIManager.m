@@ -14,17 +14,20 @@
 
 +(UILabel *)returnSectionLabelWithFrame:(CGRect)sectionFrame fontColor:(UIColor*)color backgroundColor:(UIColor *)bgColor {
     UILabel *sectionLabel = [[UILabel alloc] init];
+    sectionLabel.layer.masksToBounds = YES;
+    sectionLabel.layer.cornerRadius = 10;
     sectionLabel.frame = sectionFrame;
     sectionLabel.textAlignment = NSTextAlignmentCenter;
+
     [sectionLabel setFont:[UIFont fontWithName:@"AvenirNext-Medium" size:13.0]];
-    sectionLabel.textColor = color;
+    [sectionLabel setTextColor:color];
     sectionLabel.backgroundColor = bgColor;
     return sectionLabel;
 }
 
 -(UIImageView *) returnMuseImagePromptForView:(UIView*)view {
     
-    UIImageView *promptView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MUSIcon"]];
+    UIImageView *promptView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"museLogo2"]];
     [view addSubview:promptView];
     [promptView  mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(view);
@@ -41,10 +44,11 @@
 
 -(UILabel *) returnMuseLabelPromptForView:(UIView*)view imageView:(UIImageView *)promptImageView {
     UILabel *musePromptLabel = [[UILabel alloc] init];
-    musePromptLabel.text = @"Begin a new story!";
+    musePromptLabel.text = @"Begin a new entry.";
     musePromptLabel.numberOfLines = 0;
     musePromptLabel.textAlignment = NSTextAlignmentCenter;
-    musePromptLabel.font = [UIFont fontWithName:@"ADAM.CGPRO" size:20.0];
+    musePromptLabel.font = [UIFont fontWithName:@"Gill Sans" size:20.0];
+    
     musePromptLabel.textColor = [UIColor whiteColor];
     
     [view addSubview:musePromptLabel];
@@ -54,7 +58,7 @@
         make.width.equalTo(view).dividedBy(2);
     }];
     
-        // ADD GESTURE RECOGNIZER
+    // ADD GESTURE RECOGNIZER
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(promptTapped)];
     [musePromptLabel addGestureRecognizer:tap];
     [musePromptLabel setUserInteractionEnabled:YES];

@@ -10,9 +10,16 @@
 
 @implementation UIColor (MUSColors)
 
++(UIColor *)MUSLogoBlue {
+    return [UIColor colorWithRed:0.93 green:0.95 blue:0.96 alpha:1];
+}
 
 + (UIColor *) MUSBigStone {
     return [UIColor colorWithRed:0.21 green:0.26 blue:0.27 alpha:1];
+}
+
++(UIColor *) MUSBirdBlue {
+    return [UIColor colorWithRed:0.93 green:0.95 blue:0.96 alpha:1];
 }
 
 + (UIColor *) MUSRebeccaAlmond {
@@ -32,7 +39,8 @@
 }
 
 + (UIColor *) MUSGreenMachine {
-    return [UIColor colorWithRed:0.63 green:0.89 blue:0.49 alpha:1];
+
+    return [UIColor colorWithRed:0.39 green:1 blue:0.14 alpha:1];
 }
 
 + (UIColor *) MUSBubbleGumRose {

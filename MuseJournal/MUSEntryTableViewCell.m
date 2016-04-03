@@ -9,7 +9,6 @@
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "Song.h"
-#import "MUSAlertView.h"
 #import "NSDate+ExtraMethods.h"
 #import "NSAttributedString+MUSExtraMethods.h"
 #import "MUSTimeFetcher.h"

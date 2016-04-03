@@ -33,7 +33,7 @@
     
     // h1
     UIColor *h1Color = [UIColor blackColor];
-    UIFont *h1Font = [UIFont fontWithName:@"Futura" size:27.0];
+    UIFont *h1Font = [UIFont fontWithName:@"ADAM.CGPRO" size:25.0];
     NSMutableParagraphStyle* h1Style = [[NSMutableParagraphStyle alloc]init];
     h1Style.alignment = NSTextAlignmentJustified;
     NSDictionary *h1Attributes = @{
@@ -46,7 +46,7 @@
     
     
     // h2
-    UIFont *h2Font = [UIFont fontWithName:@"ADAM.CGPRO" size:25.0];
+    UIFont *h2Font = [UIFont fontWithName:@"ADAM.CGPRO-Light" size:22.0];
 
     NSDictionary *h2Attributes = @{
                                    NSFontAttributeName : h2Font,
@@ -66,7 +66,7 @@
     
     
     // strong
-    UIFont *strongFont = [UIFont fontWithName:@"Raleway-SemiBold" size:23.0];
+    UIFont *strongFont = [UIFont fontWithName:@"Raleway" size:23.0];
     [attributes setObject:@{NSFontAttributeName : strongFont} forKey:@(STRONG)];
     
     // HORIZONTAL RULE

@@ -21,9 +21,6 @@
 // color light background
 @property (strong, nonatomic) UIColor *segmentNavBackground;
 @property (strong, nonatomic) UIColor *searchBarBackground;
-
-
-
 @property (strong, nonatomic) UIColor *musicPlayerStyle;
 
 // color dark
