@@ -60,6 +60,7 @@ UIGestureRecognizerDelegate
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSKeyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UIButton *moodButton;
 @property (weak, nonatomic) IBOutlet UILabel* timeOfDayEntryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateOfEntryLabel;
@@ -85,6 +86,8 @@ UIGestureRecognizerDelegate
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  [self setUpBackgroundImage];
+  
   [self.navigationController setNavigationBarHidden:YES animated:YES];
   
   //display HUD until the views finish loading in viewDidAppear.
@@ -102,7 +105,15 @@ UIGestureRecognizerDelegate
   [self setUpPlaylistForThisEntryAndPlay];
 }
 
-/// Set up fade
+
+-(void)setUpBackgroundImage {
+  /** Set up background textview image */
+  [self.bgImageView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+  [self.contentView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+  [self.containerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+  [self.scrollView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+}
+
 -(void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:YES];
   
@@ -148,7 +159,7 @@ UIGestureRecognizerDelegate
 
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
-  if (tap == self.entryTextViewTap)
+//  if (tap == self.entryTextViewTap)
     [self.textView becomeFirstResponder];
 }
 
@@ -161,9 +172,21 @@ UIGestureRecognizerDelegate
   self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
   [self.containerView addGestureRecognizer:self.entryTextViewTap];
   
-  
+  /** Show markdown text on load */
   self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
   
+}
+
+-(BOOL)textView:(UITextView *)_textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+  [self checkSizeOfContentForTextView:self.textView];
+  return YES;
+}
+
+
+-(void) adjustFrames {
+  CGRect textFrame = self.textView.frame;
+  textFrame.size.height = self.textView.contentSize.height;
+  self.textView.frame = textFrame;
 }
 
 
@@ -339,14 +362,13 @@ UIGestureRecognizerDelegate
 }
 
 -(void)didSelectDoneButton:(id)sender {
+  
   // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
   if (self.destinationEntry.coverImage != nil) {
     [self.scrollView setContentOffset:CGPointZero animated:YES];
   }
   
-  [self checkSizeOfContentForTextView:self.textView];
   [self saveButtonTapped:sender];
-  [self.textView setUserInteractionEnabled:YES];
 }
 
 
@@ -401,10 +423,10 @@ UIGestureRecognizerDelegate
   
   /** Play and present alert. */
   [self.player play];
-  //  [self displayNowPlayingItem];
+  
   
   /** Add song to to core data entry */
-  [self pinSongButtonPressed:nil];
+  [self performSelector:@selector(pinSongButtonPressed:) withObject:self afterDelay:2.0];
 }
 
 
@@ -465,15 +487,17 @@ UIGestureRecognizerDelegate
             [self.player setQueueWithItemCollection:filteredCollection];
             [self.player play];
             
-            [self displayNowPlayingItem];
+            
+            [self performSelector:@selector(displayNowPlayingItem) withObject:self afterDelay:2.0];
+
           }];
         }
       }]; // end of main thread ns operation
     }];
   }
   
-  // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
-  // RANDOM SONG
+  /** If authoplay is on and playlist present -> play */
+  
   else if (self.entryType == RandomSong) {
     
     [self.sharedMusicDataStore.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
@@ -483,7 +507,7 @@ UIGestureRecognizerDelegate
           [self.player play];
           
           // Add song to core data
-          [self pinSongButtonPressed:self];
+          [self performSelector:@selector(pinSongButtonPressed:) withObject:self afterDelay:2.0];
         }
       }];
     }];

@@ -50,6 +50,7 @@
 		94AD69EF1BBDABA5009C5553 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69E91BBDABA5009C5553 /* Song.m */; };
 		94AD69F01BBDABA5009C5553 /* Entry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69EB1BBDABA5009C5553 /* Entry+CoreDataProperties.m */; };
 		94AD69F11BBDABA5009C5553 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AD69ED1BBDABA5009C5553 /* Entry.m */; };
+		94B1FDB41CB181A000058E30 /* Semplicita Pro Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94B1FDB31CB1819300058E30 /* Semplicita Pro Medium.otf */; };
 		94B313B91BBAF86200ECB1AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313B81BBAF86200ECB1AD /* AppDelegate.m */; };
 		94B313C21BBAF86A00ECB1AD /* Entry+ExtraMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B313BF1BBAF86A00ECB1AD /* Entry+ExtraMethods.m */; };
 		94B313F41BBAF88200ECB1AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B313C31BBAF88200ECB1AD /* Main.storyboard */; };
@@ -192,6 +193,7 @@
 		94AD69EC1BBDABA5009C5553 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
 		94AD69ED1BBDABA5009C5553 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
 		94B0F7A61BDABAE1000B2573 /* MUSMarkdownTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUSMarkdownTableViewCell.h; path = MuseJournal/MUSMarkdownTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		94B1FDB31CB1819300058E30 /* Semplicita Pro Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Semplicita Pro Medium.otf"; sourceTree = "<group>"; };
 		94B313B71BBAF86200ECB1AD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MuseJournal/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		94B313B81BBAF86200ECB1AD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MuseJournal/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		94B313BE1BBAF86A00ECB1AD /* Entry+ExtraMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Entry+ExtraMethods.h"; path = "MuseJournal/Entry+ExtraMethods.h"; sourceTree = SOURCE_ROOT; };
@@ -490,8 +492,6 @@
 				94B313D31BBAF88200ECB1AD /* MUSHomeViewController.m */,
 				94B313E01BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.h */,
 				94B313E11BBAF88200ECB1AD /* RKSwipeBetweenViewControllers.m */,
-				94B313C91BBAF88200ECB1AD /* MUSAllEntriesViewController.h */,
-				94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */,
 			);
 			name = SwipeHomeEntryVC;
 			sourceTree = "<group>";
@@ -660,11 +660,21 @@
 				943406231C6AEFAE00395A7D /* WallpaperVC */,
 				943406241C6AEFF900395A7D /* PageViewSwipeVC */,
 				943406281C6AF16A00395A7D /* SwipeHomeEntryVC */,
+				94B1FDB21CB17DCF00058E30 /* EntryListVC */,
 				943406291C6AF18300395A7D /* EntryDetailVC */,
 				943406261C6AF0E400395A7D /* EntryMoodVC */,
 				943406271C6AF15500395A7D /* EntryPlaylistVC */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		94B1FDB21CB17DCF00058E30 /* EntryListVC */ = {
+			isa = PBXGroup;
+			children = (
+				94B313C91BBAF88200ECB1AD /* MUSAllEntriesViewController.h */,
+				94B313CA1BBAF88200ECB1AD /* MUSAllEntriesViewController.m */,
+			);
+			name = EntryListVC;
 			sourceTree = "<group>";
 		};
 		94BDA3121BBB91AD0071948D /* Managed Objects */ = {
@@ -734,6 +744,7 @@
 				94CEC5EC1C063D95002CD958 /* ADAM-CG PRO LIGHT.otf */,
 				94EB3EDF1BBDE2200060AF28 /* QuattrocentoSans-Italic.ttf */,
 				94EB3EE01BBDE2200060AF28 /* QuattrocentoSans-Regular.ttf */,
+				94B1FDB31CB1819300058E30 /* Semplicita Pro Medium.otf */,
 				94EB3ED71BBDDA5C0060AF28 /* Raleway-Light.ttf */,
 				94EB3ED81BBDDA5C0060AF28 /* Raleway-Medium.ttf */,
 				94EB3ED91BBDDA5C0060AF28 /* Raleway-Regular.ttf */,
@@ -872,6 +883,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B1FDB41CB181A000058E30 /* Semplicita Pro Medium.otf in Resources */,
 				94EB3EE41BBDE4020060AF28 /* ADAM.CG PRO.otf in Resources */,
 				94EB3EE11BBDE22D0060AF28 /* QuattrocentoSans-Italic.ttf in Resources */,
 				94EB3EE21BBDE22D0060AF28 /* QuattrocentoSans-Regular.ttf in Resources */,

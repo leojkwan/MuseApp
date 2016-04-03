@@ -27,6 +27,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Raleway-Light.ttf</string>
+		<string>Semplicita Pro Medium.otf</string>
 		<string>Raleway-Medium.ttf</string>
 		<string>Raleway-Regular.ttf</string>
 		<string>Raleway-SemiBold.ttf</string>

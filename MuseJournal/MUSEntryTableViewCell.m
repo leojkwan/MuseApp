@@ -43,9 +43,7 @@
             cell.separatorInset = UIEdgeInsetsZero;
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        // Setting the background color of the cell.
-//        cell.contentView.backgroundColor = [UIColor darkGrayColor];
+      
     }
     
     // Configuring the views and colors.

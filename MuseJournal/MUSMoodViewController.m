@@ -126,7 +126,7 @@
     cell.contentView.frame = frame;
     cell.contentView.alpha = 1;
     
-  }completion: nil];
+  } completion: nil];
 
 }
 

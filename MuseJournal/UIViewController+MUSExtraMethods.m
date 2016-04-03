@@ -26,4 +26,21 @@
     [self presentViewController:dvc animated:YES completion:nil];
 }
 
+-(void)animateCell:(UITableViewCell*)cell {
+  
+  CGRect frame = cell.contentView.frame;
+  cell.contentView.frame = frame;
+  cell.contentView.alpha = .2;
+  
+  
+  [UIView animateWithDuration:0.15 animations:^() {
+    CGRect frame = cell.contentView.frame;
+    cell.contentView.frame = frame;
+    cell.contentView.alpha = 1;
+    
+  } completion: nil];
+  
+}
+
+
 @end

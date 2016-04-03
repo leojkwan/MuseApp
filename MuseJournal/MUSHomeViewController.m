@@ -124,7 +124,7 @@
 //    [self setScrollInteraction:YES];
 
     NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
-    NSLog(@"%@",updatedDictionary);
+    
 }
 
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
@@ -132,7 +132,7 @@
     [self setUpCurrentTime];
 
     NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
-    NSLog(@"%@",updatedDictionary);
+
 }
 
 

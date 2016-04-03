@@ -236,8 +236,8 @@
                         [self doAddWallpaper:wallpaper[0]]; // SET WALLPAPER KEYVALUE TO YES/ PURCHASED
                     }
                 }
-                //called when the user successfully restores a purchase
-                NSLog(@"Transaction state -> Restored");
+              
+              //called when the user successfully restores a purchase
                 break;
             }
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -295,8 +295,9 @@
                 //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
                 
                 
-                NSLog(@"THIS IS WHERE YOU MUSE ADD YES TO NSUSERDEFAULTS");
-                NSLog(@"Transaction state -> Purchased");
+                /** THIS IS WHERE YOU MUSE ADD YES TO NSUSERDEFAULTS
+                 Transaction state -> Purchased
+                 */
                 
                 [self doAddWallpaper:self.wallpaperNameLabel.text]; // SET CURRENT WALLPAPER KEY VALUE TO YES/ PURCHASED
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -306,7 +307,8 @@
                 
                 break;
             case SKPaymentTransactionStateRestored:
-                NSLog(@"Transaction state -> Restored");
+            
+            /** Transaction state -> Restored */
             
                 break;
             case SKPaymentTransactionStateFailed:
@@ -314,7 +316,8 @@
                 
                 //called when the transaction does not finish
                 if(transaction.error.code == SKErrorPaymentCancelled){
-                    NSLog(@"Transaction state -> Cancelled or deferred ");
+                  /** Transaction state -> Cancelled or deferred */
+                  
                     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                     //the user cancelled the payment ;(
                 }
