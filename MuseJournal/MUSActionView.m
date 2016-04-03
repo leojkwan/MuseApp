@@ -65,9 +65,10 @@
     NSInteger userWallpaperPreference = [[NSUserDefaults standardUserDefaults] integerForKey:@"background"]; // this is an NSINTEGER
     self.textLabel1.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
     self.textLabel2.textColor = [MUSWallpaperManager returnTextColorForWallpaperIndex:userWallpaperPreference];
+
+    self.textLabel1.font = [UIFont fontWithName:@"Raleway" size:20];
+    self.textLabel2.font = [UIFont fontWithName:@"Raleway" size:20];
 }
-
-
 
 - (IBAction)addButtonTapped:(id)sender {
     [self.delegate didSelectAddButton:self];

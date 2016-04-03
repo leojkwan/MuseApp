@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MUSDetailEntryViewController.h"
 
 @interface MUSNotificationManager : NSObject
 
 +(void)displayNotificationWithMessage:(NSString *)message backgroundColor:(UIColor *)backgroundColor textColor:(UIColor *)textColor;
++(void)selectNotificationForSong:(NSString *)title musicStatus:(PlayerStatus)status;
 
 
 @end

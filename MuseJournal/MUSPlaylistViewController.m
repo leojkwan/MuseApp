@@ -24,10 +24,14 @@
 
 @interface MUSPlaylistViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (weak,nonatomic) MBProgressHUD *HUD;
+@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
+@property (nonatomic, strong) MUSDataStore *store;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *playlistTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *currentSongView;
 @property (weak, nonatomic) IBOutlet UIImageView *maskImageView;
-@property (nonatomic, strong) MUSDataStore *store;
 @property (strong, nonatomic) MPMediaItem *currentlyPlayingItem;
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentArtistLabel;
@@ -40,9 +44,6 @@
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *playlistGaussian;
 @property (weak, nonatomic) IBOutlet UIButton *appleMusicButton;
-@property (weak,nonatomic) MBProgressHUD *HUD;
-
-@property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
 @property (nonatomic, strong) MPMusicPlayerController *player;
 
 
@@ -124,7 +125,6 @@
                 NSLog(@"Reachable");
                 
                 if (self.player.playbackState != MPMusicPlaybackStateStopped) {
-                    
                     
                     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                     [self configureHUD:self.HUD];
@@ -226,14 +226,10 @@
 #pragma mark - music notifications and handling
 
 - (void)updateButtonStatus {
-    
-//        [self.playbackButtonStatus setEnabled:YES];
         if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"pauseSong"] forState:UIControlStateNormal];
-            
         } else {
             [self.playbackButtonStatus setImage:[UIImage imageNamed:@"playSong"] forState:UIControlStateNormal];
-            
         }
 }
 

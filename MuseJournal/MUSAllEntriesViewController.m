@@ -15,8 +15,6 @@
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
 #import "NSDate+ExtraMethods.h"
-#import <SCLAlertView.h>
-#import "MUSAlertView.h"
 #import "MUSSearchBarDelegate.h"
 #import "MUSEntryToolbar.h"
 #import "MUSHomeViewController.h"
@@ -159,7 +157,7 @@
     
     // Create and initialize the fetch results controller.
     self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:entryFetch
-                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"createdAt" cacheName:nil];
+                                                                 managedObjectContext:self.store.managedObjectContext sectionNameKeyPath:@"dateInString" cacheName:nil];
     
     // set fetch results delegate
     self.resultsController.delegate = self;
@@ -215,13 +213,6 @@
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
 
-//-(void)didSelectWallpaperButton:(id)sender {
-//    MUSWallPaperViewController *wallpaperVC = [self.storyboard instantiateViewControllerWithIdentifier:@"wallpaperVC"];
-////    [self presentViewController:wallpaperVC animated:YES completion:nil];
-//    [self.navigationController pushViewController:wallpaperVC animated:YES];
-////    [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
-//}
-
 -(void)newEntryFromPrompt {
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
 }
@@ -260,8 +251,7 @@
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.resultsController sections] objectAtIndex:section];
     return [[[sectionInfo objects] objectAtIndex:0] dateInString];
 }
@@ -269,13 +259,25 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
-    // RETURN SECTION UI LABEL
-    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10 , 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSSolitude] backgroundColor:
-                             [UIColor MUSBigStone]];
-    // ADD SECTION TO UIVIEW
+    UILabel *sectionLabel = [MUSTimelineUIManager returnSectionLabelWithFrame:CGRectMake(10, 0, self.view.frame.size.width - 20, 20) fontColor:[UIColor MUSCorn] backgroundColor:[UIColor clearColor]];
+    sectionLabel.alpha = .9;
+
+        // ADD SECTION TO UIVIEW
     sectionLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    
     UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+
+    UIView *darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(10, 0, self.view.frame.size.width -20, 20)];
+    [headerView addSubview:darkOverlay];
+
+    darkOverlay.backgroundColor = [UIColor blackColor];
+    darkOverlay.alpha = .7;
+    darkOverlay.layer.masksToBounds = YES;
+    darkOverlay.layer.cornerRadius = 10;
     [headerView addSubview:sectionLabel];
+    
+    
     return headerView;
 }
 
@@ -319,6 +321,8 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // make sure the search bar dismissed to prevent nav bar from showing in dvc
+    [self.entrySearchBar resignFirstResponder];
     [self performSegueWithIdentifier:@"detailEntrySegue" sender:self];
 }
 
@@ -423,7 +427,6 @@
         MUSDetailEntryViewController *dvc = segue.destinationViewController;
         NSIndexPath *ip = [self.entriesTableView indexPathForSelectedRow];
         Entry *entryForThisRow =  [self.resultsController objectAtIndexPath:ip];
-        
         dvc.destinationEntry = entryForThisRow;
         
         

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MUSKeyboardTopBar">
@@ -19,19 +19,7 @@
                 <toolbar opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umG-Rj-sav">
                     <rect key="frame" x="0.0" y="0.0" width="494" height="74"/>
                     <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="AS9-Rg-oQ5"/>
-                        <constraint firstAttribute="width" constant="680" id="V9Q-8p-bA4"/>
-                        <constraint firstAttribute="height" constant="44" id="kG7-DL-l61"/>
-                    </constraints>
                     <items/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="AS9-Rg-oQ5"/>
-                            <exclude reference="V9Q-8p-bA4"/>
-                            <exclude reference="kG7-DL-l61"/>
-                        </mask>
-                    </variation>
                 </toolbar>
             </subviews>
             <animations/>

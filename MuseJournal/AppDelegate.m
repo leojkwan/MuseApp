@@ -40,7 +40,7 @@
     NSString *userFirstName = (NSString*) [components objectAtIndex:0];
     
     
-    
+
     // FIRST TIME USER SETTINGS
     
     // USER NAME
@@ -48,10 +48,15 @@
         [[NSUserDefaults standardUserDefaults] setObject:userFirstName forKey:@"userFirstName"];
 
     }
-    
+
     // APP WALKTHROUGH
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeUser"] == nil) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeUser"];
+    }
+    
+    // ENTRY WALKTHROUGH
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"firstTimeEntry"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeEntry"];
     }
     
     // MUSIC AUTOPLAY
