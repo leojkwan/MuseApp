@@ -73,6 +73,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AI-a6-Zaf" userLabel="dark mask">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEp-I5-qWu">
+                                        <rect key="frame" x="20" y="494" width="42" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="tEp-I5-qWu" secondAttribute="height" multiplier="1:1" id="f5E-ny-JMf"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="add-wallpaper"/>
+                                        <connections>
+                                            <action selector="addWallpaperButtonPressed:" destination="Reu-be-NJQ" eventType="touchUpInside" id="iMs-si-Ewe"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kz1-Wx-lCo">
                                         <rect key="frame" x="538" y="494" width="42" height="42"/>
                                         <constraints>
@@ -88,7 +99,10 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Kz1-Wx-lCo" secondAttribute="trailing" constant="20" id="2Lv-9U-DHP"/>
+                                    <constraint firstItem="tEp-I5-qWu" firstAttribute="leading" secondItem="8AI-a6-Zaf" secondAttribute="leading" constant="20" id="Lv1-vs-OE4"/>
                                     <constraint firstAttribute="bottom" secondItem="Kz1-Wx-lCo" secondAttribute="bottom" constant="20" id="ayc-9R-roY"/>
+                                    <constraint firstItem="tEp-I5-qWu" firstAttribute="centerY" secondItem="Kz1-Wx-lCo" secondAttribute="centerY" id="fgG-OD-dDJ"/>
+                                    <constraint firstItem="tEp-I5-qWu" firstAttribute="width" secondItem="tEp-I5-qWu" secondAttribute="height" multiplier="1:1" id="kW9-WI-blC"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" text="Good Morning" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="rDZ-Bt-EyT">
@@ -649,13 +663,13 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFj-q8-eQr">
-                                <rect key="frame" x="25" y="25" width="43" height="43"/>
+                                <rect key="frame" x="25" y="25" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="DFj-q8-eQr" secondAttribute="height" multiplier="1:1" id="8o9-F4-LH7"/>
                                     <constraint firstAttribute="width" secondItem="DFj-q8-eQr" secondAttribute="height" multiplier="1:1" id="ZWk-AO-X1V"/>
                                 </constraints>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="back"/>
+                                <state key="normal" image="back-circle"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="ZWk-AO-X1V"/>
@@ -666,7 +680,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a theme" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="9s0-CU-pRa">
-                                <rect key="frame" x="200" y="28.5" width="200" height="34.5"/>
+                                <rect key="frame" x="200" y="32" width="200" height="34.5"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="25"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -677,7 +691,7 @@
                             <constraint firstItem="JEK-Zn-XPF" firstAttribute="top" secondItem="9qx-MF-98i" secondAttribute="bottom" id="2ye-5i-rlE"/>
                             <constraint firstItem="DFj-q8-eQr" firstAttribute="leading" secondItem="JEK-Zn-XPF" secondAttribute="leading" constant="25" id="34c-Vp-LJ2"/>
                             <constraint firstItem="FIj-LX-IOJ" firstAttribute="centerX" secondItem="JEK-Zn-XPF" secondAttribute="centerX" id="7CP-CJ-LeX"/>
-                            <constraint firstItem="DFj-q8-eQr" firstAttribute="width" secondItem="JEK-Zn-XPF" secondAttribute="width" multiplier="1/14" id="BHk-ad-nq0"/>
+                            <constraint firstItem="DFj-q8-eQr" firstAttribute="width" secondItem="JEK-Zn-XPF" secondAttribute="width" multiplier="1/12" id="BHk-ad-nq0"/>
                             <constraint firstItem="FIj-LX-IOJ" firstAttribute="centerY" secondItem="AUj-C3-thw" secondAttribute="centerY" id="CGI-dc-9Vk"/>
                             <constraint firstItem="DFj-q8-eQr" firstAttribute="top" secondItem="JEK-Zn-XPF" secondAttribute="top" constant="25" id="DfV-cL-9xL"/>
                             <constraint firstItem="Vih-tL-t2Y" firstAttribute="height" secondItem="AUj-C3-thw" secondAttribute="height" multiplier="3/10" id="F1r-De-ClJ"/>
@@ -709,7 +723,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g9V-St-DnX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="fr8-4B-AZ2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4800" y="635"/>
+            <point key="canvasLocation" x="4597" y="632"/>
         </scene>
         <!--All Entries View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -2211,7 +2225,8 @@
         <image name="MUSGradient" width="200" height="44"/>
         <image name="Octocat" width="400" height="333"/>
         <image name="Tune" width="352" height="416"/>
-        <image name="back" width="135" height="135"/>
+        <image name="add-wallpaper" width="40" height="34"/>
+        <image name="back-circle" width="100" height="100"/>
         <image name="back2" width="21" height="34"/>
         <image name="backSong" width="45" height="45"/>
         <image name="blackMask" width="951" height="635"/>

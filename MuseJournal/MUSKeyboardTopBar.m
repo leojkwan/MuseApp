@@ -105,8 +105,7 @@
     [self.toolbarButtonItems addObject:[self createButtonWithImage:[UIImage imageNamed:@"musicPlayer"] action:@selector(seePlaylistButtonPressed:) frame:BUTTON_FRAME]];
     [self.toolbarButtonItems addObject:[self flexSpaceButton]];
 
-//    [self.toolbarButtonItems addObject:[self createBBIForButton:_moreOptionsButton withImage:[UIImage imageNamed:@"moreOptions"] action:@selector(moreOptionsButtonPressed) frame:BUTTON_FRAME]];
-//    
+    
     [self.toolbarButtonItems addObject:[self createMoreOptionsButtonwithImage:[UIImage imageNamed:@"moreOptions"] action:@selector(moreOptionsButtonPressed) frame:BUTTON_FRAME]];
 
     

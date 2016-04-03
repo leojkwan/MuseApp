@@ -123,16 +123,21 @@
 //
 //    [self setScrollInteraction:YES];
 
-    NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
-    
+//    NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
+  
 }
 
 -(IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
     [self configureUILabelColors];
     [self setUpCurrentTime];
 
-    NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
+//    NSDictionary *updatedDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
+}
 
+- (IBAction)addWallpaperButtonPressed:(id)sender {
+  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"wallpaperVC"];
+  [self.navigationController pushViewController:vc animated:YES];
 }
 
 

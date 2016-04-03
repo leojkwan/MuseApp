@@ -7,6 +7,7 @@
 #import "Entry.h"
 #import "Song.h"
 #import "MUSImagelessEntryCell.h"
+#import "MUSWallPaperViewController.h"
 #import "MUSDetailEntryViewController.h"
 #import "MUSEntryTableViewCell.h"
 #import "NSSet+MUSExtraMethod.h"
@@ -23,7 +24,6 @@
 #import "MUSMusicPlayer.h"
 #import <Masonry.h>
 #import "UIFont+MUSFonts.h"
-#import "MUSWallPaperViewController.h"
 
 #import "MUSTimelineUIManager.h"
 
@@ -208,6 +208,14 @@
 #pragma mark - TOOLBAR DELEGATE
 -(void)didSelectAddButton:(id)sender {
   [self performSegueWithIdentifier:@"detailEntrySegue" sender:nil];
+}
+
+-(void)didSelectWallpaperButton:(id)sender {
+
+  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"wallpaperVC"];
+  [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 -(void)newEntryFromPrompt {
