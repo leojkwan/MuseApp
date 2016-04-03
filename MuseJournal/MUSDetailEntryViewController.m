@@ -120,6 +120,9 @@ UIGestureRecognizerDelegate
     [self setUpToolbar];
     [self setUpKeyboard];
     
+    /** Display keyboard */
+    [self.textView becomeFirstResponder];
+    
   }
   
   [MBProgressHUD hideHUDForView:self.view animated:NO];
@@ -158,15 +161,9 @@ UIGestureRecognizerDelegate
   self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
   [self.containerView addGestureRecognizer:self.entryTextViewTap];
   
-  // NEW ENTRY SET TEXT
-  if (self.destinationEntry.content == nil || [self.destinationEntry.content isEqualToString:@""]) {
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
-    self.textView.textColor = [UIColor lightGrayColor];
-  } else{
-    
-    // EXISTING ENTRY SET TEXT
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
-  }
+  
+  self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+  
 }
 
 
@@ -404,7 +401,7 @@ UIGestureRecognizerDelegate
   
   /** Play and present alert. */
   [self.player play];
-//  [self displayNowPlayingItem];
+  //  [self displayNowPlayingItem];
   
   /** Add song to to core data entry */
   [self pinSongButtonPressed:nil];
@@ -528,10 +525,6 @@ UIGestureRecognizerDelegate
   // we save the content with markdown
   self.destinationEntry.content = self.textView.text;
   
-  
-  if ([self.textView.text isEqualToString:@"Begin writing here..." ]) {
-    self.destinationEntry.content = @"";
-  }
   // SAVE TO CORE DATA
   [self.store save];
 }
@@ -548,20 +541,18 @@ UIGestureRecognizerDelegate
   
   self.destinationEntry = newEntry;
   
-  if ([self.textView.text isEqualToString:@"Begin writing here..."]) {
-    newEntry.content = @"";
-  } else {
-    newEntry.content = self.textView.text;
-    newEntry.tag = @"";
-    newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
-    
-    NSDate *currentDate = [NSDate date];
-    newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
-    newEntry.epochTime = currentDate; // month day and year and seconds
-    
-    newEntry.tag = @"";
-    newEntry.dateInString = [currentDate returnMonthAndYear];
-  }
+  
+  newEntry.content = self.textView.text;
+  newEntry.tag = @"";
+  newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
+  
+  NSDate *currentDate = [NSDate date];
+  newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
+  newEntry.epochTime = currentDate; // month day and year and seconds
+  
+  newEntry.tag = @"";
+  newEntry.dateInString = [currentDate returnMonthAndYear];
+  
   return newEntry;
 }
 
@@ -720,7 +711,7 @@ UIGestureRecognizerDelegate
     [self.sharedMusicDataStore.musicPlayer checkIfSongIsInLocalLibrary:currentSong withCompletionBlock:^(BOOL local) {
       
       if (local) {
-    
+        
         /** Iterate playlist to check if song is already pinned */
         for (Song *song in  [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]) {
           
@@ -744,48 +735,48 @@ UIGestureRecognizerDelegate
 
 
 -(void)pinSongButtonPressed:id {
-
+  
   MPMediaItem *currentSong = [self.player nowPlayingItem];
   
   // Create managed object *may not be used if invalid (already pinned)
   Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
   
   [self updateSongStatus:pinnedSong];
-
+  
   if (self.musicPlayerStatus == Valid) {
     
     [self updateSongStatus:pinnedSong];
     
-      /** if new entry -> create a playlist */
-      if(self.destinationEntry == nil){
-        // create new entry and init a playlist for it
-        [self createNewEntry];
-        self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
-      }
-      
-      // convert long long to nsnumber
-      NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.player nowPlayingItem].persistentID];
-      
-      pinnedSong.persistentID = songPersistentNumber;
-      pinnedSong.pinnedAt = [NSDate date]; //current date
-      pinnedSong.entry = self.destinationEntry;
-      
-      
-      [self.formattedPlaylistForThisEntry addObject:pinnedSong];
-      NSMutableArray *convertedPlaylist = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
-      
-      [self.sharedMusicDataStore.musicPlayer
-       loadMPCollectionFromFormattedMusicPlaylist:convertedPlaylist
-       completionBlock:^(MPMediaItemCollection *newPlaylistCollection) {
-         
-         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-           [self.player setQueueWithItemCollection:newPlaylistCollection];
-         }];
+    /** if new entry -> create a playlist */
+    if(self.destinationEntry == nil){
+      // create new entry and init a playlist for it
+      [self createNewEntry];
+      self.formattedPlaylistForThisEntry = [[NSMutableArray alloc] init];
+    }
+    
+    // convert long long to nsnumber
+    NSNumber *songPersistentNumber = [NSNumber numberWithUnsignedLongLong:[self.player nowPlayingItem].persistentID];
+    
+    pinnedSong.persistentID = songPersistentNumber;
+    pinnedSong.pinnedAt = [NSDate date]; //current date
+    pinnedSong.entry = self.destinationEntry;
+    
+    
+    [self.formattedPlaylistForThisEntry addObject:pinnedSong];
+    NSMutableArray *convertedPlaylist = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
+    
+    [self.sharedMusicDataStore.musicPlayer
+     loadMPCollectionFromFormattedMusicPlaylist:convertedPlaylist
+     completionBlock:^(MPMediaItemCollection *newPlaylistCollection) {
+       
+       [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+         [self.player setQueueWithItemCollection:newPlaylistCollection];
        }];
-      
-      // Save to Core Data
-      [self.destinationEntry addSongsObject:pinnedSong];
-      [self.store save];
+     }];
+    
+    // Save to Core Data
+    [self.destinationEntry addSongsObject:pinnedSong];
+    [self.store save];
   }
   
   /* Display pin song notification  */
