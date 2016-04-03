@@ -39,6 +39,7 @@
 @property (strong, nonatomic) NSMutableDictionary *wallpaperDictionary;
 @property (weak, nonatomic) IBOutlet UILabel *setWallpaperLabel;
 @property (weak, nonatomic) IBOutlet UILabel *restorePurchasesLabel;
+@property (strong, nonatomic) SKProduct *selectedPremiumProduct;
 
 @end
 
@@ -50,6 +51,7 @@
   self.wallpaperCollectionView.dataSource = self;
   // SET TO 1 BECAUSE WALLPAPER SHOWN IS ALREADY OWNED
   self.selectedWallpaperIsPurchased = @1;
+  
   
   self.wallpaperDictionary = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"purchasedWallpapers"] mutableCopy];
   self.wallpaperArray = [MUSWallpaperManager returnArrayForWallPaperImages];
@@ -100,7 +102,7 @@
     self.initialScrollDone = YES;
     NSIndexPath *selectedIP = [NSIndexPath indexPathForItem:self.userWallpaperPreference inSection:0];
     [self.wallpaperCollectionView scrollToItemAtIndexPath:selectedIP atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-  
+    
     /** Update text colors */
     [self updateColorContrastForIndexPath:selectedIP];
   }
@@ -189,13 +191,35 @@
   return alertController;
 }
 
+-(void)getItemPurchaseData:(NSString*)wallpaperName {
+  
+  /** GET BACK PRODUCT ID NAME FOR CURRENT WALLPAPER SELECTED */
+  NSSet* productIdString = [NSSet setWithObject:[MUSWallpaperManager
+                                                 returnProductIDForWallPaperNamed:wallpaperName]];
+  
+  SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers: productIdString];
+  
+  productsRequest.delegate = self;
+  [productsRequest start];
+}
+
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
   SKProduct *validProduct = nil;
-  NSInteger count = [response.products count];
-  if(count > 0){
+  
+  if([response.products count] > 0){
     validProduct = [response.products objectAtIndex:0];
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:validProduct.priceLocale];
+    NSString *formattedPrice = [numberFormatter stringFromNumber:validProduct.price];
+    
+    self.setWallpaperLabel.text = formattedPrice;
+    self.setWallpaperLabel.userInteractionEnabled = YES;
+    self.selectedPremiumProduct = [response.products objectAtIndex:0];
+    
     NSLog(@"Products Available!");
-    [self purchase:validProduct];
   }
   else if(!validProduct){
     NSLog(@"No products available");
@@ -269,7 +293,6 @@
 
 - (void)doAddWallpaper:(NSString *)wallpaperName {
   
-  
   // save new key value to dictiionary
   self.wallpaperDictionary[wallpaperName] = [NSNumber numberWithBool:YES];
   
@@ -328,7 +351,6 @@
 
 
 - (void)wallpaperLabelPressed {
-  
   UIAlertController *alertController;
   
   if ([self.selectedWallpaperIsPurchased  isEqual: @1]) {
@@ -337,24 +359,22 @@
   }
   else { // not purchased
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     if([SKPaymentQueue canMakePayments]){
       NSLog(@"User can make payments");
       
-      //If you have more than one in-app purchase, and would like
-      //to have the user purchase a different product, simply define
-      //another function and replace kRemoveAdsProductIdentifier with
-      //the identifier for the other product
+      if (_selectedPremiumProduct == nil) {
+        [MUSNotificationManager displayNotificationWithMessage:@"Oops. Connect to the internet and try again!" backgroundColor:[UIColor MUSBloodOrange] textColor:[UIColor whiteColor]];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        return;
+      }
       
-      /** GET BACK PRODUCT ID NAME FOR CURRENT WALLPAPER SELECTED */
-      SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:[MUSWallpaperManager returnProductIDForWallPaperNamed:self.wallpaperNameLabel.text]]];
+      // Fetch product
+      [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+      [self purchase:self.selectedPremiumProduct];
       
-      
-      productsRequest.delegate = self;
-      [productsRequest start];
-    }
-    else{
+    } else {
       /** This is called the user cannot make payments, most likely due to parental controls */
       NSLog(@"User cannot make payments due to parental controls");
       
@@ -419,14 +439,23 @@
   // NAME OF SELECTED WALLPAPER
   NSString *selectedWallpaperName = [MUSWallpaperManager returnArrayForWallPaperImages][indexPath.row][0];
   
+  // pass the name of wallpaper selected
+  [self updateWallpaperLabelWithText: selectedWallpaperName];
+  
   // Update whether selected icon is purchased
   self.selectedWallpaperIsPurchased = [self.wallpaperDictionary objectForKey:selectedWallpaperName];
   
+  
   // Change Call To Action Button
-  if  ([self.selectedWallpaperIsPurchased isEqual:@1])
+  if  ([self.selectedWallpaperIsPurchased isEqual:@1]) {
     self.setWallpaperLabel.text = @"Save";
-  else
+  }
+  else {
     self.setWallpaperLabel.text = @"Purchase";
+    // set on once price appears
+    self.setWallpaperLabel.userInteractionEnabled = NO;
+    [self getItemPurchaseData:selectedWallpaperName];
+  }
   
   
   [UIView transitionWithView:self.wallpaperPreviewImageView duration:0.4f  options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
@@ -443,8 +472,7 @@
   // scroll view to center selected index path
   [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
   
-  // pass the name of wallpaper selected
-  [self updateWallpaperLabelWithText: selectedWallpaperName];
+  
   
   /** Update text colors */
   [self updateColorContrastForIndexPath:indexPath];

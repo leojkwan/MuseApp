@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -27,16 +28,16 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDW-dL-c2d">
-                    <rect key="frame" x="0.0" y="0.0" width="680" height="75.5"/>
+                    <rect key="frame" x="8" y="0.0" width="672" height="75.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUTOPLAY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REd-gd-LRi">
-                            <rect key="frame" x="555" y="33" width="50.5" height="10"/>
+                            <rect key="frame" x="547" y="33" width="50.5" height="10"/>
                             <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="10"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Cw-Vt-EgL">
-                            <rect key="frame" x="611" y="22" width="51" height="31"/>
+                            <rect key="frame" x="603" y="22" width="51" height="31"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="49" id="9iZ-x3-QmM"/>
                                 <constraint firstAttribute="width" secondItem="5Cw-Vt-EgL" secondAttribute="height" multiplier="49:31" id="bYq-8s-2ie"/>
@@ -46,7 +47,7 @@
                             </connections>
                         </switch>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0S-6s-PMW">
-                            <rect key="frame" x="307" y="4" width="67.5" height="67.5"/>
+                            <rect key="frame" x="310.5" y="11.5" width="52.5" height="52.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="l0S-6s-PMW" secondAttribute="height" multiplier="1:1" id="Q5K-Py-rTv"/>
                             </constraints>
@@ -54,7 +55,7 @@
                             <state key="normal" backgroundImage="add-entry-button"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I49-zG-qoW">
-                            <rect key="frame" x="26" y="-1" width="75.5" height="76"/>
+                            <rect key="frame" x="0.0" y="-1" width="75.5" height="76"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="I49-zG-qoW" secondAttribute="height" multiplier="1:1" id="0f7-9L-JME"/>
                             </constraints>
@@ -67,13 +68,13 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="I49-zG-qoW" firstAttribute="leading" secondItem="bDW-dL-c2d" secondAttribute="leading" constant="26" id="1vl-vW-7DZ"/>
+                        <constraint firstItem="I49-zG-qoW" firstAttribute="leading" secondItem="bDW-dL-c2d" secondAttribute="leading" id="1vl-vW-7DZ"/>
                         <constraint firstItem="I49-zG-qoW" firstAttribute="height" secondItem="bDW-dL-c2d" secondAttribute="height" id="3fF-Jy-Mkh"/>
                         <constraint firstItem="I49-zG-qoW" firstAttribute="width" secondItem="I49-zG-qoW" secondAttribute="height" multiplier="1:1" id="B9i-13-PUV"/>
                         <constraint firstItem="5Cw-Vt-EgL" firstAttribute="leading" secondItem="REd-gd-LRi" secondAttribute="trailing" constant="5" id="NlV-1i-oNM"/>
                         <constraint firstItem="REd-gd-LRi" firstAttribute="centerY" secondItem="l0S-6s-PMW" secondAttribute="centerY" id="a15-TJ-cJ4"/>
                         <constraint firstItem="I49-zG-qoW" firstAttribute="centerY" secondItem="l0S-6s-PMW" secondAttribute="centerY" id="dM8-O1-jMF"/>
-                        <constraint firstItem="l0S-6s-PMW" firstAttribute="height" secondItem="bDW-dL-c2d" secondAttribute="height" multiplier="9/10" id="ePI-zu-3Mb"/>
+                        <constraint firstItem="l0S-6s-PMW" firstAttribute="height" secondItem="bDW-dL-c2d" secondAttribute="height" multiplier="7/10" id="ePI-zu-3Mb"/>
                         <constraint firstItem="5Cw-Vt-EgL" firstAttribute="centerY" secondItem="REd-gd-LRi" secondAttribute="centerY" id="hNs-0Y-Xce"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerX" secondItem="bDW-dL-c2d" secondAttribute="centerX" id="iLv-Nq-sps"/>
                         <constraint firstItem="l0S-6s-PMW" firstAttribute="centerY" secondItem="bDW-dL-c2d" secondAttribute="centerY" id="vIy-Pc-qu5"/>
@@ -82,7 +83,7 @@
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="bDW-dL-c2d" firstAttribute="leading" secondItem="Lti-Kn-pTT" secondAttribute="leading" id="10P-EZ-zR0"/>
+                <constraint firstItem="bDW-dL-c2d" firstAttribute="leading" secondItem="Lti-Kn-pTT" secondAttribute="leadingMargin" id="10P-EZ-zR0"/>
                 <constraint firstAttribute="bottom" secondItem="bDW-dL-c2d" secondAttribute="bottom" id="Z3P-er-ljw"/>
                 <constraint firstItem="bDW-dL-c2d" firstAttribute="top" secondItem="Lti-Kn-pTT" secondAttribute="top" id="j8H-ew-8Ui"/>
                 <constraint firstAttribute="trailing" secondItem="bDW-dL-c2d" secondAttribute="trailing" id="yKR-Y2-rMw"/>
