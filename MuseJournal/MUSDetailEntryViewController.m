@@ -7,7 +7,6 @@
 #import "NSDate+ExtraMethods.h"
 #import "Entry+ExtraMethods.h"
 #import "NSSet+MUSExtraMethod.h"
-#import <UIScrollView+APParallaxHeader.h>
 #import "UIImagePickerController+ExtraMethods.h"
 #import "UIColor+MUSColors.h"
 #import "UIView+MUSExtraMethods.h"
@@ -40,8 +39,6 @@
 #define TOOLBAR_COLOR [UIColor MUSBirdBlue] //COLOR OF BAR BUTTON ITEMS
 
 @interface MUSDetailEntryViewController ()<
-
-APParallaxViewDelegate,
 UITextViewDelegate,
 UINavigationControllerDelegate,
 UIActionSheetDelegate,
@@ -50,8 +47,10 @@ MUSKeyboardInputDelegate,
 MPMediaPickerControllerDelegate,
 UITextFieldDelegate,
 UpdateMoodProtocol,
+UIScrollViewDelegate,
 UIGestureRecognizerDelegate
 >
+
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
 @property (nonatomic, strong) MUSDataStore *store;
@@ -77,14 +76,21 @@ UIGestureRecognizerDelegate
 @property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
 @property (nonatomic, strong) MPMusicPlayerController *player;
 @property (weak, nonatomic) IBOutlet UIView *entryHRule;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *entryImageView;
+
 
 
 @end
 
 @implementation MUSDetailEntryViewController
 
+CGFloat originalHeaderHeight = 0;
+
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
   
   [self setUpBackgroundImage];
   
@@ -116,7 +122,7 @@ UIGestureRecognizerDelegate
 
 -(void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:YES];
-  
+
   // Load views with fade in.
   if (self.MUSKeyboardTopBar == nil) {
     [self.containerView fadeInWithDuration:.3 withCompletion:nil];
@@ -236,24 +242,24 @@ UIGestureRecognizerDelegate
 }
 
 -(void)setUpParallaxView {
-  self.coverImageView = [[UIImageView alloc] init];
+  
+  originalHeaderHeight = self.imageViewHeightConstraint.constant;
+  
   
   if(iPHONE_SIZE.height <= 480 || IS_IPAD) {
-    return;    // iPhone Classic NO AP IMAGE
+    return;    // iPhone Classic NOIMAGE
   }
   
   else {
-    [self.scrollView.parallaxView setDelegate:self];
     
     if (self.destinationEntry != nil && self.destinationEntry.coverImage != nil) {
+      
       // Set Image For This Entry with Parallax
       UIImage *entryCoverImage = [UIImage imageWithData:self.destinationEntry.coverImage];
-      self.coverImageView.image = entryCoverImage;
-      [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
-      
-      // there are the magic two lines here
-      [self.scrollView.parallaxView.imageView setBounds:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width*3/5)];
-      [self.scrollView.parallaxView.imageView setCenter:CGPointMake(self.view.frame.size.width/2,  self.view.frame.size.width*3/10)];
+      self.entryImageView.image = entryCoverImage;
+      [UIView animateWithDuration:0.3 animations:^{
+        self.imageViewHeightConstraint.constant = self.view.frame.size.width *4/5;
+      }];
     }
   }
 }
@@ -363,11 +369,11 @@ UIGestureRecognizerDelegate
 
 -(void)didSelectDoneButton:(id)sender {
   
-  // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
-  if (self.destinationEntry.coverImage != nil) {
-    [self.scrollView setContentOffset:CGPointZero animated:YES];
-  }
-  
+//  // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
+//  if (self.destinationEntry.coverImage != nil) {
+//    [self.scrollView setContentOffset:CGPointZero animated:YES];
+//  }
+//  
   [self saveButtonTapped:sender];
 }
 
@@ -587,14 +593,17 @@ UIGestureRecognizerDelegate
   [picker dismissViewControllerAnimated:YES completion:nil];
   
   // SET COVER IMAGE AS SELECTED IMAGE
-  self.coverImageView.image = info[UIImagePickerControllerEditedImage];
+  self.entryImageView.image = info[UIImagePickerControllerEditedImage];
+  [UIView animateWithDuration:0.3 animations:^{
+    self.imageViewHeightConstraint.constant = self.view.frame.size.width *4/5;
+  }];
   
   //SAVE TO CORE DATA
   if (self.destinationEntry == nil) {
     Entry *newEntryWithImage = [self createNewEntry];
-    newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
+    newEntryWithImage.coverImage = UIImageJPEGRepresentation(self.entryImageView.image, .5);
   } else {
-    self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
+    self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.entryImageView.image, .5);
   }
   
   
@@ -605,8 +614,6 @@ UIGestureRecognizerDelegate
   if(iPHONE_SIZE.height <= 480 || IS_IPAD)   {
     return;    // iPhone Classic...  NO AP IMAGE
   } else {
-    // add reset parallax image
-    [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
     
     // fixes glitch with parallax, new parallax image does not fit into position without first responder
     CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
@@ -619,7 +626,6 @@ UIGestureRecognizerDelegate
   [self dismissViewControllerAnimated:YES completion:nil];
   [self saveEntry];
 }
-
 
 #pragma mark - button pressed methods
 

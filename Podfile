@@ -2,7 +2,6 @@
 platform :ios, '8.4'
 
 target 'MuseJournal' do
-pod 'APParallaxHeader'
 pod 'Masonry'
 pod 'IHKeyboardAvoiding'
 pod 'MCSwipeTableViewCell', '~> 2.1.4'

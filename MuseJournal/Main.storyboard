@@ -1096,14 +1096,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="TGV-He-lkb">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGV-He-lkb">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="111"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-FP-YG9" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="115"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iv2-ly-Lhg">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="115"/>
+                                            </imageView>
+                                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="mood-background" translatesAutoresizingMaskIntoConstraints="NO" id="db4-zT-dGE">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="0.0"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="6r2-sq-rwe"/>
+                                                </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aK9-BB-r1I" userLabel="Entry Header">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
@@ -1154,41 +1161,32 @@
                                                     <constraint firstItem="TKc-0j-Brl" firstAttribute="top" secondItem="PHi-if-fDw" secondAttribute="bottom" constant="20" id="TBO-ZV-fCe"/>
                                                     <constraint firstItem="ffh-xq-7Os" firstAttribute="leading" secondItem="aK9-BB-r1I" secondAttribute="leading" constant="17" id="U58-vi-Wgh"/>
                                                     <constraint firstItem="ffh-xq-7Os" firstAttribute="centerY" secondItem="3bG-Aw-aDF" secondAttribute="centerY" id="UGx-aH-A3Q"/>
-                                                    <constraint firstAttribute="bottom" secondItem="TKc-0j-Brl" secondAttribute="bottom" constant="5" id="cJh-vt-57Y"/>
                                                     <constraint firstItem="3bG-Aw-aDF" firstAttribute="top" secondItem="aK9-BB-r1I" secondAttribute="top" id="hsv-Gm-xqM"/>
                                                 </constraints>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="cJh-vt-57Y"/>
-                                                    </mask>
-                                                </variation>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
-                                                <rect key="frame" x="0.0" y="73" width="600" height="38"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68a-QO-p1t">
+                                                <rect key="frame" x="0.0" y="74" width="600" height="41"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="yes"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="aK9-BB-r1I" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="1MM-Rj-NaV"/>
                                             <constraint firstAttribute="trailing" secondItem="aK9-BB-r1I" secondAttribute="trailing" id="3Zi-Nr-eO6"/>
                                             <constraint firstItem="Iv2-ly-Lhg" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="8m9-9A-92m"/>
+                                            <constraint firstAttribute="trailing" secondItem="db4-zT-dGE" secondAttribute="trailing" id="Azy-vW-DAI"/>
+                                            <constraint firstItem="aK9-BB-r1I" firstAttribute="top" secondItem="db4-zT-dGE" secondAttribute="bottom" id="B1j-WI-Rbs"/>
                                             <constraint firstAttribute="bottom" secondItem="Iv2-ly-Lhg" secondAttribute="bottom" id="KPQ-qH-42D"/>
                                             <constraint firstItem="Iv2-ly-Lhg" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="Ndx-6N-aWz"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="T5c-zl-b6B"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="bottom" secondItem="ZUS-FP-YG9" secondAttribute="bottom" id="dqj-01-IuI"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="top" secondItem="aK9-BB-r1I" secondAttribute="bottom" id="gtD-dt-xNI"/>
+                                            <constraint firstItem="db4-zT-dGE" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="ihv-BQ-rNV"/>
                                             <constraint firstItem="aK9-BB-r1I" firstAttribute="leading" secondItem="ZUS-FP-YG9" secondAttribute="leading" id="nTa-nS-fzA"/>
-                                            <constraint firstItem="aK9-BB-r1I" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="pma-2v-JmB"/>
+                                            <constraint firstItem="db4-zT-dGE" firstAttribute="top" secondItem="ZUS-FP-YG9" secondAttribute="top" id="pzA-H5-5xG"/>
                                             <constraint firstAttribute="trailing" secondItem="Iv2-ly-Lhg" secondAttribute="trailing" id="u7N-YC-gNX"/>
                                             <constraint firstItem="68a-QO-p1t" firstAttribute="trailing" secondItem="ZUS-FP-YG9" secondAttribute="trailing" id="yyf-pF-m8A"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="1MM-Rj-NaV"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1222,6 +1220,8 @@
                         <outlet property="contentView" destination="ZUS-FP-YG9" id="7F7-mu-Ulx"/>
                         <outlet property="dateOfEntryLabel" destination="PHi-if-fDw" id="KxU-xw-vj7"/>
                         <outlet property="entryHRule" destination="TKc-0j-Brl" id="lcd-Fn-wI1"/>
+                        <outlet property="entryImageView" destination="db4-zT-dGE" id="pmg-O7-MBQ"/>
+                        <outlet property="imageViewHeightConstraint" destination="6r2-sq-rwe" id="Uov-tm-u4r"/>
                         <outlet property="moodButton" destination="3bG-Aw-aDF" id="UHi-jk-OEW"/>
                         <outlet property="scrollView" destination="TGV-He-lkb" id="Wlv-f2-w0L"/>
                         <outlet property="textView" destination="68a-QO-p1t" id="Syv-l1-YKT"/>
@@ -1466,8 +1466,8 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="ng4-51-WBG"/>
                                                     <exclude reference="R8k-OZ-T91"/>
+                                                    <exclude reference="ng4-51-WBG"/>
                                                     <exclude reference="Itn-ci-B7F"/>
                                                 </mask>
                                             </variation>
