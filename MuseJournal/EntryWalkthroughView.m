@@ -54,7 +54,6 @@
             make.centerY.equalTo(searchIcon);
             make.left.equalTo(searchIcon.mas_right);
             make.right.equalTo(self.mas_right).with.offset(-VIEW_WIDTH/10);
-            NSLog(@"This is the screen width:%f", [[UIScreen mainScreen] bounds].size.width);
         }];
         
     
@@ -145,7 +144,7 @@
     UILabel *label = [[UILabel alloc] init];
     label.text = message;
     label.textColor = [UIColor whiteColor];
-    label.font = [UIFont fontWithName:@"ADAM.CGPRO" size:20.0];
+    label.font = [UIFont fontWithName:@"SemplicitaPro-Medium" size:20.0];
     
     // minimum font size
     label.minimumScaleFactor = 15/[UIFont labelFontSize];

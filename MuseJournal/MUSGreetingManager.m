@@ -1,5 +1,3 @@
-//
-
 
 #import "MUSGreetingManager.h"
 
@@ -14,6 +12,36 @@
     }
     return self;
 }
+
+/* Check if its user's first entry */
++(BOOL)presentFirstTimeEntry {
+  
+  // If user is first time, show tutorial
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeEntry"] == YES) {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeEntry"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    return true;
+  }
+  return false;
+}
+
++(MUSBlurOverlayViewController* )returnEntryWalkthrough {
+  
+  EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
+  
+  MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc]
+                                              initWithView:walkthroughView
+                                              blurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+  
+  modalBlurVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+  modalBlurVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+  
+  // Set the delegate for my custom entry walkthrough view.
+  walkthroughView.delegate = modalBlurVC;
+  
+  return modalBlurVC;
+}
+
 
 -(void)greetByTimeOfDay:(TimeOfDay)time firstName:(NSString*)name{
     

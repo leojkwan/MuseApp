@@ -61,7 +61,7 @@
             return wallpaper[1]; // THIS IS PRODUCT ID
         }
     }
-    return nil;
+    return @"";
 }
 
 

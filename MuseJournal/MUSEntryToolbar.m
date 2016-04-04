@@ -1,10 +1,6 @@
 //
 //  MUSEntryToolbar.m
 //  MuseApp
-//
-//  Created by Leo Kwan on 9/23/15.
-//  Copyright © 2015 Leo Kwan. All rights reserved.
-//
 
 #import "MUSEntryToolbar.h"
 #import <Masonry.h>
@@ -22,6 +18,7 @@
 @property (nonatomic, assign) AutoPlay autoplayStatus;
 @property (weak, nonatomic) IBOutlet UILabel *autoPlayLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *autoplaySwitch;
+@property (weak, nonatomic) IBOutlet UIButton *selectWallpaperButton;
 
 @end
 
@@ -95,6 +92,9 @@
     }
 }
 
+- (IBAction)selectWallpaperButtonPressed:(id)sender {
+  [self.delegate didSelectWallpaperButton:sender];
+}
 
 -(void)autoPlayButtonPressed:(id)sender {
     

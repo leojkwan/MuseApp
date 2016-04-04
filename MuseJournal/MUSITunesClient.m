@@ -1,10 +1,5 @@
 //
 //  MUSITunesClient.m
-//
-//
-//  Created by Leo Kwan on 10/6/15.
-//
-//
 
 #import "MUSITunesClient.h"
 #import <AFNetworking/AFNetworking.h>
@@ -26,7 +21,6 @@ NSString *const ITUNES_SEARCH_URL = @"https://itunes.apple.com/search";
   AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
   [manager GET:ITUNES_SEARCH_URL parameters:iTunesParams success:^(NSURLSessionDataTask *task, id responseObject) {
     
-    NSLog(@"%@", responseObject[@"resultCount"]); // this is the album collection URL
     
     if ([(NSNumber *)responseObject[@"resultCount"] isEqual: @0]) {
       // make another request, this time for artist Name

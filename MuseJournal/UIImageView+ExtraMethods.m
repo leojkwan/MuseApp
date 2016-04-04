@@ -1,10 +1,5 @@
 //
 //  UIImageView+ExtraMethods.m
-//  
-//
-//  Created by Leo Kwan on 9/30/15.
-//
-//
 
 #import "UIImageView+ExtraMethods.h"
 

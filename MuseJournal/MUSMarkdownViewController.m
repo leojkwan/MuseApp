@@ -1,10 +1,6 @@
 //
 //  MUSMarkdownViewController.m
 //  Muse
-//
-//  Created by Leo Kwan on 10/23/15.
-//  Copyright © 2015 Leo Kwan. All rights reserved.
-//
 
 #import "MUSMarkdownViewController.h"
 #import "MUSMarkdownTableViewCell.h"
@@ -67,10 +63,14 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
         return cell;
     }
-    
+  if (indexPath.row == 1) {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"subHeader" forIndexPath:indexPath];
+    return cell;
+  }
+  
     MUSMarkdownTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"syntaxCell" forIndexPath:indexPath];
-    cell.syntaxType.text = self.markdownArray[indexPath.row -1 ][0];
-    cell.syntaxTitle.text = self.markdownArray[indexPath.row -1 ][1];
+    cell.syntaxType.text = self.markdownArray[indexPath.row -2 ][0];
+    cell.syntaxTitle.text = self.markdownArray[indexPath.row -2][1];
     cell.syntaxExample.attributedText = [NSAttributedString returnMarkDownStringFromString:self.markdownArray[indexPath.row -1 ][1]];
     cell.syntaxExample.textColor = [UIColor whiteColor];
     

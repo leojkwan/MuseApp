@@ -1,8 +1,6 @@
-//
+
 //  MUSDetailEntryViewController.m
 //  MuseApp
-// Categories
-
 
 #import "UIFont+MUSFonts.h"
 #import "NSAttributedString+MUSExtraMethods.h"
@@ -33,6 +31,7 @@
 #import "MUSShareManager.h"
 #import "MUSMusicPlayerDataStore.h"
 #import "EntryWalkthroughView.h"
+#import "MUSGreetingManager.h"
 #import "MUSBlurOverlayViewController.h"
 
 #define iPHONE_SIZE [[UIScreen mainScreen] bounds].size
@@ -40,7 +39,19 @@
 #define TEXT_LIMIT ((int) 35)
 #define TOOLBAR_COLOR [UIColor MUSBirdBlue] //COLOR OF BAR BUTTON ITEMS
 
-@interface MUSDetailEntryViewController ()<APParallaxViewDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, MUSKeyboardInputDelegate, MPMediaPickerControllerDelegate, UITextFieldDelegate, UpdateMoodProtocol, UIGestureRecognizerDelegate>
+@interface MUSDetailEntryViewController ()<
+
+APParallaxViewDelegate,
+UITextViewDelegate,
+UINavigationControllerDelegate,
+UIActionSheetDelegate,
+UIImagePickerControllerDelegate,
+MUSKeyboardInputDelegate,
+MPMediaPickerControllerDelegate,
+UITextFieldDelegate,
+UpdateMoodProtocol,
+UIGestureRecognizerDelegate
+>
 
 @property (nonatomic, strong) MUSPlaylistViewController *dvc;
 @property (nonatomic, strong) MUSDataStore *store;
@@ -49,6 +60,7 @@
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSKeyboardTopBar;
 @property (nonatomic, strong) MUSKeyboardTopBar *MUSToolBar;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UIButton *moodButton;
 @property (weak, nonatomic) IBOutlet UILabel* timeOfDayEntryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateOfEntryLabel;
@@ -74,6 +86,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  [self setUpBackgroundImage];
+  
   [self.navigationController setNavigationBarHidden:YES animated:YES];
   
   //display HUD until the views finish loading in viewDidAppear.
@@ -91,13 +105,22 @@
   [self setUpPlaylistForThisEntryAndPlay];
 }
 
+
+-(void)setUpBackgroundImage {
+  /** Set up background textview image */
+  [self.bgImageView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+  [self.contentView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+  [self.containerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+  [self.scrollView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"text-view-bg"]]];
+}
+
 -(void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:YES];
   
   // Load views with fade in.
   if (self.MUSKeyboardTopBar == nil) {
     [self.containerView fadeInWithDuration:.3 withCompletion:nil];
-    self.entryHRule.backgroundColor = [UIColor lightGrayColor];
+    
     [self setUpEntryHeader];
     [self setUpParallaxView];
     [self setUpTagLabel];
@@ -107,36 +130,22 @@
     [self setUpKeyboardAvoiding];
     [self setUpToolbar];
     [self setUpKeyboard];
+    
+    /** Display keyboard */
+    [self.textView becomeFirstResponder];
+    
   }
   
   [MBProgressHUD hideHUDForView:self.view animated:NO];
   
-  [self presentFirstTimeEntry];
-}
-
--(void)presentFirstTimeEntry {
-  
-  // If user is first time, show tutorial
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeEntry"] == YES) {
+  if (MUSGreetingManager.presentFirstTimeEntry) {
     [self performSelector:@selector(presentEntryWalkthrough) withObject:self afterDelay:1.0];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstTimeEntry"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
   }
+  
 }
 
 -(void)presentEntryWalkthrough {
-  
-  EntryWalkthroughView *walkthroughView = [[EntryWalkthroughView alloc] init];
-  
-  MUSBlurOverlayViewController *modalBlurVC= [[MUSBlurOverlayViewController alloc]
-                                              initWithView:walkthroughView
-                                              blurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-  
-  modalBlurVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-  modalBlurVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-  
-  // Set the delegate for my custom entry walkthrough view.
-  walkthroughView.delegate = modalBlurVC;
+  MUSBlurOverlayViewController* modalBlurVC = MUSGreetingManager.returnEntryWalkthrough;
   [self presentViewController:modalBlurVC animated:YES completion:nil];
 }
 
@@ -150,7 +159,7 @@
 
 
 -(void)showKeyboard:(UITapGestureRecognizer*)tap {
-  if (tap == self.entryTextViewTap)
+//  if (tap == self.entryTextViewTap)
     [self.textView becomeFirstResponder];
 }
 
@@ -163,15 +172,21 @@
   self.entryTextViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard:)];
   [self.containerView addGestureRecognizer:self.entryTextViewTap];
   
-  // NEW ENTRY SET TEXT
-  if (self.destinationEntry.content == nil || [self.destinationEntry.content isEqualToString:@""]) {
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:@"Begin writing here..."];
-    self.textView.textColor = [UIColor lightGrayColor];
-  } else{
-    
-    // EXISTING ENTRY SET TEXT
-    self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
-  }
+  /** Show markdown text on load */
+  self.textView.attributedText = [NSAttributedString returnMarkDownStringFromString:self.destinationEntry.content];
+  
+}
+
+-(BOOL)textView:(UITextView *)_textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+  [self checkSizeOfContentForTextView:self.textView];
+  return YES;
+}
+
+
+-(void) adjustFrames {
+  CGRect textFrame = self.textView.frame;
+  textFrame.size.height = self.textView.contentSize.height;
+  self.textView.frame = textFrame;
 }
 
 
@@ -267,42 +282,66 @@
 
 -(void)didSelectMoreOptionsButton {
   
-  UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+  UIAlertController *actionSheet = [UIAlertController
+                                    alertControllerWithTitle:nil
+                                    message:nil
+                                    preferredStyle:UIAlertControllerStyleActionSheet];
+  
   [actionSheet setModalPresentationStyle:UIModalPresentationPopover];
   
-  // Share
-  [actionSheet addAction:[UIAlertAction actionWithTitle:@"Quick Entry Tutorial" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-    [self presentEntryWalkthrough];
-  }]];
   
-  // Share
-  [actionSheet addAction:[UIAlertAction actionWithTitle:@"Set Cover Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-    [self selectPhoto];
-  }]];
+  [actionSheet addAction:[UIAlertAction
+                          actionWithTitle:@"Quick Entry Tutorial"
+                          style:UIAlertActionStyleDefault
+                          handler:^(UIAlertAction *action) {
+                            
+                            // Tuturial
+                            [self presentEntryWalkthrough];
+                          }]];
   
-  // Share
-  [actionSheet addAction:[UIAlertAction actionWithTitle:@"Share Entry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-    UIActivityViewController *shareSheet = [MUSShareManager returnShareSheetWithEntry:self.destinationEntry] ;
-    
-    if ( [shareSheet respondsToSelector:@selector(popoverPresentationController)] ) {
-      // iOS8
-      shareSheet.popoverPresentationController.sourceView = self.MUSToolBar.moreOptionsButton;
-      [self presentViewController: shareSheet animated:YES completion:nil];
-    }
-  }]];
-  // CANCEL
-  [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-    [self dismissViewControllerAnimated:YES completion:^{
-    }];
-  }]];
+  [actionSheet addAction:[UIAlertAction
+                          actionWithTitle:@"Set Cover Photo"
+                          style:UIAlertActionStyleDefault
+                          handler:^(UIAlertAction *action) {
+                            
+                            
+                            // Cover Photo
+                            [self selectPhoto];
+                          }]];
+  
+  [actionSheet addAction:[UIAlertAction
+                          actionWithTitle:@"Share Entry"
+                          style:UIAlertActionStyleDestructive
+                          handler:^(UIAlertAction *action) {
+                            
+                            // Share Entry
+                            UIActivityViewController *shareSheet = [MUSShareManager returnShareSheetWithEntry:self.destinationEntry] ;
+                            
+                            if ( [shareSheet respondsToSelector:@selector(popoverPresentationController)] ) {
+                              
+                              // iOS8 popover edge case
+                              shareSheet.popoverPresentationController.sourceView = self.MUSToolBar.moreOptionsButton;
+                              [self presentViewController: shareSheet animated:YES completion:nil];
+                            }
+                          }]];
+  
+  [actionSheet addAction:[UIAlertAction
+                          actionWithTitle:@"Cancel"
+                          style:UIAlertActionStyleCancel
+                          handler:^(UIAlertAction *action) {
+                            
+                            // CANCEL
+                            [self dismissViewControllerAnimated:YES completion:^{
+                            }];
+                          }]];
   
   // FOR IPAD
   actionSheet.popoverPresentationController.sourceView =  self.MUSToolBar.moreOptionsButton;
   actionSheet.popoverPresentationController.sourceRect = self.MUSToolBar.moreOptionsButton.bounds;
   actionSheet.popoverPresentationController.barButtonItem = self.MUSToolBar.moreOptionsBarButtonItem;
   
-  [self presentViewController:actionSheet animated:YES completion:^{
-  }];
+  // Present Action Sheet
+  [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 
@@ -323,14 +362,13 @@
 }
 
 -(void)didSelectDoneButton:(id)sender {
+  
   // IF THERE IS AN IMAGE POP BACK TO TOP TO AVOID AP PARALLAX GLITCH
   if (self.destinationEntry.coverImage != nil) {
     [self.scrollView setContentOffset:CGPointZero animated:YES];
   }
   
-  [self checkSizeOfContentForTextView:self.textView];
   [self saveButtonTapped:sender];
-  [self.textView setUserInteractionEnabled:YES];
 }
 
 
@@ -380,8 +418,15 @@
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
   [mediaPicker dismissViewControllerAnimated:YES completion:nil];
   
+  /** Update playlist */
   [self.player setQueueWithItemCollection:mediaItemCollection];
+  
+  /** Play and present alert. */
   [self.player play];
+  
+  
+  /** Add song to to core data entry */
+  [self performSelector:@selector(pinSongButtonPressed:) withObject:self afterDelay:2.0];
 }
 
 
@@ -390,6 +435,11 @@
   [self.MUSToolBar setHidden:NO];
 }
 
+-(void) displayNowPlayingItem {
+  /** Message to display on song play */
+  NSString *message = [NSString stringWithFormat:@"Now Playing: %@", [self.player nowPlayingItem].title];
+  [MUSNotificationManager displayNotificationWithMessage:message backgroundColor:[UIColor MUSGreenMachine] textColor:[UIColor whiteColor]];
+}
 
 -(void)playPlaylistForThisEntry {
   
@@ -436,14 +486,18 @@
           [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *filteredCollection) {
             [self.player setQueueWithItemCollection:filteredCollection];
             [self.player play];
+            
+            
+            [self performSelector:@selector(displayNowPlayingItem) withObject:self afterDelay:2.0];
+
           }];
         }
       }]; // end of main thread ns operation
     }];
   }
   
-  // IF AUTOPLAY IS ON AND THIS ENTRY HAS A PLAYLIST... PLAY!
-  // RANDOM SONG
+  /** If authoplay is on and playlist present -> play */
+  
   else if (self.entryType == RandomSong) {
     
     [self.sharedMusicDataStore.musicPlayer returnRandomSongInLibraryWithCompletionBlock:^(MPMediaItemCollection *randomSong) {
@@ -451,13 +505,15 @@
         if (randomSong != nil) {
           [self.player setQueueWithItemCollection:randomSong];
           [self.player play];
-          NSString *message = [NSString stringWithFormat:@"Now Playing: %@", [self.player nowPlayingItem].title];
-          [MUSNotificationManager displayNotificationWithMessage:message backgroundColor:[UIColor MUSGreenMachine] textColor:[UIColor blackColor]];
+          
+          // Add song to core data
+          [self performSelector:@selector(pinSongButtonPressed:) withObject:self afterDelay:2.0];
         }
       }];
     }];
   }
 }
+
 
 -(void)setUpKeyboardAvoiding{
   [IHKeyboardAvoiding setAvoidingView:self.scrollView];
@@ -493,10 +549,6 @@
   // we save the content with markdown
   self.destinationEntry.content = self.textView.text;
   
-  
-  if ([self.textView.text isEqualToString:@"Begin writing here..." ]) {
-    self.destinationEntry.content = @"";
-  }
   // SAVE TO CORE DATA
   [self.store save];
 }
@@ -507,31 +559,24 @@
 }
 
 -(Entry *)createNewEntry {
-  Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry" inManagedObjectContext:self.store.managedObjectContext];
+  
+  Entry *newEntry = [NSEntityDescription insertNewObjectForEntityForName:@"MUSEntry"
+                                                  inManagedObjectContext:self.store.managedObjectContext];
+  
   self.destinationEntry = newEntry;
-  if ([self.textView.text isEqualToString:@"Begin writing here..."]) {
-    newEntry.content = @"";
-  } else {
-    newEntry.content = self.textView.text;
-    newEntry.tag = @"";
-    newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
-    
-    //
-    //        NSDate *today = [[NSDate alloc] init];
-    //        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    //        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    //        [offsetComponents setYear:5];
-    //        [offsetComponents setMonth:-1];
-    //        [offsetComponents setDay:3];
-    //        NSDate *currentDate = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
-    
-    NSDate *currentDate = [NSDate date];
-    newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
-    newEntry.epochTime = currentDate; // month day and year and seconds
-    
-    newEntry.tag = @"";
-    newEntry.dateInString = [currentDate returnMonthAndYear];
-  }
+  
+  
+  newEntry.content = self.textView.text;
+  newEntry.tag = @"";
+  newEntry.titleOfEntry = [self returnCurrentTitleOfEntry];
+  
+  NSDate *currentDate = [NSDate date];
+  newEntry.createdAt = [currentDate monthDateYearDate];     // month day and year
+  newEntry.epochTime = currentDate; // month day and year and seconds
+  
+  newEntry.tag = @"";
+  newEntry.dateInString = [currentDate returnMonthAndYear];
+  
   return newEntry;
 }
 
@@ -552,10 +597,9 @@
     self.destinationEntry.coverImage = UIImageJPEGRepresentation(self.coverImageView.image, .5);
   }
   
-  [self saveEntry];
-  
   
   // SAVE TO CORE DATA!!
+  [self saveEntry];
   [self.store save];
   
   if(iPHONE_SIZE.height <= 480 || IS_IPAD)   {
@@ -564,7 +608,7 @@
     // add reset parallax image
     [self.scrollView addParallaxWithImage:self.coverImageView.image andHeight:self.view.frame.size.width*3/5 andShadow:YES];
     
-    //     fixes glitch with parallax, new parallax image does not fit into position without first responder
+    // fixes glitch with parallax, new parallax image does not fit into position without first responder
     CGPoint scrollPoint = self.scrollView.contentOffset; // initial and after update
     scrollPoint = CGPointMake(scrollPoint.x, scrollPoint.y + 1); // makes scroll
     [self.scrollView setContentOffset:scrollPoint animated:YES];
@@ -605,6 +649,7 @@
   
   // CAMERA ROLL
   [actionSheet addAction:[UIAlertAction actionWithTitle:@"Select from Camera Roll" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [UIImagePickerController obtainPermissionForMediaSourceType:UIImagePickerControllerSourceTypePhotoLibrary withSuccessHandler:^{
       [self presentViewController:imagePicker animated:YES completion:nil];
@@ -613,6 +658,7 @@
                                            alertControllerWithTitle:nil
                                            message:NSLocalizedString(@"You have disabled Photos access", nil)
                                            preferredStyle:UIAlertControllerStyleActionSheet];
+      
       [alertController addAction:[UIAlertAction
                                   actionWithTitle:NSLocalizedString(@"Open Settings", @"Photos access denied: open the settings app to change privacy settings")
                                   style:UIAlertActionStyleDefault
@@ -679,12 +725,18 @@
 }
 
 
--(void)getStatusForSong:(Song *)currentSong {
+-(void)updateSongStatus:(Song *)currentSong {
   
   if (self.player.playbackState == MPMusicPlaybackStatePlaying) {
+    
+    /* Default Status */
+    self.musicPlayerStatus = Valid;
+    
     [self.sharedMusicDataStore.musicPlayer checkIfSongIsInLocalLibrary:currentSong withCompletionBlock:^(BOOL local) {
+      
       if (local) {
         
+        /** Iterate playlist to check if song is already pinned */
         for (Song *song in  [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs]) {
           
           NSString *currentTrack = [self.player nowPlayingItem].title;
@@ -694,13 +746,13 @@
             return;
           }
         }
-        self.musicPlayerStatus = Playing;
       }
-      else {
+      
+      else { /* Not local */
         self.musicPlayerStatus = Invalid;
       }
     }];
-  } else if (self.player.playbackState == MPMusicPlaybackStatePaused || self.player.playbackState == MPMusicPlaybackStateStopped) {
+  } else {
     self.musicPlayerStatus = NotPlaying;
   }
 }
@@ -708,13 +760,18 @@
 
 -(void)pinSongButtonPressed:id {
   
-  // Create managed object on CoreData
   MPMediaItem *currentSong = [self.player nowPlayingItem];
+  
+  // Create managed object *may not be used if invalid (already pinned)
   Song *pinnedSong = [Song initWithTitle:currentSong.title artist:currentSong.artist genre:currentSong.genre album:currentSong.albumTitle inManagedObjectContext:self.store.managedObjectContext];
   
-  [self getStatusForSong:pinnedSong];
+  [self updateSongStatus:pinnedSong];
   
-  if (self.musicPlayerStatus == Playing) {
+  if (self.musicPlayerStatus == Valid) {
+    
+    [self updateSongStatus:pinnedSong];
+    
+    /** if new entry -> create a playlist */
     if(self.destinationEntry == nil){
       // create new entry and init a playlist for it
       [self createNewEntry];
@@ -728,23 +785,25 @@
     pinnedSong.pinnedAt = [NSDate date]; //current date
     pinnedSong.entry = self.destinationEntry;
     
-    [self displayPinnedSongNotification];
+    
     [self.formattedPlaylistForThisEntry addObject:pinnedSong];
+    NSMutableArray *convertedPlaylist = [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs];
     
-    // Add song to Core Data
-    [self.destinationEntry addSongsObject:pinnedSong];
-    
-    
-    [self.sharedMusicDataStore.musicPlayer loadMPCollectionFromFormattedMusicPlaylist: [NSSet convertPlaylistArrayFromSet:self.destinationEntry.songs] completionBlock:^(MPMediaItemCollection *newPlaylistCollection) {
-      
-      [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-        [self.player setQueueWithItemCollection:newPlaylistCollection];
-      }];
-    }];
+    [self.sharedMusicDataStore.musicPlayer
+     loadMPCollectionFromFormattedMusicPlaylist:convertedPlaylist
+     completionBlock:^(MPMediaItemCollection *newPlaylistCollection) {
+       
+       [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+         [self.player setQueueWithItemCollection:newPlaylistCollection];
+       }];
+     }];
     
     // Save to Core Data
+    [self.destinationEntry addSongsObject:pinnedSong];
     [self.store save];
   }
+  
+  /* Display pin song notification  */
   [self displayPinnedSongNotification];
 }
 
