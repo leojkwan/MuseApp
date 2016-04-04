@@ -175,6 +175,7 @@
                               handler:^(UIAlertAction *action) {
                                 
                                 [self updateUserBackgroundImage];
+                                [self.navigationController.navigationBar setHidden:NO];
                                 [self performSegueWithIdentifier:@"backToHomeView" sender:self];
                                 
                               }]
@@ -185,7 +186,7 @@
                               handler:NULL]
    ];
   
-  // for ipads
+  /* Popover settigs for ipads */
   alertController.popoverPresentationController.sourceRect = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height);
   alertController.popoverPresentationController.sourceView= self.contentView;
   return alertController;
@@ -317,14 +318,16 @@
         //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
         
         
-        /** THIS IS WHERE YOU MUSE ADD YES TO NSUSERDEFAULTS
-         Transaction state -> Purchased
+        /** Set Purchased Wallpaper to true NSUserDefaults
+         * Transaction state -> Purchased
          */
         
-        [self doAddWallpaper:self.wallpaperNameLabel.text]; // SET CURRENT WALLPAPER KEY VALUE TO YES/ PURCHASED
+        [self doAddWallpaper:self.wallpaperNameLabel.text];
         [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
         
         [self updateUserBackgroundImage];
+        
+        [self.navigationController.navigationBar setHidden:NO];
         [self performSegueWithIdentifier:@"backToHomeView" sender:self];
         
         break;
@@ -371,7 +374,7 @@
       
       // Fetch product
       [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
+      
       [self purchase:self.selectedPremiumProduct];
       
     } else {
