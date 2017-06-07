@@ -6,6 +6,7 @@ Animated Alert View written in Swift but ported to Objective-C, which can be use
 [![Build Status](https://travis-ci.org/dogo/SCLAlertView.svg?branch=master)](https://travis-ci.org/dogo/SCLAlertView)
 [![Cocoapods](http://img.shields.io/cocoapods/v/SCLAlertView-Objective-C.svg)](http://cocoapods.org/?q=SCLAlertView-Objective-C)
 [![Pod License](http://img.shields.io/cocoapods/l/SCLAlertView-Objective-C.svg)](https://github.com/dogo/SCLAlertView/blob/master/LICENSE)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ![BackgroundImage](https://raw.githubusercontent.com/dogo/SCLAlertView/master/ScreenShots/ScreenShot.png)_
 ![BackgroundImage](https://raw.githubusercontent.com/dogo/SCLAlertView/master/ScreenShots/ScreenShot2.png) 
@@ -15,14 +16,14 @@ Animated Alert View written in Swift but ported to Objective-C, which can be use
 ![BackgroundImage](https://raw.githubusercontent.com/dogo/SCLAlertView/master/ScreenShots/ScreenShot6.png)
 ![BackgroundImage](https://raw.githubusercontent.com/dogo/SCLAlertView/master/ScreenShots/ScreenShot7.png)
 
-###Fluent style
+### Fluent style
 
 ```Objective-C
 
 SCLAlertViewBuilder *builder = [SCLAlertViewBuilder new]
 .addButtonWithActionBlock(@"Send", ^{ /*work here*/ });
 SCLAlertViewShowBuilder *showBuilder = [SCLAlertViewShowBuilder new]
-.style(Warning)
+.style(SCLAlertViewStyleWarning)
 .title(@"Title")
 .subTitle(@"Subtitle")
 .duration(0);
@@ -31,7 +32,7 @@ SCLAlertViewShowBuilder *showBuilder = [SCLAlertViewShowBuilder new]
 showBuilder.show(builder.alertView, self.window.rootViewController);
 ```
 
-####Complex
+#### Complex
 ```Objective-C
     NSString *title = @"Title";
     NSString *message = @"Message";
@@ -50,14 +51,14 @@ showBuilder.show(builder.alertView, self.window.rootViewController);
     });
     
     SCLAlertViewBuilder *builder = [SCLAlertViewBuilder new]
-    .showAnimationType(FadeIn)
-    .hideAnimationType(FadeOut)
+    .showAnimationType(SCLAlertViewShowAnimationFadeIn)
+    .hideAnimationType(SCLAlertViewHideAnimationFadeOut)
     .shouldDismissOnTapOutside(NO)
     .addTextFieldWithBuilder(textField)
     .addButtonWithBuilder(doneButton);
     
     SCLAlertViewShowBuilder *showBuilder = [SCLAlertViewShowBuilder new]
-    .style(Custom)
+    .style(SCLAlertViewStyleCustom)
     .image([SCLAlertViewStyleKit imageOfInfo])
     .color([UIColor blueColor])
     .title(title)
@@ -68,7 +69,7 @@ showBuilder.show(builder.alertView, self.window.rootViewController);
     [showBuilder showAlertView:builder.alertView onViewController:self];
 ```
 
-###Easy to use
+### Easy to use
 ```Objective-C
 // Get started
 SCLAlertView *alert = [[SCLAlertView alloc] init];
@@ -90,7 +91,7 @@ SCLAlertView *alert = [[SCLAlertView alloc] init];
 SCLAlertView *alert = [[SCLAlertView alloc] initWithWindowWidth:300.0f];
 ```
 
-###SCLAlertview in a new window. (No UIViewController)
+### SCLAlertview in a new window. (No UIViewController)
 ```Objective-C
 
 SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
@@ -111,11 +112,11 @@ SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
 SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindowWidth:300.0f];
 ```
 
-###New Window: Known issues
+### New Window: Known issues
 
 1. SCLAlert animation is wrong in landscape. (iOS 6.X and 7.X)
 
-###Add buttons
+### Add buttons
 ```Objective-C
 SCLAlertView *alert = [[SCLAlertView alloc] init];
 
@@ -139,7 +140,7 @@ SCLAlertView *alert = [[SCLAlertView alloc] init];
 [alert showSuccess:self title:@"Button View" subTitle:@"This alert view has buttons" closeButtonTitle:@"Done" duration:0.0f];
 ```
 
-###Add button timer
+### Add button timer
 ```Objective-C
 //The index of the button to add the timer display to.
 [alert addTimerToButtonIndex:0 reverse:NO];
@@ -154,7 +155,7 @@ SCLAlertView *alert = [[SCLAlertView alloc] init];
 ```
 
 
-###Add Text Attributes
+### Add Text Attributes
 ```Objective-C
 SCLAlertView *alert = [[SCLAlertView alloc] init];
 
@@ -177,7 +178,7 @@ alert.attributedFormatBlock = ^NSAttributedString* (NSString *value)
 [alert showSuccess:self title:@"Button View" subTitle:@"Attributed string operation successfully completed." closeButtonTitle:@"Done" duration:0.0f];
 ```
 
-###Add a text field
+### Add a text field
 ```Objective-C
 SCLAlertView *alert = [[SCLAlertView alloc] init];
 
@@ -190,14 +191,14 @@ UITextField *textField = [alert addTextField:@"Enter your name"];
 [alert showEdit:self title:@"Edit View" subTitle:@"This alert view shows a text box" closeButtonTitle:@"Done" duration:0.0f];
 ```
 
-###Indeterminate progress
+### Indeterminate progress
 ```Objective-C
 SCLAlertView *alert = [[SCLAlertView alloc] init];
     
 [alert showWaiting:self title:@"Waiting..." subTitle:@"Blah de blah de blah, blah. Blah de blah de" closeButtonTitle:nil duration:5.0f];
 ```
 
-###Add a switch button
+### Add a switch button
 ```Objective-C
 SCLAlertView *alert = [[SCLAlertView alloc] init];
     
@@ -211,7 +212,7 @@ switchView.tintColor = [UIColor brownColor];
 [alert showCustom:self image:[UIImage imageNamed:@"switch"] color:[UIColor brownColor] title:kInfoTitle subTitle:kSubtitle closeButtonTitle:nil duration:0.0f];
 ```
 
-###Add custom view
+### Add custom view
 ```Objective-C
 SCLAlertView *alert = [[SCLAlertView alloc] init];
 
@@ -223,19 +224,19 @@ customView.backgroundColor = [UIColor redColor];
 [alert showNotice:self title:@"Title" subTitle:@"This alert view shows a custom view" closeButtonTitle:@"Done" duration:0.0f];
 ```
 
-###SCLAlertView properties
+### SCLAlertView properties
 ```Objective-C
 //Dismiss on tap outside (Default is NO)
 alert.shouldDismissOnTapOutside = YES;
 
-//Hide animation type (Default is FadeOut)
-alert.hideAnimationType = SlideOutToBottom;
+//Hide animation type (Default is SCLAlertViewHideAnimationFadeOut)
+alert.hideAnimationType = SCLAlertViewHideAnimationSlideOutToBottom;
 
-//Show animation type (Default is SlideInFromTop)
-alert.showAnimationType = SlideInFromLeft;
+//Show animation type (Default is SCLAlertViewShowAnimationSlideInFromTop)
+alert.showAnimationType =  SCLAlertViewShowAnimationSlideInFromLeft;
 
-//Set background type (Default is Shadow)
-alert.backgroundType = Blur;
+//Set background type (Default is SCLAlertViewBackgroundShadow)
+alert.backgroundType = SCLAlertViewBackgroundBlur;
 
 //Overwrite SCLAlertView (Buttons, top circle and borders) colors
 alert.customViewColor = [UIColor purpleColor];
@@ -264,7 +265,7 @@ alert.soundURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/right_an
 
 ```
 
-###Helpers
+### Helpers
 ```Objective-C
 //Receiving information that SCLAlertView is dismissed
 [alert alertIsDismissed:^{
@@ -272,73 +273,87 @@ alert.soundURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/right_an
 }];
 ```
 
-####Alert View Styles
+#### Alert View Styles
 ```Objective-C
 typedef NS_ENUM(NSInteger, SCLAlertViewStyle)
 {
-    Success,
-    Error,
-    Notice,
-    Warning,
-    Info,
-    Edit,
-    Waiting,
-    Question,    
-    Custom
+    SCLAlertViewStyleSuccess,
+    SCLAlertViewStyleError,
+    SCLAlertViewStyleNotice,
+    SCLAlertViewStyleWarning,
+    SCLAlertViewStyleInfo,
+    SCLAlertViewStyleEdit,
+    SCLAlertViewStyleWaiting,
+    SCLAlertViewStyleQuestion,
+    SCLAlertViewStyleCustom
 };
 ```
-####Alert View hide animation styles
+#### Alert View hide animation styles
 ```Objective-C
 typedef NS_ENUM(NSInteger, SCLAlertViewHideAnimation)
 {
-    FadeOut,
-    SlideOutToBottom,
-    SlideOutToTop,
-    SlideOutToLeft,
-    SlideOutToRight,
-    SlideOutToCenter,
-    SlideOutFromCenter
+    SCLAlertViewHideAnimationFadeOut,
+    SCLAlertViewHideAnimationSlideOutToBottom,
+    SCLAlertViewHideAnimationSlideOutToTop,
+    SCLAlertViewHideAnimationSlideOutToLeft,
+    SCLAlertViewHideAnimationSlideOutToRight,
+    SCLAlertViewHideAnimationSlideOutToCenter,
+    SCLAlertViewHideAnimationSlideOutFromCenter,
+    SCLAlertViewHideAnimationSimplyDisappear
 };
 ```
-####Alert View show animation styles
+#### Alert View show animation styles
 ```Objective-C
 typedef NS_ENUM(NSInteger, SCLAlertViewShowAnimation)
 {
-    FadeIn,
-    SlideInFromBottom,
-    SlideInFromTop,
-    SlideInFromLeft,
-    SlideInFromRight,
-    SlideInFromCenter,
-    SlideInToCenter
+    SCLAlertViewShowAnimationFadeIn,
+    SCLAlertViewShowAnimationSlideInFromBottom,
+    SCLAlertViewShowAnimationSlideInFromTop,
+    SCLAlertViewShowAnimationSlideInFromLeft,
+    SCLAlertViewShowAnimationSlideInFromRight,
+    SCLAlertViewShowAnimationSlideInFromCenter,
+    SCLAlertViewShowAnimationSlideInToCenter,
+    SCLAlertViewShowAnimationSimplyAppear
 };
 ```
 
-####Alert View background styles
+#### Alert View background styles
 ```Objective-C
 typedef NS_ENUM(NSInteger, SCLAlertViewBackground)
 {
-    Shadow,
-    Blur,
-    Transparent
+    SCLAlertViewBackgroundShadow,
+    SCLAlertViewBackgroundBlur,
+    SCLAlertViewBackgroundTransparent
 };
 ```
 
 ### Installation
+SCLAlertView-Objective-C is available through :
 
-SCLAlertView-Objective-C is available through [CocoaPods](http://cocoapods.org).
+### [CocoaPods](https://cocoapods.org)
 
 To install add the following line to your Podfile:
 
     pod 'SCLAlertView-Objective-C'
+    
+### [Carthage](https://github.com/Carthage/Carthage)
+
+```
+github "dogo/SCLAlertView"
+```    
 
 ### Collaboration
 I tried to build an easy to use API, while beeing flexible enough for multiple variations, but I'm sure there are ways of improving and adding more features, so feel free to collaborate with ideas, issues and/or pull requests.
 
-###Incoming improvements
+### Incoming improvements
 - More animations
 - Performance tests
 - Remove some hardcode values
+
+### Plugin integrations
+
+- [nativescript-fancyalert for NativeScript](https://github.com/NathanWalker/nativescript-fancyalert)
+  - Use SCLAlertView with [NativeScript](https://www.nativescript.org/)
 
 ### Thanks to the original team
 - Design [@SherzodMx](https://twitter.com/SherzodMx) Sherzod Max

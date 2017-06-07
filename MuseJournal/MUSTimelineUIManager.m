@@ -7,7 +7,7 @@
 //
 
 #import "MUSTimelineUIManager.h"
-#import <Masonry.h>
+#import "Masonry.h"
 
 
 @implementation MUSTimelineUIManager

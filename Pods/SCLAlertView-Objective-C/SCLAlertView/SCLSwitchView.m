@@ -3,7 +3,7 @@
 //  SCLAlertView
 //
 //  Created by André Felipe Santos on 27/01/16.
-//  Copyright © 2016 AnyKey Entertainment. All rights reserved.
+//  Copyright (c) 2016-2016 AnyKey Entertainment. All rights reserved.
 //
 
 #import "SCLSwitchView.h"
@@ -85,42 +85,56 @@
 
 #pragma mark - Getters
 
-- (UIColor *)tintColor {
+- (UIColor *)tintColor
+{
     return self.switchKnob.tintColor;
 }
 
-- (UIColor *)labelColor {
+- (UIColor *)labelColor
+{
     return self.switchLabel.textColor;
 }
 
-- (UIFont *)labelFont {
+- (UIFont *)labelFont
+{
     return self.switchLabel.font;
 }
 
-- (NSString *)labelText {
+- (NSString *)labelText
+{
     return self.switchLabel.text;
 }
 
-- (BOOL)isSelected {
+- (BOOL)isSelected
+{
     return self.switchKnob.isOn;
 }
 
 #pragma mark - Setters
 
-- (void)setTintColor:(UIColor *)tintColor {
+- (void)setTintColor:(UIColor *)tintColor
+{
     self.switchKnob.onTintColor = tintColor;
 }
 
-- (void)setLabelColor:(UIColor *)labelColor {
+- (void)setLabelColor:(UIColor *)labelColor
+{
     self.switchLabel.textColor = labelColor;
 }
 
-- (void)setLabelFont:(UIFont *)labelFont {
+- (void)setLabelFont:(UIFont *)labelFont
+{
     self.switchLabel.font = labelFont;
 }
 
-- (void)setLabelText:(NSString *)labelText {
+- (void)setLabelText:(NSString *)labelText
+{
     self.switchLabel.text = labelText;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+    self.switchKnob.on = selected;
 }
 
 @end

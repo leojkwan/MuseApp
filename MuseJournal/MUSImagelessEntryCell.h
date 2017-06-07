@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <UIKit/UIKit.h>
-#import <MCSwipeTableViewCell.h>
+#import "MCSwipeTableViewCell.h"
 #import "Entry.h"
 
 @interface MUSImagelessEntryCell : MCSwipeTableViewCell<MCSwipeTableViewCellDelegate>

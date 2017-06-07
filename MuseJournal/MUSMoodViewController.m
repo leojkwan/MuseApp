@@ -9,7 +9,7 @@
 #import "UIImageView+ExtraMethods.h"
 #import "MUSDataStore.h"
 #import  "MUSTagManager.h"
-#import <MBProgressHUD.h>
+#import "MBProgressHUD.h"
 
 #define CELL_PADDING  (self.view.frame.size.width * .05f)
 

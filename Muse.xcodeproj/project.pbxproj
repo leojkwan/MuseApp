@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E1AA23552CECEED40D026B4 /* libPods-MuseJournal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C8E8F9671D1575CD192CFB /* libPods-MuseJournal.a */; };
+		33052DD40A362EA4791AD9B2 /* Pods_MuseJournalUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3E7CB444BB315261675180B /* Pods_MuseJournalUITests.framework */; };
+		4C9D48766F937F7358DDEA01 /* Pods_MuseJournal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BCFC55D740783B82CA09ED7 /* Pods_MuseJournal.framework */; };
 		940EE95E1BCF280900270D66 /* MUSWallpaperManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */; };
 		9410A1431BDABFDD0078EBCE /* MUSMarkdownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9410A1421BDABFDD0078EBCE /* MUSMarkdownViewController.m */; };
 		9410A1441BDAC0540078EBCE /* MUSMarkdownTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9410A13E1BDABCDB0078EBCE /* MUSMarkdownTableViewCell.m */; };
@@ -90,6 +91,7 @@
 		94F6BE871BCCAF37009AFC2C /* MUSAutoPlayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F6BE861BCCAF37009AFC2C /* MUSAutoPlayManager.m */; };
 		94F7E8EB1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */; };
 		94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */; };
+		CA0CCA6451F3EC98979E41F5 /* Pods_MuseJournalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB57F574C088182C9FE905D /* Pods_MuseJournalTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,8 +112,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.debug.xcconfig"; sourceTree = "<group>"; };
-		52C8E8F9671D1575CD192CFB /* libPods-MuseJournal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuseJournal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		01C14202A142221AF8DED33F /* Pods-MuseJournalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournalTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournalTests/Pods-MuseJournalTests.release.xcconfig"; sourceTree = "<group>"; };
+		2E59EF699D3F07E020469A41 /* Pods-MuseJournal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.debug.xcconfig"; sourceTree = "<group>"; };
+		51C25CA8022F0E47625AA7D0 /* Pods-MuseJournalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournalTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournalTests/Pods-MuseJournalTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6BCFC55D740783B82CA09ED7 /* Pods_MuseJournal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseJournal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		940EE95C1BCF280900270D66 /* MUSWallpaperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSWallpaperManager.h; sourceTree = "<group>"; };
 		940EE95D1BCF280900270D66 /* MUSWallpaperManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSWallpaperManager.m; sourceTree = "<group>"; };
 		9410A13E1BDABCDB0078EBCE /* MUSMarkdownTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUSMarkdownTableViewCell.m; path = MuseJournal/MUSMarkdownTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -260,7 +264,11 @@
 		94F7E8E91BBB4DBC00298CB2 /* MUSSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUSSettingsTableViewController.h; sourceTree = "<group>"; };
 		94F7E8EA1BBB4DBC00298CB2 /* MUSSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUSSettingsTableViewController.m; sourceTree = "<group>"; };
 		94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.release.xcconfig"; sourceTree = "<group>"; };
+		A80F22C67A95127C07F9D46B /* Pods-MuseJournalUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournalUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournalUITests/Pods-MuseJournalUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B27C5C4861ABF62F54457989 /* Pods-MuseJournal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournal.release.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal.release.xcconfig"; sourceTree = "<group>"; };
+		B610C3194D55F3A878388817 /* Pods-MuseJournalUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuseJournalUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MuseJournalUITests/Pods-MuseJournalUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DDB57F574C088182C9FE905D /* Pods_MuseJournalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseJournalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3E7CB444BB315261675180B /* Pods_MuseJournalUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MuseJournalUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,7 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94F7E8F01BBB5DE100298CB2 /* StoreKit.framework in Frameworks */,
-				5E1AA23552CECEED40D026B4 /* libPods-MuseJournal.a in Frameworks */,
+				4C9D48766F937F7358DDEA01 /* Pods_MuseJournal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA0CCA6451F3EC98979E41F5 /* Pods_MuseJournalTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,12 +293,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33052DD40A362EA4791AD9B2 /* Pods_MuseJournalUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2DBB715382CC5194E468389E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2E59EF699D3F07E020469A41 /* Pods-MuseJournal.debug.xcconfig */,
+				B27C5C4861ABF62F54457989 /* Pods-MuseJournal.release.xcconfig */,
+				51C25CA8022F0E47625AA7D0 /* Pods-MuseJournalTests.debug.xcconfig */,
+				01C14202A142221AF8DED33F /* Pods-MuseJournalTests.release.xcconfig */,
+				B610C3194D55F3A878388817 /* Pods-MuseJournalUITests.debug.xcconfig */,
+				A80F22C67A95127C07F9D46B /* Pods-MuseJournalUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		941BCA681CB0CF9C00FA90C1 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,8 +375,8 @@
 				941EFC0E1BB9FB9D00D70257 /* MuseJournalTests */,
 				941EFC191BB9FB9D00D70257 /* MuseJournalUITests */,
 				941EFBF31BB9FB9C00D70257 /* Products */,
-				BFAC2983AAEFF89ECBA5DF1F /* Pods */,
 				B397B2E03385FDD827D6EF76 /* Frameworks */,
+				2DBB715382CC5194E468389E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -757,18 +780,11 @@
 			isa = PBXGroup;
 			children = (
 				94F7E8EF1BBB5DE100298CB2 /* StoreKit.framework */,
-				52C8E8F9671D1575CD192CFB /* libPods-MuseJournal.a */,
+				6BCFC55D740783B82CA09ED7 /* Pods_MuseJournal.framework */,
+				DDB57F574C088182C9FE905D /* Pods_MuseJournalTests.framework */,
+				E3E7CB444BB315261675180B /* Pods_MuseJournalUITests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BFAC2983AAEFF89ECBA5DF1F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */,
-				FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -778,12 +794,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 941EFC1F1BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournal" */;
 			buildPhases = (
-				028FC19025515B763B0FA68F /* Check Pods Manifest.lock */,
+				3FF7000FC94BF53911DA760C /* [CP] Check Pods Manifest.lock */,
 				941EFBEE1BB9FB9C00D70257 /* Sources */,
 				941EFBEF1BB9FB9C00D70257 /* Frameworks */,
 				941EFBF01BB9FB9C00D70257 /* Resources */,
-				3F65C1798A48A6919D4D4CCE /* Copy Pods Resources */,
-				6BFA2EB57C0C5C51FFD32D7F /* Embed Pods Frameworks */,
+				D30FC1D031CD76D82C49D61D /* [CP] Embed Pods Frameworks */,
+				4DDBEB86BE1FC7B23265A318 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -798,9 +814,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 941EFC221BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournalTests" */;
 			buildPhases = (
+				FCE167AEDFB67B54757C4F2D /* [CP] Check Pods Manifest.lock */,
 				941EFC071BB9FB9D00D70257 /* Sources */,
 				941EFC081BB9FB9D00D70257 /* Frameworks */,
 				941EFC091BB9FB9D00D70257 /* Resources */,
+				96DF440C9B589873F98DB209 /* [CP] Embed Pods Frameworks */,
+				48BC35D25BCBE7633660CC97 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -816,9 +835,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 941EFC251BB9FB9D00D70257 /* Build configuration list for PBXNativeTarget "MuseJournalUITests" */;
 			buildPhases = (
+				154D1958BA304BFF5F04AE65 /* [CP] Check Pods Manifest.lock */,
 				941EFC121BB9FB9D00D70257 /* Sources */,
 				941EFC131BB9FB9D00D70257 /* Frameworks */,
 				941EFC141BB9FB9D00D70257 /* Resources */,
+				15D167BCE485A1F1D2553784 /* [CP] Embed Pods Frameworks */,
+				2E72D07AF3D9F4041054B825 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -920,29 +942,89 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		028FC19025515B763B0FA68F /* Check Pods Manifest.lock */ = {
+		154D1958BA304BFF5F04AE65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		3F65C1798A48A6919D4D4CCE /* Copy Pods Resources */ = {
+		15D167BCE485A1F1D2553784 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournalUITests/Pods-MuseJournalUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E72D07AF3D9F4041054B825 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournalUITests/Pods-MuseJournalUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3FF7000FC94BF53911DA760C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		48BC35D25BCBE7633660CC97 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournalTests/Pods-MuseJournalTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4DDBEB86BE1FC7B23265A318 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -950,19 +1032,49 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6BFA2EB57C0C5C51FFD32D7F /* Embed Pods Frameworks */ = {
+		96DF440C9B589873F98DB209 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournalTests/Pods-MuseJournalTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D30FC1D031CD76D82C49D61D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MuseJournal/Pods-MuseJournal-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCE167AEDFB67B54757C4F2D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1164,7 +1276,7 @@
 		};
 		941EFC201BB9FB9D00D70257 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BCC8FD9771CD80B073999E6 /* Pods-MuseJournal.debug.xcconfig */;
+			baseConfigurationReference = 2E59EF699D3F07E020469A41 /* Pods-MuseJournal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1180,7 +1292,7 @@
 		};
 		941EFC211BB9FB9D00D70257 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA7E83BFB6F54521015AC874 /* Pods-MuseJournal.release.xcconfig */;
+			baseConfigurationReference = B27C5C4861ABF62F54457989 /* Pods-MuseJournal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1196,6 +1308,7 @@
 		};
 		941EFC231BB9FB9D00D70257 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51C25CA8022F0E47625AA7D0 /* Pods-MuseJournalTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = MuseJournalTests/Info.plist;
@@ -1208,6 +1321,7 @@
 		};
 		941EFC241BB9FB9D00D70257 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01C14202A142221AF8DED33F /* Pods-MuseJournalTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = MuseJournalTests/Info.plist;
@@ -1220,6 +1334,7 @@
 		};
 		941EFC261BB9FB9D00D70257 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B610C3194D55F3A878388817 /* Pods-MuseJournalUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = MuseJournalUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1232,6 +1347,7 @@
 		};
 		941EFC271BB9FB9D00D70257 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A80F22C67A95127C07F9D46B /* Pods-MuseJournalUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = MuseJournalUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

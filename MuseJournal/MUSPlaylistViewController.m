@@ -5,15 +5,15 @@
 #import "Song.h"
 #import "MUSDataStore.h"
 #import "MUSSongTableViewCell.h"
-#import <Masonry.h>
+#import "Masonry.h"
 #import "MUSIconAnimation.h"
 #import "UIImage+ExtraMethods.h"
 #import "UIFont+MUSFonts.h"
 #import "MUSITunesClient.h"
 #import "MUSConstants.h"
 #import "MUSNotificationManager.h"
-#import <MBProgressHUD.h>
-#import <AFNetworkReachabilityManager.h>
+#import "MBProgressHUD.h"
+#import "AFNetworkReachabilityManager.h"
 #import "UIColor+MUSColors.h"
 #import "MUSMusicPlayerDataStore.h"
 
@@ -22,7 +22,6 @@
 @property (weak,nonatomic) MBProgressHUD *HUD;
 @property (nonatomic, strong) MUSMusicPlayerDataStore *sharedMusicDataStore;
 @property (nonatomic, strong) MUSDataStore *store;
-
 
 @property (weak, nonatomic) IBOutlet UITableView *playlistTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *currentSongView;
@@ -69,7 +68,6 @@
 
 
 -(void)addTapGesturesForImageViews{
-
     UITapGestureRecognizer *dismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitButtonPressed:)];
     [self.playlistGaussian addGestureRecognizer:dismissTap];
     
@@ -144,7 +142,6 @@
         }
         
     }];
-    
 }
 
 -(void)configureHUD:(MBProgressHUD *)HUD {
@@ -194,13 +191,6 @@
     [self prefersStatusBarHidden];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    
-}
 
 -(BOOL)currentlyPlayingSongIsInPlaylist {
     NSMutableArray *songTitleArray = [[NSMutableArray alloc] init];

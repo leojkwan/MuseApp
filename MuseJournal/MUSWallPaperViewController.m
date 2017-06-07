@@ -15,7 +15,7 @@
 #import "MUSWallpaperManager.h"
 #import <StoreKit/StoreKit.h>
 #import "MUSActionView.h"
-#import <MBProgressHUD.h>
+#import "MBProgressHUD.h"
 #import "MUSNotificationManager.h"
 #import "UIColor+MUSColors.h"
 

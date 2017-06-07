@@ -63,6 +63,14 @@
     self.layer.cornerRadius = 3.0f;
 }
 
+- (void)adjustWidthWithWindowWidth:(CGFloat)windowWidth numberOfButtons:(NSUInteger)numberOfButtons
+{
+    CGFloat allButtonsWidth = windowWidth - (MARGIN_BUTTON * 2);
+    CGFloat buttonWidth = (allButtonsWidth - ((numberOfButtons - 1) * 10)) / numberOfButtons;
+    
+    self.frame = CGRectMake(0.0f, 0.0f, buttonWidth, MIN_HEIGHT);
+}
+
 - (void)setTitle:(NSString *)title forState:(UIControlState)state
 {
     [super setTitle:title forState:state];
@@ -124,6 +132,11 @@
     else if (buttonConfig[@"borderWidth"])
     {
         self.layer.borderWidth = [buttonConfig[@"borderWidth"] floatValue];
+    }
+    
+    // Add Button custom font with buttonConfig parameters
+    if (buttonConfig[@"font"]) {
+        self.titleLabel.font = buttonConfig[@"font"];
     }
 }
 

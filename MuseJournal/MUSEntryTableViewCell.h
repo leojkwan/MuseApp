@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MCSwipeTableViewCell.h>
+#import "MCSwipeTableViewCell.h"
 #import "Entry.h"
 
 @interface MUSEntryTableViewCell : MCSwipeTableViewCell<MCSwipeTableViewCellDelegate>

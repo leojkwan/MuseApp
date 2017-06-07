@@ -7,8 +7,8 @@
 //
 
 #import "NSAttributedString+MUSExtraMethods.h"
-#import <markdown_lib.h>
-#import <markdown_peg.h>
+#import "markdown_lib.h"
+#import "markdown_peg.h"
 #import "UIFont+MUSFonts.h"
 
 

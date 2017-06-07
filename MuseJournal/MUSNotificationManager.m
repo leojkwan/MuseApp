@@ -7,7 +7,7 @@
 //
 
 #import "MUSNotificationManager.h"
-#import <CWStatusBarNotification.h>
+#import "CWStatusBarNotification.h"
 
 @implementation MUSNotificationManager
 

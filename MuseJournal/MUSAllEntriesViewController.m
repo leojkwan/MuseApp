@@ -22,7 +22,7 @@
 #import "UIImage+ExtraMethods.h"
 #import "UIColor+MUSColors.h"
 #import "MUSMusicPlayer.h"
-#import <Masonry.h>
+#import "Masonry.h"
 #import "UIFont+MUSFonts.h"
 
 #import "MUSTimelineUIManager.h"

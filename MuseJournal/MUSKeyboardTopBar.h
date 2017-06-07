@@ -3,7 +3,7 @@
 //  MuseApp
 
 #import <UIKit/UIKit.h>
-#import <IHKeyboardAvoiding.h>
+#import "IHKeyboardAvoiding.h"
 
 @protocol MUSKeyboardInputDelegate <NSObject>
 

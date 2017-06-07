@@ -9,7 +9,7 @@
 #import "MUSPageViewController.h"
 #import "RKSwipeBetweenViewControllers.h"
 #import "MUSWallpaperManager.h"
-#import <Masonry.h>
+#import "Masonry.h"
 
 @interface MUSPageViewController ()
 @property (strong,nonatomic) UIImageView *wallpaperImageView;
